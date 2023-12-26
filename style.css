@@ -13,7 +13,7 @@
 
 :root{
     --background-color: rgba(230,230,230,255);
-    --foreground-color: black;
+    --foreground-color: rgb(13, 13, 13);
 }
 
 body{

@@ -2,12 +2,12 @@
     <style>
         .spinner_9Mto {
             animation: spinner_5GqJ 3s cubic-bezier(0.5, 0.1, 1, 0.5) infinite;
-            fill: black;
+            fill: rgb(13, 13, 13);
         }
         .spinner_bb12 {
             animation: spinner_5GqJ 3s cubic-bezier(0.5, 0.1, 1, 0.5) infinite;
             animation-delay: -1.5s;
-            fill: black;
+            fill: gb(13, 13, 13);
         }
         @keyframes spinner_5GqJ {
             12.5% { x: 13px; y: 1px }

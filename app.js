@@ -18,7 +18,7 @@ window.addEventListener("load", () => {
     // Finally, fade out the loader background after the image has faded
     setTimeout(() => {
         loader.classList.add("loader--hidden");
-    }, fadetime * 5); 
+    }, fadetime * 3); 
 
     // Listener to remove the loader after the background has faded
     loader.addEventListener("transitionend", (event) => {
