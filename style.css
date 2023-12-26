@@ -1,0 +1,164 @@
+/* General */
+/* TODO figure out how to import this font later */
+ /* @font-face{
+    font-family: "Montreal-regular";
+    src: url(neue-montreal-free-demo-pangram-pangram-030418/NeueMontreal-Regular.otf)
+ } */
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap");
+* {
+    margin: 0;
+    padding: 0;
+}
+
+:root{
+    --background-color: rgba(230,230,230,255);
+    --foreground-color: black;
+}
+
+body{
+    /* TODO update this font later */
+    /* font-family: 'Montreal-regular'; */
+    font-family: 'Poppins', sans-serif;
+    background-color: var(--background-color);
+}
+
+
+html{
+    scroll-behavior: smooth;
+}
+
+p {
+    color: rgb(85, 85, 85);
+}
+
+
+/* Transition */
+
+
+a, 
+.btn{
+    transition: all 300ms ease;
+}
+
+
+/* Desktop Nav */
+
+nav,
+.nav-links {
+    display: flex;
+    flex-direction: column;
+}
+
+nav{
+    justify-content: space-between;
+    height: 30vh;
+    padding: 10vh;
+}
+
+.nav-links{
+    gap: 1rem;
+    list-style: none;
+    font-size: 1.5rem;
+} 
+
+
+/* The links and their apperance */
+/* TODO update the font color on this to be bolder than the other one */
+a{
+    color: var(--foreground-color);
+    text-decoration: none;
+    text-decoration-color: var(--background-color);
+    list-style-type: none;
+
+}
+
+
+/* Effect of hovering over the link 
+TODO update this so that it becomes like a grey highlight affect */
+
+a:hover{
+    color: grey;
+    text-decoration: underline;
+    text-underline-offset: 0.5rem;
+    text-decoration-color: rgb(181, 181, 181);
+}
+
+
+/* Change the appearance of the name */
+/* TODO update the font size on this */
+.logo{
+    font-size: 2rem;
+    color: var(--foreground-color)
+}
+
+.logo:hover{
+    cursor: default;
+}
+
+
+.loader-text {
+    position: absolute;
+    color:  var(--foreground-color);
+    font-size: 2rem;
+    text-align: center;
+    width: 100%;
+    top: 50%; /* Adjust as needed */
+    left: 50%; /* Adjust as needed */
+    transform: translate(-50%, -50%); /* Center the text */
+    transition: opacity 0.5s ease; /* Text fades out first */
+
+}
+
+.loader img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 5%; /* Adjust as needed */
+    height: auto; /* Adjust as needed */
+    position: relative;
+    margin-top: 15vh;
+    /* transition: opacity 1s, visibility 1s; */
+    transition: opacity 0.5s ease; /* Image fades out after text, with delay */
+}
+
+
+/* Lodaing animations 
+TODO add name in here probably*/
+.loader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--background-color);
+    /* transition: opacity 2s, visibility 2s; */
+    transition: opacity 2s ease, visibility 0s linear 4s; /* Background fades out last */
+
+}
+
+
+
+
+
+.loader--hidden{
+    opacity: 0;
+    visibility: hidden;
+}
+
+/*
+.loader::after{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--background-color);
+    font-size: 2rem;
+    width: 100vw;
+    justify-content: center;
+    
+    height: 75px;
+}
+*/
