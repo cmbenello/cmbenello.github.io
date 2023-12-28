@@ -151,7 +151,7 @@
  
  
  /* Lodaing animations 
- TODO add name in here probably*/
+ TODO add name in here probably like stagger them */
  .loader {
      position: fixed;
      top: 0;
@@ -180,7 +180,6 @@
      transform: translateX(-100%);
      transition: all 1s;
  }
- 
 
  .show{
      opacity: 1;
@@ -279,8 +278,8 @@
   
   .arrow {
     position: absolute;
-    right: -20rem;
-    bottom: 2.5rem;
+    left: 90vw;
+    bottom: 0vh;
   }
   
   .details-container {
@@ -295,12 +294,52 @@
   
   .section-container {
     gap: 4rem;
-    height: 80%;
+    height: 70%;
   }
   
   .section__pic-container {
     height: 400px;
     width: 400px;
     margin: auto 0;
+  }
+  
+
+  /* EXPERIENCE SECTION */
+
+#experience {
+    position: relative;
+  }
+  
+  .experience-sub-title {
+    color: rgb(85, 85, 85);
+    font-weight: 600;
+    font-size: 1.75rem;
+    margin-bottom: 2rem;
+  }
+  
+  .experience-details-container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+  }
+  
+  .article-container {
+    display: flex;
+    text-align: initial;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 2.5rem;
+    justify-content: space-around;
+  }
+  
+  article {
+    display: flex;
+    width: 10rem;
+    justify-content: space-around;
+    gap: 0.5rem;
+  }
+  
+  article .icon {
+    cursor: default;
   }
   
