@@ -479,7 +479,7 @@ input:checked + label .description {
 }
 
 .card[for="c1"] {
-    background-image: url('/assets/blocks-shuffle-2.svg');
+    background-image: url('assets/blocks-shuffle-2.svg');
 }
 .card[for="c2"] {
     background-image: url('/assets/profile-photo.png');
@@ -488,5 +488,5 @@ input:checked + label .description {
     background-image: url('/assets/education.png');
 }
 .card[for="c4"] {
-    background-image: url('./img4.jpeg');
+    background-image: url('/assets/pongation.mp4');
 }
