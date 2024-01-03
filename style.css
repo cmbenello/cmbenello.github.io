@@ -426,7 +426,7 @@
 }
 
 .card > .row {
-    color: white;
+    color: var(--background-color);
     display: flex;
     flex-wrap: nowrap;
 }
@@ -479,7 +479,7 @@ input:checked + label .description {
 }
 
 .card[for="c1"] {
-    background-image: url('assets/blocks-shuffle-2.svg');
+    background-image: url('assets/TSPanimation.gif');
 }
 .card[for="c2"] {
     background-image: url('/assets/profile-photo.png');
