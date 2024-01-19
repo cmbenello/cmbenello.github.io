@@ -461,9 +461,22 @@
     padding-top: 5px;
 }
 
-.description h4 {
-    text-transform: uppercase;
+/* Default paragraph color */
+.description p {
+  padding-top: 5px;
 }
+/* If the background is dark, use this class */
+.dark-background .description p,
+.dark-background .description h4{
+  color: #ffffff !important; /* white color for dark backgrounds */
+}
+
+.light-background .description p,
+.light-background .description h4{
+  color: #000000 !important;
+}
+
+
 
 input {
     display: none;
@@ -482,13 +495,14 @@ input:checked + label .description {
     background-image: url('assets/TSPanimation.gif');
 }
 .card[for="c2"] {
-    background-image: url('/assets/profile-photo.png');
+    background-image: url('/assets/pongation.gif');
 }
 .card[for="c3"] {
     background-image: url('/assets/education.png');
 }
 .card[for="c4"] {
-    background-image: url('/assets/pongation.gif');
+  background-image: url('/assets/database-image.webp');
+;
 }
 
 
