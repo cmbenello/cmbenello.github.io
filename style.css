@@ -136,9 +136,24 @@
      top: 50%; /* Adjust as needed */
      left: 50%; /* Adjust as needed */
      transform: translate(-50%, -50%); /* Center the text */
-     transition: opacity 0.5s ease; /* Text fades out first */
- 
+     /* transition: opacity 0.5s ease; Text fades out first */
  }
+
+
+.loader-name, .loader-portfolio {
+  display: inline-block;
+  opacity: 1;
+  transition: opacity 0.5s ease;
+}
+
+.loader-portfolio {
+  transition-delay: 0.5s;
+}
+
+.loader--hidden .loader-name, .loader--hidden .loader-portfolio {
+  opacity: 0;
+}
+
  
  .loader img {
      display: flex;
