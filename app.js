@@ -35,9 +35,9 @@ const observer = new IntersectionObserver((entries) => {
             entry.target.classList.add('show');
         }
          /* TODO this is for making them come again but I am not sure if the animation needs to be shown more than once */
-        else{
-            entry.target.classList.remove('show');
-        }
+        // else{
+        //     entry.target.classList.remove('show');
+        // }
     });
 })
 const hiddenElements = document.querySelectorAll('.hidden');
