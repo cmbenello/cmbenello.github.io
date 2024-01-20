@@ -340,25 +340,33 @@
   }
   
   .experience-details-container {
+    padding-top: 5rem; /* Adjust this value to push the content down */
     display: flex;
     justify-content: center;
     flex-direction: column;
+    width: 100%; /* Adjust the width to fit the content */
+    max-width: 75rem; /* Maximum width */
+    margin-left: auto; /* Centering horizontally */
+    margin-right: auto; /* Centering horizontally */
   }
   
   .article-container {
     display: flex;
-    text-align: initial;
+    text-align: center; /* Center the text inside the articles */
     flex-wrap: wrap;
     flex-direction: row;
-    gap: 2.5rem;
-    justify-content: space-around;
+    gap: 2.5rem; /* This sets the gap between the articles */
+    justify-content: center; /* This will center the articles horizontally */
+    align-items: center; /* This will center the articles vertically */
   }
   
   article {
     display: flex;
-    width: 10rem;
-    justify-content: space-around;
-    gap: 0.5rem;
+    width: 7rem; /* Fixed width for each article */
+    flex-direction: column; /* Stack the icon and text vertically for each article */
+    justify-content: center; /* Center the content within each article vertically */
+    align-items: center; /* Center the content within each article horizontally */
+    gap: 0.5rem; /* Space between icon and text */
   }
   
   article .icon {
