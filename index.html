@@ -74,7 +74,7 @@
                       </div> -->
                     </div>
                     <div class = "text-container hidden">
-                        <p>Hi! I am Charles Benello, a third year at the University of Chicago curerntly studying Mathematics and Computer Science. Currently I am researching under Professor Aaron Elmore, exploring Intermittent Query Processing and how to efficently transfer/work on large pieces of data. For a long time I have been interested in optimization, especially in graph traversal. These days I am working on a an algorithm to solve one of my favourite games: Oh h1(think binary sudoku) In my free time I am learning Korean, training for a marathon or going Lake Michigan - not so much at this time of the year :(</p>
+                        <p>Hi! I am Charles Benello, a third year at the University of Chicago curerntly studying Mathematics and Computer Science. Currently I am researching under Professor Aaron Elmore, exploring Intermittent Query Processing and how to efficently transfer/work on large pieces of data. For a long time I have been interested in optimization, especially in graph traversal. These days I am working on a an algorithm to solve one of my favourite games: Oh h1 (think binary sudoku). In my free time I am learning Korean, training for a marathon or going into Lake Michigan, though not so much at this time of the year!</p>
                     </div>
                 </div>
             </div>
@@ -199,49 +199,92 @@
             <!-- Found this at https://www.youtube.com/watch?v=45mnmy2JUl0&ab_channel=WebUITutorials -->
             <div class="wrapper">
                 <div class="container">
-                    <input type="radio" name="slide" id="c1" checked>
-                    <label for="c1" class="card light-background">
-                        <div class="row">
-                            <div class="icon">1</div>
-                            <div class="description">
-                                <h4>Tube Challenge</h4>
-                                <p>Developing an algorithm to result in lowest possible elapsed time to visit all stops across a full subway ecosystem.</p>
+                    <div class  = "card-container">
+                        <input type="radio" name="slide" id="c1" checked>
+                        <label for="c1" class="card light-background">
+                            <div class="row">
+                                <div class="icon">1</div>
+                                <div class="description">
+                                    <h4>Tube Challenge</h4>
+                                    <!-- <p>Developing an algorithm to result in lowest possible elapsed time to visit all stops across a full subway ecosystem.</p> -->
+                                    <p>How fast can one visit all the stations on the underground?</p>
+                                    <!-- Button to Open the Modal -->
+                                </div>
                             </div>
+                        </label>
+                        <button class="readMoreBtn" data-modal-target="#modal1">Read More</button>
+                    </div>
+                    <!-- The Modal -->
+                    <div class="modal" id = "modal1">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Here is more in-depth content...</p>
                         </div>
-                    </label>
-                    <input type="radio" name="slide" id="c2" >
-                    <label for="c2" class="card dark-background">
-                        <div class="row">
-                            <div class="icon">2</div>
-                            <div class="description">
-                                <h4>Croc DB</h4>
-                                <p>Designed and established a database from inception, proficiently implementing query and space optimization techniques to guarantee swift loading times.</p>
+                    </div>
+                    <div class  = "card-container">
+                        <input type="radio" name="slide" id="c2" >
+                        <label for="c2" class="card dark-background">
+                            <div class="row">
+                                <div class="icon">2</div>
+                                <div class="description">
+                                    <h4>Croc DB</h4>
+                                    <p>Designed and established a database from inception, proficiently implementing query and space optimization techniques to guarantee swift loading times.</p>
+                                </div>
                             </div>
+                        </label>
+                        <button class="readMoreBtn" data-modal-target="#modal2">Read More</button>
+                    </div>
+                    <div class="modal" id = "modal2">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Here is more in-depth content 2...</p>
                         </div>
-                    </label>
-                    <input type="radio" name="slide" id="c3" >
-                    <label for="c3" class="card dark-background">
-                        <div class="row">
-                            <div class="icon">3</div>
-                            <div class="description">
-                                <h4>Pongation</h4>
-                                <p> Finding out how a ping pong ball would leave a maze
-                                <!-- <br> Skills used: Python, Pygame, Algorithms -->
+                    </div>
+                    <div class  = "card-container">
+                        <input type="radio" name="slide" id="c3" >
+                        <label for="c3" class="card dark-background">
+                            <div class="row">
+                                <div class="icon">3</div>
+                                <div class="description">
+                                    <h4>Pongation</h4>
+                                    <p> Finding out how a ping pong ball would leave a maze
+                                    <!-- <br> Skills used: Python, Pygame, Algorithms -->
+                                </div>
                             </div>
+                        </label>
+                        <button class="readMoreBtn" data-modal-target="#modal3">Read More</button>
+                    </div>
+                    <div class="modal" id = "modal3">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Here is more in-depth content 3...</p>
                         </div>
-                    </label>
-                    <input type="radio" name="slide" id="c4" >
-                    <label for="c4" class="card light-background">
-                        <div class="row">
-                            <div class="icon">4</div>
-                            <div class="description">
-                                <h4>TBC...</h4>
-                                <p> More coming soon
-                                <!-- <br> Skills used: Python, Pygame, Algorithms -->
-                                </p>
+                    </div>
+                    <div class  = "card-container">
+                        <input type="radio" name="slide" id="c4" >
+                        <label for="c4" class="card light-background">
+                            <div class="row">
+                                <div class="icon">4</div>
+                                <div class="description">
+                                    <h4>TBC...</h4>
+                                    <p> More coming soon
+                                    <!-- <br> Skills used: Python, Pygame, Algorithms -->
+                                    </p>
+                                </div>
                             </div>
+                        </label>
+                        <button class="readMoreBtn" data-modal-target="#modal4">Read More</button>
+                    </div>
+                    <div class="modal" id = "modal4">
+                        <!-- Modal content -->
+                        <div class="modal-content">
+                        <span class="close">&times;</span>
+                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque quibusdam facere, fuga itaque amet dolores optio doloremque qui quos iure, reiciendis nobis officiis odio nisi nesciunt molestias. Laboriosam omnis ducimus possimus ratione perspiciatis? Nemo itaque odit error sint ullam doloribus accusantium autem, et repellendus rerum ab, dicta deserunt nobis voluptas dolores veritatis atque provident voluptate illo a quas molestiae. Quos similique architecto explicabo illo itaque quo nemo rem, a doloribus culpa est eveniet iusto error, praesentium fugiat non voluptates voluptatem ex! Fuga laboriosam iusto mollitia nihil tempora expedita delectus dignissimos maxime a, vitae pariatur rerum, suscipit reprehenderit ab, accusantium exercitationem?</p>
                         </div>
-                    </label>
+                    </div>
                 </div>
             </div>
             <img src = "assets/down-arrow.svg" alt = "Arrow icon" class = "icon down-arrow hidden" onclick="location.href ='./#contacts'">

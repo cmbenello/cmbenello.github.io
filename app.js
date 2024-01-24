@@ -42,3 +42,46 @@ const observer = new IntersectionObserver((entries) => {
 })
 const hiddenElements = document.querySelectorAll('.hidden');
 hiddenElements.forEach((el) => observer.observe(el));
+
+
+// Get all the buttons that open modals
+var btns = document.querySelectorAll(".readMoreBtn");
+
+// Get all the <span> elements that close the modals
+var spans = document.getElementsByClassName("close");
+
+// Function to open modal
+function openModal(modal) {
+    if (modal == null) return;
+    modal.style.display = "block";
+}
+
+// Function to close modal
+function closeModal(modal) {
+    if (modal == null) return;
+    modal.style.display = "none";
+}
+
+// Loop through the buttons and add event listeners
+btns.forEach(btn => {
+    btn.addEventListener('click', () => {
+        var modal = document.querySelector(btn.getAttribute('data-modal-target'));
+        openModal(modal);
+    });
+});
+
+// Add event listener to close buttons
+Array.from(spans).forEach(span => {
+    span.addEventListener('click', () => {
+        var modal = span.closest('.modal');
+        closeModal(modal);
+    });
+});
+
+// Close modal when clicking outside of it
+window.addEventListener('click', event => {
+    if (event.target.classList.contains('modal')) {
+        closeModal(event.target);
+    }
+});
+
