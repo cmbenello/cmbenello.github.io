@@ -53,17 +53,18 @@ var btns = document.querySelectorAll(".readMoreBtn");
 // Get all the <span> elements that close the modals
 var spans = document.getElementsByClassName("close");
 
-// Function to open modal
 function openModal(modal) {
     if (modal == null) return;
-    modal.style.display = "block";
-}
-
-// Function to close modal
-function closeModal(modal) {
+    modal.classList.add('active'); // Add the active class to make the modal visible
+    // document.body.style.overflow = 'hidden'; // Disable scrolling
+  }
+  
+  function closeModal(modal) {
     if (modal == null) return;
-    modal.style.display = "none";
-}
+    modal.classList.remove('active'); // Remove the active class to hide the modal
+    // document.body.style.overflow = ''; // Enable scrolling
+  }  
+  
 
 // Loop through the buttons and add event listeners
 btns.forEach(btn => {
@@ -91,15 +92,10 @@ window.addEventListener('click', event => {
 
 document.addEventListener('keydown', function(event) {
     if (event.key === 'Escape') {
-        // Get all open modals
-        var modals = document.querySelectorAll('.modal');
-        
-        // Loop through all modals and check if they're displayed
-        modals.forEach(function(modal) {
-            if (modal.style.display === "block") {
-                closeModal(modal);
-            }
-        });
+        // Query for the active modal
+        var activeModal = document.querySelector('.modal.active');
+        if (activeModal) {
+            closeModal(activeModal);
+        }
     }
 });
-
