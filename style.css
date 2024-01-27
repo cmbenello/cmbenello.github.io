@@ -551,10 +551,11 @@ transform: translateY(0) !important;
   width: 100%; /* full width */
   height: 100%; /* full height */
   background-color: rgba(230,230,230,0.5);
-  backdrop-filter: blur(10px); /* Increase the px value for more blur */
-  -webkit-backdrop-filter: blur(10px); /* For Safari */
+  backdrop-filter: blur(5px); /* Increase the px value for more blur */
+  -webkit-backdrop-filter: blur(5px); /* For Safari */
   transition: opacity 0.5s ease, visibility 0s linear 0.5s; /* transition for opacity and visibility */
-  font-size: 1.5rem;
+  padding: 20px;
+  border-radius: 8px;
 }
 
 .modal.active {
@@ -572,6 +573,90 @@ transform: translateY(0) !important;
 
 }
 
+.modal {
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.header-content {
+  display: flex;
+  align-items: center; /* Align items vertically */
+  justify-content: flex-start; /* Align content to the start */
+}
+
+
+
+.text-content {
+  flex: 1; /* Allows text content to grow */
+  padding-right: 20px; /* Add padding between text and image */
+}
+/* Modal Content */
+.modal-content {
+  background-color: #fefefe;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  border-radius: 10px;
+  display: flex; /* Set modal-content to use flexbox */
+  flex-direction: column; /* Stack children vertically */
+}
+
+.modal-header {
+  display: flex;
+  justify-content: space-between; /* Aligns children on opposite ends */
+  align-items: flex-start; /* Aligns children at the top */
+}
+
+.modal h1 {
+  color: #333;
+  font-size: 1.8rem;
+}
+
+.modal h2 {
+  color: #555;
+  font-size: 1.3rem;
+  margin-top: 5px;
+}
+
+.modal p {
+  color: #666;
+  font-size: 1rem;
+  line-height: 1.6;
+  margin-top: 10px;
+}
+
+.modal .skills-used {
+  margin-top: 20px;
+}
+
+.modal .skills-used h3 {
+  font-size: 1.2rem;
+  color: #333;
+}
+
+.modal .skills-used ul {
+  list-style: none;
+  padding: 0;
+}
+
+.modal .skills-used li {
+  background-color: #eee;
+  display: inline-block;
+  padding: 5px 15px;
+  margin: 5px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+}
+
+.header-image {
+  /* Adjust the width if necessary, or max-width if you want it to be responsive */
+  width: 300px;
+  height: auto;
+  /* Align the image to the top */
+  align-self: start;
+}
+
+
 /* The Close Button */
 .close {
 color: #aaaaaa;
@@ -585,16 +670,6 @@ font-weight: bold;
 color: #000;
 text-decoration: none;
 cursor: pointer;
-}
-
-/* Modal Content */
-.modal-content {
-background-color: #fefefe;
-margin: 15% auto;
-padding: 20px;
-border: 1px solid #888;
-width: 80%;
-border-radius: 10px;
 }
 
 
