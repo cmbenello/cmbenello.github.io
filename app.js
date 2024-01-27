@@ -44,6 +44,9 @@ const hiddenElements = document.querySelectorAll('.hidden');
 hiddenElements.forEach((el) => observer.observe(el));
 
 
+
+// This is for the REad More project of the sections
+
 // Get all the buttons that open modals
 var btns = document.querySelectorAll(".readMoreBtn");
 
@@ -82,6 +85,21 @@ Array.from(spans).forEach(span => {
 window.addEventListener('click', event => {
     if (event.target.classList.contains('modal')) {
         closeModal(event.target);
+    }
+});
+
+
+document.addEventListener('keydown', function(event) {
+    if (event.key === 'Escape') {
+        // Get all open modals
+        var modals = document.querySelectorAll('.modal');
+        
+        // Loop through all modals and check if they're displayed
+        modals.forEach(function(modal) {
+            if (modal.style.display === "block") {
+                closeModal(modal);
+            }
+        });
     }
 });
 

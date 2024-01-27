@@ -513,7 +513,7 @@
   border: none; /* remove border */
   border-radius: 2rem; /* round the corners */
   cursor: pointer;
-  transition: background-color 0.3s ease; /* smooth background color transition */
+  transition: opacity 0.3s ease, transform 0.3s ease, left 0.3s ease; /* Transition for opacity, position, and left property */
 }
 
 .readMoreBtn:hover {
