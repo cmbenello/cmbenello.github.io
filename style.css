@@ -541,7 +541,9 @@ transform: translateY(0) !important;
 
 /* The Modal (background) */
 .modal {
-  display: block; /* always set to block */
+  display: flex; /* always set to block */
+  justify-content: center;
+  align-items: center;
   visibility: hidden; /* hide it by default */
   opacity: 0; /* start fully transparent */
   position: fixed;

@@ -38,7 +38,7 @@
                             <li><a href = "#projects"> Projects</a></li>
                             <li><a href = "#contacts"> Contacts</a></li>
                             <!-- TODO add this later -->
-                            <li><a href = "#한국어"> 한국어</a></li>
+                            <!-- <li><a href = "#한국어"> 한국어</a></li> -->
                             <!-- TODO maybe add this https://www.youtube.com/watch?v=ArTVfdHOB-M&ab_channel=OnlineTutorials -->
                         </ul>
                     </div>
@@ -287,7 +287,9 @@
                                 <p>Moving beyond the memstore, I transitioned to a heapfile file manager, improving the efficiency of storage and access. The introduction of serialization and deserialization significantly increased the efficiency of storage and the speed of file transfers. I also developed a query operator to execute basic SQL commands, further refining these operations to align with industry-standard benchmarks.</p>
                                 <p>This project not only bolstered my understanding of databases but also enabled me to construct one from scratch, including optimizing Rust code for better performance.</p>
                             </div>
-                            
+                            <div class="modal-footer">
+                                <a href="https://github.com/cmbenello/TSP-Metro" target="_blank" class="source-code-btn">Source Code</a>
+                            </div>
                         </div>
                     </div>
 
@@ -306,11 +308,32 @@
                         </label>
                         <button class="readMoreBtn" data-modal-target="#modal3">Read More</button>
                     </div>
-                    <div class="modal" id = "modal3">
-                        <!-- Modal content -->
+                    <div class="modal" id="modal3">
                         <div class="modal-content">
-                        <span class="close">&times;</span>
-                        <p>Here is more in-depth content 3...</p>
+                            <div class="modal-header">
+                                <div class="header-text">
+                                    <h1>PONGATION Project</h1>
+                                    <h2>Dynamic Maze Solving with Simulation</h2>
+                                    <div class="skills-used">
+                                        <h3>Skills Utilized:</h3>
+                                        <ul>
+                                            <li>Algorithms</li>
+                                            <li>Python</li>
+                                            <li>Pygame</li>
+                                        </ul>
+                                    </div>
+                                </div>
+                                <!-- Replace with the path to your image related to PONGATION -->
+                                <img src="/assets/pongation.gif" alt="Visualization of Pongation Simulation" class="header-image" />
+                            </div>
+                            <div class="modal-body">
+                                <p>Developed a program that dynamically generated a maze and then projected ping pong balls at various angles to determine if one could escape, tracking the route and recording the fastest time.</p>
+                                <p>The inspiration to create an algorithm for maze solving sprang from a blend of curiosity and the cool factor of the challenge. The concept was to simulate ping pong balls being shot around at different angles to find an exit path from the maze.</p>
+                                <p>To bring this idea to life, a maze was randomly generated, which was then used as the playground for a physics simulation allowing balls to bounce off walls. The challenge included tracking each ball's route to output the fastest escape path.</p>
+                            </div>
+                            <div class="modal-footer">
+                                <a href="https://github.com/cmbenello/Pongation" target="_blank" class="source-code-btn">Source Code</a>
+                            </div>
                         </div>
                     </div>
                     <div class  = "card-container">
@@ -332,7 +355,7 @@
                         <!-- Modal content -->
                         <div class="modal-content">
                         <span class="close">&times;</span>
-                        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Atque quibusdam facere, fuga itaque amet dolores optio doloremque qui quos iure, reiciendis nobis officiis odio nisi nesciunt molestias. Laboriosam omnis ducimus possimus ratione perspiciatis? Nemo itaque odit error sint ullam doloribus accusantium autem, et repellendus rerum ab, dicta deserunt nobis voluptas dolores veritatis atque provident voluptate illo a quas molestiae. Quos similique architecto explicabo illo itaque quo nemo rem, a doloribus culpa est eveniet iusto error, praesentium fugiat non voluptates voluptatem ex! Fuga laboriosam iusto mollitia nihil tempora expedita delectus dignissimos maxime a, vitae pariatur rerum, suscipit reprehenderit ab, accusantium exercitationem?</p>
+                        <p> Coming soon...</p>
                         </div>
                     </div>
                 </div>
@@ -369,18 +392,18 @@
                       <li><a href="#experience">Experience</a></li>
                       <li><a href="#projects">Projects</a></li>
                       <!-- TODO add this later -->
-                      <li><a href="#한국어">한국어</a></li>
+                      <!-- <li><a href="#한국어">한국어</a></li> -->
                       <li><a href="https://github.com/cmbenello">Explore More</a></li>
                     </ul>
                   </div>
                 </nav>
               </footer>
         </section>
-        <section id = "한국어">
+        <!-- <section id = "한국어">
             <h1>한국어</h1>In progress...
         </section>
         <img src = "assets/down-arrow.svg" alt = "Arrow icon" class = "icon down-arrow hidden" onclick="location.href ='./#contacts'">
-        <img src = "assets/up-arrow.svg" alt = "Arrow icon" class = "icon up-arrow hidden" onclick="location.href ='./#home'">
+        <img src = "assets/up-arrow.svg" alt = "Arrow icon" class = "icon up-arrow hidden" onclick="location.href ='./#home'"> -->
     </div>
     </body>
 </html>
