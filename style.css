@@ -547,7 +547,7 @@ transform: translateY(0) !important;
   position: fixed;
   z-index: 999; /* make sure it's on top */
   left: 0;
-  top: 0;
+  top: -5vh;
   width: 100%; /* full width */
   height: 100%; /* full height */
   background-color: rgba(230,230,230,0.5);
@@ -656,6 +656,28 @@ transform: translateY(0) !important;
   align-self: start;
 }
 
+.modal-footer {
+  text-align: center; /* Center-align the content */
+  padding: 5px; /* Add space above the button */
+}
+
+.source-code-btn {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: var(--foreground-color); /* Bootstrap primary color for example */
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+  max-height: 80%;
+}
+
+.source-code-btn:hover {
+  background-color: #0056b3; /* Darker shade for hover effect */
+  text-decoration: none; /* No underline on hover */
+  color: white;
+}
 
 /* The Close Button */
 .close {
