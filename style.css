@@ -79,13 +79,14 @@ nav,
    flex-direction: column;
 }
 
-nav{
-   justify-content: space-between;
-   height: 30vh;
-   padding: 2vh;
+nav {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* aligns items to the start of the container */
 }
 
 .nav-links{
+  padding-top: 2vh;
    gap: 1rem;
    list-style: none;
    font-size: 1.5rem;
@@ -334,7 +335,7 @@ TODO add name in here probably like stagger them */
 }
 
 .text-container{
-  font-size: 1.75rem;
+  font-size: 1.5rem;
 }
 
 
@@ -815,5 +816,3 @@ left: 0;
 right: 0; /* These ensure that nav-bottom spans the entire width of the footer */
 height: 17vh;
 }
-
-
