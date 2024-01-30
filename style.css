@@ -24,6 +24,8 @@ body{
    background-color: var(--background-color);
    /* overflow: hidden; */
 
+   opacity: 0; /* Initially hide the body */
+   transition: opacity 2s ease-in-out; /* Transition effect */
    position: relative;
 
 }
