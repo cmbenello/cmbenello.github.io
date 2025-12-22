@@ -2,7 +2,7 @@ import SerpentBackground from "./components/SerpentBackground";
 
 export default function Home() {
   return (
-    <main className="relative min-h-screen overflow-hidden bg-white text-black">
+    <main className="relative min-h-screen overflow-hidden bg-white text-[#e6e1d8]">
       <SerpentBackground />
 
       <div className="relative z-10 mx-auto max-w-3xl px-6 py-20">

@@ -226,7 +226,7 @@ export default function SerpentBackground() {
     }
 
     function buildDots() {
-      const count = Math.min(80000, Math.floor((w * h) / 40));
+      const count = Math.min(70000, Math.floor((w * h) / 50));
       dots = new Array(count);
       for (let i = 0; i < count; i++) {
         const x = Math.random() * w;
@@ -238,8 +238,8 @@ export default function SerpentBackground() {
           ry: y,
           vx: 0,
           vy: 0,
-          r: Math.random() * 1.1 + 0.4,
-          a: 0.2 + Math.random() * 0.6,
+          r: Math.random() * 0.7 + 0.6,
+          a: 0.07 + Math.random() * 0.14,
         };
       }
     }
@@ -303,7 +303,7 @@ export default function SerpentBackground() {
       const visibility = growEase * (1 - fadeEase);
       const growthWidth = 0.2 + 0.8 * growEase;
       const scaleVisibility = clamp((growEase - 0.2) / 0.8, 0, 1) * (1 - fadeEase);
-      const overlayAlpha = scaleVisibility * 0.5;
+      const overlayAlpha = scaleVisibility * 0.35;
       const activeSegments = paused
         ? 0
         : Math.max(1, Math.round(1 + (segmentCount - 1) * growEase));
@@ -531,17 +531,17 @@ export default function SerpentBackground() {
 
       const bodyRadius = min * 0.008 * growthWidth;
       const bodyLength = segmentSpacing * (0.9 + 1.7 * growEase);
-      const strength = 100 * visibility;
+      const strength = 80 * visibility;
       const returnStrength = 0.42;
       const baseReturn = 0.012;
       const dragNear = 0.985;
       const dragFar = 0.972;
-      const wakeScale = 0.014;
-      const radialPush = 0.45;
-      const forwardPush = 0.22;
-      const swirlPush = 0.32;
+      const wakeScale = 0.01;
+      const radialPush = 0.4;
+      const forwardPush = 0.2;
+      const swirlPush = 0.24;
 
-      ctx.fillStyle = "#e2e7ee";
+      ctx.fillStyle = "#b2bbc6";
       for (let i = 0; i < dots.length; i++) {
         const dot = dots[i];
         let infl = 0;
@@ -603,10 +603,10 @@ export default function SerpentBackground() {
         }
 
         const speed = Math.hypot(dot.vx, dot.vy);
-        const wake = Math.min(1, visibleInfl * 2.6 + speed * wakeScale);
-        ctx.globalAlpha = Math.min(1, dot.a + wake * 0.85);
+        const wake = Math.min(1, visibleInfl * 2.2 + speed * wakeScale);
+        ctx.globalAlpha = Math.min(1, dot.a + wake * 0.45);
         ctx.beginPath();
-        const r = dot.r * (1 + wake * 0.45);
+        const r = dot.r * (1 + wake * 0.25);
         ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -640,7 +640,7 @@ export default function SerpentBackground() {
           head.y,
           glowRadius,
         );
-        glow.addColorStop(0, `rgba(120, 190, 255, ${0.07 * visibility})`);
+        glow.addColorStop(0, `rgba(120, 190, 255, ${0.04 * visibility})`);
         glow.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = glow;
         ctx.beginPath();
@@ -649,7 +649,7 @@ export default function SerpentBackground() {
 
         for (let i = 0; i < samples.length; i++) {
           const s = samples[i];
-          const alpha = 0.025 * visibility * s.w;
+          const alpha = 0.015 * visibility * s.w;
           if (alpha < 0.005) continue;
           ctx.fillStyle = `rgba(130, 200, 255, ${alpha})`;
           ctx.beginPath();
