@@ -1,0 +1,6 @@
+- get rid of dots 
+- add contents page for other pages 
+- tattoo page
+- research
+- work
+- pong -> something else -> mini metro Rl project in middle

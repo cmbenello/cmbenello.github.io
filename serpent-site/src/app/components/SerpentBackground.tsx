@@ -26,10 +26,156 @@ type Sample = {
   w: number;
 };
 
-export default function SerpentBackground() {
+export type SerpentPalette = {
+  background: string;
+  dot: string;
+  glow: string;
+  border: string;
+  dotAlphaScale?: number;
+  wakeAlphaScale?: number;
+  dotRadiusScale?: number;
+};
+
+export const DEFAULT_PALETTE: SerpentPalette = {
+  background: "#141517",
+  dot: "#b2bbc6",
+  glow: "120, 190, 255",
+  border: "rgba(255, 255, 255, 0.25)",
+  dotAlphaScale: 1,
+  wakeAlphaScale: 1,
+  dotRadiusScale: 1,
+};
+
+export const LIGHT_PALETTE: SerpentPalette = {
+  background: "#f6e7c6",
+  dot: "#c43a3c",
+  glow: "196, 58, 60",
+  border: "rgba(192, 24, 33, 0.55)",
+  dotAlphaScale: 1.35,
+  wakeAlphaScale: 1.05,
+  dotRadiusScale: 1.04,
+};
+
+type SerpentBackgroundProps = {
+  palette?: SerpentPalette;
+};
+
+type Rgb = [number, number, number];
+type Rgba = [number, number, number, number];
+
+type PaletteState = {
+  background: Rgb;
+  dot: Rgb;
+  glow: Rgb;
+  border: Rgba;
+  dotAlphaScale: number;
+  wakeAlphaScale: number;
+  dotRadiusScale: number;
+};
+
+const parseHexColor = (value: string): Rgb => {
+  const raw = value.replace("#", "").trim();
+  const hex =
+    raw.length === 3
+      ? raw
+          .split("")
+          .map((char) => `${char}${char}`)
+          .join("")
+      : raw;
+  const numeric = Number.parseInt(hex, 16);
+  if (Number.isNaN(numeric)) return [0, 0, 0];
+  return [(numeric >> 16) & 255, (numeric >> 8) & 255, numeric & 255];
+};
+
+const parseRgbList = (value: string): Rgb => {
+  const cleaned = value.replace(/rgba?\(/i, "").replace(")", "");
+  const parts = cleaned.split(",").map((part) => Number(part.trim()));
+  return [parts[0] || 0, parts[1] || 0, parts[2] || 0];
+};
+
+const parseRgbaColor = (value: string): Rgba => {
+  const cleaned = value.replace(/rgba?\(/i, "").replace(")", "");
+  const parts = cleaned.split(",").map((part) => Number(part.trim()));
+  return [parts[0] || 0, parts[1] || 0, parts[2] || 0, parts[3] ?? 1];
+};
+
+const formatRgb = (value: Rgb) =>
+  `rgb(${Math.round(value[0])}, ${Math.round(value[1])}, ${Math.round(value[2])})`;
+
+const formatRgba = (rgb: Rgb, alpha: number) =>
+  `rgba(${Math.round(rgb[0])}, ${Math.round(rgb[1])}, ${Math.round(
+    rgb[2],
+  )}, ${alpha})`;
+
+const formatRgbaValue = (value: Rgba) =>
+  `rgba(${Math.round(value[0])}, ${Math.round(value[1])}, ${Math.round(
+    value[2],
+  )}, ${Math.min(1, Math.max(0, value[3]))})`;
+
+const clonePaletteState = (state: PaletteState): PaletteState => ({
+  background: [...state.background],
+  dot: [...state.dot],
+  glow: [...state.glow],
+  border: [...state.border],
+  dotAlphaScale: state.dotAlphaScale,
+  wakeAlphaScale: state.wakeAlphaScale,
+  dotRadiusScale: state.dotRadiusScale,
+});
+
+const toPaletteState = (palette: SerpentPalette): PaletteState => ({
+  background: parseHexColor(palette.background),
+  dot: parseHexColor(palette.dot),
+  glow: parseRgbList(palette.glow),
+  border: parseRgbaColor(palette.border),
+  dotAlphaScale: palette.dotAlphaScale ?? 1,
+  wakeAlphaScale: palette.wakeAlphaScale ?? 1,
+  dotRadiusScale: palette.dotRadiusScale ?? 1,
+});
+
+const lerp = (from: number, to: number, t: number) => from + (to - from) * t;
+
+const lerpRgb = (from: Rgb, to: Rgb, t: number): Rgb => [
+  lerp(from[0], to[0], t),
+  lerp(from[1], to[1], t),
+  lerp(from[2], to[2], t),
+];
+
+const lerpRgba = (from: Rgba, to: Rgba, t: number): Rgba => [
+  lerp(from[0], to[0], t),
+  lerp(from[1], to[1], t),
+  lerp(from[2], to[2], t),
+  lerp(from[3], to[3], t),
+];
+
+export default function SerpentBackground({ palette = DEFAULT_PALETTE }: SerpentBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const rafRef = useRef<number | null>(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
+  const frameRef = useRef<HTMLDivElement | null>(null);
+  const initialPalette = toPaletteState(palette);
+  const paletteTargetRef = useRef<PaletteState>(initialPalette);
+  const paletteCurrentRef = useRef<PaletteState>(clonePaletteState(initialPalette));
+  const transitionRef = useRef<{
+    start: number;
+    duration: number;
+    from: PaletteState;
+    to: PaletteState;
+  } | null>(null);
+
+  useEffect(() => {
+    const target = toPaletteState(palette);
+    const from = paletteCurrentRef.current
+      ? clonePaletteState(paletteCurrentRef.current)
+      : target;
+    transitionRef.current = {
+      start: performance.now(),
+      duration: 700,
+      from,
+      to: target,
+    };
+    paletteTargetRef.current = target;
+  }, [palette]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -278,9 +424,47 @@ export default function SerpentBackground() {
       last = now;
       const nowSec = now * 0.001;
 
+      const transition = transitionRef.current;
+      let paletteState = paletteCurrentRef.current;
+      if (transition) {
+        const t = clamp((now - transition.start) / transition.duration, 0, 1);
+        const eased = t * t * (3 - 2 * t);
+        paletteState = {
+          background: lerpRgb(transition.from.background, transition.to.background, eased),
+          dot: lerpRgb(transition.from.dot, transition.to.dot, eased),
+          glow: lerpRgb(transition.from.glow, transition.to.glow, eased),
+          border: lerpRgba(transition.from.border, transition.to.border, eased),
+          dotAlphaScale: lerp(transition.from.dotAlphaScale, transition.to.dotAlphaScale, eased),
+          wakeAlphaScale: lerp(transition.from.wakeAlphaScale, transition.to.wakeAlphaScale, eased),
+          dotRadiusScale: lerp(
+            transition.from.dotRadiusScale,
+            transition.to.dotRadiusScale,
+            eased,
+          ),
+        };
+        paletteCurrentRef.current = paletteState;
+        if (t >= 1) {
+          transitionRef.current = null;
+          paletteCurrentRef.current = transition.to;
+          paletteState = transition.to;
+        }
+      } else if (paletteTargetRef.current) {
+        paletteState = paletteTargetRef.current;
+        paletteCurrentRef.current = paletteState;
+      }
+
+      const containerEl = containerRef.current;
+      if (containerEl) {
+        containerEl.style.background = formatRgb(paletteState.background);
+      }
+      const frameEl = frameRef.current;
+      if (frameEl) {
+        frameEl.style.borderColor = formatRgbaValue(paletteState.border);
+      }
+
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "#141517";
+      ctx.fillStyle = formatRgb(paletteState.background);
       ctx.fillRect(0, 0, w, h);
 
       const min = Math.min(w, h);
@@ -541,7 +725,10 @@ export default function SerpentBackground() {
       const forwardPush = 0.2;
       const swirlPush = 0.24;
 
-      ctx.fillStyle = "#b2bbc6";
+      ctx.fillStyle = formatRgb(paletteState.dot);
+      const dotAlphaScale = paletteState.dotAlphaScale;
+      const wakeAlphaScale = paletteState.wakeAlphaScale;
+      const dotRadiusScale = paletteState.dotRadiusScale;
       for (let i = 0; i < dots.length; i++) {
         const dot = dots[i];
         let infl = 0;
@@ -604,9 +791,9 @@ export default function SerpentBackground() {
 
         const speed = Math.hypot(dot.vx, dot.vy);
         const wake = Math.min(1, visibleInfl * 2.2 + speed * wakeScale);
-        ctx.globalAlpha = Math.min(1, dot.a + wake * 0.45);
+        ctx.globalAlpha = Math.min(1, dot.a * dotAlphaScale + wake * 0.45 * wakeAlphaScale);
         ctx.beginPath();
-        const r = dot.r * (1 + wake * 0.25);
+        const r = dot.r * (1 + wake * 0.25) * dotRadiusScale;
         ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
         ctx.fill();
       }
@@ -640,7 +827,7 @@ export default function SerpentBackground() {
           head.y,
           glowRadius,
         );
-        glow.addColorStop(0, `rgba(120, 190, 255, ${0.04 * visibility})`);
+        glow.addColorStop(0, formatRgba(paletteState.glow, 0.04 * visibility));
         glow.addColorStop(1, "rgba(0, 0, 0, 0)");
         ctx.fillStyle = glow;
         ctx.beginPath();
@@ -651,7 +838,7 @@ export default function SerpentBackground() {
           const s = samples[i];
           const alpha = 0.015 * visibility * s.w;
           if (alpha < 0.005) continue;
-          ctx.fillStyle = `rgba(130, 200, 255, ${alpha})`;
+          ctx.fillStyle = formatRgba(paletteState.glow, alpha);
           ctx.beginPath();
           ctx.arc(s.x, s.y, bodyRadius * (0.6 + s.w), 0, Math.PI * 2);
           ctx.fill();
@@ -673,23 +860,25 @@ export default function SerpentBackground() {
     };
   }, []);
 
-  const MARGIN = 6;
+  const MARGIN = 32;
 
   return (
     <div
       aria-hidden="true"
+      ref={containerRef}
       style={{
         position: "absolute",
         inset: 0,
-        background: "#141517",
+        background: palette.background,
         pointerEvents: "none",
       }}
     >
       <div
+        ref={frameRef}
         style={{
           borderRadius: 0,
           background: "transparent",
-          border: "1px solid #ffffff",
+          border: `1px solid ${palette.border}`,
           boxShadow: "none",
           overflow: "hidden",
           position: "absolute",
