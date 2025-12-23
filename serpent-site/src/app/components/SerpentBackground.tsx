@@ -12,6 +12,16 @@ type Dot = {
   r: number;
   a: number;
   angle: number;
+  seed: number;
+};
+
+type ContourLine = {
+  y: number;
+  wobble: number;
+  freq: number;
+  phase: number;
+  speed: number;
+  amp: number;
 };
 
 type Segment = {
@@ -27,12 +37,15 @@ type Sample = {
   w: number;
 };
 
+type DotStyle = "dot" | "dash" | "cloud" | "contour" | "ripple" | "bloom";
+
 export type SerpentPalette = {
   background: string;
   dot: string;
   glow: string;
   border: string;
-  dotStyle?: "dot" | "dash";
+  dotStyle?: DotStyle;
+  dotDensityScale?: number;
   dotAlphaScale?: number;
   wakeAlphaScale?: number;
   dotRadiusScale?: number;
@@ -44,6 +57,7 @@ export const DEFAULT_PALETTE: SerpentPalette = {
   glow: "120, 190, 255",
   border: "rgba(255, 255, 255, 0.25)",
   dotStyle: "dot",
+  dotDensityScale: 1,
   dotAlphaScale: 1,
   wakeAlphaScale: 0.85,
   dotRadiusScale: 0.9,
@@ -51,13 +65,14 @@ export const DEFAULT_PALETTE: SerpentPalette = {
 
 export const LIGHT_PALETTE: SerpentPalette = {
   background: "#f6e7c6",
-  dot: "#e24b4f",
-  glow: "226, 75, 79",
+  dot: "#e14d52",
+  glow: "225, 78, 84",
   border: "rgba(192, 24, 33, 0.55)",
   dotStyle: "dash",
-  dotAlphaScale: 1.6,
-  wakeAlphaScale: 0.85,
-  dotRadiusScale: 1.1,
+  dotDensityScale: 0.7,
+  dotAlphaScale: 1.5,
+  wakeAlphaScale: 0.8,
+  dotRadiusScale: 1,
 };
 
 type SerpentBackgroundProps = {
@@ -157,7 +172,14 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
   const rafRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
-  const dotStyleRef = useRef<"dot" | "dash">(palette.dotStyle ?? "dot");
+  const dotStyleCurrentRef = useRef<DotStyle>(palette.dotStyle ?? "dot");
+  const dotStyleTransitionRef = useRef<{
+    from: DotStyle;
+    to: DotStyle;
+    start: number;
+    duration: number;
+  } | null>(null);
+  const dotDensityRef = useRef<number>(palette.dotDensityScale ?? 1);
   const initialPalette = toPaletteState(palette);
   const paletteTargetRef = useRef<PaletteState>(initialPalette);
   const paletteCurrentRef = useRef<PaletteState>(clonePaletteState(initialPalette));
@@ -169,7 +191,20 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
   } | null>(null);
 
   useEffect(() => {
-    dotStyleRef.current = palette.dotStyle ?? "dot";
+    const nextStyle = palette.dotStyle ?? "dot";
+    const currentStyle = dotStyleCurrentRef.current;
+    if (currentStyle !== nextStyle) {
+      dotStyleTransitionRef.current = {
+        from: currentStyle,
+        to: nextStyle,
+        start: performance.now(),
+        duration: 700,
+      };
+    } else {
+      dotStyleTransitionRef.current = null;
+      dotStyleCurrentRef.current = nextStyle;
+    }
+    dotDensityRef.current = palette.dotDensityScale ?? 1;
     const target = toPaletteState(palette);
     const from = paletteCurrentRef.current
       ? clonePaletteState(paletteCurrentRef.current)
@@ -195,6 +230,8 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
     let h = 1;
     let dpr = 1;
     let dots: Dot[] = [];
+    let contourLines: ContourLine[] = [];
+    let contourSpacing = 24;
     let last = performance.now();
     let headX = 0;
     let headY = 0;
@@ -393,7 +430,26 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
           r: Math.random() * 0.7 + 0.6,
           a: 0.06 + Math.random() * 0.1,
           angle: Math.random() * Math.PI * 2,
+          seed: Math.random(),
         };
+      }
+    }
+
+    function buildContours() {
+      contourLines = [];
+      const min = Math.min(w, h);
+      contourSpacing = Math.max(10, min * 0.02);
+      let y = contourSpacing * 0.5;
+      while (y < h - contourSpacing * 0.5) {
+        y += contourSpacing * (0.35 + Math.random() * 0.55);
+        contourLines.push({
+          y,
+          wobble: contourSpacing * (0.06 + Math.random() * 0.1),
+          freq: 0.0035 + Math.random() * 0.0035,
+          phase: Math.random() * twoPi,
+          speed: 0.08 + Math.random() * 0.12,
+          amp: 0.6 + Math.random() * 0.8,
+        });
       }
     }
 
@@ -420,6 +476,7 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
       pathSpacing = Math.max(4, segmentSpacing * 0.6);
       maxPathPoints = Math.round((min / pathSpacing) * 12);
       buildDots();
+      buildContours();
       pathPoints = [];
       pathNeedsInit = true;
     }
@@ -732,99 +789,335 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
       const forwardPush = 0.2;
       const swirlPush = 0.24;
 
-      const dotStyle = dotStyleRef.current;
-      if (dotStyle === "dash") {
-        ctx.strokeStyle = formatRgb(paletteState.dot);
-        ctx.lineCap = "round";
-      } else {
-        ctx.fillStyle = formatRgb(paletteState.dot);
-      }
       const dotAlphaScale = paletteState.dotAlphaScale;
       const wakeAlphaScale = paletteState.wakeAlphaScale;
       const dotRadiusScale = paletteState.dotRadiusScale;
-      for (let i = 0; i < dots.length; i++) {
-        const dot = dots[i];
-        let infl = 0;
-        let pushX = 0;
-        let pushY = 0;
-        for (let j = 0; j < samples.length; j++) {
-          const sample = samples[j];
-          const dx = dot.x - sample.x;
-          const dy = dot.y - sample.y;
-          const s = dx * sample.tngX + dy * sample.tngY;
-          const d = dx * -sample.tngY + dy * sample.tngX;
-          const sInfl = Math.exp(-(s * s) / (2 * bodyLength * bodyLength));
-          const dInfl = Math.exp(-(d * d) / (2 * bodyRadius * bodyRadius));
-          const weight = sInfl * dInfl * sample.w;
-          if (weight > 0.00002) {
-            const side = d >= 0 ? 1 : -1;
-            const radialX = -sample.tngY * side;
-            const radialY = sample.tngX * side;
-            const swirlX = -radialY;
-            const swirlY = radialX;
-            pushX += (radialX * radialPush + sample.tngX * forwardPush + swirlX * swirlPush) * weight;
-            pushY += (radialY * radialPush + sample.tngY * forwardPush + swirlY * swirlPush) * weight;
-            if (weight > infl) infl = weight;
+      const dotDensity = dotDensityRef.current;
+      let dotStyleFrom = dotStyleCurrentRef.current;
+      let dotStyleTo = dotStyleCurrentRef.current;
+      let styleMix = 1;
+      const styleTransition = dotStyleTransitionRef.current;
+      if (styleTransition) {
+        const t = clamp((now - styleTransition.start) / styleTransition.duration, 0, 1);
+        const eased = t * t * (3 - 2 * t);
+        dotStyleFrom = styleTransition.from;
+        dotStyleTo = styleTransition.to;
+        styleMix = eased;
+        if (t >= 1) {
+          dotStyleCurrentRef.current = styleTransition.to;
+          dotStyleTransitionRef.current = null;
+          dotStyleFrom = styleTransition.to;
+          dotStyleTo = styleTransition.to;
+          styleMix = 1;
+        }
+      }
+
+      if (dotStyleTo === "bloom") {
+        const baseAlpha = 0.45 * dotAlphaScale;
+        const minSize = Math.min(w, h);
+        const driftX = minSize * 0.08;
+        const driftY = minSize * 0.05;
+        const centers = [
+          { x: w * 0.2, y: h * 0.25, r: minSize * 0.35, phase: 0.0 },
+          { x: w * 0.7, y: h * 0.35, r: minSize * 0.42, phase: 1.4 },
+          { x: w * 0.5, y: h * 0.7, r: minSize * 0.5, phase: 2.6 },
+        ];
+
+        ctx.globalAlpha = baseAlpha;
+        for (const blob of centers) {
+          const cx = blob.x + Math.sin(nowSec * 0.08 + blob.phase) * driftX;
+          const cy = blob.y + Math.cos(nowSec * 0.07 + blob.phase) * driftY;
+          const radius = blob.r * (0.85 + 0.08 * Math.sin(nowSec * 0.09 + blob.phase));
+          const grad = ctx.createRadialGradient(cx, cy, radius * 0.1, cx, cy, radius);
+          grad.addColorStop(0, formatRgba(paletteState.dot, 0.55));
+          grad.addColorStop(1, "rgba(0, 0, 0, 0)");
+          ctx.fillStyle = grad;
+          ctx.beginPath();
+          ctx.arc(cx, cy, radius, 0, twoPi);
+          ctx.fill();
+        }
+        ctx.globalAlpha = 1;
+      } else if (dotStyleTo === "ripple") {
+        const spacing = Math.max(20, min * 0.055);
+        const step = Math.max(14, Math.round(min * 0.018));
+        const baseAlpha = 0.18 * dotAlphaScale;
+        const lineWidth = Math.max(0.55, min * 0.0011) * dotRadiusScale;
+        const margin = spacing * 0.4;
+
+        const rand = (n: number) => {
+          const val = Math.sin(n * 12.9898) * 43758.5453;
+          return val - Math.floor(val);
+        };
+
+        ctx.strokeStyle = formatRgb(paletteState.dot);
+        ctx.lineCap = "round";
+        ctx.lineWidth = lineWidth;
+
+        let y = margin;
+        let i = 0;
+        while (y < h - margin) {
+          const seed = rand(i + 1.3);
+          const spacingScale = 0.65 + rand(i + 2.8) * 0.7;
+          const freq = 0.003 + rand(i + 3.9) * 0.0035;
+          const phase = rand(i + 5.1) * twoPi;
+          const speed = 0.08 + rand(i + 6.4) * 0.12;
+          const amp = spacing * (0.18 + rand(i + 7.7) * 0.2);
+          const alpha = baseAlpha * (0.7 + seed * 0.5);
+
+          ctx.globalAlpha = alpha;
+          ctx.beginPath();
+          for (let x = -step; x <= w + step; x += step) {
+            const wave = Math.sin(x * freq + phase + nowSec * speed) * amp;
+            const yPos = y + wave;
+            if (x <= -step) {
+              ctx.moveTo(x, yPos);
+            } else {
+              ctx.lineTo(x, yPos);
+            }
+          }
+          ctx.stroke();
+          y += spacing * spacingScale;
+          i += 1;
+        }
+      } else if (dotStyleTo === "contour") {
+        const baseAlpha = 0.22 * dotAlphaScale;
+        const lineWidth = Math.max(0.5, min * 0.001) * dotRadiusScale;
+        const step = Math.max(12, Math.round(min * 0.015));
+        const influenceX = min * 0.22;
+        const influenceY = min * 0.12;
+        const liftScale = min * 0.06 * visibility;
+        const minGap = contourSpacing * 0.45;
+        const margin = contourSpacing * 0.25;
+
+        ctx.strokeStyle = formatRgb(paletteState.dot);
+        ctx.lineCap = "round";
+        ctx.lineWidth = lineWidth;
+
+        const lineCount = contourLines.length;
+        if (lineCount > 0) {
+          const linePoints: { x: number; y: number }[][] = new Array(lineCount)
+            .fill(0)
+            .map(() => []);
+          const lineAlphas = contourLines.map(
+            (line) => baseAlpha * (0.7 + line.amp * 0.3),
+          );
+
+          for (let x = -step; x <= w + step; x += step) {
+            const yValues = new Array(lineCount);
+            for (let i = 0; i < lineCount; i++) {
+              const line = contourLines[i];
+              const wobble =
+                Math.sin(x * line.freq + line.phase + nowSec * line.speed) * line.wobble;
+              const baseY = line.y + wobble;
+              let lift = 0;
+              for (let j = 0; j < samples.length; j++) {
+                const s = samples[j];
+                const dx = x - s.x;
+                const dy = baseY - s.y;
+                const falloff =
+                  Math.exp(
+                    -(dx * dx) / (influenceX * influenceX) -
+                      (dy * dy) / (influenceY * influenceY),
+                  ) *
+                  (0.35 + s.w * 0.65);
+                lift += falloff;
+              }
+              yValues[i] = baseY - lift * liftScale * line.amp;
+            }
+
+            let prev = margin;
+            for (let i = 0; i < lineCount; i++) {
+              const clamped = Math.max(yValues[i], prev + minGap);
+              yValues[i] = clamped;
+              prev = clamped;
+            }
+            const overflow = yValues[lineCount - 1] - (h - margin);
+            if (overflow > 0) {
+              for (let i = 0; i < lineCount; i++) {
+                yValues[i] -= overflow;
+              }
+            }
+            const underflow = margin - yValues[0];
+            if (underflow > 0) {
+              for (let i = 0; i < lineCount; i++) {
+                yValues[i] += underflow;
+              }
+            }
+
+            for (let i = 0; i < lineCount; i++) {
+              linePoints[i].push({ x, y: yValues[i] });
+            }
+          }
+
+          for (let i = 0; i < lineCount; i++) {
+            const points = linePoints[i];
+            if (points.length < 2) continue;
+            ctx.globalAlpha = lineAlphas[i];
+            ctx.beginPath();
+            ctx.moveTo(points[0].x, points[0].y);
+            for (let p = 1; p < points.length; p++) {
+              ctx.lineTo(points[p].x, points[p].y);
+            }
+            ctx.stroke();
           }
         }
-
-        if (infl > 0.00001) {
-          dot.vx += pushX * strength * dt;
-          dot.vy += pushY * strength * dt;
+      } else {
+        if (dotStyleTo === "dash" || dotStyleFrom === "dash") {
+          ctx.strokeStyle = formatRgb(paletteState.dot);
+          ctx.lineCap = "round";
+        } else {
+          ctx.fillStyle = formatRgb(paletteState.dot);
         }
+        for (let i = 0; i < dots.length; i++) {
+          const dot = dots[i];
+          if (dot.seed > dotDensity) continue;
+          let infl = 0;
+          let pushX = 0;
+          let pushY = 0;
+          for (let j = 0; j < samples.length; j++) {
+            const sample = samples[j];
+            const dx = dot.x - sample.x;
+            const dy = dot.y - sample.y;
+            const s = dx * sample.tngX + dy * sample.tngY;
+            const d = dx * -sample.tngY + dy * sample.tngX;
+            const sInfl = Math.exp(-(s * s) / (2 * bodyLength * bodyLength));
+            const dInfl = Math.exp(-(d * d) / (2 * bodyRadius * bodyRadius));
+            const weight = sInfl * dInfl * sample.w;
+            if (weight > 0.00002) {
+              const side = d >= 0 ? 1 : -1;
+              const radialX = -sample.tngY * side;
+              const radialY = sample.tngX * side;
+              const swirlX = -radialY;
+              const swirlY = radialX;
+              pushX +=
+                (radialX * radialPush + sample.tngX * forwardPush + swirlX * swirlPush) *
+                weight;
+              pushY +=
+                (radialY * radialPush + sample.tngY * forwardPush + swirlY * swirlPush) *
+                weight;
+              if (weight > infl) infl = weight;
+            }
+          }
 
-        const visibleInfl = infl * visibility;
-        const away = 1 - Math.min(1, visibleInfl * 5);
-        const returnMix = baseReturn + away * (1 - baseReturn);
-        dot.vx += (dot.rx - dot.x) * returnStrength * returnMix * dt;
-        dot.vy += (dot.ry - dot.y) * returnStrength * returnMix * dt;
+          if (infl > 0.00001) {
+            dot.vx += pushX * strength * dt;
+            dot.vy += pushY * strength * dt;
+          }
 
-        const drag = dragFar + (dragNear - dragFar) * Math.min(1, visibleInfl * 6);
-        dot.vx *= Math.pow(drag, dt * 60);
-        dot.vy *= Math.pow(drag, dt * 60);
+          const visibleInfl = infl * visibility;
+          const away = 1 - Math.min(1, visibleInfl * 5);
+          const returnMix = baseReturn + away * (1 - baseReturn);
+          dot.vx += (dot.rx - dot.x) * returnStrength * returnMix * dt;
+          dot.vy += (dot.ry - dot.y) * returnStrength * returnMix * dt;
 
-        dot.x += dot.vx * dt;
-        dot.y += dot.vy * dt;
+          const drag = dragFar + (dragNear - dragFar) * Math.min(1, visibleInfl * 6);
+          dot.vx *= Math.pow(drag, dt * 60);
+          dot.vy *= Math.pow(drag, dt * 60);
 
-        if (dot.x < 0) {
-          dot.x = 0;
-          dot.vx = 0;
-        } else if (dot.x > w) {
-          dot.x = w;
-          dot.vx = 0;
-        }
+          dot.x += dot.vx * dt;
+          dot.y += dot.vy * dt;
 
-        if (dot.y < 0) {
-          dot.y = 0;
-          dot.vy = 0;
-        } else if (dot.y > h) {
-          dot.y = h;
-          dot.vy = 0;
-        }
+          if (dot.x < 0) {
+            dot.x = 0;
+            dot.vx = 0;
+          } else if (dot.x > w) {
+            dot.x = w;
+            dot.vx = 0;
+          }
 
-        const speed = Math.hypot(dot.vx, dot.vy);
-        const wake = Math.min(1, visibleInfl * 2.2 + speed * wakeScale);
-        ctx.globalAlpha = Math.min(1, dot.a * dotAlphaScale + wake * 0.45 * wakeAlphaScale);
-        if (dotStyle === "dash") {
-          if (speed > 0.01) {
+          if (dot.y < 0) {
+            dot.y = 0;
+            dot.vy = 0;
+          } else if (dot.y > h) {
+            dot.y = h;
+            dot.vy = 0;
+          }
+
+          const speed = Math.hypot(dot.vx, dot.vy);
+          const wake = Math.min(1, visibleInfl * 2.2 + speed * wakeScale);
+          const baseAlpha = Math.min(1, dot.a * dotAlphaScale + wake * 0.45 * wakeAlphaScale);
+          const needsDash = dotStyleFrom === "dash" || dotStyleTo === "dash";
+          if (needsDash && speed > 0.01) {
             const targetAngle = Math.atan2(dot.vy, dot.vx);
             const delta = wrapAngle(targetAngle - dot.angle);
             const angleEase = clamp(dt * 6, 0, 1);
             dot.angle = wrapAngle(dot.angle + delta * angleEase);
           }
-          const length = dot.r * (4.2 + wake * 2.1) * dotRadiusScale;
-          const dx = Math.cos(dot.angle) * length * 0.5;
-          const dy = Math.sin(dot.angle) * length * 0.5;
-          ctx.lineWidth = Math.max(0.7, dot.r * 0.85) * dotRadiusScale;
-          ctx.beginPath();
-          ctx.moveTo(dot.x - dx, dot.y - dy);
-          ctx.lineTo(dot.x + dx, dot.y + dy);
-          ctx.stroke();
-        } else {
-          ctx.beginPath();
-          const r = dot.r * (1 + wake * 0.25) * dotRadiusScale;
-          ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
-          ctx.fill();
+
+          const drawDotStyle = (style: DotStyle, alpha: number) => {
+            if (alpha <= 0.001) return;
+            ctx.globalAlpha = alpha;
+            if (style === "dash") {
+              const length = dot.r * (6.6 + wake * 2.4) * dotRadiusScale;
+              const half = length * 0.5;
+              const cos = Math.cos(dot.angle);
+              const sin = Math.sin(dot.angle);
+              const dx = cos * half;
+              const dy = sin * half;
+              const px = -sin;
+              const py = cos;
+              const wobble = Math.sin(nowSec * 0.6 + dot.seed * 7.2) * 0.2;
+              const curve = (dot.seed - 0.5) * 0.7 + wobble;
+              const bend = length * 0.18 * curve;
+              const cx = dot.x + px * bend;
+              const cy = dot.y + py * bend;
+              const base = ctx.globalAlpha;
+              const lineWidth = Math.max(0.6, dot.r * 0.85) * dotRadiusScale;
+              ctx.lineWidth = lineWidth;
+              ctx.beginPath();
+              ctx.moveTo(dot.x - dx, dot.y - dy);
+              ctx.quadraticCurveTo(cx, cy, dot.x + dx, dot.y + dy);
+              ctx.stroke();
+              const tailCenterX = dot.x - cos * length * 0.2;
+              const tailCenterY = dot.y - sin * length * 0.2;
+              const tailHalf = length * 0.22;
+              const tailDx = cos * tailHalf;
+              const tailDy = sin * tailHalf;
+              const tailCx = tailCenterX + px * bend * 0.6;
+              const tailCy = tailCenterY + py * bend * 0.6;
+              ctx.globalAlpha = base * 0.45;
+              ctx.lineWidth = lineWidth * 0.7;
+              ctx.beginPath();
+              ctx.moveTo(tailCenterX - tailDx, tailCenterY - tailDy);
+              ctx.quadraticCurveTo(tailCx, tailCy, tailCenterX + tailDx, tailCenterY + tailDy);
+              ctx.stroke();
+              ctx.globalAlpha = base;
+            } else if (style === "cloud") {
+              const base = ctx.globalAlpha;
+              const cloudRadius = dot.r * (1.6 + wake * 0.5) * dotRadiusScale;
+              const offset = cloudRadius * 0.9;
+              const ox = Math.cos(dot.angle) * offset;
+              const oy = Math.sin(dot.angle) * offset;
+              ctx.globalAlpha = base * 0.85;
+              ctx.beginPath();
+              ctx.arc(dot.x, dot.y, cloudRadius * 1.05, 0, twoPi);
+              ctx.fill();
+              ctx.globalAlpha = base * 0.7;
+              ctx.beginPath();
+              ctx.arc(dot.x + ox * 0.7, dot.y + oy * 0.7, cloudRadius * 0.85, 0, twoPi);
+              ctx.fill();
+              ctx.beginPath();
+              ctx.arc(dot.x - ox * 0.6, dot.y - oy * 0.6, cloudRadius * 0.75, 0, twoPi);
+              ctx.fill();
+              ctx.globalAlpha = base;
+            } else {
+              ctx.beginPath();
+              const r = dot.r * (1 + wake * 0.25) * dotRadiusScale;
+              ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
+              ctx.fill();
+            }
+          };
+
+          if (
+            (dotStyleFrom === "dot" || dotStyleFrom === "dash") &&
+            (dotStyleTo === "dot" || dotStyleTo === "dash") &&
+            dotStyleFrom !== dotStyleTo
+          ) {
+            drawDotStyle(dotStyleFrom, baseAlpha * (1 - styleMix));
+            drawDotStyle(dotStyleTo, baseAlpha * styleMix);
+          } else {
+            drawDotStyle(dotStyleTo, baseAlpha);
+          }
         }
       }
       ctx.globalAlpha = 1;

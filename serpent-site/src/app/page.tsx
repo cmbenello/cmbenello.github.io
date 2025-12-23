@@ -77,23 +77,7 @@ export default function Home() {
                 }}
               >
                 <img
-                  src="/tarot/sun-icon-dark.png"
-                  alt=""
-                  aria-hidden="true"
-                  style={{
-                    position: "absolute",
-                    inset: 0,
-                    width: "100%",
-                    height: "100%",
-                    objectFit: "contain",
-                    opacity: isLight ? 0 : 1,
-                    transform: "scale(1.25)",
-                    transformOrigin: "center",
-                    transition: "opacity 700ms ease",
-                  }}
-                />
-                <img
-                  src="/tarot/moon-icon-light.png"
+                  src="/tarot/sun-icon-light.png"
                   alt=""
                   aria-hidden="true"
                   style={{
@@ -103,8 +87,26 @@ export default function Home() {
                     height: "100%",
                     objectFit: "contain",
                     opacity: isLight ? 1 : 0,
+                    transform: "scale(1.25)",
+                    transformOrigin: "center",
+                    translate: "-3px -6px",
+                    transition: "opacity 700ms ease",
+                  }}
+                />
+                <img
+                  src="/tarot/moon-icon-dark.png"
+                  alt=""
+                  aria-hidden="true"
+                  style={{
+                    position: "absolute",
+                    inset: 0,
+                    width: "100%",
+                    height: "100%",
+                    objectFit: "contain",
+                    opacity: isLight ? 0 : 1,
                     transform: "scale(1.5)",
                     transformOrigin: "center",
+                    translate: "-3px -6px",
                     transition: "opacity 700ms ease",
                   }}
                 />
