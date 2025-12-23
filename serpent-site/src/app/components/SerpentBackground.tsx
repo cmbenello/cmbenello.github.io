@@ -11,6 +11,7 @@ type Dot = {
   vy: number;
   r: number;
   a: number;
+  angle: number;
 };
 
 type Segment = {
@@ -31,6 +32,7 @@ export type SerpentPalette = {
   dot: string;
   glow: string;
   border: string;
+  dotStyle?: "dot" | "dash";
   dotAlphaScale?: number;
   wakeAlphaScale?: number;
   dotRadiusScale?: number;
@@ -38,22 +40,24 @@ export type SerpentPalette = {
 
 export const DEFAULT_PALETTE: SerpentPalette = {
   background: "#141517",
-  dot: "#b2bbc6",
+  dot: "#ffffff",
   glow: "120, 190, 255",
   border: "rgba(255, 255, 255, 0.25)",
+  dotStyle: "dot",
   dotAlphaScale: 1,
-  wakeAlphaScale: 1,
-  dotRadiusScale: 1,
+  wakeAlphaScale: 0.85,
+  dotRadiusScale: 0.9,
 };
 
 export const LIGHT_PALETTE: SerpentPalette = {
   background: "#f6e7c6",
-  dot: "#c43a3c",
-  glow: "196, 58, 60",
+  dot: "#e24b4f",
+  glow: "226, 75, 79",
   border: "rgba(192, 24, 33, 0.55)",
-  dotAlphaScale: 1.35,
-  wakeAlphaScale: 1.05,
-  dotRadiusScale: 1.04,
+  dotStyle: "dash",
+  dotAlphaScale: 1.6,
+  wakeAlphaScale: 0.85,
+  dotRadiusScale: 1.1,
 };
 
 type SerpentBackgroundProps = {
@@ -153,6 +157,7 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
   const rafRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const dotStyleRef = useRef<"dot" | "dash">(palette.dotStyle ?? "dot");
   const initialPalette = toPaletteState(palette);
   const paletteTargetRef = useRef<PaletteState>(initialPalette);
   const paletteCurrentRef = useRef<PaletteState>(clonePaletteState(initialPalette));
@@ -164,6 +169,7 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
   } | null>(null);
 
   useEffect(() => {
+    dotStyleRef.current = palette.dotStyle ?? "dot";
     const target = toPaletteState(palette);
     const from = paletteCurrentRef.current
       ? clonePaletteState(paletteCurrentRef.current)
@@ -385,7 +391,8 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
           vx: 0,
           vy: 0,
           r: Math.random() * 0.7 + 0.6,
-          a: 0.07 + Math.random() * 0.14,
+          a: 0.06 + Math.random() * 0.1,
+          angle: Math.random() * Math.PI * 2,
         };
       }
     }
@@ -725,7 +732,13 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
       const forwardPush = 0.2;
       const swirlPush = 0.24;
 
-      ctx.fillStyle = formatRgb(paletteState.dot);
+      const dotStyle = dotStyleRef.current;
+      if (dotStyle === "dash") {
+        ctx.strokeStyle = formatRgb(paletteState.dot);
+        ctx.lineCap = "round";
+      } else {
+        ctx.fillStyle = formatRgb(paletteState.dot);
+      }
       const dotAlphaScale = paletteState.dotAlphaScale;
       const wakeAlphaScale = paletteState.wakeAlphaScale;
       const dotRadiusScale = paletteState.dotRadiusScale;
@@ -792,10 +805,27 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
         const speed = Math.hypot(dot.vx, dot.vy);
         const wake = Math.min(1, visibleInfl * 2.2 + speed * wakeScale);
         ctx.globalAlpha = Math.min(1, dot.a * dotAlphaScale + wake * 0.45 * wakeAlphaScale);
-        ctx.beginPath();
-        const r = dot.r * (1 + wake * 0.25) * dotRadiusScale;
-        ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
-        ctx.fill();
+        if (dotStyle === "dash") {
+          if (speed > 0.01) {
+            const targetAngle = Math.atan2(dot.vy, dot.vx);
+            const delta = wrapAngle(targetAngle - dot.angle);
+            const angleEase = clamp(dt * 6, 0, 1);
+            dot.angle = wrapAngle(dot.angle + delta * angleEase);
+          }
+          const length = dot.r * (4.2 + wake * 2.1) * dotRadiusScale;
+          const dx = Math.cos(dot.angle) * length * 0.5;
+          const dy = Math.sin(dot.angle) * length * 0.5;
+          ctx.lineWidth = Math.max(0.7, dot.r * 0.85) * dotRadiusScale;
+          ctx.beginPath();
+          ctx.moveTo(dot.x - dx, dot.y - dy);
+          ctx.lineTo(dot.x + dx, dot.y + dy);
+          ctx.stroke();
+        } else {
+          ctx.beginPath();
+          const r = dot.r * (1 + wake * 0.25) * dotRadiusScale;
+          ctx.arc(dot.x, dot.y, r, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
       ctx.globalAlpha = 1;
 
