@@ -96,6 +96,7 @@ export default function PageShell({ children }: PageShellProps) {
   } as const;
 
   const panelStyle = panelHeight ? ({ height: panelHeight } as const) : undefined;
+  const showBackground = activeIndex === 0;
 
   return (
     <main
@@ -106,7 +107,30 @@ export default function PageShell({ children }: PageShellProps) {
         transition: "background-color 700ms ease, color 700ms ease",
       }}
     >
-      <SerpentBackground palette={theme.palette} frameMargin={FRAME_MARGIN} />
+      {showBackground ? (
+        <SerpentBackground
+          palette={theme.palette}
+          frameMargin={FRAME_MARGIN}
+          starVisibility={1}
+          serpentVisibility={1}
+        />
+      ) : null}
+
+      {!showBackground ? (
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute"
+          style={{
+            inset: FRAME_MARGIN,
+            borderRadius: 0,
+            background: "transparent",
+            border: `1px solid ${theme.palette.border}`,
+            boxShadow: "none",
+            zIndex: 12,
+            transition: "border-color 700ms ease",
+          }}
+        />
+      ) : null}
 
       <div className="pointer-events-none fixed inset-0 z-20">
         <nav

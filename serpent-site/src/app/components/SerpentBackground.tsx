@@ -15,6 +15,15 @@ type Dot = {
   seed: number;
 };
 
+type Star = {
+  x: number;
+  y: number;
+  r: number;
+  a: number;
+  tw: number;
+  phase: number;
+};
+
 type ContourLine = {
   y: number;
   wobble: number;
@@ -78,10 +87,15 @@ export const LIGHT_PALETTE: SerpentPalette = {
 type SerpentBackgroundProps = {
   palette?: SerpentPalette;
   frameMargin?: number;
+  starVisibility?: number;
+  serpentVisibility?: number;
 };
 
 type Rgb = [number, number, number];
 type Rgba = [number, number, number, number];
+
+const WHITE: Rgb = [255, 255, 255];
+const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 
 type PaletteState = {
   background: Rgb;
@@ -170,6 +184,8 @@ const lerpRgba = (from: Rgba, to: Rgba, t: number): Rgba => [
 export default function SerpentBackground({
   palette = DEFAULT_PALETTE,
   frameMargin = 32,
+  starVisibility = 0,
+  serpentVisibility = 1,
 }: SerpentBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -184,6 +200,14 @@ export default function SerpentBackground({
     duration: number;
   } | null>(null);
   const dotDensityRef = useRef<number>(palette.dotDensityScale ?? 1);
+  const starAlphaRef = useRef<number>(clamp01(starVisibility));
+  const starTargetRef = useRef<number>(clamp01(starVisibility));
+  const starTransitionRef = useRef<{
+    start: number;
+    duration: number;
+    from: number;
+    to: number;
+  } | null>(null);
   const initialPalette = toPaletteState(palette);
   const paletteTargetRef = useRef<PaletteState>(initialPalette);
   const paletteCurrentRef = useRef<PaletteState>(clonePaletteState(initialPalette));
@@ -223,6 +247,28 @@ export default function SerpentBackground({
   }, [palette]);
 
   useEffect(() => {
+    const target = clamp01(starVisibility);
+    starTargetRef.current = target;
+    const from = starAlphaRef.current ?? 0;
+    if (target <= 0) {
+      starTransitionRef.current = null;
+      starAlphaRef.current = 0;
+      return;
+    }
+    if (Math.abs(from - target) < 0.01) {
+      starTransitionRef.current = null;
+      starAlphaRef.current = target;
+      return;
+    }
+    starTransitionRef.current = {
+      start: performance.now(),
+      duration: 600,
+      from,
+      to: target,
+    };
+  }, [starVisibility]);
+
+  useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
 
@@ -234,6 +280,7 @@ export default function SerpentBackground({
     let h = 1;
     let dpr = 1;
     let dots: Dot[] = [];
+    let stars: Star[] = [];
     let contourLines: ContourLine[] = [];
     let contourSpacing = 24;
     let last = performance.now();
@@ -439,6 +486,23 @@ export default function SerpentBackground({
       }
     }
 
+    function buildStars() {
+      const count = Math.max(160, Math.min(900, Math.floor((w * h) / 1800)));
+      stars = new Array(count);
+      for (let i = 0; i < count; i++) {
+        const depth = Math.random();
+        const sizeBias = depth * depth;
+        stars[i] = {
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: 0.3 + sizeBias * 1.6,
+          a: 0.12 + depth * 0.4,
+          tw: 0.3 + Math.random() * 0.9,
+          phase: Math.random() * twoPi,
+        };
+      }
+    }
+
     function buildContours() {
       contourLines = [];
       const min = Math.min(w, h);
@@ -480,6 +544,7 @@ export default function SerpentBackground({
       pathSpacing = Math.max(4, segmentSpacing * 0.6);
       maxPathPoints = Math.round((min / pathSpacing) * 12);
       buildDots();
+      buildStars();
       buildContours();
       pathPoints = [];
       pathNeedsInit = true;
@@ -534,6 +599,52 @@ export default function SerpentBackground({
       ctx.clearRect(0, 0, w, h);
       ctx.fillStyle = formatRgb(paletteState.background);
       ctx.fillRect(0, 0, w, h);
+
+      const serpentStrength = clamp01(serpentVisibility);
+
+      let starAlpha = starAlphaRef.current;
+      const starTransition = starTransitionRef.current;
+      if (starTransition) {
+        const t = clamp((now - starTransition.start) / starTransition.duration, 0, 1);
+        const eased = t * t * (3 - 2 * t);
+        starAlpha = lerp(starTransition.from, starTransition.to, eased);
+        starAlphaRef.current = starAlpha;
+        if (t >= 1) {
+          starTransitionRef.current = null;
+        }
+      } else {
+        starAlpha = starTargetRef.current;
+        starAlphaRef.current = starAlpha;
+      }
+
+      const starStrength = starAlpha * 0.7;
+      if (starStrength > 0.02 && stars.length > 0) {
+        const starColor = lerpRgb(paletteState.dot, WHITE, 0.5);
+        ctx.save();
+        ctx.fillStyle = formatRgb(starColor);
+        for (let i = 0; i < stars.length; i++) {
+          const star = stars[i];
+          const twinkle = 0.65 + 0.35 * Math.sin(nowSec * star.tw + star.phase);
+          const alpha = star.a * twinkle * starStrength;
+          if (alpha < 0.02) continue;
+          ctx.globalAlpha = alpha;
+          ctx.beginPath();
+          ctx.arc(star.x, star.y, star.r, 0, twoPi);
+          ctx.fill();
+          if (star.r > 1.15) {
+            ctx.globalAlpha = alpha * 0.35;
+            ctx.beginPath();
+            ctx.arc(star.x, star.y, star.r * 2.1, 0, twoPi);
+            ctx.fill();
+          }
+        }
+        ctx.restore();
+      }
+
+      if (serpentStrength <= 0.01) {
+        rafRef.current = requestAnimationFrame(draw);
+        return;
+      }
 
       const min = Math.min(w, h);
 
@@ -794,8 +905,8 @@ export default function SerpentBackground({
       const forwardPush = 0.2;
       const swirlPush = 0.24;
 
-      const dotAlphaScale = paletteState.dotAlphaScale;
-      const wakeAlphaScale = paletteState.wakeAlphaScale;
+      const dotAlphaScale = paletteState.dotAlphaScale * serpentStrength;
+      const wakeAlphaScale = paletteState.wakeAlphaScale * serpentStrength;
       const dotRadiusScale = paletteState.dotRadiusScale;
       const dotDensity = dotDensityRef.current;
       let dotStyleFrom = dotStyleCurrentRef.current;
