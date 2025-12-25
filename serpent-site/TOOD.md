@@ -1,9 +1,27 @@
 - get rid of dots 
-- fix the fugly dots - dot transition ig 
-- add contents page for other pages 
+- [ ] fix the fugly dots - dot transition ig 
+- [ ] Contents
+    - [ ] Labels when Hover
+    - [ ] Enable scrolling but snaps
+    - [ ] Make animations snappy maybe slow start into fast ending idk
+- [ ] Design layouts for page
 - 4 elements
-- research
-- tattoo page
-- work
 - Track how how long projects took automatically link to the README.md
 - pong -> something else -> mini metro Rl project in middle
+
+
+- Outline
+    - About ig on front 
+    - Experience  
+        - Like the tree maybe idk
+        - Maybe CV idk
+    - Research 
+    - Teachings
+    - Projects
+    - Maybe random ? tattoo page fade
+
+
+
+- dots
+- transition speed
+- timinig issues

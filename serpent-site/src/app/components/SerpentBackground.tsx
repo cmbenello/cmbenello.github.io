@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useLayoutEffect, useRef } from "react";
 
 type Dot = {
   x: number;
@@ -47,6 +47,7 @@ type Sample = {
 };
 
 type DotStyle = "dot" | "dash" | "cloud" | "contour" | "ripple" | "bloom";
+type StarWarpDirection = "up" | "down";
 
 export type SerpentPalette = {
   background: string;
@@ -89,13 +90,25 @@ type SerpentBackgroundProps = {
   frameMargin?: number;
   starVisibility?: number;
   serpentVisibility?: number;
+  starWarpTrigger?: number;
+  starWarpDirection?: StarWarpDirection;
+  starWarpEntering?: boolean;
 };
 
 type Rgb = [number, number, number];
 type Rgba = [number, number, number, number];
 
 const WHITE: Rgb = [255, 255, 255];
+const STAR_WARP_MS = 520;
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
+const easeInCubic = (value: number) => {
+  const t = clamp01(value);
+  return t * t * t;
+};
+const easeOutCubic = (value: number) => {
+  const t = clamp01(value);
+  return 1 - Math.pow(1 - t, 3);
+};
 
 type PaletteState = {
   background: Rgb;
@@ -186,6 +199,9 @@ export default function SerpentBackground({
   frameMargin = 32,
   starVisibility = 0,
   serpentVisibility = 1,
+  starWarpTrigger = 0,
+  starWarpDirection = "up",
+  starWarpEntering = false,
 }: SerpentBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -200,13 +216,21 @@ export default function SerpentBackground({
     duration: number;
   } | null>(null);
   const dotDensityRef = useRef<number>(palette.dotDensityScale ?? 1);
+  const serpentVisibilityRef = useRef<number>(clamp01(serpentVisibility));
   const starAlphaRef = useRef<number>(clamp01(starVisibility));
   const starTargetRef = useRef<number>(clamp01(starVisibility));
+  const starVisibilityRef = useRef<number>(clamp01(starVisibility));
   const starTransitionRef = useRef<{
     start: number;
     duration: number;
     from: number;
     to: number;
+  } | null>(null);
+  const starWarpRef = useRef<{
+    start: number;
+    duration: number;
+    direction: StarWarpDirection;
+    entering: boolean;
   } | null>(null);
   const initialPalette = toPaletteState(palette);
   const paletteTargetRef = useRef<PaletteState>(initialPalette);
@@ -217,6 +241,9 @@ export default function SerpentBackground({
     from: PaletteState;
     to: PaletteState;
   } | null>(null);
+
+  serpentVisibilityRef.current = clamp01(serpentVisibility);
+  starVisibilityRef.current = clamp01(starVisibility);
 
   useEffect(() => {
     const nextStyle = palette.dotStyle ?? "dot";
@@ -246,8 +273,8 @@ export default function SerpentBackground({
     paletteTargetRef.current = target;
   }, [palette]);
 
-  useEffect(() => {
-    const target = clamp01(starVisibility);
+  useLayoutEffect(() => {
+    const target = starVisibilityRef.current;
     starTargetRef.current = target;
     const from = starAlphaRef.current ?? 0;
     if (target <= 0) {
@@ -267,6 +294,17 @@ export default function SerpentBackground({
       to: target,
     };
   }, [starVisibility]);
+
+  useLayoutEffect(() => {
+    if (!starWarpTrigger) return;
+    const entering = starWarpEntering;
+    starWarpRef.current = {
+      start: performance.now(),
+      duration: STAR_WARP_MS,
+      direction: starWarpDirection,
+      entering,
+    };
+  }, [starWarpTrigger, starWarpDirection, starWarpEntering]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -600,41 +638,91 @@ export default function SerpentBackground({
       ctx.fillStyle = formatRgb(paletteState.background);
       ctx.fillRect(0, 0, w, h);
 
-      const serpentStrength = clamp01(serpentVisibility);
-
-      let starAlpha = starAlphaRef.current;
-      const starTransition = starTransitionRef.current;
-      if (starTransition) {
-        const t = clamp((now - starTransition.start) / starTransition.duration, 0, 1);
-        const eased = t * t * (3 - 2 * t);
-        starAlpha = lerp(starTransition.from, starTransition.to, eased);
-        starAlphaRef.current = starAlpha;
+      let warpProgress = 0;
+      let warpDirection: StarWarpDirection = "up";
+      let warpEntering = false;
+      const starWarp = starWarpRef.current;
+      const warpActive = starWarp !== null;
+      if (starWarp) {
+        const t = clamp((now - starWarp.start) / starWarp.duration, 0, 1);
+        warpProgress = t;
+        warpDirection = starWarp.direction;
+        warpEntering = starWarp.entering;
         if (t >= 1) {
-          starTransitionRef.current = null;
+          starWarpRef.current = null;
         }
-      } else {
-        starAlpha = starTargetRef.current;
-        starAlphaRef.current = starAlpha;
       }
 
-      const starStrength = starAlpha * 0.7;
-      if (starStrength > 0.02 && stars.length > 0) {
+      let warpOffset = 0;
+      let warpPad = 0;
+      let warpFadeLine = 0;
+      let warpFadeBand = 0;
+      const warpEaseValue = warpEntering
+        ? easeOutCubic(warpProgress)
+        : easeInCubic(warpProgress);
+      if (warpActive) {
+        const fieldSize = Math.min(w, h);
+        warpPad = Math.max(18, fieldSize * 0.08);
+        warpFadeBand = Math.max(28, fieldSize * 0.1);
+        const warpDistance = h + warpPad * 2;
+        const dirSign = warpDirection === "up" ? -1 : 1;
+        warpOffset = dirSign * warpDistance * (warpEntering ? warpEaseValue - 1 : warpEaseValue);
+        warpFadeLine = h + warpFadeBand - (h + warpFadeBand * 2) * warpEaseValue;
+      }
+
+      const serpentStrength = clamp01(serpentVisibilityRef.current);
+
+      let starAlpha = starAlphaRef.current;
+      const starsEnabled = starVisibilityRef.current > 0.01;
+      if (!starsEnabled) {
+        starTransitionRef.current = null;
+        starAlphaRef.current = 0;
+        starAlpha = 0;
+      } else {
+        const starTransition = starTransitionRef.current;
+        if (starTransition) {
+          const t = clamp((now - starTransition.start) / starTransition.duration, 0, 1);
+          const eased = t * t * (3 - 2 * t);
+          starAlpha = lerp(starTransition.from, starTransition.to, eased);
+          starAlphaRef.current = starAlpha;
+          if (t >= 1) {
+            starTransitionRef.current = null;
+          }
+        } else {
+          starAlpha = starTargetRef.current;
+          starAlphaRef.current = starAlpha;
+        }
+      }
+
+      const baseStarStrength = starAlpha * 0.7;
+      const starStrength = baseStarStrength;
+      if (starsEnabled && starStrength > 0.02 && stars.length) {
         const starColor = lerpRgb(paletteState.dot, WHITE, 0.5);
         ctx.save();
         ctx.fillStyle = formatRgb(starColor);
         for (let i = 0; i < stars.length; i++) {
           const star = stars[i];
+          const drawY = warpActive ? star.y + warpOffset : star.y;
+          if (warpActive && (drawY < -warpPad || drawY > h + warpPad)) continue;
           const twinkle = 0.65 + 0.35 * Math.sin(nowSec * star.tw + star.phase);
-          const alpha = star.a * twinkle * starStrength;
+          let fadeAlpha = 1;
+          if (warpActive && !warpEntering) {
+            if (drawY >= warpFadeLine + warpFadeBand) {
+              fadeAlpha = 0;
+            } else if (drawY > warpFadeLine - warpFadeBand) {
+              fadeAlpha = (warpFadeLine + warpFadeBand - drawY) / (2 * warpFadeBand);
+            }
+          }
+          const alpha = star.a * twinkle * starStrength * fadeAlpha;
           if (alpha < 0.02) continue;
           ctx.globalAlpha = alpha;
           ctx.beginPath();
-          ctx.arc(star.x, star.y, star.r, 0, twoPi);
+          ctx.arc(star.x, drawY, star.r, 0, twoPi);
           ctx.fill();
           if (star.r > 1.15) {
             ctx.globalAlpha = alpha * 0.35;
             ctx.beginPath();
-            ctx.arc(star.x, star.y, star.r * 2.1, 0, twoPi);
+            ctx.arc(star.x, drawY, star.r * 2.1, 0, twoPi);
             ctx.fill();
           }
         }
