@@ -58,9 +58,9 @@ export const DEFAULT_PALETTE: SerpentPalette = {
   border: "rgba(255, 255, 255, 0.25)",
   dotStyle: "dot",
   dotDensityScale: 1,
-  dotAlphaScale: 1,
-  wakeAlphaScale: 0.85,
-  dotRadiusScale: 0.9,
+  dotAlphaScale: 1.6,
+  wakeAlphaScale: 0.95,
+  dotRadiusScale: 1.15,
 };
 
 export const LIGHT_PALETTE: SerpentPalette = {
@@ -77,6 +77,7 @@ export const LIGHT_PALETTE: SerpentPalette = {
 
 type SerpentBackgroundProps = {
   palette?: SerpentPalette;
+  frameMargin?: number;
 };
 
 type Rgb = [number, number, number];
@@ -166,7 +167,10 @@ const lerpRgba = (from: Rgba, to: Rgba, t: number): Rgba => [
   lerp(from[3], to[3], t),
 ];
 
-export default function SerpentBackground({ palette = DEFAULT_PALETTE }: SerpentBackgroundProps) {
+export default function SerpentBackground({
+  palette = DEFAULT_PALETTE,
+  frameMargin = 32,
+}: SerpentBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
   const rafRef = useRef<number | null>(null);
@@ -532,6 +536,7 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
       ctx.fillRect(0, 0, w, h);
 
       const min = Math.min(w, h);
+
       if (pathNeedsInit) resetHead(nowSec);
 
       let lifeAge = nowSec - lifeStart;
@@ -1183,8 +1188,6 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
     };
   }, []);
 
-  const MARGIN = 32;
-
   return (
     <div
       aria-hidden="true"
@@ -1205,7 +1208,7 @@ export default function SerpentBackground({ palette = DEFAULT_PALETTE }: Serpent
           boxShadow: "none",
           overflow: "hidden",
           position: "absolute",
-          inset: MARGIN,
+          inset: frameMargin,
         }}
       >
         <canvas

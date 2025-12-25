@@ -1,6 +1,9 @@
 - get rid of dots 
+- fix the fugly dots - dot transition ig 
 - add contents page for other pages 
-- tattoo page
+- 4 elements
 - research
+- tattoo page
 - work
+- Track how how long projects took automatically link to the README.md
 - pong -> something else -> mini metro Rl project in middle
