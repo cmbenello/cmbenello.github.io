@@ -1,7 +1,8 @@
 - get rid of dots 
 - [ ] fix the fugly dots - dot transition ig 
 - [ ] Contents
-    - [ ] Labels when Hover
+    - [ ] Transition between the actual content dots like the boxs around the dots moves down same pace as the big box
+    - [ ] Labels when Hover over content buttons
     - [ ] Enable scrolling but snaps
     - [ ] Make animations snappy maybe slow start into fast ending idk
 - [ ] Design layouts for page
@@ -24,6 +25,4 @@
 
 
 
-- dots
 - transition speed
-- timinig issues

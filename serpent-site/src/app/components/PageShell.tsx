@@ -26,10 +26,10 @@ const NAV_ITEMS = [
 ];
 
 const FRAME_MARGIN = 32;
-const TRANSITION_MS = 520;
 const NAV_BUTTON_SIZE = 26;
 const NAV_DOT_SIZE = 10;
 const NAV_GAP = 4;
+const NAV_STACK_GAP = 16;
 const NAV_RIGHT = Math.max(4, FRAME_MARGIN - NAV_BUTTON_SIZE - NAV_GAP);
 const NAV_TOP = Math.round(FRAME_MARGIN * 2.4);
 
@@ -41,11 +41,16 @@ export default function PageShell({ children }: PageShellProps) {
   const [isLight, setIsLight] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [panelHeight, setPanelHeight] = useState(0);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const scrollRef = useRef<HTMLDivElement | null>(null);
+  const scrollRafRef = useRef<number | null>(null);
 
   const panels = Children.toArray(children);
   const panelCount = Math.min(panels.length, NAV_ITEMS.length);
   const visiblePanels = panels.slice(0, panelCount);
+  const clampIndex = (value: number) =>
+    Math.min(Math.max(value, 0), Math.max(0, panelCount - 1));
 
   const theme = isLight
     ? {
@@ -87,27 +92,66 @@ export default function PageShell({ children }: PageShellProps) {
     return () => observer.disconnect();
   }, []);
 
+  useLayoutEffect(() => {
+    const scrollEl = scrollRef.current;
+    if (!scrollEl || !panelHeight) return;
+    scrollEl.scrollTo({ top: activeIndex * panelHeight });
+    setScrollProgress(activeIndex);
+  }, [panelHeight]);
+
   useEffect(() => {
     if (activeIndex >= panelCount) {
-      setActiveIndex(Math.max(0, panelCount - 1));
+      const nextIndex = Math.max(0, panelCount - 1);
+      setActiveIndex(nextIndex);
+      const scrollEl = scrollRef.current;
+      if (scrollEl && panelHeight) {
+        scrollEl.scrollTo({ top: nextIndex * panelHeight });
+      }
     }
-  }, [activeIndex, panelCount]);
+  }, [activeIndex, panelCount, panelHeight]);
 
-  const offset = panelHeight ? activeIndex * panelHeight : 0;
-  const railStyle = {
-    transform: `translateY(-${offset}px)`,
-    transition: `transform ${TRANSITION_MS}ms cubic-bezier(0.22, 1, 0.36, 1)`,
-    willChange: "transform",
-    height: panelHeight ? `${panelHeight * panelCount}px` : undefined,
-  } as const;
+  useEffect(() => {
+    const scrollEl = scrollRef.current;
+    if (!scrollEl || !panelHeight) return;
 
-  const panelStyle = panelHeight ? ({ height: panelHeight } as const) : undefined;
+    const updateProgress = () => {
+      const progress = scrollEl.scrollTop / panelHeight;
+      setScrollProgress(progress);
+      const nextIndex = clampIndex(Math.round(progress));
+      setActiveIndex((prev) => (prev === nextIndex ? prev : nextIndex));
+    };
+
+    const handleScroll = () => {
+      if (scrollRafRef.current !== null) return;
+      scrollRafRef.current = window.requestAnimationFrame(() => {
+        scrollRafRef.current = null;
+        updateProgress();
+      });
+    };
+
+    updateProgress();
+    scrollEl.addEventListener("scroll", handleScroll, { passive: true });
+    return () => {
+      scrollEl.removeEventListener("scroll", handleScroll);
+      if (scrollRafRef.current !== null) {
+        window.cancelAnimationFrame(scrollRafRef.current);
+      }
+    };
+  }, [panelCount, panelHeight]);
+
+  const panelStyle = panelHeight
+    ? ({ height: panelHeight } as const)
+    : undefined;
   const showStars = activeIndex === 0;
   const serpentStrength = activeIndex === 0 ? 1 : 0;
   const serpentBackgroundOpacity = activeIndex === 0 ? 1 : 0;
   const mainBackgroundColor = isCloudPanel
     ? cloudPalette.skyBottom
     : theme.palette.background;
+  const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
+  const navProgress = panelHeight
+    ? Math.min(Math.max(scrollProgress, 0), Math.max(0, panelCount - 1))
+    : activeIndex;
   return (
     <main
       className="relative h-screen overflow-hidden"
@@ -137,12 +181,29 @@ export default function PageShell({ children }: PageShellProps) {
       <div className="pointer-events-none fixed inset-0 z-20">
         <nav
           aria-label="Site sections"
-          className="pointer-events-auto absolute flex flex-col items-center gap-4"
+          className="pointer-events-auto absolute flex flex-col items-center"
           style={{
             right: NAV_RIGHT,
             top: NAV_TOP,
+            gap: NAV_STACK_GAP,
           }}
         >
+          <span
+            aria-hidden="true"
+            style={{
+              position: "absolute",
+              top: 0,
+              left: "50%",
+              width: NAV_BUTTON_SIZE,
+              height: NAV_BUTTON_SIZE,
+              borderRadius: 7,
+              border: `1px solid ${theme.iconRing}`,
+              boxShadow: `0 0 12px ${theme.iconRing}`,
+              transform: `translate(-50%, ${navProgress * navStep}px)`,
+              transition: "border-color 700ms ease, box-shadow 700ms ease",
+              pointerEvents: "none",
+            }}
+          />
           {NAV_ITEMS.slice(0, panelCount).map((item, index) => {
             const isActive = activeIndex === index;
             return (
@@ -152,17 +213,40 @@ export default function PageShell({ children }: PageShellProps) {
                 aria-label={item.label}
                 aria-pressed={isActive}
                 title={item.label}
-                onClick={() => setActiveIndex(index)}
-                className="flex items-center justify-center rounded-md hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                onClick={() => {
+                  setActiveIndex(index);
+                  const scrollEl = scrollRef.current;
+                  if (scrollEl && panelHeight) {
+                    scrollEl.scrollTo({
+                      top: index * panelHeight,
+                      behavior: "smooth",
+                    });
+                  }
+                }}
+                className="group relative flex items-center justify-center rounded-md hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{
                   width: NAV_BUTTON_SIZE,
                   height: NAV_BUTTON_SIZE,
                   borderRadius: 7,
-                  border: isActive ? `1px solid ${theme.iconRing}` : "1px solid transparent",
+                  border: "1px solid transparent",
                   transition:
                     "transform 300ms ease, border-color 700ms ease, box-shadow 700ms ease",
                 }}
               >
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em] opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 translate-x-2"
+                  style={{
+                    color: theme.text,
+                    borderColor: theme.iconRing,
+                    backgroundColor: isLight
+                      ? "rgba(249, 238, 210, 0.92)"
+                      : "rgba(20, 21, 23, 0.85)",
+                    boxShadow: `0 10px 30px rgba(0, 0, 0, 0.25)`,
+                  }}
+                >
+                  {item.label}
+                </span>
                 <span
                   aria-hidden="true"
                   style={{
@@ -264,12 +348,24 @@ export default function PageShell({ children }: PageShellProps) {
 
       <div className="absolute z-10" style={{ inset: FRAME_MARGIN }}>
         <div ref={frameRef} className="relative h-full w-full overflow-hidden">
-          <div style={railStyle}>
+          <div
+            ref={scrollRef}
+            className="h-full w-full overflow-y-auto scrollbar-hidden"
+            style={{
+              scrollSnapType: "y mandatory",
+              overscrollBehavior: "contain",
+              WebkitOverflowScrolling: "touch",
+            }}
+          >
             {visiblePanels.map((panel, index) => (
               <section
                 key={NAV_ITEMS[index]?.label ?? index}
                 className="flex h-full w-full items-center"
-                style={panelStyle}
+                style={{
+                  ...panelStyle,
+                  scrollSnapAlign: "start",
+                  scrollSnapStop: "always",
+                }}
               >
                 <div className="mx-auto w-full max-w-3xl px-10 py-16">{panel}</div>
               </section>
