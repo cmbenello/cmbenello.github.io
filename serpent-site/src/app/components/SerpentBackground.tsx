@@ -90,6 +90,7 @@ type SerpentBackgroundProps = {
   frameMargin?: number;
   starVisibility?: number;
   serpentVisibility?: number;
+  backgroundOpacity?: number;
   starWarpTrigger?: number;
   starWarpDirection?: StarWarpDirection;
   starWarpEntering?: boolean;
@@ -100,6 +101,7 @@ type Rgba = [number, number, number, number];
 
 const WHITE: Rgb = [255, 255, 255];
 const STAR_WARP_MS = 520;
+const MAX_DPR = 1.5;
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 const easeInCubic = (value: number) => {
   const t = clamp01(value);
@@ -199,6 +201,7 @@ export default function SerpentBackground({
   frameMargin = 32,
   starVisibility = 0,
   serpentVisibility = 1,
+  backgroundOpacity = 1,
   starWarpTrigger = 0,
   starWarpDirection = "up",
   starWarpEntering = false,
@@ -208,6 +211,7 @@ export default function SerpentBackground({
   const rafRef = useRef<number | null>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
+  const startLoopRef = useRef<(() => void) | null>(null);
   const dotStyleCurrentRef = useRef<DotStyle>(palette.dotStyle ?? "dot");
   const dotStyleTransitionRef = useRef<{
     from: DotStyle;
@@ -220,6 +224,7 @@ export default function SerpentBackground({
   const starAlphaRef = useRef<number>(clamp01(starVisibility));
   const starTargetRef = useRef<number>(clamp01(starVisibility));
   const starVisibilityRef = useRef<number>(clamp01(starVisibility));
+  const backgroundOpacityRef = useRef<number>(clamp01(backgroundOpacity));
   const starTransitionRef = useRef<{
     start: number;
     duration: number;
@@ -244,6 +249,7 @@ export default function SerpentBackground({
 
   serpentVisibilityRef.current = clamp01(serpentVisibility);
   starVisibilityRef.current = clamp01(starVisibility);
+  backgroundOpacityRef.current = clamp01(backgroundOpacity);
 
   useEffect(() => {
     const nextStyle = palette.dotStyle ?? "dot";
@@ -271,6 +277,9 @@ export default function SerpentBackground({
       to: target,
     };
     paletteTargetRef.current = target;
+    if (startLoopRef.current) {
+      startLoopRef.current();
+    }
   }, [palette]);
 
   useLayoutEffect(() => {
@@ -278,8 +287,17 @@ export default function SerpentBackground({
     starTargetRef.current = target;
     const from = starAlphaRef.current ?? 0;
     if (target <= 0) {
-      starTransitionRef.current = null;
-      starAlphaRef.current = 0;
+      if (from > 0.01) {
+        starTransitionRef.current = {
+          start: performance.now(),
+          duration: 600,
+          from,
+          to: 0,
+        };
+      } else {
+        starTransitionRef.current = null;
+        starAlphaRef.current = 0;
+      }
       return;
     }
     if (Math.abs(from - target) < 0.01) {
@@ -293,6 +311,9 @@ export default function SerpentBackground({
       from,
       to: target,
     };
+    if (startLoopRef.current) {
+      startLoopRef.current();
+    }
   }, [starVisibility]);
 
   useLayoutEffect(() => {
@@ -304,7 +325,22 @@ export default function SerpentBackground({
       direction: starWarpDirection,
       entering,
     };
+    if (startLoopRef.current) {
+      startLoopRef.current();
+    }
   }, [starWarpTrigger, starWarpDirection, starWarpEntering]);
+
+  useEffect(() => {
+    if (
+      clamp01(serpentVisibility) > 0.01 ||
+      clamp01(starVisibility) > 0.01 ||
+      clamp01(backgroundOpacity) > 0.01
+    ) {
+      if (startLoopRef.current) {
+        startLoopRef.current();
+      }
+    }
+  }, [serpentVisibility, starVisibility, backgroundOpacity]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -529,12 +565,12 @@ export default function SerpentBackground({
       stars = new Array(count);
       for (let i = 0; i < count; i++) {
         const depth = Math.random();
-        const sizeBias = depth * depth;
+        const sizeBias = Math.pow(depth, 1.6);
         stars[i] = {
           x: Math.random() * w,
           y: Math.random() * h,
-          r: 0.3 + sizeBias * 1.6,
-          a: 0.12 + depth * 0.4,
+          r: 0.22 + sizeBias * 0.9,
+          a: 0.08 + depth * 0.3,
           tw: 0.3 + Math.random() * 0.9,
           phase: Math.random() * twoPi,
         };
@@ -568,7 +604,7 @@ export default function SerpentBackground({
       const rect = parent.getBoundingClientRect();
       w = Math.max(1, Math.floor(rect.width));
       h = Math.max(1, Math.floor(rect.height));
-      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvasEl.width = Math.floor(w * dpr);
       canvasEl.height = Math.floor(h * dpr);
       canvasEl.style.width = `${w}px`;
@@ -625,8 +661,12 @@ export default function SerpentBackground({
       }
 
       const containerEl = containerRef.current;
+      const backgroundAlpha = backgroundOpacityRef.current;
       if (containerEl) {
-        containerEl.style.background = formatRgb(paletteState.background);
+        containerEl.style.background =
+          backgroundAlpha > 0.01
+            ? formatRgba(paletteState.background, backgroundAlpha)
+            : "transparent";
       }
       const frameEl = frameRef.current;
       if (frameEl) {
@@ -635,8 +675,12 @@ export default function SerpentBackground({
 
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = formatRgb(paletteState.background);
-      ctx.fillRect(0, 0, w, h);
+      if (backgroundAlpha > 0.01) {
+        ctx.globalAlpha = backgroundAlpha;
+        ctx.fillStyle = formatRgb(paletteState.background);
+        ctx.fillRect(0, 0, w, h);
+        ctx.globalAlpha = 1;
+      }
 
       let warpProgress = 0;
       let warpDirection: StarWarpDirection = "up";
@@ -719,17 +763,21 @@ export default function SerpentBackground({
           ctx.beginPath();
           ctx.arc(star.x, drawY, star.r, 0, twoPi);
           ctx.fill();
-          if (star.r > 1.15) {
-            ctx.globalAlpha = alpha * 0.35;
-            ctx.beginPath();
-            ctx.arc(star.x, drawY, star.r * 2.1, 0, twoPi);
-            ctx.fill();
-          }
         }
         ctx.restore();
       }
 
       if (serpentStrength <= 0.01) {
+        const idle =
+          starAlpha <= 0.01 &&
+          !transitionRef.current &&
+          !dotStyleTransitionRef.current &&
+          !starTransitionRef.current &&
+          !starWarpRef.current;
+        if (idle) {
+          rafRef.current = null;
+          return;
+        }
         rafRef.current = requestAnimationFrame(draw);
         return;
       }
@@ -1378,11 +1426,18 @@ export default function SerpentBackground({
 
     resize();
     window.addEventListener("resize", resize);
-    rafRef.current = requestAnimationFrame(draw);
+    const startLoop = () => {
+      if (rafRef.current !== null) return;
+      last = performance.now();
+      rafRef.current = requestAnimationFrame(draw);
+    };
+    startLoopRef.current = startLoop;
+    startLoop();
 
     return () => {
       window.removeEventListener("resize", resize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      startLoopRef.current = null;
       ctxRef.current = null;
     };
   }, []);

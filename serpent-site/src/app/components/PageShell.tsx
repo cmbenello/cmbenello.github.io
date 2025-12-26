@@ -9,6 +9,10 @@ import {
   type ReactNode,
 } from "react";
 
+import CloudBackground, {
+  DARK_CLOUD_PALETTE,
+  LIGHT_CLOUD_PALETTE,
+} from "./CloudBackground";
 import SerpentBackground, {
   DEFAULT_PALETTE,
   LIGHT_PALETTE,
@@ -56,6 +60,8 @@ export default function PageShell({ children }: PageShellProps) {
         iconShadow: "drop-shadow(0 4px 14px rgba(230, 225, 216, 0.28))",
         iconRing: "rgba(230, 225, 216, 0.2)",
       };
+  const cloudPalette = isLight ? LIGHT_CLOUD_PALETTE : DARK_CLOUD_PALETTE;
+  const isCloudPanel = activeIndex === 1;
 
   useEffect(() => {
     const doc = document.documentElement;
@@ -96,12 +102,20 @@ export default function PageShell({ children }: PageShellProps) {
   } as const;
 
   const panelStyle = panelHeight ? ({ height: panelHeight } as const) : undefined;
-  const showBackground = activeIndex === 0;
+  const showStars = activeIndex === 0;
+  const serpentStrength = activeIndex === 0 ? 1 : 0;
+  const serpentBackgroundOpacity = activeIndex === 0 ? 1 : 0;
+  const mainBackgroundColor = isCloudPanel
+    ? cloudPalette.skyBottom
+    : theme.palette.background;
   return (
     <main
       className="relative h-screen overflow-hidden"
       style={{
-        backgroundColor: theme.palette.background,
+        backgroundColor: mainBackgroundColor,
+        backgroundImage: isCloudPanel
+          ? `linear-gradient(180deg, ${cloudPalette.skyTop}, ${cloudPalette.skyBottom})`
+          : "none",
         color: theme.text,
         transition: "background-color 700ms ease, color 700ms ease",
       }}
@@ -109,8 +123,15 @@ export default function PageShell({ children }: PageShellProps) {
       <SerpentBackground
         palette={theme.palette}
         frameMargin={FRAME_MARGIN}
-        starVisibility={showBackground ? 1 : 0}
-        serpentVisibility={showBackground ? 1 : 0}
+        starVisibility={showStars ? 1 : 0}
+        serpentVisibility={serpentStrength}
+        backgroundOpacity={serpentBackgroundOpacity}
+      />
+      <CloudBackground
+        frameMargin={FRAME_MARGIN}
+        active={isCloudPanel}
+        palette={cloudPalette}
+        skyOpacity={0}
       />
 
       <div className="pointer-events-none fixed inset-0 z-20">
