@@ -13,6 +13,7 @@ import CloudBackground, {
   DARK_CLOUD_PALETTE,
   LIGHT_CLOUD_PALETTE,
 } from "./CloudBackground";
+import MountainBackground from "./MountainBackground";
 import SerpentBackground, {
   DEFAULT_PALETTE,
   LIGHT_PALETTE,
@@ -152,6 +153,8 @@ export default function PageShell({ children }: PageShellProps) {
   const progress = panelHeight ? clamp(scrollProgress, 0, maxIndex) : activeIndex;
   const serpentBlend = easeInOut(clamp01(1 - Math.abs(progress)));
   const cloudBlend = panelCount > 1 ? easeInOut(clamp01(1 - Math.abs(progress - 1))) : 0;
+  const mountainBlend =
+    panelCount > 2 ? easeInOut(clamp01(1 - Math.abs(progress - 2))) : 0;
   const cloudActive = cloudBlend > 0.02;
   const showStars = serpentBlend;
   const serpentStrength = serpentBlend;
@@ -160,6 +163,7 @@ export default function PageShell({ children }: PageShellProps) {
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
   const navProgress = progress;
   const cloudGradient = `linear-gradient(180deg, ${theme.palette.background} 0%, ${theme.palette.background} 48%, ${cloudPalette.skyTop} 72%, ${cloudPalette.skyBottom} 100%)`;
+  const mountainBackground = cloudPalette.skyBottom;
   return (
     <main
       className="relative h-screen overflow-hidden"
@@ -176,6 +180,14 @@ export default function PageShell({ children }: PageShellProps) {
         style={{
           backgroundImage: cloudGradient,
           opacity: cloudBlend,
+        }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundColor: mountainBackground,
+          opacity: mountainBlend,
         }}
       />
       <SerpentBackground
@@ -197,6 +209,12 @@ export default function PageShell({ children }: PageShellProps) {
           skyOpacity={0}
         />
       </div>
+      <MountainBackground
+        frameMargin={FRAME_MARGIN}
+        opacity={mountainBlend}
+        stroke={cloudPalette.stroke}
+        mist={cloudPalette.mist}
+      />
 
       <div className="pointer-events-none fixed inset-0 z-20">
         <nav

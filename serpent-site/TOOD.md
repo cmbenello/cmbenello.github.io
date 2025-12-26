@@ -21,6 +21,12 @@
     - Projects
     - Maybe random ? tattoo page fade
 
+Extra 
+ - [ ] ligtening
+ - [ ] stars fade up light speed 
+ - [ ] clouds part
+-  [ ] mountains go away like armor
+-  [ ] see flows in
 
 
 - transition speed
