@@ -32,6 +32,13 @@ const NAV_GAP = 4;
 const NAV_STACK_GAP = 16;
 const NAV_RIGHT = Math.max(4, FRAME_MARGIN - NAV_BUTTON_SIZE - NAV_GAP);
 const NAV_TOP = Math.round(FRAME_MARGIN * 2.4);
+const clamp = (value: number, min: number, max: number) =>
+  Math.min(max, Math.max(min, value));
+const clamp01 = (value: number) => clamp(value, 0, 1);
+const easeInOut = (value: number) => {
+  const t = clamp01(value);
+  return t * t * (3 - 2 * t);
+};
 
 type PageShellProps = {
   children: ReactNode;
@@ -66,7 +73,6 @@ export default function PageShell({ children }: PageShellProps) {
         iconRing: "rgba(230, 225, 216, 0.2)",
       };
   const cloudPalette = isLight ? LIGHT_CLOUD_PALETTE : DARK_CLOUD_PALETTE;
-  const isCloudPanel = activeIndex === 1;
 
   useEffect(() => {
     const doc = document.documentElement;
@@ -142,41 +148,55 @@ export default function PageShell({ children }: PageShellProps) {
   const panelStyle = panelHeight
     ? ({ height: panelHeight } as const)
     : undefined;
-  const showStars = activeIndex === 0;
-  const serpentStrength = activeIndex === 0 ? 1 : 0;
-  const serpentBackgroundOpacity = activeIndex === 0 ? 1 : 0;
-  const mainBackgroundColor = isCloudPanel
-    ? cloudPalette.skyBottom
-    : theme.palette.background;
+  const maxIndex = Math.max(0, panelCount - 1);
+  const progress = panelHeight ? clamp(scrollProgress, 0, maxIndex) : activeIndex;
+  const serpentBlend = easeInOut(clamp01(1 - Math.abs(progress)));
+  const cloudBlend = panelCount > 1 ? easeInOut(clamp01(1 - Math.abs(progress - 1))) : 0;
+  const cloudActive = cloudBlend > 0.02;
+  const showStars = serpentBlend;
+  const serpentStrength = serpentBlend;
+  const serpentBackgroundOpacity = serpentBlend;
+  const mainBackgroundColor = theme.palette.background;
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
-  const navProgress = panelHeight
-    ? Math.min(Math.max(scrollProgress, 0), Math.max(0, panelCount - 1))
-    : activeIndex;
+  const navProgress = progress;
+  const cloudGradient = `linear-gradient(180deg, ${theme.palette.background} 0%, ${theme.palette.background} 48%, ${cloudPalette.skyTop} 72%, ${cloudPalette.skyBottom} 100%)`;
   return (
     <main
       className="relative h-screen overflow-hidden"
       style={{
         backgroundColor: mainBackgroundColor,
-        backgroundImage: isCloudPanel
-          ? `linear-gradient(180deg, ${cloudPalette.skyTop}, ${cloudPalette.skyBottom})`
-          : "none",
+        backgroundImage: "none",
         color: theme.text,
         transition: "background-color 700ms ease, color 700ms ease",
       }}
     >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{
+          backgroundImage: cloudGradient,
+          opacity: cloudBlend,
+        }}
+      />
       <SerpentBackground
         palette={theme.palette}
         frameMargin={FRAME_MARGIN}
-        starVisibility={showStars ? 1 : 0}
+        starVisibility={showStars}
         serpentVisibility={serpentStrength}
         backgroundOpacity={serpentBackgroundOpacity}
       />
-      <CloudBackground
-        frameMargin={FRAME_MARGIN}
-        active={isCloudPanel}
-        palette={cloudPalette}
-        skyOpacity={0}
-      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0"
+        style={{ opacity: cloudBlend }}
+      >
+        <CloudBackground
+          frameMargin={FRAME_MARGIN}
+          active={cloudActive}
+          palette={cloudPalette}
+          skyOpacity={0}
+        />
+      </div>
 
       <div className="pointer-events-none fixed inset-0 z-20">
         <nav

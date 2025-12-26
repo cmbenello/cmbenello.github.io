@@ -65,7 +65,7 @@ export const DEFAULT_PALETTE: SerpentPalette = {
   background: "#141517",
   dot: "#ffffff",
   glow: "120, 190, 255",
-  border: "rgba(255, 255, 255, 0.25)",
+  border: "rgba(255, 255, 255, 0.4)",
   dotStyle: "dot",
   dotDensityScale: 1,
   dotAlphaScale: 1.6,
