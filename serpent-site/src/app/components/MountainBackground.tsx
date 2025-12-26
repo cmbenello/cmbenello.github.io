@@ -5,6 +5,8 @@ type MountainBackgroundProps = {
   opacity?: number;
   stroke?: string;
   mist?: string;
+  mistBoost?: number;
+  strokeBoost?: number;
 };
 
 type MountainLayer = {
@@ -432,6 +434,8 @@ export default function MountainBackground({
   opacity = 1,
   stroke = DEFAULT_STROKE,
   mist = DEFAULT_MIST,
+  mistBoost = 1,
+  strokeBoost = 1,
 }: MountainBackgroundProps) {
   const inset = frameMargin + 1;
   const alpha = clamp01(opacity);
@@ -461,7 +465,8 @@ export default function MountainBackground({
           const color = layer.tone === "mist" ? mist : stroke;
           const mistHeight = clamp01((layer.bottom - 24) / 90);
           const depthFade = layer.tone === "mist" ? 1 - mistHeight * 0.3 : 1;
-          const layerOpacity = layer.opacity * depthFade;
+          const toneBoost = layer.tone === "mist" ? mistBoost : strokeBoost;
+          const layerOpacity = clamp01(layer.opacity * depthFade * toneBoost);
           const translate = layer.flip
             ? "translateX(-50%) scaleX(-1)"
             : "translateX(-50%)";

@@ -160,6 +160,15 @@ export default function PageShell({ children }: PageShellProps) {
   const serpentStrength = serpentBlend;
   const serpentBackgroundOpacity = serpentBlend;
   const mainBackgroundColor = theme.palette.background;
+  const mountainToneBoost = isLight
+    ? { mist: 2.3, stroke: 1.4 }
+    : { mist: 1, stroke: 1 };
+  const mountainPalette = isLight
+    ? {
+        stroke: "rgba(192, 42, 50, 0.72)",
+        mist: "rgba(192, 42, 50, 0.36)",
+      }
+    : { stroke: cloudPalette.stroke, mist: cloudPalette.mist };
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
   const navProgress = progress;
   const cloudGradient = `linear-gradient(180deg, ${theme.palette.background} 0%, ${theme.palette.background} 48%, ${cloudPalette.skyTop} 72%, ${cloudPalette.skyBottom} 100%)`;
@@ -212,8 +221,10 @@ export default function PageShell({ children }: PageShellProps) {
       <MountainBackground
         frameMargin={FRAME_MARGIN}
         opacity={mountainBlend}
-        stroke={cloudPalette.stroke}
-        mist={cloudPalette.mist}
+        stroke={mountainPalette.stroke}
+        mist={mountainPalette.mist}
+        mistBoost={mountainToneBoost.mist}
+        strokeBoost={mountainToneBoost.stroke}
       />
 
       <div className="pointer-events-none fixed inset-0 z-20">
