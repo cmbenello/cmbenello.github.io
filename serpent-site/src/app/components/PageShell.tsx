@@ -152,23 +152,31 @@ export default function PageShell({ children }: PageShellProps) {
   const maxIndex = Math.max(0, panelCount - 1);
   const progress = panelHeight ? clamp(scrollProgress, 0, maxIndex) : activeIndex;
   const serpentBlend = easeInOut(clamp01(1 - Math.abs(progress)));
-  const cloudBlend = panelCount > 1 ? easeInOut(clamp01(1 - Math.abs(progress - 1))) : 0;
+  const cloudBlend =
+    panelCount > 1
+      ? easeInOut(clamp01(1 - Math.abs(progress - 1) / 0.45))
+      : 0;
   const mountainBlend =
-    panelCount > 2 ? easeInOut(clamp01(1 - Math.abs(progress - 2))) : 0;
+    panelCount > 2
+      ? easeInOut(clamp01(1 - Math.abs(progress - 2) / 0.45))
+      : 0;
   const cloudActive = cloudBlend > 0.02;
   const showStars = serpentBlend;
   const serpentStrength = serpentBlend;
   const serpentBackgroundOpacity = serpentBlend;
   const mainBackgroundColor = theme.palette.background;
   const mountainToneBoost = isLight
-    ? { mist: 2.3, stroke: 1.4 }
-    : { mist: 1, stroke: 1 };
+    ? { mist: 1.5, stroke: 1.4 }
+    : { mist: 1.6, stroke: 1.1 };
   const mountainPalette = isLight
     ? {
         stroke: "rgba(192, 42, 50, 0.72)",
-        mist: "rgba(192, 42, 50, 0.36)",
+        mist: "rgba(192, 42, 50, 0.24)",
       }
-    : { stroke: cloudPalette.stroke, mist: cloudPalette.mist };
+    : {
+        stroke: "rgba(230, 225, 216, 0.55)",
+        mist: "rgba(230, 225, 216, 0.22)",
+      };
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
   const navProgress = progress;
   const cloudGradient = `linear-gradient(180deg, ${theme.palette.background} 0%, ${theme.palette.background} 48%, ${cloudPalette.skyTop} 72%, ${cloudPalette.skyBottom} 100%)`;
@@ -220,7 +228,8 @@ export default function PageShell({ children }: PageShellProps) {
       </div>
       <MountainBackground
         frameMargin={FRAME_MARGIN}
-        opacity={mountainBlend}
+        opacity={1}
+        transitionProgress={mountainBlend}
         stroke={mountainPalette.stroke}
         mist={mountainPalette.mist}
         mistBoost={mountainToneBoost.mist}
