@@ -21,6 +21,9 @@
     - Projects
     - Maybe random ? tattoo page fade
 
+Mountains
+- [ ] Fade in effect just isn't working man like is fake  need it to be faster as well
+- [ ] there is a blsank space in middle 20%
 Extra 
  - [ ] ligtening
  - [ ] stars fade up light speed 

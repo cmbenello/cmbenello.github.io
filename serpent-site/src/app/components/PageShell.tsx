@@ -234,6 +234,7 @@ export default function PageShell({ children }: PageShellProps) {
         mist={mountainPalette.mist}
         mistBoost={mountainToneBoost.mist}
         strokeBoost={mountainToneBoost.stroke}
+        dashOpacityBoost={isLight ? 0.55 : 1}
       />
 
       <div className="pointer-events-none fixed inset-0 z-20">
