@@ -21,9 +21,16 @@
     - Projects
     - Maybe random ? tattoo page fade
 
+Stars
+- [ ] Light mode bacgkround is dark should be light
+
+
 Mountains
 - [ ] Fade in effect just isn't working man like is fake  need it to be faster as well
-- [ ] there is a blsank space in middle 20%
+
+
+Waves 
+- [ ] WAves shoudl be red not whites
 Extra 
  - [ ] ligtening
  - [ ] stars fade up light speed 
@@ -33,3 +40,14 @@ Extra
 
 
 - transition speed
+
+the scrolling should be way omre agressive cus rn i do scroll wheel like super slow and it gets stuck doesn't look great so i need evne more nsappy and more responsive Stars
+- [ ] Light mode bacgkround is dark should be light
+
+
+Mountains
+- [ ] Fade in effect just isn't working man like is fake  need it to be faster as well
+
+
+Waves 
+- [ ] WAves shoudl be red not whites

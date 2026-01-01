@@ -18,6 +18,7 @@ import SerpentBackground, {
   DEFAULT_PALETTE,
   LIGHT_PALETTE,
 } from "./SerpentBackground";
+import WaveBackground from "./WaveBackground";
 
 const NAV_ITEMS = [
   { label: "Work" },
@@ -146,25 +147,61 @@ export default function PageShell({ children }: PageShellProps) {
     };
   }, [panelCount, panelHeight]);
 
+  useEffect(() => {
+    const scrollEl = scrollRef.current;
+    if (!scrollEl || !panelHeight) return;
+    let lastWheelAt = 0;
+    const onWheel = (event: WheelEvent) => {
+      if (event.ctrlKey) return;
+      const direction = Math.sign(event.deltaY);
+      if (!direction) return;
+      const now = performance.now();
+      if (now - lastWheelAt < 220) {
+        event.preventDefault();
+        return;
+      }
+      lastWheelAt = now;
+      const currentIndex = Math.round(scrollEl.scrollTop / panelHeight);
+      const maxIndex = Math.max(0, panelCount - 1);
+      const nextIndex = Math.min(
+        maxIndex,
+        Math.max(0, currentIndex + direction),
+      );
+      scrollEl.scrollTo({
+        top: nextIndex * panelHeight,
+        behavior: "smooth",
+      });
+      event.preventDefault();
+    };
+    scrollEl.addEventListener("wheel", onWheel, { passive: false });
+    return () => scrollEl.removeEventListener("wheel", onWheel);
+  }, [panelCount, panelHeight]);
+
   const panelStyle = panelHeight
     ? ({ height: panelHeight } as const)
     : undefined;
   const maxIndex = Math.max(0, panelCount - 1);
   const progress = panelHeight ? clamp(scrollProgress, 0, maxIndex) : activeIndex;
-  const serpentBlend = easeInOut(clamp01(1 - Math.abs(progress)));
+  const serpentBlend = easeInOut(clamp01(1 - Math.abs(progress) / 0.6));
   const cloudBlend =
     panelCount > 1
-      ? easeInOut(clamp01(1 - Math.abs(progress - 1) / 0.45))
+      ? easeInOut(clamp01(1 - Math.abs(progress - 1) / 0.35))
       : 0;
   const mountainBlend =
     panelCount > 2
-      ? easeInOut(clamp01(1 - Math.abs(progress - 2) / 0.45))
+      ? easeInOut(clamp01(1 - Math.abs(progress - 2) / 0.3))
+      : 0;
+  const waterBlend =
+    panelCount > 3
+      ? easeInOut(clamp01(1 - Math.abs(progress - 3) / 0.3))
       : 0;
   const cloudActive = cloudBlend > 0.02;
   const showStars = serpentBlend;
   const serpentStrength = serpentBlend;
   const serpentBackgroundOpacity = serpentBlend;
-  const mainBackgroundColor = theme.palette.background;
+  const mainBackgroundColor = isLight
+    ? LIGHT_PALETTE.background
+    : DEFAULT_PALETTE.background;
   const mountainToneBoost = isLight
     ? { mist: 1.5, stroke: 1.4 }
     : { mist: 1.6, stroke: 1.1 };
@@ -179,8 +216,11 @@ export default function PageShell({ children }: PageShellProps) {
       };
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
   const navProgress = progress;
-  const cloudGradient = `linear-gradient(180deg, ${theme.palette.background} 0%, ${theme.palette.background} 48%, ${cloudPalette.skyTop} 72%, ${cloudPalette.skyBottom} 100%)`;
-  const mountainBackground = cloudPalette.skyBottom;
+  const cloudGradient = `linear-gradient(180deg, ${mainBackgroundColor} 0%, ${mainBackgroundColor} 100%)`;
+  const mountainBackground = mainBackgroundColor;
+  const waveColor = isLight
+    ? "rgba(192, 42, 50, 0.85)"
+    : "rgba(255, 255, 255, 0.85)";
   return (
     <main
       className="relative h-screen overflow-hidden"
@@ -235,6 +275,12 @@ export default function PageShell({ children }: PageShellProps) {
         mistBoost={mountainToneBoost.mist}
         strokeBoost={mountainToneBoost.stroke}
         dashOpacityBoost={isLight ? 0.55 : 1}
+      />
+      <WaveBackground
+        frameMargin={FRAME_MARGIN}
+        opacity={waterBlend * 0.7}
+        backgroundColor="transparent"
+        lineColor={waveColor}
       />
 
       <div className="pointer-events-none fixed inset-0 z-20">
