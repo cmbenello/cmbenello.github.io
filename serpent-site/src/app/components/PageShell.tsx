@@ -472,6 +472,11 @@ export default function PageShell({ children }: PageShellProps) {
       <div className="absolute z-10" style={{ inset: FRAME_MARGIN }}>
         <div ref={frameRef} className="relative h-full w-full overflow-hidden">
           <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0"
+            style={contentScrimStyle}
+          />
+          <div
             ref={scrollRef}
             className="h-full w-full overflow-y-auto scrollbar-hidden"
             style={{
@@ -483,7 +488,7 @@ export default function PageShell({ children }: PageShellProps) {
             {visiblePanels.map((panel, index) => (
               <section
                 key={NAV_ITEMS[index]?.label ?? index}
-                className="relative flex h-full w-full items-start"
+                className="flex h-full w-full items-start"
                 style={{
                   ...panelStyle,
                   scrollSnapAlign: "start",
@@ -491,12 +496,7 @@ export default function PageShell({ children }: PageShellProps) {
                 }}
               >
                 <div
-                  aria-hidden="true"
-                  className="pointer-events-none absolute inset-0"
-                  style={contentScrimStyle}
-                />
-                <div
-                  className="relative w-full px-10 py-14 lg:px-20"
+                  className="w-full px-10 py-14 lg:px-20"
                   style={contentPanelStyle}
                 >
                   {panel}
