@@ -21,10 +21,10 @@ import SerpentBackground, {
 import WaveBackground from "./WaveBackground";
 
 const NAV_ITEMS = [
-  { label: "Work" },
-  { label: "Research" },
-  { label: "Tattoo" },
-  { label: "Elements" },
+  { label: "About" },
+  { label: "Experience" },
+  { label: "Research + Teaching" },
+  { label: "Projects" },
 ];
 
 const FRAME_MARGIN = 32;
@@ -214,6 +214,24 @@ export default function PageShell({ children }: PageShellProps) {
         stroke: "rgba(230, 225, 216, 0.55)",
         mist: "rgba(230, 225, 216, 0.22)",
       };
+  const contentPanelStyle = {
+    textShadow: isLight
+      ? "0 1px 8px rgba(0, 0, 0, 0.22)"
+      : "0 2px 22px rgba(0, 0, 0, 0.65)",
+  } as const;
+  const scrimStrong = isLight
+    ? "rgba(249, 238, 210, 0.92)"
+    : "rgba(10, 11, 13, 0.78)";
+  const scrimSoft = isLight
+    ? "rgba(249, 238, 210, 0.5)"
+    : "rgba(10, 11, 13, 0.32)";
+  const scrimClear = isLight
+    ? "rgba(249, 238, 210, 0)"
+    : "rgba(10, 11, 13, 0)";
+  const contentScrimStyle = {
+    backgroundImage: `radial-gradient(1200px 520px at 18% 12%, ${scrimStrong} 0%, ${scrimSoft} 55%, ${scrimClear} 100%), radial-gradient(1000px 520px at 78% 62%, ${scrimStrong} 0%, ${scrimSoft} 52%, ${scrimClear} 100%)`,
+    transition: "background-image 700ms ease",
+  } as const;
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
   const navProgress = progress;
   const cloudGradient = `linear-gradient(180deg, ${mainBackgroundColor} 0%, ${mainBackgroundColor} 100%)`;
@@ -465,14 +483,24 @@ export default function PageShell({ children }: PageShellProps) {
             {visiblePanels.map((panel, index) => (
               <section
                 key={NAV_ITEMS[index]?.label ?? index}
-                className="flex h-full w-full items-center"
+                className="relative flex h-full w-full items-start"
                 style={{
                   ...panelStyle,
                   scrollSnapAlign: "start",
                   scrollSnapStop: "always",
                 }}
               >
-                <div className="mx-auto w-full max-w-3xl px-10 py-16">{panel}</div>
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-0"
+                  style={contentScrimStyle}
+                />
+                <div
+                  className="relative w-full px-10 py-14 lg:px-20"
+                  style={contentPanelStyle}
+                >
+                  {panel}
+                </div>
               </section>
             ))}
           </div>
