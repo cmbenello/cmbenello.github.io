@@ -94,6 +94,7 @@ type SerpentBackgroundProps = {
   starWarpTrigger?: number;
   starWarpDirection?: StarWarpDirection;
   starWarpEntering?: boolean;
+  paused?: boolean;
 };
 
 type Rgb = [number, number, number];
@@ -205,6 +206,7 @@ export default function SerpentBackground({
   starWarpTrigger = 0,
   starWarpDirection = "up",
   starWarpEntering = false,
+  paused = false,
 }: SerpentBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const ctxRef = useRef<CanvasRenderingContext2D | null>(null);
@@ -212,6 +214,7 @@ export default function SerpentBackground({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const startLoopRef = useRef<(() => void) | null>(null);
+  const pausedRef = useRef(paused);
   const dotStyleCurrentRef = useRef<DotStyle>(palette.dotStyle ?? "dot");
   const dotStyleTransitionRef = useRef<{
     from: DotStyle;
@@ -341,6 +344,20 @@ export default function SerpentBackground({
       }
     }
   }, [serpentVisibility, starVisibility, backgroundOpacity]);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    if (paused) {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      return;
+    }
+    if (startLoopRef.current) {
+      startLoopRef.current();
+    }
+  }, [paused]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -627,6 +644,10 @@ export default function SerpentBackground({
     function draw(now: number) {
       const ctx = ctxRef.current;
       if (!ctx) return;
+      if (pausedRef.current) {
+        rafRef.current = null;
+        return;
+      }
       const dt = Math.min(0.033, Math.max(0.008, (now - last) * 0.001));
       last = now;
       const nowSec = now * 0.001;
@@ -793,7 +814,7 @@ export default function SerpentBackground({
         lifeAge = 0;
         totalDuration = lifeDuration + respawnDelay;
       }
-      const paused = lifeAge >= lifeDuration;
+      const lifePaused = lifeAge >= lifeDuration;
 
       const growT = clamp(lifeAge / growDuration, 0, 1);
       const fadeDuration = Math.min(0.6, lifeDuration * 0.25);
@@ -804,13 +825,13 @@ export default function SerpentBackground({
       const growthWidth = 0.2 + 0.8 * growEase;
       const scaleVisibility = clamp((growEase - 0.2) / 0.8, 0, 1) * (1 - fadeEase);
       const overlayAlpha = scaleVisibility * 0.35;
-      const activeSegments = paused
+      const activeSegments = lifePaused
         ? 0
         : Math.max(1, Math.round(1 + (segmentCount - 1) * growEase));
 
       const snakeSpeed = min * 0.12;
       const samples: Sample[] = [];
-      if (!paused) {
+      if (!lifePaused) {
         const selfAvoidRadius = segmentSpacing * 4.2;
         const pathAvoidRadius = selfAvoidRadius * 1.2;
         const tailLength = segmentCount * segmentSpacing;
@@ -1427,7 +1448,7 @@ export default function SerpentBackground({
     resize();
     window.addEventListener("resize", resize);
     const startLoop = () => {
-      if (rafRef.current !== null) return;
+      if (rafRef.current !== null || pausedRef.current) return;
       last = performance.now();
       rafRef.current = requestAnimationFrame(draw);
     };

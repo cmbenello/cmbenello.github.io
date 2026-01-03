@@ -7,6 +7,7 @@ type WaveBackgroundProps = {
   opacity?: number;
   lineColor?: string;
   backgroundColor?: string;
+  paused?: boolean;
 };
 
 type WaveLine = {
@@ -122,13 +123,31 @@ export default function WaveBackground({
   opacity = 1,
   lineColor = "rgba(255, 255, 255, 0.8)",
   backgroundColor = "rgba(40, 58, 90, 1)",
+  paused = false,
 }: WaveBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const lineColorRef = useRef(lineColor);
+  const rafRef = useRef<number | null>(null);
+  const startLoopRef = useRef<(() => void) | null>(null);
+  const pausedRef = useRef(paused);
 
   useEffect(() => {
     lineColorRef.current = lineColor;
   }, [lineColor]);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    if (paused) {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      return;
+    }
+    if (startLoopRef.current) {
+      startLoopRef.current();
+    }
+  }, [paused]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -141,7 +160,6 @@ export default function WaveBackground({
     let dpr = 1;
     let tileWidth = 1;
     let layers: WaveLayer[] = [];
-    let rafId = 0;
     let startTime = performance.now();
 
     const buildLayers = () => {
@@ -204,6 +222,10 @@ export default function WaveBackground({
     };
 
     const draw = (now: number) => {
+      if (pausedRef.current) {
+        rafRef.current = null;
+        return;
+      }
       const elapsed = (now - startTime) * 0.001;
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
       ctx.clearRect(0, 0, w, h);
@@ -235,16 +257,24 @@ export default function WaveBackground({
       }
 
       ctx.globalAlpha = 1;
-      rafId = requestAnimationFrame(draw);
+      rafRef.current = requestAnimationFrame(draw);
     };
 
     resize();
-    rafId = requestAnimationFrame(draw);
+    const startLoop = () => {
+      if (rafRef.current !== null || pausedRef.current) return;
+      startTime = performance.now();
+      rafRef.current = requestAnimationFrame(draw);
+    };
+    startLoopRef.current = startLoop;
+    startLoop();
     window.addEventListener("resize", resize);
 
     return () => {
       window.removeEventListener("resize", resize);
-      if (rafId) cancelAnimationFrame(rafId);
+      if (rafRef.current) cancelAnimationFrame(rafRef.current);
+      rafRef.current = null;
+      startLoopRef.current = null;
     };
   }, []);
 

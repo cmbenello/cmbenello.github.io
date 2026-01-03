@@ -51,9 +51,13 @@ export default function PageShell({ children }: PageShellProps) {
   const [activeIndex, setActiveIndex] = useState(0);
   const [panelHeight, setPanelHeight] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
+  const [effectsPaused, setEffectsPaused] = useState(false);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollRafRef = useRef<number | null>(null);
+  const pauseSourcesRef = useRef<Set<string>>(new Set());
+  const themePauseTimeoutRef = useRef<number | null>(null);
+  const themeReadyRef = useRef(false);
 
   const panels = Children.toArray(children);
   const panelCount = Math.min(panels.length, NAV_ITEMS.length);
@@ -64,7 +68,7 @@ export default function PageShell({ children }: PageShellProps) {
   const theme = isLight
     ? {
         palette: LIGHT_PALETTE,
-        text: "#4a4740",
+        text: "#2f2b26",
         iconShadow: "drop-shadow(0 4px 14px rgba(128, 14, 20, 0.3))",
         iconRing: "rgba(128, 14, 20, 0.22)",
       }
@@ -88,6 +92,47 @@ export default function PageShell({ children }: PageShellProps) {
       body.style.overflow = prevBody;
     };
   }, []);
+
+  useEffect(() => {
+    const onEffectsPause = (event: Event) => {
+      const detail = (event as CustomEvent<{ source?: string; active?: boolean }>)
+        .detail;
+      if (!detail) return;
+      const source = detail.source || "unknown";
+      if (detail.active) {
+        pauseSourcesRef.current.add(source);
+      } else {
+        pauseSourcesRef.current.delete(source);
+      }
+      setEffectsPaused(pauseSourcesRef.current.size > 0);
+    };
+    window.addEventListener("effects-pause", onEffectsPause as EventListener);
+    return () =>
+      window.removeEventListener("effects-pause", onEffectsPause as EventListener);
+  }, []);
+
+  useEffect(() => {
+    if (!themeReadyRef.current) {
+      themeReadyRef.current = true;
+      return;
+    }
+    pauseSourcesRef.current.add("theme");
+    setEffectsPaused(true);
+    if (themePauseTimeoutRef.current) {
+      window.clearTimeout(themePauseTimeoutRef.current);
+    }
+    themePauseTimeoutRef.current = window.setTimeout(() => {
+      pauseSourcesRef.current.delete("theme");
+      setEffectsPaused(pauseSourcesRef.current.size > 0);
+      themePauseTimeoutRef.current = null;
+    }, 550);
+    return () => {
+      if (themePauseTimeoutRef.current) {
+        window.clearTimeout(themePauseTimeoutRef.current);
+        themePauseTimeoutRef.current = null;
+      }
+    };
+  }, [isLight]);
 
   useLayoutEffect(() => {
     const frame = frameRef.current;
@@ -145,36 +190,6 @@ export default function PageShell({ children }: PageShellProps) {
         window.cancelAnimationFrame(scrollRafRef.current);
       }
     };
-  }, [panelCount, panelHeight]);
-
-  useEffect(() => {
-    const scrollEl = scrollRef.current;
-    if (!scrollEl || !panelHeight) return;
-    let lastWheelAt = 0;
-    const onWheel = (event: WheelEvent) => {
-      if (event.ctrlKey) return;
-      const direction = Math.sign(event.deltaY);
-      if (!direction) return;
-      const now = performance.now();
-      if (now - lastWheelAt < 220) {
-        event.preventDefault();
-        return;
-      }
-      lastWheelAt = now;
-      const currentIndex = Math.round(scrollEl.scrollTop / panelHeight);
-      const maxIndex = Math.max(0, panelCount - 1);
-      const nextIndex = Math.min(
-        maxIndex,
-        Math.max(0, currentIndex + direction),
-      );
-      scrollEl.scrollTo({
-        top: nextIndex * panelHeight,
-        behavior: "smooth",
-      });
-      event.preventDefault();
-    };
-    scrollEl.addEventListener("wheel", onWheel, { passive: false });
-    return () => scrollEl.removeEventListener("wheel", onWheel);
   }, [panelCount, panelHeight]);
 
   const panelStyle = panelHeight
@@ -247,6 +262,49 @@ export default function PageShell({ children }: PageShellProps) {
         backgroundImage: "none",
         color: theme.text,
         transition: "background-color 700ms ease, color 700ms ease",
+        ["--panel-surface" as const]: isLight
+          ? "rgba(252, 244, 228, 0.98)"
+          : "rgba(14, 15, 17, 0.98)",
+        ["--panel-border" as const]: isLight
+          ? "rgba(47, 43, 38, 0.35)"
+          : "rgba(230, 225, 216, 0.3)",
+        ["--panel-border-strong" as const]: isLight
+          ? "rgba(47, 43, 38, 0.6)"
+          : "rgba(230, 225, 216, 0.55)",
+        ["--accent-rgb" as const]: isLight ? "192 42 50" : "230 225 216",
+        ["--accent-color" as const]: isLight
+          ? "rgba(192, 42, 50, 0.92)"
+          : "rgba(230, 225, 216, 0.92)",
+        ["--accent-1" as const]: isLight
+          ? "rgba(192, 42, 50, 0.18)"
+          : "rgba(230, 225, 216, 0.18)",
+        ["--accent-2" as const]: isLight
+          ? "rgba(192, 42, 50, 0.35)"
+          : "rgba(230, 225, 216, 0.35)",
+        ["--accent-3" as const]: isLight
+          ? "rgba(192, 42, 50, 0.55)"
+          : "rgba(230, 225, 216, 0.55)",
+        ["--accent-4" as const]: isLight
+          ? "rgba(192, 42, 50, 0.78)"
+          : "rgba(230, 225, 216, 0.78)",
+        ["--contrib-0" as const]: isLight
+          ? "rgba(54, 90, 120, 0.08)"
+          : "rgba(8, 18, 28, 0.88)",
+        ["--contrib-1" as const]: isLight
+          ? "rgba(62, 112, 154, 0.26)"
+          : "rgba(78, 140, 196, 0.28)",
+        ["--contrib-2" as const]: isLight
+          ? "rgba(58, 142, 186, 0.48)"
+          : "rgba(86, 172, 216, 0.5)",
+        ["--contrib-3" as const]: isLight
+          ? "rgba(48, 168, 204, 0.7)"
+          : "rgba(96, 206, 232, 0.74)",
+        ["--contrib-4" as const]: isLight
+          ? "rgba(28, 196, 222, 0.92)"
+          : "rgba(140, 234, 255, 0.9)",
+        ["--contrib-border" as const]: isLight
+          ? "rgba(48, 92, 128, 0.3)"
+          : "rgba(84, 128, 164, 0.24)",
       }}
     >
       <div
@@ -271,18 +329,20 @@ export default function PageShell({ children }: PageShellProps) {
         starVisibility={showStars}
         serpentVisibility={serpentStrength}
         backgroundOpacity={serpentBackgroundOpacity}
+        paused={effectsPaused}
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
         style={{ opacity: cloudBlend }}
       >
-        <CloudBackground
-          frameMargin={FRAME_MARGIN}
-          active={cloudActive}
-          palette={cloudPalette}
-          skyOpacity={0}
-        />
+          <CloudBackground
+            frameMargin={FRAME_MARGIN}
+            active={cloudActive}
+            palette={cloudPalette}
+            skyOpacity={0}
+            paused={effectsPaused}
+          />
       </div>
       <MountainBackground
         frameMargin={FRAME_MARGIN}
@@ -293,12 +353,14 @@ export default function PageShell({ children }: PageShellProps) {
         mistBoost={mountainToneBoost.mist}
         strokeBoost={mountainToneBoost.stroke}
         dashOpacityBoost={isLight ? 0.55 : 1}
+        paused={effectsPaused}
       />
       <WaveBackground
         frameMargin={FRAME_MARGIN}
         opacity={waterBlend * 0.7}
         backgroundColor="transparent"
         lineColor={waveColor}
+        paused={effectsPaused}
       />
 
       <div className="pointer-events-none fixed inset-0 z-20">

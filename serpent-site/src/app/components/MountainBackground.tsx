@@ -11,6 +11,7 @@ type MountainBackgroundProps = {
   strokeBoost?: number;
   dashOpacityBoost?: number;
   transitionProgress?: number;
+  paused?: boolean;
 };
 
 type MountainLayer = {
@@ -1091,6 +1092,7 @@ export default function MountainBackground({
   strokeBoost = 1,
   dashOpacityBoost = 1,
   transitionProgress,
+  paused = false,
 }: MountainBackgroundProps) {
   const inset = frameMargin + 1;
   const alpha = clamp01(opacity);
@@ -1102,6 +1104,7 @@ export default function MountainBackground({
   const enableFlyThrough = true;
   const dashOpacity = easeInOut(revealProgress) * alpha * dashOpacityBoost;
   const dashColor = stroke;
+  const animationPlayState = paused ? "paused" : "running";
 
   useEffect(() => {
     previousProgressRef.current = revealProgress;
@@ -1146,6 +1149,7 @@ export default function MountainBackground({
             bottom: `${strip.bottom.toFixed(2)}%`,
             height: `${strip.thickness.toFixed(2)}px`,
             animation: dashAnimation,
+            animationPlayState,
             transform: "translateX(0px)",
             ["--dash-shift" as const]: dashShift,
           };
@@ -1224,6 +1228,7 @@ export default function MountainBackground({
             transform: "translateX(-50%)",
             animation: animation || undefined,
             animationFillMode: animation ? "both" : undefined,
+            animationPlayState,
             transformOrigin: "center bottom",
             ["--base-opacity" as const]: layerOpacity,
             ["--base-shift" as const]: "-50%",

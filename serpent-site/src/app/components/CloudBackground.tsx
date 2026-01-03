@@ -33,6 +33,7 @@ type CloudBackgroundProps = {
   active?: boolean;
   palette?: CloudPalette;
   skyOpacity?: number;
+  paused?: boolean;
 };
 
 type Cloud = {
@@ -161,11 +162,13 @@ export default function CloudBackground({
   active = false,
   palette = DEFAULT_CLOUD_PALETTE,
   skyOpacity = 1,
+  paused = false,
 }: CloudBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const rafRef = useRef<number | null>(null);
   const activeRef = useRef(active);
   const startLoopRef = useRef<(() => void) | null>(null);
+  const pausedRef = useRef(paused);
   const paletteRef = useRef(palette);
   const paletteCurrentRef = useRef(palette);
   const paletteTargetRef = useRef(palette);
@@ -190,6 +193,20 @@ export default function CloudBackground({
       startLoopRef.current();
     }
   }, [active]);
+
+  useEffect(() => {
+    pausedRef.current = paused;
+    if (paused) {
+      if (rafRef.current) {
+        cancelAnimationFrame(rafRef.current);
+        rafRef.current = null;
+      }
+      return;
+    }
+    if (activeRef.current && startLoopRef.current) {
+      startLoopRef.current();
+    }
+  }, [paused]);
 
   useEffect(() => {
     skyOpacityRef.current = skyOpacity;
@@ -354,6 +371,10 @@ export default function CloudBackground({
     };
 
     const draw = (now: number) => {
+      if (pausedRef.current) {
+        rafRef.current = null;
+        return;
+      }
       if (!activeRef.current) {
         rafRef.current = null;
         return;
@@ -464,7 +485,7 @@ export default function CloudBackground({
     resize();
     window.addEventListener("resize", resize);
     const startLoop = () => {
-      if (rafRef.current !== null) return;
+      if (rafRef.current !== null || pausedRef.current) return;
       last = performance.now();
       rafRef.current = requestAnimationFrame(draw);
     };
