@@ -234,18 +234,8 @@ export default function PageShell({ children }: PageShellProps) {
       ? "0 1px 8px rgba(0, 0, 0, 0.22)"
       : "0 2px 22px rgba(0, 0, 0, 0.65)",
   } as const;
-  const scrimStrong = isLight
-    ? "rgba(249, 238, 210, 0.92)"
-    : "rgba(10, 11, 13, 0.78)";
-  const scrimSoft = isLight
-    ? "rgba(249, 238, 210, 0.5)"
-    : "rgba(10, 11, 13, 0.32)";
-  const scrimClear = isLight
-    ? "rgba(249, 238, 210, 0)"
-    : "rgba(10, 11, 13, 0)";
   const contentScrimStyle = {
-    backgroundImage: `radial-gradient(1200px 520px at 18% 12%, ${scrimStrong} 0%, ${scrimSoft} 55%, ${scrimClear} 100%), radial-gradient(1000px 520px at 78% 62%, ${scrimStrong} 0%, ${scrimSoft} 52%, ${scrimClear} 100%)`,
-    transition: "background-image 700ms ease",
+    backgroundImage: "none",
   } as const;
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
   const navProgress = progress;
@@ -357,7 +347,7 @@ export default function PageShell({ children }: PageShellProps) {
       />
       <WaveBackground
         frameMargin={FRAME_MARGIN}
-        opacity={waterBlend * 0.7}
+        opacity={waterBlend * 0.6}
         backgroundColor="transparent"
         lineColor={waveColor}
         paused={effectsPaused}
