@@ -443,6 +443,67 @@ export default function WaveBackground({
     };
 
     resize();
+
+    // Pre-warm trail canvas so animation starts with faint trails already visible
+    // rather than an empty black canvas that fills in slowly.
+    {
+      const warmupFrames = 90;
+      const wdt = 1 / 60;
+      const initColor = parseColor(lineColorRef.current);
+      const tDpr = trailCanvas.width / w;
+
+      for (let f = 0; f < warmupFrames; f++) {
+        const t = f * wdt;
+
+        // Fade
+        trailCtx.setTransform(1, 0, 0, 1, 0, 0);
+        trailCtx.globalCompositeOperation = "destination-out";
+        trailCtx.fillStyle = `rgba(0, 0, 0, ${TRAIL_FADE})`;
+        trailCtx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
+        trailCtx.globalCompositeOperation = "source-over";
+        trailCtx.setTransform(tDpr, 0, 0, tDpr, 0, 0);
+        trailCtx.lineCap = "round";
+
+        for (let i = 0; i < PARTICLE_COUNT; i++) {
+          const base = i * STRIDE;
+          particles[base + PLIFE] -= wdt;
+          if (particles[base + PLIFE] <= 0) { respawnParticle(i, false); continue; }
+
+          const px = particles[base + PX], py = particles[base + PY];
+          particles[base + PPX] = px; particles[base + PPY] = py;
+
+          curlNoise(px, py, t, vel);
+          const intensity = waveIntensity(px, py, t, w, h);
+
+          const speed = PARTICLE_SPEED_BASE * particles[base + PSPEED] * (0.7 + intensity * 1.8);
+          const mag = Math.sqrt(vel.vx * vel.vx + vel.vy * vel.vy) || 1;
+          particles[base + PX] = px + (vel.vx / mag) * speed * wdt;
+          particles[base + PY] = py + (vel.vy / mag) * speed * wdt;
+
+          const nx = particles[base + PX], ny = particles[base + PY];
+          if (nx < -20 || nx > w + 20 || ny < -20 || ny > h + 20) { respawnParticle(i, false); continue; }
+
+          const lifeFrac = particles[base + PLIFE] / particles[base + PMAXLIFE];
+          const lifeFade = Math.min(Math.min(lifeFrac * 5, 1), Math.min((1 - lifeFrac) * 4, 1));
+          const i2 = intensity * intensity;
+          const alpha = lifeFade * (0.012 + i2 * i2 * 0.70);
+          const lw = particles[base + PWIDTH] * (0.3 + i2 * 2.5);
+          const cb = i2 * 0.4;
+          const cr = Math.round(initColor.r + (255 - initColor.r) * cb);
+          const cg = Math.round(initColor.g + (255 - initColor.g) * cb);
+          const cbv = Math.round(initColor.b + (255 - initColor.b) * cb);
+
+          trailCtx.globalAlpha = alpha;
+          trailCtx.strokeStyle = `rgb(${cr}, ${cg}, ${cbv})`;
+          trailCtx.lineWidth = lw;
+          trailCtx.beginPath();
+          trailCtx.moveTo(particles[base + PPX], particles[base + PPY]);
+          trailCtx.lineTo(particles[base + PX], particles[base + PY]);
+          trailCtx.stroke();
+        }
+      }
+    }
+
     const startLoop = () => {
       if (rafRef.current !== null || pausedRef.current) return;
       startTime = performance.now();
