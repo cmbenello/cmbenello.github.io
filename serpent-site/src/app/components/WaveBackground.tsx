@@ -408,10 +408,9 @@ export default function WaveBackground({
         const fadeOut = Math.min((1 - lifeFrac) * 4, 1);
         const lifeFade = Math.min(fadeIn, fadeOut);
 
-        // Opacity: near-zero floor, steep power curve — most lines barely visible,
-        // spotlight peaks pop brightly (tanh-like contrast)
+        // Opacity: low floor, steep power curve — base visible, spotlight peaks pop
         const i2 = intensity * intensity;
-        const alpha = lifeFade * (0.012 + i2 * i2 * 0.70);
+        const alpha = lifeFade * (0.030 + i2 * i2 * 0.68);
 
         // Width: thin everywhere, thick only at high intensity
         const baseWidth = particles[base + PWIDTH];
@@ -486,7 +485,7 @@ export default function WaveBackground({
           const lifeFrac = particles[base + PLIFE] / particles[base + PMAXLIFE];
           const lifeFade = Math.min(Math.min(lifeFrac * 5, 1), Math.min((1 - lifeFrac) * 4, 1));
           const i2 = intensity * intensity;
-          const alpha = lifeFade * (0.012 + i2 * i2 * 0.70);
+          const alpha = lifeFade * (0.030 + i2 * i2 * 0.68);
           const lw = particles[base + PWIDTH] * (0.3 + i2 * 2.5);
           const cb = i2 * 0.4;
           const cr = Math.round(initColor.r + (255 - initColor.r) * cb);
