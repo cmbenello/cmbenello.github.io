@@ -16,10 +16,10 @@ const MAX_DPR = 1.5;
 const TWO_PI = Math.PI * 2;
 const BASE_SEED = 42811;
 const PARTICLE_COUNT = 1800;
-const TRAIL_FADE = 0.09; // alpha per frame — aggressive fade so trails clear fast
-const PARTICLE_SPEED_BASE = 70; // px/s base speed
-const PARTICLE_LIFE_MIN = 1.2;
-const PARTICLE_LIFE_MAX = 3.0;
+const TRAIL_FADE = 0.045; // alpha per frame — slower fade for smoother trails
+const PARTICLE_SPEED_BASE = 35; // px/s base speed — halved for slower feel
+const PARTICLE_LIFE_MIN = 3.0;
+const PARTICLE_LIFE_MAX = 7.0;
 
 // Particle data layout in Float32Array (stride = 8)
 const PX = 0, PY = 1, PPX = 2, PPY = 3;
@@ -124,16 +124,16 @@ const curlNoise = (
 
   // Large scale — broad sweeping ocean currents
   const s1 = 0.0012;
-  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.015, 4, 0.5);
-  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.015, 4, 0.5);
-  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.015, 4, 0.5);
-  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.015, 4, 0.5);
+  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.007, 4, 0.5);
+  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.007, 4, 0.5);
+  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.007, 4, 0.5);
+  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.007, 4, 0.5);
   vx += (n1a - n1b) / (2 * CURL_EPS) * 1.8;
   vy += -(n1c - n1d) / (2 * CURL_EPS) * 1.8;
 
   // Medium scale — wave-level swirls
   const s2 = 0.004;
-  const t2 = t * 0.025 + 100;
+  const t2 = t * 0.012 + 100;
   const n2a = fbm2D(x * s2, (y + CURL_EPS) * s2 + t2, 3, 0.5);
   const n2b = fbm2D(x * s2, (y - CURL_EPS) * s2 + t2, 3, 0.5);
   const n2c = fbm2D((x + CURL_EPS) * s2, y * s2 + t2, 3, 0.5);
@@ -143,7 +143,7 @@ const curlNoise = (
 
   // Small scale — fine turbulent detail
   const s3 = 0.013;
-  const t3 = t * 0.04 + 200;
+  const t3 = t * 0.02 + 200;
   const n3a = fbm2D(x * s3, (y + CURL_EPS) * s3 + t3, 2, 0.5);
   const n3b = fbm2D(x * s3, (y - CURL_EPS) * s3 + t3, 2, 0.5);
   const n3c = fbm2D((x + CURL_EPS) * s3, y * s3 + t3, 2, 0.5);
@@ -164,9 +164,9 @@ const curlNoise = (
  */
 const waveIntensity = (x: number, y: number, t: number): number => {
   // Overlapping wave shapes — creates distinct crashing zones
-  const w1 = fbm2D(x * 0.0012 + t * 0.006, y * 0.0018 + t * 0.004, 3, 0.5);
-  const w2 = fbm2D(x * 0.0008 + 50 + t * 0.005, y * 0.002 + 50 + t * 0.008, 2, 0.5);
-  const w3 = fbm2D(x * 0.0025 + 100 + t * 0.01, y * 0.0008 + 100, 2, 0.45);
+  const w1 = fbm2D(x * 0.0012 + t * 0.003, y * 0.0018 + t * 0.002, 3, 0.5);
+  const w2 = fbm2D(x * 0.0008 + 50 + t * 0.0025, y * 0.002 + 50 + t * 0.004, 2, 0.5);
+  const w3 = fbm2D(x * 0.0025 + 100 + t * 0.005, y * 0.0008 + 100, 2, 0.45);
 
   const raw = (w1 + w2 * 0.7 + w3 * 0.5) / 2.2;
   const remapped = raw * 0.5 + 0.5; // 0-1
