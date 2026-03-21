@@ -122,42 +122,34 @@ const curlNoise = (
 ): void => {
   let vx = 0, vy = 0;
 
-  // Horizontal stretch factor — elongates noise so patterns read as waves
-  const H_STRETCH = 0.45; // x-scale compressed → wider horizontal features
-
   // Large scale — broad sweeping ocean currents
   const s1 = 0.0012;
-  const n1a = fbm2D(x * s1 * H_STRETCH, (y + CURL_EPS) * s1 + t * 0.015, 4, 0.5);
-  const n1b = fbm2D(x * s1 * H_STRETCH, (y - CURL_EPS) * s1 + t * 0.015, 4, 0.5);
-  const n1c = fbm2D((x + CURL_EPS) * s1 * H_STRETCH, y * s1 + t * 0.015, 4, 0.5);
-  const n1d = fbm2D((x - CURL_EPS) * s1 * H_STRETCH, y * s1 + t * 0.015, 4, 0.5);
+  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.015, 4, 0.5);
+  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.015, 4, 0.5);
+  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.015, 4, 0.5);
+  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.015, 4, 0.5);
   vx += (n1a - n1b) / (2 * CURL_EPS) * 1.8;
   vy += -(n1c - n1d) / (2 * CURL_EPS) * 1.8;
 
   // Medium scale — wave-level swirls
   const s2 = 0.004;
   const t2 = t * 0.025 + 100;
-  const n2a = fbm2D(x * s2 * H_STRETCH, (y + CURL_EPS) * s2 + t2, 3, 0.5);
-  const n2b = fbm2D(x * s2 * H_STRETCH, (y - CURL_EPS) * s2 + t2, 3, 0.5);
-  const n2c = fbm2D((x + CURL_EPS) * s2 * H_STRETCH, y * s2 + t2, 3, 0.5);
-  const n2d = fbm2D((x - CURL_EPS) * s2 * H_STRETCH, y * s2 + t2, 3, 0.5);
+  const n2a = fbm2D(x * s2, (y + CURL_EPS) * s2 + t2, 3, 0.5);
+  const n2b = fbm2D(x * s2, (y - CURL_EPS) * s2 + t2, 3, 0.5);
+  const n2c = fbm2D((x + CURL_EPS) * s2, y * s2 + t2, 3, 0.5);
+  const n2d = fbm2D((x - CURL_EPS) * s2, y * s2 + t2, 3, 0.5);
   vx += (n2a - n2b) / (2 * CURL_EPS) * 1.2;
   vy += -(n2c - n2d) / (2 * CURL_EPS) * 1.2;
 
-  // Small scale — fine turbulent detail (less horizontal stretch to keep detail chaotic)
+  // Small scale — fine turbulent detail
   const s3 = 0.013;
   const t3 = t * 0.04 + 200;
-  const sH3 = 0.65; // less stretch at small scale for natural turbulence
-  const n3a = fbm2D(x * s3 * sH3, (y + CURL_EPS) * s3 + t3, 2, 0.5);
-  const n3b = fbm2D(x * s3 * sH3, (y - CURL_EPS) * s3 + t3, 2, 0.5);
-  const n3c = fbm2D((x + CURL_EPS) * s3 * sH3, y * s3 + t3, 2, 0.5);
-  const n3d = fbm2D((x - CURL_EPS) * s3 * sH3, y * s3 + t3, 2, 0.5);
+  const n3a = fbm2D(x * s3, (y + CURL_EPS) * s3 + t3, 2, 0.5);
+  const n3b = fbm2D(x * s3, (y - CURL_EPS) * s3 + t3, 2, 0.5);
+  const n3c = fbm2D((x + CURL_EPS) * s3, y * s3 + t3, 2, 0.5);
+  const n3d = fbm2D((x - CURL_EPS) * s3, y * s3 + t3, 2, 0.5);
   vx += (n3a - n3b) / (2 * CURL_EPS) * 0.7;
   vy += -(n3c - n3d) / (2 * CURL_EPS) * 0.7;
-
-  // Horizontal bias: dampen vertical velocity + add lateral drift
-  vy *= 0.4; // suppress vertical motion
-  vx += 0.35; // gentle rightward ocean current
 
   out.vx = vx;
   out.vy = vy;
@@ -171,10 +163,10 @@ const curlNoise = (
  * Creates the bright foam regions vs dark calm regions.
  */
 const waveIntensity = (x: number, y: number, t: number): number => {
-  // Overlapping wave shapes — horizontally stretched for wave-like crest bands
-  const w1 = fbm2D(x * 0.0006 + t * 0.006, y * 0.0022 + t * 0.004, 3, 0.5);
-  const w2 = fbm2D(x * 0.0004 + 50 + t * 0.005, y * 0.0028 + 50 + t * 0.008, 2, 0.5);
-  const w3 = fbm2D(x * 0.0012 + 100 + t * 0.01, y * 0.0015 + 100, 2, 0.45);
+  // Overlapping wave shapes — creates distinct crashing zones
+  const w1 = fbm2D(x * 0.0012 + t * 0.006, y * 0.0018 + t * 0.004, 3, 0.5);
+  const w2 = fbm2D(x * 0.0008 + 50 + t * 0.005, y * 0.002 + 50 + t * 0.008, 2, 0.5);
+  const w3 = fbm2D(x * 0.0025 + 100 + t * 0.01, y * 0.0008 + 100, 2, 0.45);
 
   const raw = (w1 + w2 * 0.7 + w3 * 0.5) / 2.2;
   const remapped = raw * 0.5 + 0.5; // 0-1
