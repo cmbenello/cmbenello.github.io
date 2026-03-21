@@ -158,36 +158,43 @@ const curlNoise = (
 /* ── wave intensity (where crests/foam appear) ─────────────────── */
 
 /**
- * 3 small moving spotlights — act as an intensity mask over always-present lines.
- * Additive when overlapping. Spotlight radius is small (~10% of canvas).
- * Lines always exist; spotlights just make them thicker/brighter locally.
+ * Multi-layer intensity field:
+ * 1. Slow background gradient (noise-based) — gives depth and gradients everywhere
+ * 2. 3 micro spotlights with complex pulses — appear/disappear independently
+ * All additive so overlaps create richer zones.
  */
 const waveIntensity = (x: number, y: number, t: number, cw: number, ch: number): number => {
-  const r = Math.min(cw, ch) * 0.12; // small spotlight radius
+  const r = Math.min(cw, ch) * 0.13;
 
-  // Spotlight falloff: sharp gaussian-ish, quadratic in normalized dist
+  // ── Layer 1: slow background noise gradient ──
+  // Large-scale, slow-evolving field gives smooth gradients across the whole canvas.
+  // Areas quietly brighten and dim independently, never fully dark.
+  const n1 = fbm2D(x * 0.0006 + t * 0.0018, y * 0.0005 + t * 0.0012, 3, 0.5);
+  const n2 = fbm2D(x * 0.0004 + 30 + t * 0.0010, y * 0.0007 + 30 + t * 0.0020, 2, 0.5);
+  const bg = Math.pow((n1 * 0.6 + n2 * 0.4) * 0.5 + 0.5, 2) * 0.28;
+  // ^ squared remapping concentrates gradients, 0.28 keeps it subtle
+
+  // ── Layer 2: 3 micro spotlights ──
   const spot = (cx: number, cy: number, pulse: number): number => {
     const dx = (x - cx) / r, dy = (y - cy) / r;
-    const d2 = dx * dx + dy * dy;
-    const f = Math.max(0, 1 - d2);
-    return f * f * f * pulse; // cubic — tight spotlight edge
+    const f = Math.max(0, 1 - dx * dx - dy * dy);
+    return f * f * f * pulse;
   };
 
-  // Each center drifts on compound sine paths covering most of the canvas
+  // Complex pulses: sum of two harmonics → less predictable rhythm
   const c1x = cw * (0.25 + 0.30 * Math.sin(t * 0.09) + 0.10 * Math.sin(t * 0.22));
   const c1y = ch * (0.40 + 0.28 * Math.cos(t * 0.07) + 0.08 * Math.cos(t * 0.18));
-  const p1   = 0.5 + 0.5 * Math.sin(t * 0.55 + 0.0); // 0→1, never fully off
+  const p1 = Math.max(0, 0.45 * Math.sin(t * 0.55) + 0.30 * Math.sin(t * 1.10) + 0.25);
 
   const c2x = cw * (0.65 + 0.25 * Math.cos(t * 0.06) + 0.09 * Math.sin(t * 0.20));
   const c2y = ch * (0.55 + 0.30 * Math.sin(t * 0.10 + 2.1) + 0.07 * Math.cos(t * 0.24));
-  const p2   = 0.5 + 0.5 * Math.sin(t * 0.70 + 2.1);
+  const p2 = Math.max(0, 0.40 * Math.sin(t * 0.70 + 2.1) + 0.25 * Math.sin(t * 0.35 + 1.0) + 0.20);
 
   const c3x = cw * (0.45 + 0.28 * Math.sin(t * 0.08 + 1.0) + 0.08 * Math.cos(t * 0.26));
   const c3y = ch * (0.65 + 0.25 * Math.cos(t * 0.12 + 4.2) + 0.06 * Math.sin(t * 0.32));
-  const p3   = 0.5 + 0.5 * Math.sin(t * 0.85 + 4.2);
+  const p3 = Math.max(0, 0.35 * Math.sin(t * 0.85 + 4.2) + 0.35 * Math.sin(t * 1.70 + 2.0) + 0.15);
 
-  // Additive — capped at 1 so two overlapping spotlights make a brighter patch
-  return Math.min(1, spot(c1x, c1y, p1) + spot(c2x, c2y, p2) + spot(c3x, c3y, p3));
+  return Math.min(1, bg + spot(c1x, c1y, p1) + spot(c2x, c2y, p2) + spot(c3x, c3y, p3));
 };
 
 /* ── parse rgba color ──────────────────────────────────────────── */
