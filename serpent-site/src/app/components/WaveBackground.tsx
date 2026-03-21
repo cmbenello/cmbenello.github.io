@@ -124,16 +124,16 @@ const curlNoise = (
 
   // Large scale — broad sweeping ocean currents
   const s1 = 0.0012;
-  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.007, 4, 0.5);
-  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.007, 4, 0.5);
-  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.007, 4, 0.5);
-  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.007, 4, 0.5);
+  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.014, 4, 0.5);
+  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.014, 4, 0.5);
+  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.014, 4, 0.5);
+  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.014, 4, 0.5);
   vx += (n1a - n1b) / (2 * CURL_EPS) * 1.8;
   vy += -(n1c - n1d) / (2 * CURL_EPS) * 1.8;
 
   // Medium scale — wave-level swirls
   const s2 = 0.004;
-  const t2 = t * 0.012 + 100;
+  const t2 = t * 0.024 + 100;
   const n2a = fbm2D(x * s2, (y + CURL_EPS) * s2 + t2, 3, 0.5);
   const n2b = fbm2D(x * s2, (y - CURL_EPS) * s2 + t2, 3, 0.5);
   const n2c = fbm2D((x + CURL_EPS) * s2, y * s2 + t2, 3, 0.5);
@@ -143,7 +143,7 @@ const curlNoise = (
 
   // Small scale — fine turbulent detail
   const s3 = 0.013;
-  const t3 = t * 0.02 + 200;
+  const t3 = t * 0.040 + 200;
   const n3a = fbm2D(x * s3, (y + CURL_EPS) * s3 + t3, 2, 0.5);
   const n3b = fbm2D(x * s3, (y - CURL_EPS) * s3 + t3, 2, 0.5);
   const n3c = fbm2D((x + CURL_EPS) * s3, y * s3 + t3, 2, 0.5);
@@ -169,8 +169,8 @@ const waveIntensity = (x: number, y: number, t: number, cw: number, ch: number):
   // ── Layer 1: slow background noise gradient ──
   // Large-scale, slow-evolving field gives smooth gradients across the whole canvas.
   // Areas quietly brighten and dim independently, never fully dark.
-  const n1 = fbm2D(x * 0.0006 + t * 0.0018, y * 0.0005 + t * 0.0012, 3, 0.5);
-  const n2 = fbm2D(x * 0.0004 + 30 + t * 0.0010, y * 0.0007 + 30 + t * 0.0020, 2, 0.5);
+  const n1 = fbm2D(x * 0.0006 + t * 0.005, y * 0.0005 + t * 0.004, 3, 0.5);
+  const n2 = fbm2D(x * 0.0004 + 30 + t * 0.004, y * 0.0007 + 30 + t * 0.006, 2, 0.5);
   const bg = Math.pow((n1 * 0.6 + n2 * 0.4) * 0.5 + 0.5, 2) * 0.12;
   // ^ keep bg subtle — just enough to show gradients without raising the floor
 
@@ -182,16 +182,16 @@ const waveIntensity = (x: number, y: number, t: number, cw: number, ch: number):
   };
 
   // Complex pulses: sum of two harmonics → less predictable rhythm
-  const c1x = cw * (0.25 + 0.30 * Math.sin(t * 0.09) + 0.10 * Math.sin(t * 0.22));
-  const c1y = ch * (0.40 + 0.28 * Math.cos(t * 0.07) + 0.08 * Math.cos(t * 0.18));
+  const c1x = cw * (0.25 + 0.30 * Math.sin(t * 0.16) + 0.10 * Math.sin(t * 0.38));
+  const c1y = ch * (0.40 + 0.28 * Math.cos(t * 0.13) + 0.08 * Math.cos(t * 0.30));
   const p1 = Math.max(0, 0.45 * Math.sin(t * 0.55) + 0.30 * Math.sin(t * 1.10) + 0.25);
 
-  const c2x = cw * (0.65 + 0.25 * Math.cos(t * 0.06) + 0.09 * Math.sin(t * 0.20));
-  const c2y = ch * (0.55 + 0.30 * Math.sin(t * 0.10 + 2.1) + 0.07 * Math.cos(t * 0.24));
+  const c2x = cw * (0.65 + 0.25 * Math.cos(t * 0.11) + 0.09 * Math.sin(t * 0.34));
+  const c2y = ch * (0.55 + 0.30 * Math.sin(t * 0.17 + 2.1) + 0.07 * Math.cos(t * 0.40));
   const p2 = Math.max(0, 0.40 * Math.sin(t * 0.70 + 2.1) + 0.25 * Math.sin(t * 0.35 + 1.0) + 0.20);
 
-  const c3x = cw * (0.45 + 0.28 * Math.sin(t * 0.08 + 1.0) + 0.08 * Math.cos(t * 0.26));
-  const c3y = ch * (0.65 + 0.25 * Math.cos(t * 0.12 + 4.2) + 0.06 * Math.sin(t * 0.32));
+  const c3x = cw * (0.45 + 0.28 * Math.sin(t * 0.14 + 1.0) + 0.08 * Math.cos(t * 0.44));
+  const c3y = ch * (0.65 + 0.25 * Math.cos(t * 0.20 + 4.2) + 0.06 * Math.sin(t * 0.52));
   const p3 = Math.max(0, 0.35 * Math.sin(t * 0.85 + 4.2) + 0.35 * Math.sin(t * 1.70 + 2.0) + 0.15);
 
   return Math.min(1, bg + spot(c1x, c1y, p1) + spot(c2x, c2y, p2) + spot(c3x, c3y, p3));
