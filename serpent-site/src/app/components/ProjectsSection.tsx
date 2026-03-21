@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 
 type ProjectCommit = {
   sha: string;
@@ -78,8 +78,10 @@ type ProjectsSectionProps = {
 };
 
 type PopOrigin = {
-  dx: number;
-  dy: number;
+  tx: number;
+  ty: number;
+  sx: number;
+  sy: number;
 };
 
 const CONTRIBUTION_CELL_SIZE = 11;
@@ -313,6 +315,8 @@ const renderMarkdown = (markdown: string) => {
   return blocks;
 };
 
+const CLOSE_MS = 160;
+
 export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [activeCategorySlug, setActiveCategorySlug] = useState<string | null>(
@@ -321,14 +325,57 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [categoryOrigin, setCategoryOrigin] = useState<PopOrigin | null>(null);
   const [projectOrigin, setProjectOrigin] = useState<PopOrigin | null>(null);
 
+  const categoryPanelRef = useRef<HTMLDivElement>(null);
+  const categoryBackdropRef = useRef<HTMLDivElement>(null);
+  const projectPanelRef = useRef<HTMLDivElement>(null);
+  const projectBackdropRef = useRef<HTMLDivElement>(null);
+
+  const closeCategory = () => {
+    const panel = categoryPanelRef.current;
+    const backdrop = categoryBackdropRef.current;
+    const o = categoryOrigin ?? { tx: 0, ty: 0, sx: 0.9, sy: 0.9 };
+    backdrop && (backdrop.style.pointerEvents = "none");
+    panel?.animate(
+      [
+        { transform: "translate(0,0) scale(1,1)", opacity: 1, borderRadius: "24px" },
+        { transform: `translate(${o.tx}px,${o.ty}px) scale(${o.sx},${o.sy})`, opacity: 0, borderRadius: "16px" },
+      ],
+      { duration: CLOSE_MS, easing: "cubic-bezier(0.4,0,1,1)", fill: "forwards" },
+    );
+    backdrop?.animate(
+      [{ opacity: 1 }, { opacity: 0 }],
+      { duration: CLOSE_MS, easing: "ease-in", fill: "forwards" },
+    );
+    setTimeout(() => setActiveCategorySlug(null), CLOSE_MS);
+  };
+
+  const closeProject = () => {
+    const panel = projectPanelRef.current;
+    const backdrop = projectBackdropRef.current;
+    const o = projectOrigin ?? { tx: 0, ty: 0, sx: 0.9, sy: 0.9 };
+    backdrop && (backdrop.style.pointerEvents = "none");
+    panel?.animate(
+      [
+        { transform: "translate(0,0) scale(1,1)", opacity: 1, borderRadius: "24px" },
+        { transform: `translate(${o.tx}px,${o.ty}px) scale(${o.sx},${o.sy})`, opacity: 0, borderRadius: "16px" },
+      ],
+      { duration: CLOSE_MS, easing: "cubic-bezier(0.4,0,1,1)", fill: "forwards" },
+    );
+    backdrop?.animate(
+      [{ opacity: 1 }, { opacity: 0 }],
+      { duration: CLOSE_MS, easing: "ease-in", fill: "forwards" },
+    );
+    setTimeout(() => setActiveProject(null), CLOSE_MS);
+  };
+
   useEffect(() => {
     if (!activeProject && !activeCategorySlug) return;
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === "Escape") {
         if (activeProject) {
-          setActiveProject(null);
+          closeProject();
         } else {
-          setActiveCategorySlug(null);
+          closeCategory();
         }
       }
     };
@@ -395,16 +442,20 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const categoryPopStyle = useMemo(() => {
     if (!categoryOrigin) return undefined;
     return {
-      ["--pop-x" as const]: `${categoryOrigin.dx}px`,
-      ["--pop-y" as const]: `${categoryOrigin.dy}px`,
+      ["--flip-tx" as const]: `${categoryOrigin.tx}px`,
+      ["--flip-ty" as const]: `${categoryOrigin.ty}px`,
+      ["--flip-sx" as const]: `${categoryOrigin.sx}`,
+      ["--flip-sy" as const]: `${categoryOrigin.sy}`,
     };
   }, [categoryOrigin]);
 
   const projectPopStyle = useMemo(() => {
     if (!projectOrigin) return undefined;
     return {
-      ["--pop-x" as const]: `${projectOrigin.dx}px`,
-      ["--pop-y" as const]: `${projectOrigin.dy}px`,
+      ["--flip-tx" as const]: `${projectOrigin.tx}px`,
+      ["--flip-ty" as const]: `${projectOrigin.ty}px`,
+      ["--flip-sx" as const]: `${projectOrigin.sx}`,
+      ["--flip-sy" as const]: `${projectOrigin.sy}`,
     };
   }, [projectOrigin]);
 
@@ -579,10 +630,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               type="button"
               className="group relative overflow-hidden rounded-2xl border border-current/45 bg-current/10 p-5 text-left transition hover:-translate-y-0.5 hover:border-current/70"
               onClick={(event) => {
-                setCategoryOrigin({
-                  dx: event.clientX - window.innerWidth / 2,
-                  dy: event.clientY - window.innerHeight / 2,
-                });
+                const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+                const modalW = Math.min(window.innerWidth - 48, 1152);
+                const modalH = window.innerHeight * 0.92;
+                const tx = (rect.left + rect.width / 2) - window.innerWidth / 2;
+                const ty = (rect.top + rect.height / 2) - window.innerHeight / 2;
+                const sx = rect.width / modalW;
+                const sy = rect.height / modalH;
+                setCategoryOrigin({ tx, ty, sx, sy });
                 setActiveCategorySlug(category.slug);
               }}
             >
@@ -614,17 +669,20 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           onTouchMove={(event) => event.stopPropagation()}
         >
           <div
+            ref={categoryBackdropRef}
             className="absolute inset-0 folder-fade"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.55)" }}
-            onClick={() => setActiveCategorySlug(null)}
+            onClick={closeCategory}
             aria-hidden="true"
           />
           <div
+            ref={categoryPanelRef}
             className="relative flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border folder-pop"
             style={{
               backgroundColor: "var(--panel-surface, rgba(16, 17, 19, 0.98))",
               borderColor:
                 "var(--panel-border-strong, rgba(255, 255, 255, 0.3))",
+              transformOrigin: "center center",
               ...categoryPopStyle,
             }}
           >
@@ -640,7 +698,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               <button
                 type="button"
                 className="rounded-full border border-current/40 px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-70 transition hover:opacity-100"
-                onClick={() => setActiveCategorySlug(null)}
+                onClick={closeCategory}
               >
                 Close
               </button>
@@ -670,10 +728,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                       type="button"
                       className="group rounded-2xl border border-current/40 px-5 py-4 text-left transition hover:-translate-y-0.5 hover:border-current/70"
                       onClick={(event) => {
-                        setProjectOrigin({
-                          dx: event.clientX - window.innerWidth / 2,
-                          dy: event.clientY - window.innerHeight / 2,
-                        });
+                        const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
+                        const modalW = Math.min(window.innerWidth - 48, 1152);
+                        const modalH = window.innerHeight * 0.92;
+                        const tx = (rect.left + rect.width / 2) - window.innerWidth / 2;
+                        const ty = (rect.top + rect.height / 2) - window.innerHeight / 2;
+                        const sx = rect.width / modalW;
+                        const sy = rect.height / modalH;
+                        setProjectOrigin({ tx, ty, sx, sy });
                         setActiveProject(project);
                       }}
                       aria-haspopup="dialog"
@@ -720,16 +782,19 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           onTouchMove={(event) => event.stopPropagation()}
         >
           <div
+            ref={projectBackdropRef}
             className="absolute inset-0 folder-fade"
             style={{ backgroundColor: "rgba(0, 0, 0, 0.6)" }}
-            onClick={() => setActiveProject(null)}
+            onClick={closeProject}
             aria-hidden="true"
           />
           <div
+            ref={projectPanelRef}
             className="relative flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border folder-pop"
             style={{
               backgroundColor: "var(--panel-surface, rgba(16, 17, 19, 0.98))",
               borderColor: "var(--panel-border-strong, rgba(255, 255, 255, 0.3))",
+              transformOrigin: "center center",
               ...projectPopStyle,
             }}
           >
@@ -745,7 +810,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               <button
                 type="button"
                 className="rounded-full border border-current/40 px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-70 transition hover:opacity-100"
-                onClick={() => setActiveProject(null)}
+                onClick={closeProject}
               >
                 Close
               </button>
