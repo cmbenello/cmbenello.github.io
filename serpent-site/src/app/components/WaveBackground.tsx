@@ -16,7 +16,7 @@ const MAX_DPR = 1.5;
 const TWO_PI = Math.PI * 2;
 const BASE_SEED = 42811;
 const PARTICLE_COUNT = 1800;
-const TRAIL_FADE = 0.045; // alpha per frame — slower fade for smoother trails
+const TRAIL_FADE = 0.072; // faster fade — prevents mesh accumulation over time
 const PARTICLE_SPEED_BASE = 35; // px/s base speed — halved for slower feel
 const PARTICLE_LIFE_MIN = 3.0;
 const PARTICLE_LIFE_MAX = 7.0;
@@ -171,8 +171,8 @@ const waveIntensity = (x: number, y: number, t: number, cw: number, ch: number):
   // Areas quietly brighten and dim independently, never fully dark.
   const n1 = fbm2D(x * 0.0006 + t * 0.0018, y * 0.0005 + t * 0.0012, 3, 0.5);
   const n2 = fbm2D(x * 0.0004 + 30 + t * 0.0010, y * 0.0007 + 30 + t * 0.0020, 2, 0.5);
-  const bg = Math.pow((n1 * 0.6 + n2 * 0.4) * 0.5 + 0.5, 2) * 0.28;
-  // ^ squared remapping concentrates gradients, 0.28 keeps it subtle
+  const bg = Math.pow((n1 * 0.6 + n2 * 0.4) * 0.5 + 0.5, 2) * 0.12;
+  // ^ keep bg subtle — just enough to show gradients without raising the floor
 
   // ── Layer 2: 3 micro spotlights ──
   const spot = (cx: number, cy: number, pulse: number): number => {
@@ -408,12 +408,14 @@ export default function WaveBackground({
         const fadeOut = Math.min((1 - lifeFrac) * 4, 1);
         const lifeFade = Math.min(fadeIn, fadeOut);
 
-        // Opacity: always visible base, spotlights add brightness
-        const alpha = lifeFade * (0.07 + intensity * 0.55);
+        // Opacity: near-zero floor, steep power curve — most lines barely visible,
+        // spotlight peaks pop brightly (tanh-like contrast)
+        const i2 = intensity * intensity;
+        const alpha = lifeFade * (0.012 + i2 * i2 * 0.70);
 
-        // Width: always a thin line, spotlights make it thicker
+        // Width: thin everywhere, thick only at high intensity
         const baseWidth = particles[base + PWIDTH];
-        const lineWidth = baseWidth * (0.5 + intensity * 2.0);
+        const lineWidth = baseWidth * (0.3 + intensity * intensity * 2.5);
 
         // Color: tint toward white at crests
         const crestBlend = intensity * intensity; // quadratic for sharp crest highlight
