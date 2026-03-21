@@ -158,47 +158,36 @@ const curlNoise = (
 /* ── wave intensity (where crests/foam appear) ─────────────────── */
 
 /**
- * 3 independently drifting, pulsing crash clusters.
- * Each moves on a non-linear path and fades in/out on its own cycle.
- * cw/ch = canvas width/height for positioning.
+ * 3 small moving spotlights — act as an intensity mask over always-present lines.
+ * Additive when overlapping. Spotlight radius is small (~10% of canvas).
+ * Lines always exist; spotlights just make them thicker/brighter locally.
  */
 const waveIntensity = (x: number, y: number, t: number, cw: number, ch: number): number => {
-  const sz = Math.min(cw, ch);
+  const r = Math.min(cw, ch) * 0.12; // small spotlight radius
 
-  // ── Cluster 1: upper-left area, medium pulse cycle ──
-  const c1x = cw * (0.22 + 0.13 * Math.sin(t * 0.09) + 0.06 * Math.sin(t * 0.21));
-  const c1y = ch * (0.35 + 0.16 * Math.cos(t * 0.07) + 0.07 * Math.cos(t * 0.17));
-  const c1pulse = Math.pow(Math.max(0, Math.sin(t * 0.55 + 0.0)), 2);
-  const c1r = sz * 0.30;
-
-  // ── Cluster 2: right side, faster pulse, different drift ──
-  const c2x = cw * (0.74 + 0.11 * Math.cos(t * 0.06) + 0.05 * Math.sin(t * 0.19));
-  const c2y = ch * (0.50 + 0.18 * Math.sin(t * 0.10 + 2.1) + 0.06 * Math.cos(t * 0.23));
-  const c2pulse = Math.pow(Math.max(0, Math.sin(t * 0.70 + 2.1)), 2);
-  const c2r = sz * 0.25;
-
-  // ── Cluster 3: lower-center, fastest pulse, most wander ──
-  const c3x = cw * (0.48 + 0.17 * Math.sin(t * 0.08 + 1.0) + 0.07 * Math.cos(t * 0.25));
-  const c3y = ch * (0.68 + 0.13 * Math.cos(t * 0.12 + 4.2) + 0.05 * Math.sin(t * 0.31));
-  const c3pulse = Math.pow(Math.max(0, Math.sin(t * 0.85 + 4.2)), 2);
-  const c3r = sz * 0.22;
-
-  // Gaussian-ish falloff from each cluster center, max them together
-  const g = (px: number, py: number, cx: number, cy: number, r: number, pulse: number) => {
-    const dx = (px - cx) / r, dy = (py - cy) / r;
+  // Spotlight falloff: sharp gaussian-ish, quadratic in normalized dist
+  const spot = (cx: number, cy: number, pulse: number): number => {
+    const dx = (x - cx) / r, dy = (y - cy) / r;
     const d2 = dx * dx + dy * dy;
     const f = Math.max(0, 1 - d2);
-    return f * f * pulse; // quadratic falloff * pulse envelope
+    return f * f * f * pulse; // cubic — tight spotlight edge
   };
 
-  const combined = Math.max(
-    g(x, y, c1x, c1y, c1r, c1pulse),
-    g(x, y, c2x, c2y, c2r, c2pulse),
-    g(x, y, c3x, c3y, c3r, c3pulse),
-  );
+  // Each center drifts on compound sine paths covering most of the canvas
+  const c1x = cw * (0.25 + 0.30 * Math.sin(t * 0.09) + 0.10 * Math.sin(t * 0.22));
+  const c1y = ch * (0.40 + 0.28 * Math.cos(t * 0.07) + 0.08 * Math.cos(t * 0.18));
+  const p1   = 0.5 + 0.5 * Math.sin(t * 0.55 + 0.0); // 0→1, never fully off
 
-  // Cubic sharpen — mostly dark, only cluster peaks are bright
-  return combined * combined * combined;
+  const c2x = cw * (0.65 + 0.25 * Math.cos(t * 0.06) + 0.09 * Math.sin(t * 0.20));
+  const c2y = ch * (0.55 + 0.30 * Math.sin(t * 0.10 + 2.1) + 0.07 * Math.cos(t * 0.24));
+  const p2   = 0.5 + 0.5 * Math.sin(t * 0.70 + 2.1);
+
+  const c3x = cw * (0.45 + 0.28 * Math.sin(t * 0.08 + 1.0) + 0.08 * Math.cos(t * 0.26));
+  const c3y = ch * (0.65 + 0.25 * Math.cos(t * 0.12 + 4.2) + 0.06 * Math.sin(t * 0.32));
+  const p3   = 0.5 + 0.5 * Math.sin(t * 0.85 + 4.2);
+
+  // Additive — capped at 1 so two overlapping spotlights make a brighter patch
+  return Math.min(1, spot(c1x, c1y, p1) + spot(c2x, c2y, p2) + spot(c3x, c3y, p3));
 };
 
 /* ── parse rgba color ──────────────────────────────────────────── */
@@ -388,9 +377,9 @@ export default function WaveBackground({
         // Sample wave intensity for modulation
         const intensity = waveIntensity(x, y, elapsed, w, h);
 
-        // Speed: faster in crest regions
+        // Speed: always moving, spotlights add energy
         const speedMul = particles[base + PSPEED];
-        const intensitySpeed = 0.15 + intensity * 3.5; // 0.15x in troughs, 3.65x at crests
+        const intensitySpeed = 0.7 + intensity * 1.8; // 0.7x always, up to 2.5x at spotlight
         const speed = PARTICLE_SPEED_BASE * speedMul * intensitySpeed;
 
         // Advance position
@@ -412,12 +401,12 @@ export default function WaveBackground({
         const fadeOut = Math.min((1 - lifeFrac) * 4, 1);
         const lifeFade = Math.min(fadeIn, fadeOut);
 
-        // Opacity: very bright at crash zones, nearly invisible in calm areas
-        const alpha = lifeFade * (0.015 + intensity * 0.7);
+        // Opacity: always visible base, spotlights add brightness
+        const alpha = lifeFade * (0.07 + intensity * 0.55);
 
-        // Line width: thicker at crests
+        // Width: always a thin line, spotlights make it thicker
         const baseWidth = particles[base + PWIDTH];
-        const lineWidth = baseWidth * (0.3 + intensity * 1.8);
+        const lineWidth = baseWidth * (0.5 + intensity * 2.0);
 
         // Color: tint toward white at crests
         const crestBlend = intensity * intensity; // quadratic for sharp crest highlight
