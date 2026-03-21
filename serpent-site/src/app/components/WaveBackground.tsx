@@ -158,24 +158,47 @@ const curlNoise = (
 /* ── wave intensity (where crests/foam appear) ─────────────────── */
 
 /**
- * Returns 0-1 indicating wave crest intensity at a position.
- * Used to modulate: particle speed, brightness, line thickness.
- * Creates the bright foam regions vs dark calm regions.
+ * 3 independently drifting, pulsing crash clusters.
+ * Each moves on a non-linear path and fades in/out on its own cycle.
+ * cw/ch = canvas width/height for positioning.
  */
-const waveIntensity = (x: number, y: number, t: number): number => {
-  // Overlapping wave shapes — creates distinct crashing zones
-  const w1 = fbm2D(x * 0.0012 + t * 0.003, y * 0.0018 + t * 0.002, 3, 0.5);
-  const w2 = fbm2D(x * 0.0008 + 50 + t * 0.0025, y * 0.002 + 50 + t * 0.004, 2, 0.5);
-  const w3 = fbm2D(x * 0.0025 + 100 + t * 0.005, y * 0.0008 + 100, 2, 0.45);
+const waveIntensity = (x: number, y: number, t: number, cw: number, ch: number): number => {
+  const sz = Math.min(cw, ch);
 
-  const raw = (w1 + w2 * 0.7 + w3 * 0.5) / 2.2;
-  const remapped = raw * 0.5 + 0.5; // 0-1
+  // ── Cluster 1: upper-left area, medium pulse cycle ──
+  const c1x = cw * (0.22 + 0.13 * Math.sin(t * 0.09) + 0.06 * Math.sin(t * 0.21));
+  const c1y = ch * (0.35 + 0.16 * Math.cos(t * 0.07) + 0.07 * Math.cos(t * 0.17));
+  const c1pulse = Math.pow(Math.max(0, Math.sin(t * 0.55 + 0.0)), 2);
+  const c1r = sz * 0.30;
 
-  // Very aggressive sharpening — almost all canvas is dark, only peaks are bright
-  // This creates the dramatic "crashing wave" concentration effect
-  const steep = Math.max(0, Math.min(1, (remapped - 0.4) / 0.3));
-  const crashed = steep * steep * steep * steep; // quartic — extremely sharp falloff
-  return crashed;
+  // ── Cluster 2: right side, faster pulse, different drift ──
+  const c2x = cw * (0.74 + 0.11 * Math.cos(t * 0.06) + 0.05 * Math.sin(t * 0.19));
+  const c2y = ch * (0.50 + 0.18 * Math.sin(t * 0.10 + 2.1) + 0.06 * Math.cos(t * 0.23));
+  const c2pulse = Math.pow(Math.max(0, Math.sin(t * 0.70 + 2.1)), 2);
+  const c2r = sz * 0.25;
+
+  // ── Cluster 3: lower-center, fastest pulse, most wander ──
+  const c3x = cw * (0.48 + 0.17 * Math.sin(t * 0.08 + 1.0) + 0.07 * Math.cos(t * 0.25));
+  const c3y = ch * (0.68 + 0.13 * Math.cos(t * 0.12 + 4.2) + 0.05 * Math.sin(t * 0.31));
+  const c3pulse = Math.pow(Math.max(0, Math.sin(t * 0.85 + 4.2)), 2);
+  const c3r = sz * 0.22;
+
+  // Gaussian-ish falloff from each cluster center, max them together
+  const g = (px: number, py: number, cx: number, cy: number, r: number, pulse: number) => {
+    const dx = (px - cx) / r, dy = (py - cy) / r;
+    const d2 = dx * dx + dy * dy;
+    const f = Math.max(0, 1 - d2);
+    return f * f * pulse; // quadratic falloff * pulse envelope
+  };
+
+  const combined = Math.max(
+    g(x, y, c1x, c1y, c1r, c1pulse),
+    g(x, y, c2x, c2y, c2r, c2pulse),
+    g(x, y, c3x, c3y, c3r, c3pulse),
+  );
+
+  // Cubic sharpen — mostly dark, only cluster peaks are bright
+  return combined * combined * combined;
 };
 
 /* ── parse rgba color ──────────────────────────────────────────── */
@@ -263,7 +286,7 @@ export default function WaveBackground({
         let bestX = rand() * w, bestY = rand() * h, bestI = 0;
         for (let attempt = 0; attempt < 3; attempt++) {
           const tx = rand() * w, ty = rand() * h;
-          const intensity = waveIntensity(tx, ty, t);
+          const intensity = waveIntensity(tx, ty, t, w, h);
           if (intensity > bestI) {
             bestX = tx; bestY = ty; bestI = intensity;
           }
@@ -363,7 +386,7 @@ export default function WaveBackground({
         curlNoise(x, y, elapsed, vel);
 
         // Sample wave intensity for modulation
-        const intensity = waveIntensity(x, y, elapsed);
+        const intensity = waveIntensity(x, y, elapsed, w, h);
 
         // Speed: faster in crest regions
         const speedMul = particles[base + PSPEED];
