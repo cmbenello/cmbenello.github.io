@@ -159,18 +159,18 @@ export default function Home() {
     <PageShell>
       <section className="grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-7">
-          <p className="text-xs uppercase tracking-[0.35em] opacity-55">
+          <p className="text-xs uppercase tracking-[0.35em] opacity-55 entrance" style={{ animationDelay: "900ms" }}>
             01 About
           </p>
-          <h1 className="text-5xl font-semibold tracking-tight">
+          <h1 className="text-5xl font-semibold tracking-tight entrance" style={{ animationDelay: "1050ms" }}>
             Charles Benello
           </h1>
-          <div className="space-y-3 text-lg opacity-80">
+          <div className="space-y-3 text-lg opacity-80 entrance" style={{ animationDelay: "1250ms" }}>
             {ABOUT_PARAGRAPHS.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-          <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-70">
+          <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-70 entrance" style={{ animationDelay: "1500ms" }}>
             {ABOUT_TAGS.map((tag) => (
               <span
                 key={tag}
@@ -183,7 +183,7 @@ export default function Home() {
         </div>
 
         <div className="grid gap-4 lg:col-span-5">
-          <div className="rounded-2xl border border-current/40 p-5">
+          <div className="rounded-2xl border border-current/40 p-5 entrance" style={{ animationDelay: "1250ms" }}>
             <p className="text-xs uppercase tracking-[0.32em] opacity-60">
               Education
             </p>
@@ -204,7 +204,7 @@ export default function Home() {
               ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-current/40 p-5">
+          <div className="rounded-2xl border border-current/40 p-5 entrance" style={{ animationDelay: "1550ms" }}>
             <p className="text-xs uppercase tracking-[0.32em] opacity-60">
               Current Research
             </p>

@@ -52,6 +52,7 @@ export default function PageShell({ children }: PageShellProps) {
   const [panelHeight, setPanelHeight] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [effectsPaused, setEffectsPaused] = useState(false);
+  const [bgVisible, setBgVisible] = useState(false);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
   const scrollRafRef = useRef<number | null>(null);
@@ -79,6 +80,11 @@ export default function PageShell({ children }: PageShellProps) {
         iconRing: "rgba(230, 225, 216, 0.2)",
       };
   const cloudPalette = isLight ? LIGHT_CLOUD_PALETTE : DARK_CLOUD_PALETTE;
+
+  useEffect(() => {
+    const id = setTimeout(() => setBgVisible(true), 50);
+    return () => clearTimeout(id);
+  }, []);
 
   useEffect(() => {
     const doc = document.documentElement;
@@ -313,14 +319,16 @@ export default function PageShell({ children }: PageShellProps) {
           opacity: mountainBlend,
         }}
       />
-      <SerpentBackground
-        palette={theme.palette}
-        frameMargin={FRAME_MARGIN}
-        starVisibility={showStars}
-        serpentVisibility={serpentStrength}
-        backgroundOpacity={serpentBackgroundOpacity}
-        paused={effectsPaused}
-      />
+      <div style={{ opacity: bgVisible ? 1 : 0, transition: "opacity 1200ms ease-out" }}>
+        <SerpentBackground
+          palette={theme.palette}
+          frameMargin={FRAME_MARGIN}
+          starVisibility={showStars}
+          serpentVisibility={serpentStrength}
+          backgroundOpacity={serpentBackgroundOpacity}
+          paused={effectsPaused}
+        />
+      </div>
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
@@ -356,8 +364,9 @@ export default function PageShell({ children }: PageShellProps) {
       <div className="pointer-events-none fixed inset-0 z-20">
         <nav
           aria-label="Site sections"
-          className="pointer-events-auto absolute flex flex-col items-center"
+          className="pointer-events-auto absolute flex flex-col items-center entrance"
           style={{
+            animationDelay: "1000ms",
             right: NAV_RIGHT,
             top: NAV_TOP,
             gap: NAV_STACK_GAP,
@@ -440,7 +449,7 @@ export default function PageShell({ children }: PageShellProps) {
           })}
         </nav>
 
-        <div className="pointer-events-auto absolute bottom-8 right-8">
+        <div className="pointer-events-auto absolute bottom-8 right-8 entrance" style={{ animationDelay: "1100ms" }}>
           <button
             type="button"
             onClick={() => setIsLight((prev) => !prev)}
@@ -521,7 +530,7 @@ export default function PageShell({ children }: PageShellProps) {
         </div>
       </div>
 
-      <div className="absolute z-10" style={{ inset: FRAME_MARGIN }}>
+      <div className="absolute z-10 entrance" style={{ inset: FRAME_MARGIN, animationDelay: "700ms" }}>
         <div ref={frameRef} className="relative h-full w-full overflow-hidden">
           <div
             aria-hidden="true"
