@@ -16,10 +16,10 @@ const MAX_DPR = 1.5;
 const TWO_PI = Math.PI * 2;
 const BASE_SEED = 42811;
 const PARTICLE_COUNT = 1800;
-const TRAIL_FADE = 0.072; // faster fade — prevents mesh accumulation over time
+const TRAIL_FADE = 0.25; // aggressive fade — prevents grey mesh accumulation
 const PARTICLE_SPEED_BASE = 35; // px/s base speed — halved for slower feel
 const PARTICLE_LIFE_MIN = 3.0;
-const PARTICLE_LIFE_MAX = 7.0;
+const PARTICLE_LIFE_MAX = 5.0;
 
 // Particle data layout in Float32Array (stride = 8)
 const PX = 0, PY = 1, PPX = 2, PPY = 3;
@@ -124,16 +124,16 @@ const curlNoise = (
 
   // Large scale — broad sweeping ocean currents
   const s1 = 0.0012;
-  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.014, 4, 0.5);
-  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.014, 4, 0.5);
-  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.014, 4, 0.5);
-  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.014, 4, 0.5);
+  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.025, 4, 0.5);
+  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.025, 4, 0.5);
+  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.025, 4, 0.5);
+  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.025, 4, 0.5);
   vx += (n1a - n1b) / (2 * CURL_EPS) * 1.8;
   vy += -(n1c - n1d) / (2 * CURL_EPS) * 1.8;
 
   // Medium scale — wave-level swirls
   const s2 = 0.004;
-  const t2 = t * 0.024 + 100;
+  const t2 = t * 0.04 + 100;
   const n2a = fbm2D(x * s2, (y + CURL_EPS) * s2 + t2, 3, 0.5);
   const n2b = fbm2D(x * s2, (y - CURL_EPS) * s2 + t2, 3, 0.5);
   const n2c = fbm2D((x + CURL_EPS) * s2, y * s2 + t2, 3, 0.5);
@@ -143,13 +143,19 @@ const curlNoise = (
 
   // Small scale — fine turbulent detail
   const s3 = 0.013;
-  const t3 = t * 0.040 + 200;
+  const t3 = t * 0.06 + 200;
   const n3a = fbm2D(x * s3, (y + CURL_EPS) * s3 + t3, 2, 0.5);
   const n3b = fbm2D(x * s3, (y - CURL_EPS) * s3 + t3, 2, 0.5);
   const n3c = fbm2D((x + CURL_EPS) * s3, y * s3 + t3, 2, 0.5);
   const n3d = fbm2D((x - CURL_EPS) * s3, y * s3 + t3, 2, 0.5);
   vx += (n3a - n3b) / (2 * CURL_EPS) * 0.7;
   vy += -(n3c - n3d) / (2 * CURL_EPS) * 0.7;
+
+  // Slow drift to break closed loops — direction varies randomly by position
+  const driftAngle = noise2D(x * 0.0005 + t * 0.006, y * 0.0005 - t * 0.004) * TWO_PI;
+  const driftStrength = 0.012;
+  vx += Math.cos(driftAngle) * driftStrength;
+  vy += Math.sin(driftAngle) * driftStrength;
 
   out.vx = vx;
   out.vy = vy;
@@ -171,8 +177,7 @@ const waveIntensity = (x: number, y: number, t: number, cw: number, ch: number):
   // Areas quietly brighten and dim independently, never fully dark.
   const n1 = fbm2D(x * 0.0006 + t * 0.005, y * 0.0005 + t * 0.004, 3, 0.5);
   const n2 = fbm2D(x * 0.0004 + 30 + t * 0.004, y * 0.0007 + 30 + t * 0.006, 2, 0.5);
-  const bg = Math.pow((n1 * 0.6 + n2 * 0.4) * 0.5 + 0.5, 2) * 0.12;
-  // ^ keep bg subtle — just enough to show gradients without raising the floor
+  const bg = 0.08 + Math.pow((n1 * 0.6 + n2 * 0.4) * 0.5 + 0.5, 1.5) * 0.14;
 
   // ── Layer 2: 3 micro spotlights ──
   const spot = (cx: number, cy: number, pulse: number): number => {
@@ -263,8 +268,8 @@ export default function WaveBackground({
     if (!trailCtx) return;
 
     let w = 1, h = 1, dpr = 1;
-    let startTime = performance.now();
-    let prevTime = startTime;
+    let accumulatedTime = 0;
+    let prevTime = performance.now();
 
     // Particle pool — flat Float32Array for performance
     const particles = new Float32Array(PARTICLE_COUNT * STRIDE);
@@ -273,11 +278,11 @@ export default function WaveBackground({
 
     const respawnParticle = (i: number, initialRandom: boolean) => {
       const base = i * STRIDE;
-      const t = (performance.now() - startTime) * 0.001;
+      const t = accumulatedTime;
 
       // Seed position — biased toward wave crest regions
       let px: number, py: number;
-      if (!initialRandom && rand() < 0.65) {
+      if (!initialRandom && rand() < 0.30) {
         // Try to spawn near a crest — sample a few random positions and pick brightest
         let bestX = rand() * w, bestY = rand() * h, bestI = 0;
         for (let attempt = 0; attempt < 3; attempt++) {
@@ -340,9 +345,10 @@ export default function WaveBackground({
         return;
       }
 
-      const elapsed = (now - startTime) * 0.001;
       const dt = Math.min((now - prevTime) * 0.001, 0.05);
       prevTime = now;
+      accumulatedTime += dt;
+      const elapsed = accumulatedTime;
 
       const color = parseColor(lineColorRef.current);
       const bgColor = parseColor(bgColorRef.current);
@@ -386,7 +392,7 @@ export default function WaveBackground({
 
         // Speed: always moving, spotlights add energy
         const speedMul = particles[base + PSPEED];
-        const intensitySpeed = 0.7 + intensity * 1.8; // 0.7x always, up to 2.5x at spotlight
+        const intensitySpeed = 1.0 + intensity * 1.2; // 1.0x always, up to 2.2x at spotlight
         const speed = PARTICLE_SPEED_BASE * speedMul * intensitySpeed;
 
         // Advance position
@@ -408,13 +414,12 @@ export default function WaveBackground({
         const fadeOut = Math.min((1 - lifeFrac) * 4, 1);
         const lifeFade = Math.min(fadeIn, fadeOut);
 
-        // Opacity: low floor, steep power curve — base visible, spotlight peaks pop
-        const i2 = intensity * intensity;
-        const alpha = lifeFade * (0.030 + i2 * i2 * 0.68);
+        // Opacity: subtle floor, quadratic ramp — spotlights glow strong
+        const alpha = lifeFade * (0.035 + intensity * intensity * 0.75);
 
-        // Width: thin everywhere, thick only at high intensity
+        // Width: thin outside spotlights, thick inside
         const baseWidth = particles[base + PWIDTH];
-        const lineWidth = baseWidth * (0.3 + intensity * intensity * 2.5);
+        const lineWidth = baseWidth * (0.4 + intensity * intensity * 3.0);
 
         // Color: tint toward white at crests
         const crestBlend = intensity * intensity; // quadratic for sharp crest highlight
@@ -474,7 +479,7 @@ export default function WaveBackground({
           curlNoise(px, py, t, vel);
           const intensity = waveIntensity(px, py, t, w, h);
 
-          const speed = PARTICLE_SPEED_BASE * particles[base + PSPEED] * (0.7 + intensity * 1.8);
+          const speed = PARTICLE_SPEED_BASE * particles[base + PSPEED] * (1.0 + intensity * 1.2);
           const mag = Math.sqrt(vel.vx * vel.vx + vel.vy * vel.vy) || 1;
           particles[base + PX] = px + (vel.vx / mag) * speed * wdt;
           particles[base + PY] = py + (vel.vy / mag) * speed * wdt;
@@ -484,10 +489,9 @@ export default function WaveBackground({
 
           const lifeFrac = particles[base + PLIFE] / particles[base + PMAXLIFE];
           const lifeFade = Math.min(Math.min(lifeFrac * 5, 1), Math.min((1 - lifeFrac) * 4, 1));
-          const i2 = intensity * intensity;
-          const alpha = lifeFade * (0.030 + i2 * i2 * 0.68);
-          const lw = particles[base + PWIDTH] * (0.3 + i2 * 2.5);
-          const cb = i2 * 0.4;
+          const alpha = lifeFade * (0.035 + intensity * intensity * 0.75);
+          const lw = particles[base + PWIDTH] * (0.4 + intensity * intensity * 3.0);
+          const cb = intensity * intensity * 0.4;
           const cr = Math.round(initColor.r + (255 - initColor.r) * cb);
           const cg = Math.round(initColor.g + (255 - initColor.g) * cb);
           const cbv = Math.round(initColor.b + (255 - initColor.b) * cb);
@@ -501,12 +505,12 @@ export default function WaveBackground({
           trailCtx.stroke();
         }
       }
+      accumulatedTime = warmupFrames * wdt;
     }
 
     const startLoop = () => {
       if (rafRef.current !== null || pausedRef.current) return;
-      startTime = performance.now();
-      prevTime = startTime;
+      prevTime = performance.now();
       rafRef.current = requestAnimationFrame(draw);
     };
     startLoopRef.current = startLoop;
