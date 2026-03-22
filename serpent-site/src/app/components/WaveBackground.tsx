@@ -15,8 +15,8 @@ type WaveBackgroundProps = {
 const MAX_DPR = 1.5;
 const TWO_PI = Math.PI * 2;
 const BASE_SEED = 42811;
-const PARTICLE_COUNT = 1800;
-const TRAIL_FADE = 0.25; // aggressive fade — prevents grey mesh accumulation
+const PARTICLE_COUNT = 1000;
+const TRAIL_FADE = 0.40; // aggressive fade — prevents grey mesh accumulation
 const PARTICLE_SPEED_BASE = 35; // px/s base speed — halved for slower feel
 const PARTICLE_LIFE_MIN = 3.0;
 const PARTICLE_LIFE_MAX = 5.0;
@@ -124,20 +124,20 @@ const curlNoise = (
 
   // Large scale — broad sweeping ocean currents
   const s1 = 0.0012;
-  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.025, 4, 0.5);
-  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.025, 4, 0.5);
-  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.025, 4, 0.5);
-  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.025, 4, 0.5);
+  const n1a = fbm2D(x * s1, (y + CURL_EPS) * s1 + t * 0.025, 3, 0.5);
+  const n1b = fbm2D(x * s1, (y - CURL_EPS) * s1 + t * 0.025, 3, 0.5);
+  const n1c = fbm2D((x + CURL_EPS) * s1, y * s1 + t * 0.025, 3, 0.5);
+  const n1d = fbm2D((x - CURL_EPS) * s1, y * s1 + t * 0.025, 3, 0.5);
   vx += (n1a - n1b) / (2 * CURL_EPS) * 1.8;
   vy += -(n1c - n1d) / (2 * CURL_EPS) * 1.8;
 
   // Medium scale — wave-level swirls
   const s2 = 0.004;
   const t2 = t * 0.04 + 100;
-  const n2a = fbm2D(x * s2, (y + CURL_EPS) * s2 + t2, 3, 0.5);
-  const n2b = fbm2D(x * s2, (y - CURL_EPS) * s2 + t2, 3, 0.5);
-  const n2c = fbm2D((x + CURL_EPS) * s2, y * s2 + t2, 3, 0.5);
-  const n2d = fbm2D((x - CURL_EPS) * s2, y * s2 + t2, 3, 0.5);
+  const n2a = fbm2D(x * s2, (y + CURL_EPS) * s2 + t2, 2, 0.5);
+  const n2b = fbm2D(x * s2, (y - CURL_EPS) * s2 + t2, 2, 0.5);
+  const n2c = fbm2D((x + CURL_EPS) * s2, y * s2 + t2, 2, 0.5);
+  const n2d = fbm2D((x - CURL_EPS) * s2, y * s2 + t2, 2, 0.5);
   vx += (n2a - n2b) / (2 * CURL_EPS) * 1.2;
   vy += -(n2c - n2d) / (2 * CURL_EPS) * 1.2;
 
@@ -270,6 +270,7 @@ export default function WaveBackground({
     let w = 1, h = 1, dpr = 1;
     let accumulatedTime = 0;
     let prevTime = performance.now();
+    let frameCount = 0;
 
     // Particle pool — flat Float32Array for performance
     const particles = new Float32Array(PARTICLE_COUNT * STRIDE);
@@ -278,25 +279,10 @@ export default function WaveBackground({
 
     const respawnParticle = (i: number, initialRandom: boolean) => {
       const base = i * STRIDE;
-      const t = accumulatedTime;
 
-      // Seed position — biased toward wave crest regions
-      let px: number, py: number;
-      if (!initialRandom && rand() < 0.30) {
-        // Try to spawn near a crest — sample a few random positions and pick brightest
-        let bestX = rand() * w, bestY = rand() * h, bestI = 0;
-        for (let attempt = 0; attempt < 3; attempt++) {
-          const tx = rand() * w, ty = rand() * h;
-          const intensity = waveIntensity(tx, ty, t, w, h);
-          if (intensity > bestI) {
-            bestX = tx; bestY = ty; bestI = intensity;
-          }
-        }
-        px = bestX; py = bestY;
-      } else {
-        px = rand() * w;
-        py = rand() * h;
-      }
+      // Uniform random spawn position
+      const px = rand() * w;
+      const py = rand() * h;
 
       particles[base + PX] = px;
       particles[base + PY] = py;
@@ -363,6 +349,12 @@ export default function WaveBackground({
       trailCtx.fillStyle = `rgba(0, 0, 0, ${TRAIL_FADE})`;
       trailCtx.fillRect(0, 0, trailW, trailH);
       trailCtx.globalCompositeOperation = "source-over";
+
+      // Periodic hard-clear to prevent 8-bit alpha rounding artifacts
+      frameCount++;
+      if (frameCount % 300 === 0) {
+        trailCtx.clearRect(0, 0, trailW, trailH);
+      }
 
       // ── Step 2: Update particles and draw segments ──
       trailCtx.setTransform(trailDpr, 0, 0, trailDpr, 0, 0);
@@ -447,66 +439,6 @@ export default function WaveBackground({
     };
 
     resize();
-
-    // Pre-warm trail canvas so animation starts with faint trails already visible
-    // rather than an empty black canvas that fills in slowly.
-    {
-      const warmupFrames = 90;
-      const wdt = 1 / 60;
-      const initColor = parseColor(lineColorRef.current);
-      const tDpr = trailCanvas.width / w;
-
-      for (let f = 0; f < warmupFrames; f++) {
-        const t = f * wdt;
-
-        // Fade
-        trailCtx.setTransform(1, 0, 0, 1, 0, 0);
-        trailCtx.globalCompositeOperation = "destination-out";
-        trailCtx.fillStyle = `rgba(0, 0, 0, ${TRAIL_FADE})`;
-        trailCtx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
-        trailCtx.globalCompositeOperation = "source-over";
-        trailCtx.setTransform(tDpr, 0, 0, tDpr, 0, 0);
-        trailCtx.lineCap = "round";
-
-        for (let i = 0; i < PARTICLE_COUNT; i++) {
-          const base = i * STRIDE;
-          particles[base + PLIFE] -= wdt;
-          if (particles[base + PLIFE] <= 0) { respawnParticle(i, false); continue; }
-
-          const px = particles[base + PX], py = particles[base + PY];
-          particles[base + PPX] = px; particles[base + PPY] = py;
-
-          curlNoise(px, py, t, vel);
-          const intensity = waveIntensity(px, py, t, w, h);
-
-          const speed = PARTICLE_SPEED_BASE * particles[base + PSPEED] * (1.0 + intensity * 1.2);
-          const mag = Math.sqrt(vel.vx * vel.vx + vel.vy * vel.vy) || 1;
-          particles[base + PX] = px + (vel.vx / mag) * speed * wdt;
-          particles[base + PY] = py + (vel.vy / mag) * speed * wdt;
-
-          const nx = particles[base + PX], ny = particles[base + PY];
-          if (nx < -20 || nx > w + 20 || ny < -20 || ny > h + 20) { respawnParticle(i, false); continue; }
-
-          const lifeFrac = particles[base + PLIFE] / particles[base + PMAXLIFE];
-          const lifeFade = Math.min(Math.min(lifeFrac * 5, 1), Math.min((1 - lifeFrac) * 4, 1));
-          const alpha = lifeFade * (0.035 + intensity * intensity * 0.75);
-          const lw = particles[base + PWIDTH] * (0.4 + intensity * intensity * 3.0);
-          const cb = intensity * intensity * 0.4;
-          const cr = Math.round(initColor.r + (255 - initColor.r) * cb);
-          const cg = Math.round(initColor.g + (255 - initColor.g) * cb);
-          const cbv = Math.round(initColor.b + (255 - initColor.b) * cb);
-
-          trailCtx.globalAlpha = alpha;
-          trailCtx.strokeStyle = `rgb(${cr}, ${cg}, ${cbv})`;
-          trailCtx.lineWidth = lw;
-          trailCtx.beginPath();
-          trailCtx.moveTo(particles[base + PPX], particles[base + PPY]);
-          trailCtx.lineTo(particles[base + PX], particles[base + PY]);
-          trailCtx.stroke();
-        }
-      }
-      accumulatedTime = warmupFrames * wdt;
-    }
 
     const startLoop = () => {
       if (rafRef.current !== null || pausedRef.current) return;
