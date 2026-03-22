@@ -1085,7 +1085,8 @@ export default function SerpentBackground({
         }
       }
 
-      if (dotStyleTo === "bloom") {
+      if (false) { // dots disabled
+      } else if (dotStyleTo === "bloom") {
         const baseAlpha = 0.45 * dotAlphaScale;
         const minSize = Math.min(w, h);
         const driftX = minSize * 0.08;
