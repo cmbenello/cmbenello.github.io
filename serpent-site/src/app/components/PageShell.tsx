@@ -90,7 +90,7 @@ export default function PageShell({ children }: PageShellProps) {
   }, []);
 
   useEffect(() => {
-    const id = setTimeout(() => setLabelsReady(true), 2300);
+    const id = setTimeout(() => setLabelsReady(true), 1600);
     return () => clearTimeout(id);
   }, []);
 
