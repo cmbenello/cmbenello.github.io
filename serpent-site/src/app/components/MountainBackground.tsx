@@ -1142,7 +1142,7 @@ export default function MountainBackground({
                 1,
               )}s linear ${motion.delay.toFixed(1)}s infinite alternate`
             : undefined;
-          const stripStyle: CSSProperties = {
+          const stripStyle = {
             position: "absolute",
             left: 0,
             right: 0,
@@ -1151,8 +1151,8 @@ export default function MountainBackground({
             animation: dashAnimation,
             animationPlayState,
             transform: "translateX(0px)",
-            ["--dash-shift" as const]: dashShift,
-          };
+            "--dash-shift": dashShift,
+          } as CSSProperties;
           return (
             <div
               key={`dash-strip-${stripIndex}`}

@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactElement } from "react";
 
 type ProjectCommit = {
   sha: string;
@@ -61,12 +61,18 @@ type ContributionCalendar = {
   months: ContributionMonth[];
 };
 
+type Category = {
+  slug: string;
+  title: string;
+  projects: Project[];
+};
+
 type ProjectsData = {
   generatedAt?: string;
   user?: string;
   contributions?: ContributionCalendar | null;
   projects: Project[];
-  categories?: { slug: string; title: string; projects: Project[] }[];
+  categories?: Category[];
 };
 
 type ProjectsSectionProps = {
@@ -142,7 +148,7 @@ const buildSparklinePoints = (
 };
 
 const renderInline = (text: string) => {
-  const nodes: Array<string | JSX.Element> = [];
+  const nodes: Array<string | ReactElement> = [];
   let index = 0;
 
   const pushText = (value: string) => {
@@ -219,7 +225,7 @@ const renderInline = (text: string) => {
 
 const renderMarkdown = (markdown: string) => {
   const lines = markdown.split(/\r?\n/);
-  const blocks: JSX.Element[] = [];
+  const blocks: ReactElement[] = [];
   let listItems: string[] = [];
   let codeLines: string[] = [];
   let inCode = false;
@@ -727,11 +733,11 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
       ["--flip-ty" as const]: `${projectOrigin.ty}px`,
       ["--flip-sx" as const]: `${projectOrigin.sx}`,
       ["--flip-sy" as const]: `${projectOrigin.sy}`,
-    };
+    } as CSSProperties;
   }, [projectOrigin]);
 
   const readmeBlocks = useMemo(() => {
-    if (!activeProject?.readme) return [] as JSX.Element[];
+    if (!activeProject?.readme) return [] as ReactElement[];
     return renderMarkdown(activeProject.readme);
   }, [activeProject]);
 

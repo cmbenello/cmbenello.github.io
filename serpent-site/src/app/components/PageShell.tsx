@@ -6,6 +6,7 @@ import {
   useLayoutEffect,
   useRef,
   useState,
+  type CSSProperties,
   type ReactNode,
 } from "react";
 
@@ -267,7 +268,7 @@ export default function PageShell({ children }: PageShellProps) {
   return (
     <main
       className="relative h-screen overflow-hidden"
-      style={{
+      style={({
         backgroundColor: mainBackgroundColor,
         backgroundImage: "none",
         color: theme.text,
@@ -315,7 +316,7 @@ export default function PageShell({ children }: PageShellProps) {
         ["--contrib-border" as const]: isLight
           ? "rgba(48, 92, 128, 0.3)"
           : "rgba(84, 128, 164, 0.24)",
-      }}
+      }) as CSSProperties}
     >
       <div
         aria-hidden="true"
