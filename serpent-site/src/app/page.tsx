@@ -160,21 +160,7 @@ export default function Home() {
     <PageShell>
       <section className="grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-7">
-          <div className="flex items-center gap-3 entrance" style={{ animationDelay: "900ms" }}>
-            <div
-              className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
-              style={{
-                background: "linear-gradient(135deg, var(--accent-1), transparent)",
-                border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
-              }}
-            >
-              <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" style={{ color: "var(--accent-color)" }}>
-                <circle cx="16" cy="11" r="5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.15"/>
-                <path d="M6 27c0-5.5 4.5-9 10-9s10 3.5 10 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-              </svg>
-            </div>
-            <p className="text-xs uppercase tracking-[0.35em] opacity-65">01 About</p>
-          </div>
+          <p className="text-xs uppercase tracking-[0.35em] opacity-65 entrance" style={{ animationDelay: "900ms" }}>01 About</p>
           <h1 className="text-5xl font-semibold tracking-tight entrance" style={{ animationDelay: "1050ms" }}>
             Charles Benello
           </h1>
@@ -234,25 +220,9 @@ export default function Home() {
 
       <section className="grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-12">
-          <div className="flex items-center gap-3">
-            <div
-              className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
-              style={{
-                background: "linear-gradient(135deg, var(--accent-1), transparent)",
-                border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
-              }}
-            >
-              <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" style={{ color: "var(--accent-color)" }}>
-                <circle cx="16" cy="16" r="2.5" fill="currentColor"/>
-                <ellipse cx="16" cy="16" rx="11" ry="4.5" stroke="currentColor" strokeWidth="1.3" fill="none"/>
-                <ellipse cx="16" cy="16" rx="11" ry="4.5" stroke="currentColor" strokeWidth="1.3" fill="none" transform="rotate(60 16 16)"/>
-                <ellipse cx="16" cy="16" rx="11" ry="4.5" stroke="currentColor" strokeWidth="1.3" fill="none" transform="rotate(120 16 16)"/>
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Teaching</p>
-              <h2 className="text-2xl font-semibold tracking-tight">Research + Teaching</h2>
-            </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Teaching</p>
+            <h2 className="text-2xl font-semibold tracking-tight">Research + Teaching</h2>
           </div>
           <p className="max-w-2xl text-lg opacity-90">
             Research in database systems and GPU compression, plus teaching in

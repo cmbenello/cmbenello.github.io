@@ -745,44 +745,11 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     <section className="space-y-3">
       {/* Header with compact contribution summary */}
       <div className="flex items-center justify-between gap-4">
-        <div className="flex items-center gap-3">
-          {/* Serpent clipart icon */}
-          <div
-            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
-            style={{
-              background: "linear-gradient(135deg, var(--accent-1), transparent)",
-              border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
-            }}
-          >
-            <svg
-              viewBox="0 0 32 32"
-              fill="none"
-              className="h-6 w-6"
-              style={{ color: "var(--accent-color)" }}
-            >
-              <path
-                d="M16 4c-2 0-4 1-5 3s-1 4 0 6c1 1.5 1 3 0 4.5C9.5 19.5 8 21 8 23c0 2.5 2 4 4 4h1c1 0 2-.5 2.5-1.5.5 1 1.5 1.5 2.5 1.5h1c2 0 4-1.5 4-4 0-2-1.5-3.5-3-5.5-1-1.5-1-3 0-4.5 1-2 1-4 0-6s-3-3-5-3z"
-                fill="currentColor"
-                opacity="0.18"
-              />
-              <path
-                d="M16 6c-1.5 0-2.8.7-3.5 2-.8 1.5-.7 3 .1 4.3 1.2 1.8 1.2 3.8 0 5.7-1.2 1.7-2.3 3-2.3 4.5 0 1.7 1.3 2.8 2.7 2.8h1c.5 0 .9-.3 1.2-.8l.8-1.5.8 1.5c.3.5.7.8 1.2.8h1c1.4 0 2.7-1.1 2.7-2.8 0-1.5-1.1-2.8-2.3-4.5-1.2-1.9-1.2-3.9 0-5.7.8-1.3.9-2.8.1-4.3C18.8 6.7 17.5 6 16 6z"
-                stroke="currentColor"
-                strokeWidth="1.2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                fill="none"
-              />
-              <circle cx="14" cy="10" r="1" fill="currentColor" />
-              <circle cx="18" cy="10" r="1" fill="currentColor" />
-            </svg>
-          </div>
-          <div>
-            <p className="text-xs uppercase tracking-[0.35em] opacity-65">
-              04 Projects
-            </p>
-            <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
-          </div>
+        <div>
+          <p className="text-xs uppercase tracking-[0.35em] opacity-65">
+            04 Projects
+          </p>
+          <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
         </div>
         {/* Compact contribution summary */}
         {contributions ? (
