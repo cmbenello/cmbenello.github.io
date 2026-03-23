@@ -1,4 +1,5 @@
 import PageShell from "./components/PageShell";
+import ExperienceTimeline from "./components/ExperienceTimeline";
 import ProjectsSection from "./components/ProjectsSection";
 import projectsData from "../content/projects-data.json";
 
@@ -163,11 +164,11 @@ export default function Home() {
             <div
               className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
               style={{
-                background: "linear-gradient(135deg, var(--accent-primary, rgba(192,42,50,0.15)), var(--accent-primary, rgba(192,42,50,0.05)))",
+                background: "linear-gradient(135deg, var(--accent-1), transparent)",
                 border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
               }}
             >
-              <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" style={{ color: "var(--accent-primary, #c02a32)" }}>
+              <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" style={{ color: "var(--accent-color)" }}>
                 <circle cx="16" cy="11" r="5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.15"/>
                 <path d="M6 27c0-5.5 4.5-9 10-9s10 3.5 10 9" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
               </svg>
@@ -229,61 +230,7 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="space-y-8">
-        <div className="space-y-4">
-          <div className="flex items-center gap-3">
-            <div
-              className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
-              style={{
-                background: "linear-gradient(135deg, var(--accent-primary, rgba(192,42,50,0.15)), var(--accent-primary, rgba(192,42,50,0.05)))",
-                border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
-              }}
-            >
-              <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" style={{ color: "var(--accent-primary, #c02a32)" }}>
-                <rect x="5" y="12" width="22" height="15" rx="2.5" stroke="currentColor" strokeWidth="1.5" fill="currentColor" fillOpacity="0.12"/>
-                <path d="M11 12V9a2 2 0 012-2h6a2 2 0 012 2v3" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" fill="none"/>
-                <path d="M5 19h22" stroke="currentColor" strokeWidth="1.3" strokeLinecap="round"/>
-                <circle cx="16" cy="19" r="1.8" fill="currentColor"/>
-              </svg>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.35em] opacity-65">02 Experience</p>
-              <h2 className="text-2xl font-semibold tracking-tight">Experience</h2>
-            </div>
-          </div>
-          <p className="max-w-2xl text-lg opacity-90">
-            Research, teaching, and analytics roles across academia and
-            industry.
-          </p>
-        </div>
-        <div className="grid gap-4 md:grid-cols-2">
-          {EXPERIENCE.map((role) => {
-            const trimmedHighlights = role.highlights.slice(0, 2);
-            return (
-              <article
-                key={`${role.title}-${role.company}`}
-                className="card rounded-2xl p-4"
-              >
-                <h3 className="text-base font-semibold">{role.title}</h3>
-                <p className="text-sm opacity-90">
-                  {formatMetaLine([role.company, role.employmentType || ""]) ||
-                    role.company}
-                </p>
-                <p className="mt-1 text-xs uppercase tracking-[0.26em] opacity-65">
-                  {formatMetaLine([role.dates, role.location])}
-                </p>
-                {trimmedHighlights.length ? (
-                  <ul className="mt-2 space-y-1 text-xs opacity-85 list-disc list-inside">
-                    {trimmedHighlights.map((item) => (
-                      <li key={item}>{item}</li>
-                    ))}
-                  </ul>
-                ) : null}
-              </article>
-            );
-          })}
-        </div>
-      </section>
+      <ExperienceTimeline entries={EXPERIENCE} />
 
       <section className="grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-12">
@@ -291,11 +238,11 @@ export default function Home() {
             <div
               className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
               style={{
-                background: "linear-gradient(135deg, var(--accent-primary, rgba(192,42,50,0.15)), var(--accent-primary, rgba(192,42,50,0.05)))",
+                background: "linear-gradient(135deg, var(--accent-1), transparent)",
                 border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
               }}
             >
-              <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" style={{ color: "var(--accent-primary, #c02a32)" }}>
+              <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" style={{ color: "var(--accent-color)" }}>
                 <circle cx="16" cy="16" r="2.5" fill="currentColor"/>
                 <ellipse cx="16" cy="16" rx="11" ry="4.5" stroke="currentColor" strokeWidth="1.3" fill="none"/>
                 <ellipse cx="16" cy="16" rx="11" ry="4.5" stroke="currentColor" strokeWidth="1.3" fill="none" transform="rotate(60 16 16)"/>

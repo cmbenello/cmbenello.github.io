@@ -316,6 +316,15 @@ export default function PageShell({ children }: PageShellProps) {
         ["--contrib-border" as const]: isLight
           ? "rgba(48, 92, 128, 0.3)"
           : "rgba(84, 128, 164, 0.24)",
+        ["--cat-research" as const]: isLight
+          ? "rgba(59, 130, 246, 0.85)"
+          : "rgba(96, 165, 250, 0.85)",
+        ["--cat-teaching" as const]: isLight
+          ? "rgba(16, 185, 129, 0.85)"
+          : "rgba(52, 211, 153, 0.85)",
+        ["--cat-industry" as const]: isLight
+          ? "rgba(192, 42, 50, 0.85)"
+          : "rgba(230, 225, 216, 0.85)",
       }) as CSSProperties}
     >
       <div
@@ -466,6 +475,65 @@ export default function PageShell({ children }: PageShellProps) {
             );
           })}
         </nav>
+
+        {/* Bottom section nav — fades when leaving first panel */}
+        <div
+          className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 entrance"
+          style={{
+            animationDelay: "2000ms",
+            opacity: activeIndex === 0 ? 1 : 0,
+            transition: "opacity 600ms ease",
+          }}
+        >
+          <nav
+            aria-label="Jump to section"
+            className="flex items-stretch overflow-hidden rounded-full"
+            style={{
+              pointerEvents: activeIndex === 0 ? "auto" : "none",
+              backdropFilter: "blur(16px) saturate(1.4)",
+              WebkitBackdropFilter: "blur(16px) saturate(1.4)",
+              background: isLight
+                ? "rgba(252, 244, 228, 0.72)"
+                : "rgba(14, 15, 17, 0.68)",
+              border: `1px solid ${theme.iconRing}`,
+              boxShadow: "0 4px 24px rgba(0,0,0,0.22), 0 1px 2px rgba(0,0,0,0.08)",
+            }}
+          >
+            {([
+              { label: "Experience", targetIndex: 1 },
+              { label: "Research + Teaching", targetIndex: 2 },
+              { label: "Projects", targetIndex: 3 },
+            ] as const).map((item, i) => (
+              <button
+                key={item.label}
+                type="button"
+                onClick={() => {
+                  setActiveIndex(item.targetIndex);
+                  const scrollEl = scrollRef.current;
+                  if (scrollEl && panelHeight) {
+                    scrollEl.scrollTo({ top: item.targetIndex * panelHeight, behavior: "smooth" });
+                  }
+                }}
+                className="px-5 py-2.5 cursor-pointer"
+                style={{
+                  color: theme.text,
+                  fontSize: 10,
+                  letterSpacing: "0.30em",
+                  textTransform: "uppercase",
+                  background: "transparent",
+                  border: "none",
+                  borderRight: i < 2 ? `1px solid ${theme.iconRing}` : "none",
+                  opacity: 0.65,
+                  transition: "opacity 150ms ease, color 700ms ease",
+                }}
+                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
+                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.65"; }}
+              >
+                {item.label}
+              </button>
+            ))}
+          </nav>
+        </div>
 
         <div className="pointer-events-auto absolute bottom-8 right-8 entrance" style={{ animationDelay: "1100ms" }}>
           <button

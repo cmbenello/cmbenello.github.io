@@ -750,8 +750,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           <div
             className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
             style={{
-              background:
-                "linear-gradient(135deg, var(--accent-primary, rgba(192,42,50,0.15)), var(--accent-primary, rgba(192,42,50,0.05)))",
+              background: "linear-gradient(135deg, var(--accent-1), transparent)",
               border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
             }}
           >
@@ -759,7 +758,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               viewBox="0 0 32 32"
               fill="none"
               className="h-6 w-6"
-              style={{ color: "var(--accent-primary, #c02a32)" }}
+              style={{ color: "var(--accent-color)" }}
             >
               <path
                 d="M16 4c-2 0-4 1-5 3s-1 4 0 6c1 1.5 1 3 0 4.5C9.5 19.5 8 21 8 23c0 2.5 2 4 4 4h1c1 0 2-.5 2.5-1.5.5 1 1.5 1.5 2.5 1.5h1c2 0 4-1.5 4-4 0-2-1.5-3.5-3-5.5-1-1.5-1-3 0-4.5 1-2 1-4 0-6s-3-3-5-3z"
@@ -820,7 +819,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           const isActive = activeFilter === opt.slug;
           const accent =
             opt.slug === "all"
-              ? "var(--accent-primary, #818cf8)"
+              ? "var(--accent-color)"
               : CATEGORY_ACCENTS[opt.slug] ?? DEFAULT_ACCENT;
           return (
             <button
