@@ -440,7 +440,7 @@ export default function PageShell({ children }: PageShellProps) {
               >
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
+                  className="absolute right-full mr-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em] cursor-pointer"
                   style={{
                     color: theme.text,
                     borderColor: theme.iconRing,
