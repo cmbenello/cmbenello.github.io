@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'GangwonEduModuche';
+  src: url('/fonts/GangwonEduModuche.woff2') format('woff2'),
+       url('/fonts/GangwonEduModuche.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --background: #ffffff;
   --foreground: #171717;

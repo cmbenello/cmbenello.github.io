@@ -380,51 +380,6 @@ export default function PageShell({ children }: PageShellProps) {
       />
 
       <div className="pointer-events-none fixed inset-0 z-20">
-        <div
-          className="absolute entrance"
-          style={{
-            left: FRAME_MARGIN,
-            top: NAV_TOP,
-            animationDelay: "900ms",
-          }}
-        >
-          <div
-            style={{
-              width: 36,
-              height: 36,
-              borderRadius: 8,
-              border: `1px solid ${theme.iconRing}`,
-              boxShadow: `0 0 14px ${theme.iconRing}`,
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              backgroundColor: isLight
-                ? "rgba(252, 244, 228, 0.55)"
-                : "rgba(14, 15, 17, 0.55)",
-              backdropFilter: "blur(6px)",
-              transition: "border-color 700ms ease, box-shadow 700ms ease, background-color 700ms ease",
-            }}
-          >
-            <svg
-              width="20"
-              height="20"
-              viewBox="0 0 20 20"
-              fill="none"
-              aria-hidden="true"
-              style={{ color: theme.text, transition: "color 700ms ease" }}
-            >
-              {/* tick at top */}
-              <line x1="10" y1="2" x2="10" y2="5.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-              {/* horizontal bar */}
-              <line x1="3" y1="8.5" x2="17" y2="8.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-              {/* left leg */}
-              <line x1="7.5" y1="8.5" x2="4" y2="17.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-              {/* right leg */}
-              <line x1="12.5" y1="8.5" x2="16" y2="17.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round"/>
-            </svg>
-          </div>
-        </div>
-
         <nav
           aria-label="Site sections"
           className="pointer-events-auto absolute flex flex-col items-center entrance"
