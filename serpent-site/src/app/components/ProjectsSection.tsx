@@ -14,6 +14,7 @@ type Project = {
   name: string;
   repo: string;
   url: string;
+  category?: string;
   summary?: string;
   description?: string;
   image?: string;
@@ -35,12 +36,6 @@ type Project = {
   commitActivity?: number[];
   activity?: number[];
   readme?: string;
-};
-
-type Category = {
-  title: string;
-  slug: string;
-  projects: Project[];
 };
 
 type ContributionDay = {
@@ -70,7 +65,8 @@ type ProjectsData = {
   generatedAt?: string;
   user?: string;
   contributions?: ContributionCalendar | null;
-  categories: Category[];
+  projects: Project[];
+  categories?: { slug: string; title: string; projects: Project[] }[];
 };
 
 type ProjectsSectionProps = {
@@ -83,6 +79,13 @@ type PopOrigin = {
   sx: number;
   sy: number;
 };
+
+const toTitleCase = (value: string) =>
+  value
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part[0].toUpperCase() + part.slice(1))
+    .join(" ");
 
 const CONTRIBUTION_CELL_SIZE = 11;
 const CONTRIBUTION_CELL_GAP = 4;
@@ -315,39 +318,262 @@ const renderMarkdown = (markdown: string) => {
   return blocks;
 };
 
+// ── Netflix-style card components ─────────────────────────────────────────────
+
+const LANG_GRADIENTS: Record<string, [string, string]> = {
+  python: ["#3776AB", "#FFD43B"],
+  typescript: ["#3178C6", "#23afe8"],
+  javascript: ["#F0DB4F", "#3a3a3a"],
+  "c++": ["#659ad2", "#f18636"],
+  rust: ["#CE422B", "#F0A05A"],
+  java: ["#e76f00", "#5382A1"],
+  go: ["#00ACD7", "#375EAB"],
+  r: ["#276bbf", "#75aadb"],
+  julia: ["#9558b2", "#389826"],
+  swift: ["#f05138", "#ffac45"],
+  kotlin: ["#7f52ff", "#e44857"],
+  scala: ["#dc322f", "#003b6f"],
+};
+const DEFAULT_GRADIENT: [string, string] = ["#6366f1", "#a855f7"];
+
+const CATEGORY_ACCENTS: Record<string, string> = {
+  "machine-learning": "#818cf8",
+  research: "#2dd4bf",
+  personal: "#fbbf24",
+  school: "#60a5fa",
+  teaching: "#f472b6",
+  work: "#34d399",
+};
+const DEFAULT_ACCENT = "#818cf8";
+
+function getLangGradient(language?: string): [string, string] {
+  const lang = (language ?? "").toLowerCase();
+  return LANG_GRADIENTS[lang] ?? DEFAULT_GRADIENT;
+}
+
+function getInitials(name: string): string {
+  return name
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((w) => w[0])
+    .join("")
+    .slice(0, 2)
+    .toUpperCase();
+}
+
+function ProjectCard({
+  project,
+  accentColor,
+  onOpen,
+}: {
+  project: Project;
+  accentColor: string;
+  onOpen: (project: Project, rect: DOMRect) => void;
+}) {
+  const [hovered, setHovered] = useState(false);
+  const [g1, g2] = getLangGradient(project.language);
+  const initials = getInitials(project.name);
+  const summary = project.summary || project.description || "";
+  const tags = [
+    ...(project.tags ?? []),
+    ...(project.topics ?? []),
+    project.language ?? "",
+  ]
+    .filter((t) => t?.trim())
+    .slice(0, 3);
+
+  return (
+    <button
+      type="button"
+      className="relative w-full overflow-hidden rounded-xl text-left focus-visible:outline-none focus-visible:ring-2"
+      style={{
+        aspectRatio: "16 / 9",
+        transform: hovered ? "translateY(-3px)" : "translateY(0)",
+        transition: "transform 200ms ease, box-shadow 200ms ease",
+        boxShadow: hovered
+          ? `0 8px 32px rgba(0,0,0,0.4), 0 0 0 2px ${accentColor}`
+          : "0 2px 8px rgba(0,0,0,0.2)",
+        borderRadius: 12,
+      }}
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onClick={(e) => {
+        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+        onOpen(project, rect);
+      }}
+    >
+      {/* Thumbnail */}
+      {project.image ? (
+        <img
+          src={project.image}
+          alt={project.name}
+          className="absolute inset-0 h-full w-full object-cover"
+        />
+      ) : (
+        <div
+          className="absolute inset-0"
+          style={{ background: `linear-gradient(135deg, ${g1}dd, ${g2}dd)` }}
+        >
+          {/* Subtle grid pattern */}
+          <div
+            className="absolute inset-0"
+            style={{
+              backgroundImage:
+                "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
+              backgroundSize: "24px 24px",
+            }}
+          />
+          {/* Large initials */}
+          <div className="absolute inset-0 flex items-center justify-center">
+            <span
+              style={{
+                fontSize: "2.75rem",
+                fontWeight: 800,
+                color: "rgba(255,255,255,0.80)",
+                textShadow: "0 2px 16px rgba(0,0,0,0.5)",
+                letterSpacing: "-0.04em",
+              }}
+            >
+              {initials}
+            </span>
+          </div>
+        </div>
+      )}
+
+      {/* Language pill — top right */}
+      {project.language && (
+        <div className="absolute right-2 top-2 z-10">
+          <span
+            className="rounded-full px-2 py-0.5 text-[10px] uppercase tracking-widest"
+            style={{
+              background: "rgba(0,0,0,0.55)",
+              color: "rgba(255,255,255,0.9)",
+              backdropFilter: "blur(6px)",
+            }}
+          >
+            {project.language}
+          </span>
+        </div>
+      )}
+
+      {/* Always-visible title strip */}
+      <div
+        className="absolute inset-x-0 bottom-0 z-10 px-3 py-2.5"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 55%, transparent 100%)",
+          opacity: hovered ? 0 : 1,
+          transition: "opacity 180ms ease",
+        }}
+      >
+        <p
+          className="truncate text-sm font-semibold text-white"
+          style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
+        >
+          {project.name}
+        </p>
+      </div>
+
+      {/* Hover info overlay */}
+      <div
+        className="absolute inset-0 z-20 flex flex-col justify-end px-3 pb-3"
+        style={{
+          background:
+            "linear-gradient(to top, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.72) 45%, rgba(0,0,0,0.15) 100%)",
+          opacity: hovered ? 1 : 0,
+          transition: "opacity 180ms ease",
+        }}
+      >
+        <p className="mb-0.5 text-sm font-semibold leading-tight text-white">
+          {project.name}
+        </p>
+        {summary && (
+          <p
+            className="mb-1.5 text-xs leading-snug text-white/70"
+            style={{
+              display: "-webkit-box",
+              WebkitLineClamp: 2,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+            }}
+          >
+            {summary}
+          </p>
+        )}
+        {tags.length > 0 && (
+          <div className="flex flex-wrap gap-1">
+            {tags.map((tag) => (
+              <span
+                key={tag}
+                className="rounded px-1.5 py-0.5 text-[10px] uppercase tracking-wide"
+                style={{
+                  background: accentColor + "2a",
+                  color: accentColor,
+                  border: `1px solid ${accentColor}44`,
+                }}
+              >
+                {tag}
+              </span>
+            ))}
+          </div>
+        )}
+      </div>
+    </button>
+  );
+}
+
+function CategoryRow({
+  category,
+  onOpen,
+}: {
+  category: Category;
+  onOpen: (project: Project, rect: DOMRect) => void;
+}) {
+  const accentColor = CATEGORY_ACCENTS[category.slug] ?? DEFAULT_ACCENT;
+
+  return (
+    <div className="space-y-3">
+      <div className="flex items-baseline gap-3">
+        <h3 className="text-lg font-semibold tracking-tight">
+          {category.title}
+        </h3>
+        <span
+          className="text-xs uppercase tracking-[0.28em]"
+          style={{ color: accentColor }}
+        >
+          {category.projects.length}{" "}
+          {category.projects.length === 1 ? "project" : "projects"}
+        </span>
+      </div>
+      <div
+        className="scrollbar-hidden flex gap-3 overflow-x-auto pb-3"
+        style={{ scrollSnapType: "x mandatory" }}
+      >
+        {category.projects.map((project) => (
+          <div key={project.repo} style={{ scrollSnapAlign: "start" }}>
+            <ProjectCard
+              project={project}
+              accentColor={accentColor}
+              onOpen={onOpen}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Main section ──────────────────────────────────────────────────────────────
+
 const CLOSE_MS = 160;
 
 export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
-  const [activeCategorySlug, setActiveCategorySlug] = useState<string | null>(
-    null,
-  );
-  const [categoryOrigin, setCategoryOrigin] = useState<PopOrigin | null>(null);
   const [projectOrigin, setProjectOrigin] = useState<PopOrigin | null>(null);
+  const [activeFilter, setActiveFilter] = useState<string>("all");
 
-  const categoryPanelRef = useRef<HTMLDivElement>(null);
-  const categoryBackdropRef = useRef<HTMLDivElement>(null);
   const projectPanelRef = useRef<HTMLDivElement>(null);
   const projectBackdropRef = useRef<HTMLDivElement>(null);
-
-  const closeCategory = () => {
-    const panel = categoryPanelRef.current;
-    const backdrop = categoryBackdropRef.current;
-    const o = categoryOrigin ?? { tx: 0, ty: 0, sx: 0.9, sy: 0.9 };
-    backdrop && (backdrop.style.pointerEvents = "none");
-    panel?.animate(
-      [
-        { transform: "translate(0,0) scale(1,1)", opacity: 1, borderRadius: "24px" },
-        { transform: `translate(${o.tx}px,${o.ty}px) scale(${o.sx},${o.sy})`, opacity: 0, borderRadius: "16px" },
-      ],
-      { duration: CLOSE_MS, easing: "cubic-bezier(0.4,0,1,1)", fill: "forwards" },
-    );
-    backdrop?.animate(
-      [{ opacity: 1 }, { opacity: 0 }],
-      { duration: CLOSE_MS, easing: "ease-in", fill: "forwards" },
-    );
-    setTimeout(() => setActiveCategorySlug(null), CLOSE_MS);
-  };
 
   const closeProject = () => {
     const panel = projectPanelRef.current;
@@ -356,35 +582,53 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     backdrop && (backdrop.style.pointerEvents = "none");
     panel?.animate(
       [
-        { transform: "translate(0,0) scale(1,1)", opacity: 1, borderRadius: "24px" },
-        { transform: `translate(${o.tx}px,${o.ty}px) scale(${o.sx},${o.sy})`, opacity: 0, borderRadius: "16px" },
+        {
+          transform: "translate(0,0) scale(1,1)",
+          opacity: 1,
+          borderRadius: "24px",
+        },
+        {
+          transform: `translate(${o.tx}px,${o.ty}px) scale(${o.sx},${o.sy})`,
+          opacity: 0,
+          borderRadius: "16px",
+        },
       ],
-      { duration: CLOSE_MS, easing: "cubic-bezier(0.4,0,1,1)", fill: "forwards" },
+      {
+        duration: CLOSE_MS,
+        easing: "cubic-bezier(0.4,0,1,1)",
+        fill: "forwards",
+      },
     );
-    backdrop?.animate(
-      [{ opacity: 1 }, { opacity: 0 }],
-      { duration: CLOSE_MS, easing: "ease-in", fill: "forwards" },
-    );
+    backdrop?.animate([{ opacity: 1 }, { opacity: 0 }], {
+      duration: CLOSE_MS,
+      easing: "ease-in",
+      fill: "forwards",
+    });
     setTimeout(() => setActiveProject(null), CLOSE_MS);
   };
 
+  const openProject = (project: Project, rect: DOMRect) => {
+    const modalW = Math.min(window.innerWidth - 48, 1152);
+    const modalH = window.innerHeight * 0.92;
+    const tx = rect.left + rect.width / 2 - window.innerWidth / 2;
+    const ty = rect.top + rect.height / 2 - window.innerHeight / 2;
+    const sx = rect.width / modalW;
+    const sy = rect.height / modalH;
+    setProjectOrigin({ tx, ty, sx, sy });
+    setActiveProject(project);
+  };
+
   useEffect(() => {
-    if (!activeProject && !activeCategorySlug) return;
+    if (!activeProject) return;
     const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        if (activeProject) {
-          closeProject();
-        } else {
-          closeCategory();
-        }
-      }
+      if (event.key === "Escape") closeProject();
     };
     window.addEventListener("keydown", onKeyDown);
     return () => window.removeEventListener("keydown", onKeyDown);
-  }, [activeProject, activeCategorySlug]);
+  }, [activeProject]);
 
   useEffect(() => {
-    const active = Boolean(activeProject || activeCategorySlug);
+    const active = Boolean(activeProject);
     window.dispatchEvent(
       new CustomEvent("effects-pause", {
         detail: { source: "modal", active },
@@ -397,7 +641,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
         }),
       );
     };
-  }, [activeProject, activeCategorySlug]);
+  }, [activeProject]);
 
   const contributions = data.contributions ?? null;
   const contributionWeeks = contributions?.weeks ?? [];
@@ -420,13 +664,50 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     CONTRIBUTION_SPARKLINE_HEIGHT,
   );
 
-  const categories = data.categories || [];
-  const activeCategory = useMemo(
-    () =>
-      categories.find((category) => category.slug === activeCategorySlug) ||
-      null,
-    [categories, activeCategorySlug],
-  );
+  // Support both flat (new) and nested (legacy) data formats
+  const allProjects = useMemo(() => {
+    if (data.projects) {
+      // New flat format — category is a field on each project
+      return data.projects.map((p) => ({
+        ...p,
+        categorySlug: p.category || "uncategorized",
+        categoryTitle: toTitleCase(p.category || "uncategorized"),
+      }));
+    }
+    // Legacy nested format
+    return (data.categories || []).flatMap((cat) =>
+      cat.projects.map((p) => ({
+        ...p,
+        categorySlug: cat.slug,
+        categoryTitle: cat.title,
+      })),
+    );
+  }, [data]);
+
+  const filteredProjects = useMemo(() => {
+    if (activeFilter === "all") return allProjects;
+    return allProjects.filter((p) => p.categorySlug === activeFilter);
+  }, [allProjects, activeFilter]);
+
+  const filterOptions = useMemo(() => {
+    const catMap = new Map<string, { slug: string; title: string; count: number }>();
+    for (const p of allProjects) {
+      const existing = catMap.get(p.categorySlug);
+      if (existing) {
+        existing.count++;
+      } else {
+        catMap.set(p.categorySlug, {
+          slug: p.categorySlug,
+          title: p.categoryTitle,
+          count: 1,
+        });
+      }
+    }
+    return [
+      { slug: "all", title: "All", count: allProjects.length },
+      ...Array.from(catMap.values()).sort((a, b) => a.title.localeCompare(b.title)),
+    ];
+  }, [allProjects]);
 
   const activeProjectTags = useMemo(() => {
     if (!activeProject) return [] as string[];
@@ -438,16 +719,6 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
       .filter((tag) => tag && tag.trim().length > 0)
       .slice(0, 8);
   }, [activeProject]);
-
-  const categoryPopStyle = useMemo(() => {
-    if (!categoryOrigin) return undefined;
-    return {
-      ["--flip-tx" as const]: `${categoryOrigin.tx}px`,
-      ["--flip-ty" as const]: `${categoryOrigin.ty}px`,
-      ["--flip-sx" as const]: `${categoryOrigin.sx}`,
-      ["--flip-sy" as const]: `${categoryOrigin.sy}`,
-    };
-  }, [categoryOrigin]);
 
   const projectPopStyle = useMemo(() => {
     if (!projectOrigin) return undefined;
@@ -465,313 +736,139 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   }, [activeProject]);
 
   return (
-    <section className="space-y-8">
-      <div className="space-y-4">
-        <p className="text-xs uppercase tracking-[0.35em] opacity-65">
-          04 Projects
-        </p>
-        <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
-        <p className="max-w-2xl text-lg opacity-90">
-          Categorized repositories with deep dives, commit history, and readme
-          details.
-        </p>
-      </div>
-
-      {contributions ? (
-        <div className="card rounded-2xl p-5">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm uppercase tracking-[0.28em] opacity-90">
-              {contributionTotal} contributions in the last year
-            </p>
-            <span className="text-xs uppercase tracking-[0.28em] opacity-65">
-              Recent activity
-            </span>
-          </div>
-          <div className="mt-4 grid gap-6 lg:grid-cols-[minmax(0,1fr)_240px]">
-            <div className="overflow-x-auto pb-2">
-              <div
-                className="grid"
-                style={{
-                  gridTemplateColumns: `${CONTRIBUTION_LABEL_WIDTH}px ${calendarWidth}px`,
-                  columnGap: `${CONTRIBUTION_LABEL_GAP}px`,
-                  minWidth:
-                    calendarWidth +
-                    CONTRIBUTION_LABEL_WIDTH +
-                    CONTRIBUTION_LABEL_GAP,
-                }}
-              >
-                <div />
-                <div
-                  className="grid"
-                  style={{
-                    gridTemplateColumns: `repeat(${contributionWeeks.length}, ${CONTRIBUTION_CELL_SIZE}px)`,
-                    columnGap: `${CONTRIBUTION_CELL_GAP}px`,
-                  }}
-                >
-                  {contributionMonths.map((month) => (
-                    <div
-                      key={`${month.name}-${month.start}`}
-                      className="text-[11px] uppercase tracking-[0.25em] opacity-65"
-                      style={{
-                        gridColumnStart: month.start + 1,
-                        gridColumnEnd: month.start + 1 + month.span,
-                      }}
-                    >
-                      {month.name}
-                    </div>
-                  ))}
-                </div>
-                <div
-                  className="grid text-[10px] uppercase tracking-[0.22em] opacity-50"
-                  style={{
-                    gridTemplateRows: `repeat(7, ${CONTRIBUTION_CELL_SIZE}px)`,
-                    rowGap: `${CONTRIBUTION_CELL_GAP}px`,
-                  }}
-                >
-                  <span style={{ gridRowStart: 2 }}>Mon</span>
-                  <span style={{ gridRowStart: 4 }}>Wed</span>
-                  <span style={{ gridRowStart: 6 }}>Fri</span>
-                </div>
-                <div
-                  className="grid"
-                  style={{
-                    gridAutoFlow: "column",
-                    gridAutoColumns: `${CONTRIBUTION_CELL_SIZE}px`,
-                    gridTemplateRows: `repeat(7, ${CONTRIBUTION_CELL_SIZE}px)`,
-                    columnGap: `${CONTRIBUTION_CELL_GAP}px`,
-                    rowGap: `${CONTRIBUTION_CELL_GAP}px`,
-                    width: `${calendarWidth}px`,
-                  }}
-                >
-                  {contributionWeeks.map((week) =>
-                    week.contributionDays.map((day) => (
-                      <span
-                        key={day.date}
-                        title={`${day.date}: ${day.contributionCount} contributions`}
-                        aria-label={`${day.date}: ${day.contributionCount} contributions`}
-                        style={{
-                          width: `${CONTRIBUTION_CELL_SIZE}px`,
-                          height: `${CONTRIBUTION_CELL_SIZE}px`,
-                          borderRadius: 3,
-                          backgroundColor: getContributionColor(day),
-                          border: "1px solid var(--contrib-border)",
-                          boxSizing: "border-box",
-                          display: "inline-block",
-                        }}
-                      />
-                    )),
-                  )}
-                </div>
-              </div>
-              <div
-                className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.28em] opacity-90"
-                style={{
-                  paddingLeft:
-                    CONTRIBUTION_LABEL_WIDTH + CONTRIBUTION_LABEL_GAP,
-                  width: calendarWidth,
-                }}
-              >
-                <span>Less</span>
-                <div className="flex items-center gap-1">
-                  {[0, 1, 2, 3, 4].map((level) => (
-                    <span
-                      key={level}
-                      aria-hidden="true"
-                      style={{
-                        width: `${CONTRIBUTION_CELL_SIZE}px`,
-                        height: `${CONTRIBUTION_CELL_SIZE}px`,
-                        borderRadius: 3,
-                        backgroundColor: `var(--contrib-${level})`,
-                        border: "1px solid var(--contrib-border)",
-                        boxSizing: "border-box",
-                        display: "inline-block",
-                      }}
-                    />
-                  ))}
-                </div>
-                <span>More</span>
-              </div>
-            </div>
-            <div className="card rounded-xl p-4">
-              <p className="text-xs uppercase tracking-[0.26em] opacity-90">
-                Weekly Trend
-              </p>
-              <svg
-                aria-hidden="true"
-                viewBox={`0 0 ${CONTRIBUTION_SPARKLINE_WIDTH} ${CONTRIBUTION_SPARKLINE_HEIGHT}`}
-                className="mt-3 h-12 w-full"
-              >
-                <polyline
-                  fill="none"
-                  stroke="var(--contrib-4)"
-                  strokeWidth="2.4"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  points={contributionSparkline}
-                />
-              </svg>
-              <p className="mt-2 text-xs opacity-90">
-                Based on the last 52 weeks of activity.
-              </p>
-            </div>
-          </div>
-        </div>
-      ) : (
-        <div className="card rounded-2xl p-5 text-sm opacity-85">
-          Run the GitHub sync script to load your contribution calendar.
-        </div>
-      )}
-
-      <div className="space-y-10">
-        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {categories.map((category) => (
-            <button
-              key={category.slug}
-              type="button"
-              className="card-interactive group relative overflow-hidden rounded-2xl p-5 text-left hover:-translate-y-0.5"
-              onClick={(event) => {
-                const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
-                const modalW = Math.min(window.innerWidth - 48, 1152);
-                const modalH = window.innerHeight * 0.92;
-                const tx = (rect.left + rect.width / 2) - window.innerWidth / 2;
-                const ty = (rect.top + rect.height / 2) - window.innerHeight / 2;
-                const sx = rect.width / modalW;
-                const sy = rect.height / modalH;
-                setCategoryOrigin({ tx, ty, sx, sy });
-                setActiveCategorySlug(category.slug);
-              }}
-            >
-              <span
-                aria-hidden="true"
-                className="absolute left-6 top-0 h-3 w-16 -translate-y-1 rounded-t-md border border-current/45 bg-current/15"
-              />
-              <div className="flex items-center justify-between gap-3">
-                <h3 className="text-lg font-semibold">{category.title}</h3>
-                <span className="text-xs uppercase tracking-[0.28em] opacity-65">
-                  {category.projects.length} items
-                </span>
-              </div>
-              <p className="mt-2 text-sm opacity-85">
-                Open folder to view projects.
-              </p>
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {activeCategory ? (
-        <div
-          className="fixed inset-0 z-40 flex items-center justify-center px-6 py-10"
-          role="dialog"
-          aria-modal="true"
-          data-modal-root="true"
-          onWheel={(event) => event.stopPropagation()}
-          onTouchMove={(event) => event.stopPropagation()}
-        >
+    <section className="space-y-3">
+      {/* Header with compact contribution summary */}
+      <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center gap-3">
+          {/* Serpent clipart icon */}
           <div
-            ref={categoryBackdropRef}
-            className="absolute inset-0 folder-fade"
-            style={{ backgroundColor: "rgba(0, 0, 0, 0.55)" }}
-            onClick={closeCategory}
-            aria-hidden="true"
-          />
-          <div
-            ref={categoryPanelRef}
-            className="relative flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border folder-pop"
+            className="flex h-11 w-11 flex-shrink-0 items-center justify-center rounded-xl"
             style={{
-              backgroundColor: "var(--panel-surface, rgba(16, 17, 19, 0.98))",
-              borderColor:
-                "var(--panel-border-strong, rgba(255, 255, 255, 0.3))",
-              transformOrigin: "center center",
-              ...categoryPopStyle,
+              background:
+                "linear-gradient(135deg, var(--accent-primary, rgba(192,42,50,0.15)), var(--accent-primary, rgba(192,42,50,0.05)))",
+              border: "1px solid var(--panel-border, rgba(255,255,255,0.1))",
             }}
           >
-            <div className="flex items-center justify-between border-b border-current/30 px-6 py-4">
-              <div>
-                <p className="text-xs uppercase tracking-[0.28em] opacity-90">
-                  Folder
-                </p>
-                <h3 className="text-2xl font-semibold">
-                  {activeCategory.title}
-                </h3>
-              </div>
-              <button
-                type="button"
-                className="tag rounded-full px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-90 transition hover:opacity-100"
-                onClick={closeCategory}
-              >
-                Close
-              </button>
-            </div>
-            <div
-              className="flex-1 overflow-y-auto overscroll-contain px-6 py-6"
-              onWheel={(event) => event.stopPropagation()}
-              onWheelCapture={(event) => event.stopPropagation()}
-              onTouchMove={(event) => event.stopPropagation()}
+            <svg
+              viewBox="0 0 32 32"
+              fill="none"
+              className="h-6 w-6"
+              style={{ color: "var(--accent-primary, #c02a32)" }}
             >
-              <div className="grid gap-4 md:grid-cols-2">
-                {activeCategory.projects.map((project) => {
-                  const tags = [
-                    ...(project.tags || []),
-                    ...(project.topics || []),
-                    project.language || "",
-                  ]
-                    .filter((tag) => tag && tag.trim().length > 0)
-                    .slice(0, 4);
-                  const summary =
-                    project.summary ||
-                    project.description ||
-                    "Run the GitHub sync script to load details.";
-                  return (
-                    <button
-                      key={project.repo}
-                      type="button"
-                      className="card group rounded-2xl px-5 py-4 text-left hover:-translate-y-0.5"
-                      onClick={(event) => {
-                        const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
-                        const modalW = Math.min(window.innerWidth - 48, 1152);
-                        const modalH = window.innerHeight * 0.92;
-                        const tx = (rect.left + rect.width / 2) - window.innerWidth / 2;
-                        const ty = (rect.top + rect.height / 2) - window.innerHeight / 2;
-                        const sx = rect.width / modalW;
-                        const sy = rect.height / modalH;
-                        setProjectOrigin({ tx, ty, sx, sy });
-                        setActiveProject(project);
-                      }}
-                      aria-haspopup="dialog"
-                    >
-                      <div className="flex flex-wrap items-baseline justify-between gap-3">
-                        <h4 className="text-lg font-semibold">
-                          {project.name}
-                        </h4>
-                        <span className="text-xs uppercase tracking-[0.28em] opacity-65">
-                          {project.updatedAt
-                            ? `Updated ${project.updatedAt}`
-                            : "Click for details"}
-                        </span>
-                      </div>
-                      <p className="mt-2 text-sm opacity-90">{summary}</p>
-                      {tags.length ? (
-                        <div className="mt-3 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-65">
-                          {tags.map((tag) => (
-                            <span
-                              key={`${project.repo}-${tag}`}
-                              className="tag rounded-full px-3 py-1"
-                            >
-                              {tag}
-                            </span>
-                          ))}
-                        </div>
-                      ) : null}
-                    </button>
-                  );
-                })}
-              </div>
-            </div>
+              <path
+                d="M16 4c-2 0-4 1-5 3s-1 4 0 6c1 1.5 1 3 0 4.5C9.5 19.5 8 21 8 23c0 2.5 2 4 4 4h1c1 0 2-.5 2.5-1.5.5 1 1.5 1.5 2.5 1.5h1c2 0 4-1.5 4-4 0-2-1.5-3.5-3-5.5-1-1.5-1-3 0-4.5 1-2 1-4 0-6s-3-3-5-3z"
+                fill="currentColor"
+                opacity="0.18"
+              />
+              <path
+                d="M16 6c-1.5 0-2.8.7-3.5 2-.8 1.5-.7 3 .1 4.3 1.2 1.8 1.2 3.8 0 5.7-1.2 1.7-2.3 3-2.3 4.5 0 1.7 1.3 2.8 2.7 2.8h1c.5 0 .9-.3 1.2-.8l.8-1.5.8 1.5c.3.5.7.8 1.2.8h1c1.4 0 2.7-1.1 2.7-2.8 0-1.5-1.1-2.8-2.3-4.5-1.2-1.9-1.2-3.9 0-5.7.8-1.3.9-2.8.1-4.3C18.8 6.7 17.5 6 16 6z"
+                stroke="currentColor"
+                strokeWidth="1.2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                fill="none"
+              />
+              <circle cx="14" cy="10" r="1" fill="currentColor" />
+              <circle cx="18" cy="10" r="1" fill="currentColor" />
+            </svg>
+          </div>
+          <div>
+            <p className="text-xs uppercase tracking-[0.35em] opacity-65">
+              04 Projects
+            </p>
+            <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
           </div>
         </div>
-      ) : null}
+        {/* Compact contribution summary */}
+        {contributions ? (
+          <div className="card flex items-center gap-3 rounded-xl px-4 py-2.5">
+            <div className="text-right">
+              <p className="text-sm font-semibold tabular-nums">
+                {contributionTotal.toLocaleString()}
+              </p>
+              <p className="text-[10px] uppercase tracking-[0.22em] opacity-60">
+                contributions
+              </p>
+            </div>
+            <svg
+              aria-hidden="true"
+              viewBox={`0 0 ${CONTRIBUTION_SPARKLINE_WIDTH} ${CONTRIBUTION_SPARKLINE_HEIGHT}`}
+              className="h-6 w-28"
+            >
+              <polyline
+                fill="none"
+                stroke="var(--contrib-4)"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                points={contributionSparkline}
+              />
+            </svg>
+          </div>
+        ) : null}
+      </div>
 
+      {/* Filter pills */}
+      <div className="flex flex-wrap gap-2">
+        {filterOptions.map((opt) => {
+          const isActive = activeFilter === opt.slug;
+          const accent =
+            opt.slug === "all"
+              ? "var(--accent-primary, #818cf8)"
+              : CATEGORY_ACCENTS[opt.slug] ?? DEFAULT_ACCENT;
+          return (
+            <button
+              key={opt.slug}
+              type="button"
+              className="rounded-full px-3.5 py-1.5 text-xs uppercase tracking-[0.18em] transition-all duration-200"
+              style={{
+                background: isActive ? accent + "28" : "transparent",
+                color: isActive ? accent : undefined,
+                border: isActive
+                  ? `1.5px solid ${accent}55`
+                  : "1.5px solid var(--panel-border, rgba(255,255,255,0.12))",
+                opacity: isActive ? 1 : 0.7,
+                fontWeight: isActive ? 600 : 400,
+              }}
+              onClick={() => setActiveFilter(opt.slug)}
+            >
+              {opt.title}
+              <span className="ml-1.5 opacity-50">{opt.count}</span>
+            </button>
+          );
+        })}
+      </div>
+
+      {/* Project card grid */}
+      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+        {filteredProjects.map((project) => {
+          const accentColor =
+            CATEGORY_ACCENTS[project.categorySlug] ?? DEFAULT_ACCENT;
+          return (
+            <div key={project.repo} className="relative">
+              <ProjectCard
+                project={project}
+                accentColor={accentColor}
+                onOpen={openProject}
+              />
+              {/* Category badge */}
+              <span
+                className="absolute left-2 top-2 z-10 rounded-full px-2 py-0.5 text-[9px] uppercase tracking-widest"
+                style={{
+                  background: "rgba(0,0,0,0.55)",
+                  color: accentColor,
+                  backdropFilter: "blur(6px)",
+                  border: `1px solid ${accentColor}33`,
+                }}
+              >
+                {project.categoryTitle}
+              </span>
+            </div>
+          );
+        })}
+      </div>
+
+      {/* Project detail modal */}
       {activeProject ? (
         <div
           className="fixed inset-0 z-50 flex items-center justify-center px-6 py-10"
@@ -793,7 +890,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
             className="relative flex h-[92vh] w-full max-w-6xl flex-col overflow-hidden rounded-3xl border folder-pop"
             style={{
               backgroundColor: "var(--panel-surface, rgba(16, 17, 19, 0.98))",
-              borderColor: "var(--panel-border-strong, rgba(255, 255, 255, 0.3))",
+              borderColor:
+                "var(--panel-border-strong, rgba(255, 255, 255, 0.3))",
               transformOrigin: "center center",
               ...projectPopStyle,
             }}

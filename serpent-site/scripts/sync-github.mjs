@@ -2,13 +2,17 @@ import fs from "fs/promises";
 import fsSync from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import yaml from "js-yaml";
 
 const scriptDir = path.dirname(fileURLToPath(import.meta.url));
 const ROOT = path.resolve(scriptDir, "..");
-const CONTENT_ROOT = path.join(ROOT, "src", "content", "projects");
+const REGISTRY_PATH = path.join(ROOT, "src", "content", "projects.yml");
 const OUTPUT_PATH = path.join(ROOT, "src", "content", "projects-data.json");
 const USER = "cmbenello";
 const COMMIT_LIMIT = 8;
+const CONCURRENCY = 5;
+
+// ── Env + Auth ────────────────────────────────────────────────────────────────
 
 const loadEnvFile = () => {
   const envPath = path.join(ROOT, ".env.local");
@@ -22,14 +26,12 @@ const loadEnvFile = () => {
     const key = match[1];
     let value = match[2] ?? "";
     if (
-      (value.startsWith("\"") && value.endsWith("\"")) ||
+      (value.startsWith('"') && value.endsWith('"')) ||
       (value.startsWith("'") && value.endsWith("'"))
     ) {
       value = value.slice(1, -1);
     }
-    if (!process.env[key]) {
-      process.env[key] = value;
-    }
+    if (!process.env[key]) process.env[key] = value;
   });
 };
 
@@ -47,24 +49,9 @@ const headers = {
   "X-GitHub-Api-Version": "2022-11-28",
 };
 
+// ── Helpers ───────────────────────────────────────────────────────────────────
+
 const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
-
-const readJson = async (filePath) => {
-  try {
-    const raw = await fs.readFile(filePath, "utf8");
-    return JSON.parse(raw);
-  } catch {
-    return null;
-  }
-};
-
-const readText = async (filePath) => {
-  try {
-    return await fs.readFile(filePath, "utf8");
-  } catch {
-    return "";
-  }
-};
 
 const fetchJson = async (url, options = {}) => {
   try {
@@ -80,10 +67,7 @@ const fetchText = async (url, options = {}) => {
   try {
     const response = await fetch(url, {
       ...options,
-      headers: {
-        ...headers,
-        Accept: "application/vnd.github.raw",
-      },
+      headers: { ...headers, Accept: "application/vnd.github.raw" },
     });
     if (!response.ok) return "";
     return await response.text();
@@ -91,6 +75,22 @@ const fetchText = async (url, options = {}) => {
     return "";
   }
 };
+
+const formatDate = (value) => {
+  if (!value) return "";
+  const date = new Date(value);
+  if (Number.isNaN(date.getTime())) return value;
+  return date.toISOString().slice(0, 10);
+};
+
+const formatCommitMessage = (value) => value.split("\n")[0] || value;
+
+const toTitleCase = (value) =>
+  value
+    .split(/[-_\s]+/)
+    .filter(Boolean)
+    .map((part) => part[0].toUpperCase() + part.slice(1))
+    .join(" ");
 
 const parseRepo = (value) => {
   if (!value) return "";
@@ -107,17 +107,41 @@ const parseRepo = (value) => {
   return `${USER}/${value}`;
 };
 
-const formatDate = (value) => {
-  if (!value) return "";
-  const date = new Date(value);
-  if (Number.isNaN(date.getTime())) return value;
-  return date.toISOString().slice(0, 10);
+// ── Concurrency pool ──────────────────────────────────────────────────────────
+
+const poolMap = async (items, fn, concurrency = CONCURRENCY) => {
+  const results = new Array(items.length);
+  let index = 0;
+
+  const worker = async () => {
+    while (index < items.length) {
+      const i = index++;
+      results[i] = await fn(items[i], i);
+    }
+  };
+
+  await Promise.all(
+    Array.from({ length: Math.min(concurrency, items.length) }, () => worker()),
+  );
+  return results;
 };
 
-const formatCommitMessage = (value) => value.split("\n")[0] || value;
+// ── GitHub API ────────────────────────────────────────────────────────────────
 
-const getRepoData = async (owner, repo) =>
-  fetchJson(`https://api.github.com/repos/${owner}/${repo}`);
+const fetchAllUserRepos = async () => {
+  const repos = [];
+  let page = 1;
+  while (true) {
+    const batch = await fetchJson(
+      `https://api.github.com/users/${USER}/repos?per_page=100&page=${page}&sort=updated`,
+    );
+    if (!batch || !batch.length) break;
+    repos.push(...batch);
+    if (batch.length < 100) break;
+    page++;
+  }
+  return repos;
+};
 
 const getCommitLog = async (owner, repo) =>
   fetchJson(
@@ -150,18 +174,10 @@ const loadContributionCalendar = async () => {
       contributionsCollection(from: $from, to: $to) {
         contributionCalendar {
           totalContributions
-          months {
-            name
-            firstDay
-            totalWeeks
-          }
+          months { name firstDay totalWeeks }
           weeks {
             firstDay
-            contributionDays {
-              date
-              contributionCount
-              color
-            }
+            contributionDays { date contributionCount color }
           }
         }
       }
@@ -175,10 +191,7 @@ const loadContributionCalendar = async () => {
   try {
     const response = await fetch("https://api.github.com/graphql", {
       method: "POST",
-      headers: {
-        ...headers,
-        "Content-Type": "application/json",
-      },
+      headers: { ...headers, "Content-Type": "application/json" },
       body: JSON.stringify({
         query,
         variables: {
@@ -198,116 +211,157 @@ const loadContributionCalendar = async () => {
   }
 };
 
-const toTitleCase = (value) =>
-  value
-    .split(/[-_\s]+/)
-    .filter(Boolean)
-    .map((part) => part[0].toUpperCase() + part.slice(1))
-    .join(" ");
+// ── Registry ──────────────────────────────────────────────────────────────────
 
-const loadProjects = async () => {
-  const categoryEntries = await fs.readdir(CONTENT_ROOT, {
-    withFileTypes: true,
-  });
-
-  const categories = [];
-
-  for (const entry of categoryEntries) {
-    if (!entry.isDirectory()) continue;
-    const categorySlug = entry.name;
-    const categoryDir = path.join(CONTENT_ROOT, categorySlug);
-    const projectEntries = await fs.readdir(categoryDir, {
-      withFileTypes: true,
-    });
-    const projects = [];
-
-    for (const projectEntry of projectEntries) {
-      if (!projectEntry.isDirectory()) continue;
-      const projectDir = path.join(categoryDir, projectEntry.name);
-      const config = await readJson(path.join(projectDir, "project.json"));
-      if (!config || !config.repo) continue;
-
-      const repoId = parseRepo(config.repo);
-      if (!repoId) continue;
-
-      const [owner, repo] = repoId.split("/");
-      const repoData = await getRepoData(owner, repo);
-      const commits = await getCommitLog(owner, repo);
-      const commitActivity = await getCommitActivity(owner, repo);
-
-      const localReadme =
-        (await readText(path.join(projectDir, "readme.md"))) ||
-        (await readText(path.join(projectDir, "README.md")));
-      const remoteReadme = localReadme
-        ? ""
-        : await getReadme(owner, repo);
-
-      const summary = config.summary || repoData?.description || "";
-      const description = repoData?.description || "";
-
-      projects.push({
-        name: config.title || repo,
-        repo: repoId,
-        url: repoData?.html_url || `https://github.com/${repoId}`,
-        summary,
-        description,
-        image: config.image || "",
-        timelineStart: config.timelineStart || "",
-        timelineEnd: config.timelineEnd || "",
-        homepage: repoData?.homepage || "",
-        language: repoData?.language || "",
-        tags: Array.isArray(config.tags) ? config.tags : [],
-        activity: Array.isArray(config.activity) ? config.activity : [],
-        topics: Array.isArray(repoData?.topics) ? repoData.topics : [],
-        stars: repoData?.stargazers_count || 0,
-        forks: repoData?.forks_count || 0,
-        issues: repoData?.open_issues_count || 0,
-        updatedAt: formatDate(repoData?.updated_at),
-        createdAt: formatDate(repoData?.created_at),
-        pushedAt: formatDate(repoData?.pushed_at),
-        defaultBranch: repoData?.default_branch || "",
-        license: repoData?.license?.name || "",
-        commitLog: Array.isArray(commits)
-          ? commits.map((commit) => ({
-              sha: commit.sha.slice(0, 7),
-              message: formatCommitMessage(commit.commit.message),
-              url: commit.html_url,
-              date: formatDate(commit.commit.author?.date),
-              author:
-                commit.commit.author?.name ||
-                commit.author?.login ||
-                "Unknown",
-            }))
-          : [],
-        commitActivity,
-        readme: (localReadme || remoteReadme || "").trim(),
-      });
-    }
-
-    categories.push({
-      title: toTitleCase(categorySlug),
-      slug: categorySlug,
-      projects,
-    });
+const loadRegistry = async () => {
+  try {
+    const raw = await fs.readFile(REGISTRY_PATH, "utf8");
+    const entries = yaml.load(raw);
+    if (!Array.isArray(entries)) return [];
+    return entries.map((entry) => ({
+      ...entry,
+      repo: parseRepo(entry.repo),
+    }));
+  } catch {
+    console.warn("No projects.yml found, using auto-import only.");
+    return [];
   }
-
-  return categories;
 };
 
+// ── Enrich a single repo ──────────────────────────────────────────────────────
+
+const enrichRepo = async (repoData, override) => {
+  const owner = repoData.owner.login;
+  const repo = repoData.name;
+  const repoId = `${owner}/${repo}`;
+
+  console.log(`  Enriching ${repoId}...`);
+
+  const [commits, commitActivity, readme] = await Promise.all([
+    getCommitLog(owner, repo),
+    getCommitActivity(owner, repo),
+    getReadme(owner, repo),
+  ]);
+
+  const summary = override.summary || repoData.description || "";
+
+  return {
+    name: override.title || repo,
+    repo: repoId,
+    url: repoData.html_url || `https://github.com/${repoId}`,
+    category: override.category || "uncategorized",
+    summary,
+    description: repoData.description || "",
+    image: override.image || "",
+    homepage: repoData.homepage || "",
+    language: repoData.language || "",
+    tags: Array.isArray(override.tags) ? override.tags : [],
+    topics: Array.isArray(repoData.topics) ? repoData.topics : [],
+    stars: repoData.stargazers_count || 0,
+    forks: repoData.forks_count || 0,
+    issues: repoData.open_issues_count || 0,
+    updatedAt: formatDate(repoData.updated_at),
+    createdAt: formatDate(repoData.created_at),
+    pushedAt: formatDate(repoData.pushed_at),
+    defaultBranch: repoData.default_branch || "",
+    license: repoData.license?.name || "",
+    commitLog: Array.isArray(commits)
+      ? commits.map((commit) => ({
+          sha: commit.sha.slice(0, 7),
+          message: formatCommitMessage(commit.commit.message),
+          url: commit.html_url,
+          date: formatDate(commit.commit.author?.date),
+          author:
+            commit.commit.author?.name ||
+            commit.author?.login ||
+            "Unknown",
+        }))
+      : [],
+    commitActivity,
+    readme: (readme || "").trim(),
+  };
+};
+
+// ── Main ──────────────────────────────────────────────────────────────────────
+
 const main = async () => {
-  const categories = await loadProjects();
+  console.log("Loading registry...");
+  const registry = await loadRegistry();
+  const registryByRepo = new Map(
+    registry.filter((e) => e.repo).map((e) => [e.repo.toLowerCase(), e]),
+  );
+
+  console.log(`Registry: ${registry.length} entries`);
+
+  console.log("Fetching all public repos...");
+  const allRepos = await fetchAllUserRepos();
+  console.log(`Found ${allRepos.length} public repos`);
+
+  // Also fetch repos from registry that belong to other users
+  const externalRepos = registry
+    .filter((e) => e.repo && !e.repo.toLowerCase().startsWith(`${USER.toLowerCase()}/`))
+    .map((e) => e.repo);
+
+  const externalRepoData = await poolMap(externalRepos, async (repoId) => {
+    const [owner, repo] = repoId.split("/");
+    return fetchJson(`https://api.github.com/repos/${owner}/${repo}`);
+  });
+
+  const allRepoData = [...allRepos];
+  for (const data of externalRepoData) {
+    if (data) allRepoData.push(data);
+  }
+
+  // Build hidden set
+  const hiddenSet = new Set(
+    registry
+      .filter((e) => e.hidden)
+      .map((e) => e.repo.toLowerCase()),
+  );
+
+  // Filter out forks and hidden repos
+  const eligibleRepos = allRepoData.filter((r) => {
+    const repoId = `${r.owner.login}/${r.name}`.toLowerCase();
+    if (hiddenSet.has(repoId)) return false;
+    if (r.fork) return false;
+    return true;
+  });
+
+  console.log(`Enriching ${eligibleRepos.length} repos (concurrency: ${CONCURRENCY})...`);
+
+  const projects = await poolMap(eligibleRepos, async (repoData) => {
+    const repoId = `${repoData.owner.login}/${repoData.name}`.toLowerCase();
+    const override = registryByRepo.get(repoId) || {};
+    return enrichRepo(repoData, override);
+  });
+
+  // Sort: categorized first (alphabetically), then uncategorized
+  projects.sort((a, b) => {
+    if (a.category === "uncategorized" && b.category !== "uncategorized") return 1;
+    if (a.category !== "uncategorized" && b.category === "uncategorized") return -1;
+    const catCmp = a.category.localeCompare(b.category);
+    if (catCmp !== 0) return catCmp;
+    return a.name.localeCompare(b.name);
+  });
+
+  console.log("Loading contribution calendar...");
   const contributions = await loadContributionCalendar();
 
   const output = {
     generatedAt: new Date().toISOString(),
     user: USER,
     contributions,
-    categories,
+    projects,
   };
 
   await fs.mkdir(path.dirname(OUTPUT_PATH), { recursive: true });
   await fs.writeFile(OUTPUT_PATH, JSON.stringify(output, null, 2));
-  console.log(`Wrote ${OUTPUT_PATH}`);
+
+  const categorized = projects.filter((p) => p.category !== "uncategorized").length;
+  const uncategorized = projects.length - categorized;
+  console.log(
+    `Wrote ${OUTPUT_PATH} (${projects.length} projects: ${categorized} categorized, ${uncategorized} uncategorized)`,
+  );
 };
 
 main();

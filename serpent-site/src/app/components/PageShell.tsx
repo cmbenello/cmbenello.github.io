@@ -118,6 +118,20 @@ export default function PageShell({ children }: PageShellProps) {
   }, []);
 
   useEffect(() => {
+    const onVisibilityChange = () => {
+      if (document.visibilityState === "hidden") {
+        pauseSourcesRef.current.add("tab-hidden");
+        setEffectsPaused(true);
+      } else {
+        pauseSourcesRef.current.delete("tab-hidden");
+        setEffectsPaused(pauseSourcesRef.current.size > 0);
+      }
+    };
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    return () => document.removeEventListener("visibilitychange", onVisibilityChange);
+  }, []);
+
+  useEffect(() => {
     if (!themeReadyRef.current) {
       themeReadyRef.current = true;
       return;

@@ -1,0 +1,56 @@
+# Projects Registry
+# Each entry overrides auto-imported GitHub data.
+# Repos not listed here are auto-imported as "uncategorized".
+# Fields: repo (required), category, tags, summary, image, hidden
+
+# Machine Learning
+- repo: cmbenello/MiniMetro
+  category: machine-learning
+
+- repo: cmbenello/merge_tactics_RL
+  category: machine-learning
+
+# Personal
+- repo: cmbenello/Pongation
+  category: personal
+
+- repo: cmbenello/TSP-Metro
+  category: personal
+
+- repo: cmbenello/0h-h1-solver
+  category: personal
+
+# Research
+- repo: cmbenello/query_exec
+  category: research
+
+- repo: cmbenello/FosterBtree
+  category: research
+
+- repo: cmbenello/heap_testing
+  category: research
+
+- repo: cmbenello/es
+  category: research
+
+# School
+- repo: cmbenello/finm-367
+  category: school
+
+- repo: cmbenello/finm-325
+  category: school
+
+# Teaching
+- repo: cmbenello/141-discussion
+  category: teaching
+
+- repo: cmbenello/141-discussion-final
+  category: teaching
+
+# Work
+- repo: cmbenello/bofa_hqla
+  category: work
+
+# To hide repos from auto-import, add:
+# - repo: cmbenello/some-repo
+#   hidden: true
