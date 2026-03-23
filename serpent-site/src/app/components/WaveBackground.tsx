@@ -8,6 +8,9 @@ type WaveBackgroundProps = {
   lineColor?: string;
   backgroundColor?: string;
   paused?: boolean;
+  alphaBoost?: number;
+  trailFade?: number;
+  lineWidthScale?: number;
 };
 
 /* ── constants ─────────────────────────────────────────────────── */
@@ -221,6 +224,9 @@ export default function WaveBackground({
   lineColor = "rgba(255, 255, 255, 0.8)",
   backgroundColor = "rgba(40, 58, 90, 1)",
   paused = false,
+  alphaBoost = 1,
+  trailFade,
+  lineWidthScale = 1,
 }: WaveBackgroundProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const lineColorRef = useRef(lineColor);
@@ -228,10 +234,32 @@ export default function WaveBackground({
   const rafRef = useRef<number | null>(null);
   const startLoopRef = useRef<(() => void) | null>(null);
   const pausedRef = useRef(paused);
+  const alphaBoostRef = useRef(alphaBoost);
+  const trailFadeRef = useRef(trailFade ?? TRAIL_FADE);
+  const lineWidthScaleRef = useRef(lineWidthScale);
+  const trailCanvasRef = useRef<HTMLCanvasElement | null>(null);
 
   useEffect(() => {
     lineColorRef.current = lineColor;
+    // Clear trail canvas when color changes to avoid stale colored trails
+    const tc = trailCanvasRef.current;
+    if (tc) {
+      const ctx = tc.getContext("2d");
+      if (ctx) ctx.clearRect(0, 0, tc.width, tc.height);
+    }
   }, [lineColor]);
+
+  useEffect(() => {
+    alphaBoostRef.current = alphaBoost;
+  }, [alphaBoost]);
+
+  useEffect(() => {
+    trailFadeRef.current = trailFade ?? TRAIL_FADE;
+  }, [trailFade]);
+
+  useEffect(() => {
+    lineWidthScaleRef.current = lineWidthScale;
+  }, [lineWidthScale]);
 
   useEffect(() => {
     bgColorRef.current = backgroundColor;
@@ -261,6 +289,7 @@ export default function WaveBackground({
     const trailCanvas = document.createElement("canvas");
     const trailCtx = trailCanvas.getContext("2d");
     if (!trailCtx) return;
+    trailCanvasRef.current = trailCanvas;
 
     let w = 1, h = 1, dpr = 1;
     let startTime = performance.now();
@@ -354,7 +383,7 @@ export default function WaveBackground({
       const trailDpr = trailW / w;
       trailCtx.setTransform(1, 0, 0, 1, 0, 0);
       trailCtx.globalCompositeOperation = "destination-out";
-      trailCtx.fillStyle = `rgba(0, 0, 0, ${TRAIL_FADE})`;
+      trailCtx.fillStyle = `rgba(0, 0, 0, ${trailFadeRef.current})`;
       trailCtx.fillRect(0, 0, trailW, trailH);
       trailCtx.globalCompositeOperation = "source-over";
 
@@ -410,11 +439,12 @@ export default function WaveBackground({
 
         // Opacity: low floor, steep power curve — base visible, spotlight peaks pop
         const i2 = intensity * intensity;
-        const alpha = lifeFade * (0.030 + i2 * i2 * 0.68);
+        const ab = alphaBoostRef.current;
+        const alpha = Math.min(lifeFade * (0.030 * ab + i2 * i2 * 0.68 * ab), 1);
 
         // Width: thin everywhere, thick only at high intensity
         const baseWidth = particles[base + PWIDTH];
-        const lineWidth = baseWidth * (0.3 + intensity * intensity * 2.5);
+        const lineWidth = baseWidth * (0.3 + intensity * intensity * 2.5) * lineWidthScaleRef.current;
 
         // Color: tint toward white at crests
         const crestBlend = intensity * intensity; // quadratic for sharp crest highlight
@@ -457,7 +487,7 @@ export default function WaveBackground({
         // Fade
         trailCtx.setTransform(1, 0, 0, 1, 0, 0);
         trailCtx.globalCompositeOperation = "destination-out";
-        trailCtx.fillStyle = `rgba(0, 0, 0, ${TRAIL_FADE})`;
+        trailCtx.fillStyle = `rgba(0, 0, 0, ${trailFadeRef.current})`;
         trailCtx.fillRect(0, 0, trailCanvas.width, trailCanvas.height);
         trailCtx.globalCompositeOperation = "source-over";
         trailCtx.setTransform(tDpr, 0, 0, tDpr, 0, 0);
@@ -485,8 +515,9 @@ export default function WaveBackground({
           const lifeFrac = particles[base + PLIFE] / particles[base + PMAXLIFE];
           const lifeFade = Math.min(Math.min(lifeFrac * 5, 1), Math.min((1 - lifeFrac) * 4, 1));
           const i2 = intensity * intensity;
-          const alpha = lifeFade * (0.030 + i2 * i2 * 0.68);
-          const lw = particles[base + PWIDTH] * (0.3 + i2 * 2.5);
+          const abw = alphaBoostRef.current;
+          const alpha = Math.min(lifeFade * (0.030 * abw + i2 * i2 * 0.68 * abw), 1);
+          const lw = particles[base + PWIDTH] * (0.3 + i2 * 2.5) * lineWidthScaleRef.current;
           const cb = i2 * 0.4;
           const cr = Math.round(initColor.r + (255 - initColor.r) * cb);
           const cg = Math.round(initColor.g + (255 - initColor.g) * cb);

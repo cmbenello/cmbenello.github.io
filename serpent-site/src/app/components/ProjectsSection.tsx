@@ -280,7 +280,7 @@ const renderMarkdown = (markdown: string) => {
       blocks.push(
         <Heading
           key={`heading-${index}`}
-          className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] opacity-70"
+          className="mt-4 text-sm font-semibold uppercase tracking-[0.18em] opacity-90"
         >
           {renderInline(content)}
         </Heading>,
@@ -467,23 +467,23 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   return (
     <section className="space-y-8">
       <div className="space-y-4">
-        <p className="text-xs uppercase tracking-[0.35em] opacity-55">
+        <p className="text-xs uppercase tracking-[0.35em] opacity-65">
           04 Projects
         </p>
         <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
-        <p className="max-w-2xl text-lg opacity-80">
+        <p className="max-w-2xl text-lg opacity-90">
           Categorized repositories with deep dives, commit history, and readme
           details.
         </p>
       </div>
 
       {contributions ? (
-        <div className="rounded-2xl border border-current/40 bg-current/5 p-5">
+        <div className="card rounded-2xl p-5">
           <div className="flex flex-wrap items-center justify-between gap-3">
-            <p className="text-sm uppercase tracking-[0.28em] opacity-70">
+            <p className="text-sm uppercase tracking-[0.28em] opacity-90">
               {contributionTotal} contributions in the last year
             </p>
-            <span className="text-xs uppercase tracking-[0.28em] opacity-55">
+            <span className="text-xs uppercase tracking-[0.28em] opacity-65">
               Recent activity
             </span>
           </div>
@@ -511,7 +511,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                   {contributionMonths.map((month) => (
                     <div
                       key={`${month.name}-${month.start}`}
-                      className="text-[11px] uppercase tracking-[0.25em] opacity-55"
+                      className="text-[11px] uppercase tracking-[0.25em] opacity-65"
                       style={{
                         gridColumnStart: month.start + 1,
                         gridColumnEnd: month.start + 1 + month.span,
@@ -564,7 +564,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 </div>
               </div>
               <div
-                className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.28em] opacity-60"
+                className="mt-3 flex items-center justify-between text-[11px] uppercase tracking-[0.28em] opacity-90"
                 style={{
                   paddingLeft:
                     CONTRIBUTION_LABEL_WIDTH + CONTRIBUTION_LABEL_GAP,
@@ -592,8 +592,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 <span>More</span>
               </div>
             </div>
-            <div className="rounded-xl border border-current/40 bg-current/5 p-4">
-              <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+            <div className="card rounded-xl p-4">
+              <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                 Weekly Trend
               </p>
               <svg
@@ -610,14 +610,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                   points={contributionSparkline}
                 />
               </svg>
-              <p className="mt-2 text-xs opacity-70">
+              <p className="mt-2 text-xs opacity-90">
                 Based on the last 52 weeks of activity.
               </p>
             </div>
           </div>
         </div>
       ) : (
-        <div className="rounded-2xl border border-current/40 p-5 text-sm opacity-75">
+        <div className="card rounded-2xl p-5 text-sm opacity-85">
           Run the GitHub sync script to load your contribution calendar.
         </div>
       )}
@@ -628,7 +628,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
             <button
               key={category.slug}
               type="button"
-              className="group relative overflow-hidden rounded-2xl border border-current/45 bg-current/10 p-5 text-left transition hover:-translate-y-0.5 hover:border-current/70"
+              className="card-interactive group relative overflow-hidden rounded-2xl p-5 text-left hover:-translate-y-0.5"
               onClick={(event) => {
                 const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
                 const modalW = Math.min(window.innerWidth - 48, 1152);
@@ -647,11 +647,11 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               />
               <div className="flex items-center justify-between gap-3">
                 <h3 className="text-lg font-semibold">{category.title}</h3>
-                <span className="text-xs uppercase tracking-[0.28em] opacity-55">
+                <span className="text-xs uppercase tracking-[0.28em] opacity-65">
                   {category.projects.length} items
                 </span>
               </div>
-              <p className="mt-2 text-sm opacity-75">
+              <p className="mt-2 text-sm opacity-85">
                 Open folder to view projects.
               </p>
             </button>
@@ -688,7 +688,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           >
             <div className="flex items-center justify-between border-b border-current/30 px-6 py-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] opacity-60">
+                <p className="text-xs uppercase tracking-[0.28em] opacity-90">
                   Folder
                 </p>
                 <h3 className="text-2xl font-semibold">
@@ -697,7 +697,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               </div>
               <button
                 type="button"
-                className="rounded-full border border-current/40 px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-70 transition hover:opacity-100"
+                className="tag rounded-full px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-90 transition hover:opacity-100"
                 onClick={closeCategory}
               >
                 Close
@@ -726,7 +726,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                     <button
                       key={project.repo}
                       type="button"
-                      className="group rounded-2xl border border-current/40 px-5 py-4 text-left transition hover:-translate-y-0.5 hover:border-current/70"
+                      className="card group rounded-2xl px-5 py-4 text-left hover:-translate-y-0.5"
                       onClick={(event) => {
                         const rect = (event.currentTarget as HTMLElement).getBoundingClientRect();
                         const modalW = Math.min(window.innerWidth - 48, 1152);
@@ -744,19 +744,19 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         <h4 className="text-lg font-semibold">
                           {project.name}
                         </h4>
-                        <span className="text-xs uppercase tracking-[0.28em] opacity-55">
+                        <span className="text-xs uppercase tracking-[0.28em] opacity-65">
                           {project.updatedAt
                             ? `Updated ${project.updatedAt}`
                             : "Click for details"}
                         </span>
                       </div>
-                      <p className="mt-2 text-sm opacity-80">{summary}</p>
+                      <p className="mt-2 text-sm opacity-90">{summary}</p>
                       {tags.length ? (
                         <div className="mt-3 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-65">
                           {tags.map((tag) => (
                             <span
                               key={`${project.repo}-${tag}`}
-                              className="rounded-full border border-current/40 px-3 py-1"
+                              className="tag rounded-full px-3 py-1"
                             >
                               {tag}
                             </span>
@@ -800,7 +800,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           >
             <div className="flex items-center justify-between border-b border-current/30 px-6 py-4">
               <div>
-                <p className="text-xs uppercase tracking-[0.28em] opacity-60">
+                <p className="text-xs uppercase tracking-[0.28em] opacity-90">
                   {activeProject.repo}
                 </p>
                 <h3 className="text-2xl font-semibold">
@@ -809,7 +809,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               </div>
               <button
                 type="button"
-                className="rounded-full border border-current/40 px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-70 transition hover:opacity-100"
+                className="tag rounded-full px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-90 transition hover:opacity-100"
                 onClick={closeProject}
               >
                 Close
@@ -827,8 +827,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 className={`grid gap-6 ${activeProject?.image ? "lg:grid-cols-[minmax(0,1fr)_320px]" : ""}`}
               >
                 <div className="space-y-6">
-                  <div className="rounded-2xl border border-current/40 p-5">
-                    <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                  <div className="card rounded-2xl p-5">
+                    <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                       Overview
                     </p>
                     <p className="mt-3 text-sm opacity-85">
@@ -838,7 +838,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                     </p>
                     <div className="mt-4 grid gap-3 text-sm sm:grid-cols-2">
                       <div>
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           Repository
                         </p>
                         <a
@@ -851,7 +851,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         </a>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           Updated
                         </p>
                         <p className="text-sm">
@@ -859,7 +859,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           Stats
                         </p>
                         <p className="text-sm">
@@ -869,7 +869,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           Default Branch
                         </p>
                         <p className="text-sm">
@@ -877,7 +877,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           Language
                         </p>
                         <p className="text-sm">
@@ -885,7 +885,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         </p>
                       </div>
                       <div>
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           License
                         </p>
                         <p className="text-sm">
@@ -895,7 +895,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                     </div>
                     {activeProject.homepage ? (
                       <div className="mt-4">
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           Homepage
                         </p>
                         <a
@@ -910,14 +910,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                     ) : null}
                     {activeProjectTags.length ? (
                       <div className="mt-4">
-                        <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                        <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                           Tags
                         </p>
-                        <div className="mt-2 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-70">
+                        <div className="mt-2 flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-90">
                           {activeProjectTags.map((tag) => (
                             <span
                               key={`${activeProject.repo}-${tag}`}
-                              className="rounded-full border border-current/40 px-3 py-1"
+                              className="tag rounded-full px-3 py-1"
                             >
                               {tag}
                             </span>
@@ -927,8 +927,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                     ) : null}
                   </div>
 
-                  <div className="rounded-2xl border border-current/40 p-5">
-                    <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                  <div className="card rounded-2xl p-5">
+                    <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                       Recent Commits
                     </p>
                     {activeProject.commitLog?.length ? (
@@ -947,11 +947,11 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                               >
                                 {commit.sha}
                               </a>
-                              <span className="opacity-70"> / </span>
+                              <span className="opacity-90"> / </span>
                               <span className="opacity-85">
                                 {commit.message}
                               </span>
-                              <span className="opacity-70">
+                              <span className="opacity-90">
                                 {" "}- {commitMeta}
                               </span>
                             </li>
@@ -959,14 +959,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         })}
                       </ul>
                     ) : (
-                      <p className="mt-2 text-xs opacity-70">
+                      <p className="mt-2 text-xs opacity-90">
                         No commit data available.
                       </p>
                     )}
                   </div>
 
-                  <div className="rounded-2xl border border-current/40 p-5">
-                    <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                  <div className="card rounded-2xl p-5">
+                    <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                       Readme
                     </p>
                     {readmeBlocks.length ? (
@@ -974,7 +974,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         {readmeBlocks}
                       </div>
                     ) : (
-                      <p className="mt-2 text-sm opacity-70">
+                      <p className="mt-2 text-sm opacity-90">
                         Add a readme override or sync GitHub to load content.
                       </p>
                     )}
@@ -983,8 +983,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
 
                 {activeProject.image ? (
                   <div className="space-y-6">
-                    <div className="rounded-2xl border border-current/40 p-4">
-                      <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                    <div className="card rounded-2xl p-4">
+                      <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                         Project Image
                       </p>
                       <div className="mt-3 overflow-hidden rounded-xl border border-current/30">

@@ -159,22 +159,22 @@ export default function Home() {
     <PageShell>
       <section className="grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-7">
-          <p className="text-xs uppercase tracking-[0.35em] opacity-55 entrance" style={{ animationDelay: "900ms" }}>
+          <p className="text-xs uppercase tracking-[0.35em] opacity-65 entrance" style={{ animationDelay: "900ms" }}>
             01 About
           </p>
           <h1 className="text-5xl font-semibold tracking-tight entrance" style={{ animationDelay: "1050ms" }}>
             Charles Benello
           </h1>
-          <div className="space-y-3 text-lg opacity-80 entrance" style={{ animationDelay: "1250ms" }}>
+          <div className="space-y-3 text-lg opacity-90 entrance" style={{ animationDelay: "1250ms" }}>
             {ABOUT_PARAGRAPHS.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
           </div>
-          <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-70 entrance" style={{ animationDelay: "1500ms" }}>
+          <div className="flex flex-wrap gap-2 text-[11px] uppercase tracking-[0.28em] opacity-90 entrance" style={{ animationDelay: "1500ms" }}>
             {ABOUT_TAGS.map((tag) => (
               <span
                 key={tag}
-                className="rounded-full border border-current/40 px-3 py-1"
+                className="tag rounded-full px-3 py-1"
               >
                 {tag}
               </span>
@@ -183,32 +183,32 @@ export default function Home() {
         </div>
 
         <div className="grid gap-4 lg:col-span-5">
-          <div className="rounded-2xl border border-current/40 p-5 entrance" style={{ animationDelay: "1250ms" }}>
-            <p className="text-xs uppercase tracking-[0.32em] opacity-60">
+          <div className="card rounded-2xl p-5 entrance" style={{ animationDelay: "1250ms" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
               Education
             </p>
-            <div className="mt-4 space-y-4 text-sm opacity-80">
+            <div className="mt-4 space-y-4 text-sm opacity-90">
               {EDUCATION.map((item) => (
                 <div key={`${item.school}-${item.dates}`}>
                   <p className="text-sm font-semibold">{item.school}</p>
                   {(item.degree || item.field) && (
-                    <p className="text-xs uppercase tracking-[0.26em] opacity-60">
+                    <p className="text-xs uppercase tracking-[0.26em] opacity-90">
                       {formatMetaLine([item.degree, item.field])}
                     </p>
                   )}
-                  <p className="text-xs opacity-70">{item.dates}</p>
+                  <p className="text-xs opacity-90">{item.dates}</p>
                   {item.notes ? (
-                    <p className="text-xs opacity-70">{item.notes}</p>
+                    <p className="text-xs opacity-90">{item.notes}</p>
                   ) : null}
                 </div>
               ))}
             </div>
           </div>
-          <div className="rounded-2xl border border-current/40 p-5 entrance" style={{ animationDelay: "1550ms" }}>
-            <p className="text-xs uppercase tracking-[0.32em] opacity-60">
+          <div className="card rounded-2xl p-5 entrance" style={{ animationDelay: "1550ms" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
               Current Research
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
               {CURRENT_RESEARCH.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -219,11 +219,11 @@ export default function Home() {
 
       <section className="space-y-8">
         <div className="space-y-4">
-          <p className="text-xs uppercase tracking-[0.35em] opacity-55">
+          <p className="text-xs uppercase tracking-[0.35em] opacity-65">
             02 Experience
           </p>
           <h2 className="text-4xl font-semibold tracking-tight">Experience</h2>
-          <p className="max-w-2xl text-lg opacity-80">
+          <p className="max-w-2xl text-lg opacity-90">
             Research, teaching, and analytics roles across academia and
             industry.
           </p>
@@ -234,18 +234,18 @@ export default function Home() {
             return (
               <article
                 key={`${role.title}-${role.company}`}
-                className="rounded-2xl border border-current/40 p-4"
+                className="card rounded-2xl p-4"
               >
                 <h3 className="text-base font-semibold">{role.title}</h3>
-                <p className="text-sm opacity-80">
+                <p className="text-sm opacity-90">
                   {formatMetaLine([role.company, role.employmentType || ""]) ||
                     role.company}
                 </p>
-                <p className="mt-1 text-xs uppercase tracking-[0.26em] opacity-55">
+                <p className="mt-1 text-xs uppercase tracking-[0.26em] opacity-65">
                   {formatMetaLine([role.dates, role.location])}
                 </p>
                 {trimmedHighlights.length ? (
-                  <ul className="mt-2 space-y-1 text-xs opacity-75 list-disc list-inside">
+                  <ul className="mt-2 space-y-1 text-xs opacity-85 list-disc list-inside">
                     {trimmedHighlights.map((item) => (
                       <li key={item}>{item}</li>
                     ))}
@@ -259,34 +259,34 @@ export default function Home() {
 
       <section className="grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-12">
-          <p className="text-xs uppercase tracking-[0.35em] opacity-55">
+          <p className="text-xs uppercase tracking-[0.35em] opacity-65">
             03 Research + Teaching
           </p>
           <h2 className="text-4xl font-semibold tracking-tight">
             Research + Teaching
           </h2>
-          <p className="max-w-2xl text-lg opacity-80">
+          <p className="max-w-2xl text-lg opacity-90">
             Research in database systems and GPU compression, plus teaching in
             computer science and mathematics.
           </p>
         </div>
 
         <div className="grid gap-4 lg:col-span-6">
-          <div className="rounded-2xl border border-current/40 p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-60">
+          <div className="card rounded-2xl p-5">
+            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
               Research Focus
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
               {RESEARCH_FOCUS.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-current/40 p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-60">
+          <div className="card rounded-2xl p-5">
+            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
               Research Highlights
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
               {RESEARCH_HIGHLIGHTS.map((item) => (
                 <li key={item}>{item}</li>
               ))}
@@ -295,21 +295,21 @@ export default function Home() {
         </div>
 
         <div className="grid gap-4 lg:col-span-6">
-          <div className="rounded-2xl border border-current/40 p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-60">
+          <div className="card rounded-2xl p-5">
+            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
               Teaching
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
               {TEACHING_COURSES.map((item) => (
                 <li key={item}>{item}</li>
               ))}
             </ul>
           </div>
-          <div className="rounded-2xl border border-current/40 p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-60">
+          <div className="card rounded-2xl p-5">
+            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
               Advisors + Labs
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
               {ADVISORS.map((item) => (
                 <li key={item}>{item}</li>
               ))}

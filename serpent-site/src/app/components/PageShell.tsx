@@ -237,8 +237,8 @@ export default function PageShell({ children }: PageShellProps) {
       };
   const contentPanelStyle = {
     textShadow: isLight
-      ? "0 1px 8px rgba(0, 0, 0, 0.22)"
-      : "0 2px 22px rgba(0, 0, 0, 0.65)",
+      ? "0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 12px rgba(0, 0, 0, 0.08)"
+      : "0 1px 3px rgba(0, 0, 0, 0.5), 0 2px 16px rgba(0, 0, 0, 0.4)",
   } as const;
   const contentScrimStyle = {
     backgroundImage: "none",
@@ -248,7 +248,7 @@ export default function PageShell({ children }: PageShellProps) {
   const cloudGradient = `linear-gradient(180deg, ${mainBackgroundColor} 0%, ${mainBackgroundColor} 100%)`;
   const mountainBackground = mainBackgroundColor;
   const waveColor = isLight
-    ? "rgba(192, 42, 50, 0.85)"
+    ? "rgba(140, 28, 36, 1)"
     : "rgba(255, 255, 255, 0.85)";
   return (
     <main
@@ -259,8 +259,8 @@ export default function PageShell({ children }: PageShellProps) {
         color: theme.text,
         transition: "background-color 700ms ease, color 700ms ease",
         ["--panel-surface" as const]: isLight
-          ? "rgba(252, 244, 228, 0.98)"
-          : "rgba(14, 15, 17, 0.98)",
+          ? "rgba(252, 244, 228, 0.82)"
+          : "rgba(14, 15, 17, 0.85)",
         ["--panel-border" as const]: isLight
           ? "rgba(47, 43, 38, 0.35)"
           : "rgba(230, 225, 216, 0.3)",
@@ -355,9 +355,12 @@ export default function PageShell({ children }: PageShellProps) {
       />
       <WaveBackground
         frameMargin={FRAME_MARGIN}
-        opacity={waterBlend * 0.6}
+        opacity={waterBlend * (isLight ? 0.85 : 0.6)}
         backgroundColor="transparent"
         lineColor={waveColor}
+        alphaBoost={isLight ? 5 : 1}
+        trailFade={isLight ? 0.05 : 0.072}
+        lineWidthScale={isLight ? 1.3 : 1}
         paused={effectsPaused}
       />
 
