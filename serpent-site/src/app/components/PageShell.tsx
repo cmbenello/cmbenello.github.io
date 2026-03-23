@@ -483,54 +483,57 @@ export default function PageShell({ children }: PageShellProps) {
             animationDelay: "2000ms",
             opacity: activeIndex === 0 ? 1 : 0,
             transition: "opacity 600ms ease",
+            whiteSpace: "nowrap",
           }}
         >
           <nav
             aria-label="Jump to section"
-            className="flex items-stretch overflow-hidden rounded-full"
-            style={{
-              pointerEvents: activeIndex === 0 ? "auto" : "none",
-              backdropFilter: "blur(16px) saturate(1.4)",
-              WebkitBackdropFilter: "blur(16px) saturate(1.4)",
-              background: isLight
-                ? "rgba(252, 244, 228, 0.72)"
-                : "rgba(14, 15, 17, 0.68)",
-              border: `1px solid ${theme.iconRing}`,
-              boxShadow: "0 4px 24px rgba(0,0,0,0.22), 0 1px 2px rgba(0,0,0,0.08)",
-            }}
+            className="flex items-center gap-4"
+            style={{ pointerEvents: activeIndex === 0 ? "auto" : "none" }}
           >
             {([
               { label: "Experience", targetIndex: 1 },
               { label: "Research + Teaching", targetIndex: 2 },
               { label: "Projects", targetIndex: 3 },
             ] as const).map((item, i) => (
-              <button
-                key={item.label}
-                type="button"
-                onClick={() => {
-                  setActiveIndex(item.targetIndex);
-                  const scrollEl = scrollRef.current;
-                  if (scrollEl && panelHeight) {
-                    scrollEl.scrollTo({ top: item.targetIndex * panelHeight, behavior: "smooth" });
-                  }
-                }}
-                className="px-5 py-2.5 cursor-pointer"
-                style={{
-                  color: theme.text,
-                  fontSize: 10,
-                  letterSpacing: "0.30em",
-                  textTransform: "uppercase",
-                  background: "transparent",
-                  border: "none",
-                  borderRight: i < 2 ? `1px solid ${theme.iconRing}` : "none",
-                  opacity: 0.65,
-                  transition: "opacity 150ms ease, color 700ms ease",
-                }}
-                onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "1"; }}
-                onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.65"; }}
-              >
-                {item.label}
-              </button>
+              <>
+                {i > 0 && (
+                  <span
+                    key={`dot-${i}`}
+                    aria-hidden="true"
+                    style={{ color: theme.text, opacity: 0.2, fontSize: 14, lineHeight: 1 }}
+                  >
+                    ·
+                  </span>
+                )}
+                <button
+                  key={item.label}
+                  type="button"
+                  onClick={() => {
+                    setActiveIndex(item.targetIndex);
+                    const scrollEl = scrollRef.current;
+                    if (scrollEl && panelHeight) {
+                      scrollEl.scrollTo({ top: item.targetIndex * panelHeight, behavior: "smooth" });
+                    }
+                  }}
+                  className="cursor-pointer"
+                  style={{
+                    color: theme.text,
+                    fontSize: 10,
+                    letterSpacing: "0.32em",
+                    textTransform: "uppercase",
+                    background: "transparent",
+                    border: "none",
+                    padding: 0,
+                    opacity: 0.45,
+                    transition: "opacity 150ms ease, color 700ms ease",
+                  }}
+                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.9"; }}
+                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.45"; }}
+                >
+                  {item.label}
+                </button>
+              </>
             ))}
           </nav>
         </div>
