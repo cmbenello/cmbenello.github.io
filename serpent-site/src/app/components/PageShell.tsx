@@ -2,7 +2,6 @@
 
 import {
   Children,
-  Fragment,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -51,6 +50,7 @@ type PageShellProps = {
 export default function PageShell({ children }: PageShellProps) {
   const [isLight, setIsLight] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [panelHeight, setPanelHeight] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [effectsPaused, setEffectsPaused] = useState(false);
@@ -409,6 +409,7 @@ export default function PageShell({ children }: PageShellProps) {
           />
           {NAV_ITEMS.slice(0, panelCount).map((item, index) => {
             const isActive = activeIndex === index;
+            const labelVisible = activeIndex === 0 || hoveredNavIndex === index;
             return (
               <button
                 key={item.label}
@@ -426,26 +427,30 @@ export default function PageShell({ children }: PageShellProps) {
                     });
                   }
                 }}
-                className="group relative flex items-center justify-center rounded-md hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
+                onMouseEnter={() => setHoveredNavIndex(index)}
+                onMouseLeave={() => setHoveredNavIndex(null)}
+                className="relative flex items-center justify-center rounded-md hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{
                   width: NAV_BUTTON_SIZE,
                   height: NAV_BUTTON_SIZE,
                   borderRadius: 7,
                   border: "1px solid transparent",
-                  transition:
-                    "transform 300ms ease, border-color 700ms ease, box-shadow 700ms ease",
+                  transition: "transform 300ms ease",
                 }}
               >
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em] opacity-0 transition-all duration-200 group-hover:translate-x-0 group-hover:opacity-100 group-focus-visible:translate-x-0 group-focus-visible:opacity-100 translate-x-2"
+                  className="pointer-events-none absolute right-full mr-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
                   style={{
                     color: theme.text,
                     borderColor: theme.iconRing,
                     backgroundColor: isLight
                       ? "rgba(249, 238, 210, 0.92)"
-                      : "rgba(20, 21, 23, 0.85)",
-                    boxShadow: `0 10px 30px rgba(0, 0, 0, 0.25)`,
+                      : "rgba(28, 30, 38, 0.88)",
+                    boxShadow: `0 4px 16px rgba(0, 0, 0, 0.2)`,
+                    opacity: labelVisible ? (hoveredNavIndex === index ? 1 : 0.75) : 0,
+                    transform: labelVisible ? "translateX(0)" : "translateX(6px)",
+                    transition: "opacity 500ms ease, transform 500ms ease, color 700ms ease, border-color 700ms ease, background-color 700ms ease",
                   }}
                 >
                   {item.label}
@@ -467,66 +472,6 @@ export default function PageShell({ children }: PageShellProps) {
             );
           })}
         </nav>
-
-        {/* Bottom section nav — fades when leaving first panel */}
-        <div
-          className="pointer-events-none absolute bottom-8 left-1/2 -translate-x-1/2 entrance"
-          style={{
-            animationDelay: "2000ms",
-            opacity: activeIndex === 0 ? 1 : 0,
-            transition: "opacity 600ms ease",
-            whiteSpace: "nowrap",
-          }}
-        >
-          <nav
-            aria-label="Jump to section"
-            className="flex items-center gap-4"
-            style={{ pointerEvents: activeIndex === 0 ? "auto" : "none" }}
-          >
-            {([
-              { label: "Experience", targetIndex: 1 },
-              { label: "Research + Teaching", targetIndex: 2 },
-              { label: "Projects", targetIndex: 3 },
-            ] as const).map((item, i) => (
-              <Fragment key={item.label}>
-                {i > 0 && (
-                  <span
-                    aria-hidden="true"
-                    style={{ color: theme.text, opacity: 0.2, fontSize: 14, lineHeight: 1 }}
-                  >
-                    ·
-                  </span>
-                )}
-                <button
-                  type="button"
-                  onClick={() => {
-                    setActiveIndex(item.targetIndex);
-                    const scrollEl = scrollRef.current;
-                    if (scrollEl && panelHeight) {
-                      scrollEl.scrollTo({ top: item.targetIndex * panelHeight, behavior: "smooth" });
-                    }
-                  }}
-                  className="cursor-pointer"
-                  style={{
-                    color: theme.text,
-                    fontSize: 10,
-                    letterSpacing: "0.32em",
-                    textTransform: "uppercase",
-                    background: "transparent",
-                    border: "none",
-                    padding: 0,
-                    opacity: 0.45,
-                    transition: "opacity 150ms ease, color 700ms ease",
-                  }}
-                  onMouseEnter={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.9"; }}
-                  onMouseLeave={(e) => { (e.currentTarget as HTMLButtonElement).style.opacity = "0.45"; }}
-                >
-                  {item.label}
-                </button>
-              </Fragment>
-            ))}
-          </nav>
-        </div>
 
         <div className="pointer-events-auto absolute bottom-8 right-8 entrance" style={{ animationDelay: "1100ms" }}>
           <button
