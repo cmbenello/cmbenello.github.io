@@ -62,7 +62,7 @@ export type SerpentPalette = {
 };
 
 export const DEFAULT_PALETTE: SerpentPalette = {
-  background: "#141517",
+  background: "#1e2128",
   dot: "#ffffff",
   glow: "120, 190, 255",
   border: "rgba(255, 255, 255, 0.4)",

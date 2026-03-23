@@ -23,7 +23,7 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
+    --background: #1e2128;
     --foreground: #ededed;
   }
 }
@@ -72,6 +72,16 @@ body {
 
 .fade-in {
   animation: fadeIn 1200ms ease-out both;
+}
+
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(6px); }
+}
+
+@keyframes scrollFadeOut {
+  from { opacity: 1; }
+  to { opacity: 0; pointer-events: none; }
 }
 
 @keyframes folderPop {

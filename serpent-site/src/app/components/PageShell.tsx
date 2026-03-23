@@ -276,7 +276,7 @@ export default function PageShell({ children }: PageShellProps) {
         transition: "background-color 700ms ease, color 700ms ease",
         ["--panel-surface" as const]: isLight
           ? "rgba(252, 244, 228, 0.82)"
-          : "rgba(14, 15, 17, 0.85)",
+          : "rgba(28, 30, 38, 0.85)",
         ["--panel-border" as const]: isLight
           ? "rgba(47, 43, 38, 0.35)"
           : "rgba(230, 225, 216, 0.3)",
