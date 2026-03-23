@@ -2,6 +2,7 @@
 
 import {
   Children,
+  Fragment,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -316,15 +317,6 @@ export default function PageShell({ children }: PageShellProps) {
         ["--contrib-border" as const]: isLight
           ? "rgba(48, 92, 128, 0.3)"
           : "rgba(84, 128, 164, 0.24)",
-        ["--cat-research" as const]: isLight
-          ? "rgba(59, 130, 246, 0.85)"
-          : "rgba(96, 165, 250, 0.85)",
-        ["--cat-teaching" as const]: isLight
-          ? "rgba(16, 185, 129, 0.85)"
-          : "rgba(52, 211, 153, 0.85)",
-        ["--cat-industry" as const]: isLight
-          ? "rgba(192, 42, 50, 0.85)"
-          : "rgba(230, 225, 216, 0.85)",
       }) as CSSProperties}
     >
       <div
@@ -496,10 +488,9 @@ export default function PageShell({ children }: PageShellProps) {
               { label: "Research + Teaching", targetIndex: 2 },
               { label: "Projects", targetIndex: 3 },
             ] as const).map((item, i) => (
-              <>
+              <Fragment key={item.label}>
                 {i > 0 && (
                   <span
-                    key={`dot-${i}`}
                     aria-hidden="true"
                     style={{ color: theme.text, opacity: 0.2, fontSize: 14, lineHeight: 1 }}
                   >
@@ -507,7 +498,6 @@ export default function PageShell({ children }: PageShellProps) {
                   </span>
                 )}
                 <button
-                  key={item.label}
                   type="button"
                   onClick={() => {
                     setActiveIndex(item.targetIndex);
@@ -533,7 +523,7 @@ export default function PageShell({ children }: PageShellProps) {
                 >
                   {item.label}
                 </button>
-              </>
+              </Fragment>
             ))}
           </nav>
         </div>
