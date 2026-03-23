@@ -564,12 +564,19 @@ export default function PageShell({ children }: PageShellProps) {
               WebkitOverflowScrolling: "touch",
             }}
           >
-            {visiblePanels.map((panel, index) => (
+            {visiblePanels.map((panel, index) => {
+              const isLast = index === visiblePanels.length - 1;
+              const sectionHeight = panelHeight
+                ? isLast
+                  ? { minHeight: panelHeight }
+                  : { height: panelHeight }
+                : {};
+              return (
               <section
                 key={NAV_ITEMS[index]?.label ?? index}
-                className="flex h-full w-full items-start"
+                className="flex w-full items-start"
                 style={{
-                  ...panelStyle,
+                  ...sectionHeight,
                   scrollSnapAlign: "start",
                   scrollSnapStop: "always",
                 }}
@@ -581,7 +588,8 @@ export default function PageShell({ children }: PageShellProps) {
                   {panel}
                 </div>
               </section>
-            ))}
+              );
+            })}
           </div>
         </div>
       </div>
