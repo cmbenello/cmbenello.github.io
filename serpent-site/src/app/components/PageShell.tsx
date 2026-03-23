@@ -51,6 +51,7 @@ export default function PageShell({ children }: PageShellProps) {
   const [isLight, setIsLight] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
+  const [labelsReady, setLabelsReady] = useState(false);
   const [panelHeight, setPanelHeight] = useState(0);
   const [scrollProgress, setScrollProgress] = useState(0);
   const [effectsPaused, setEffectsPaused] = useState(false);
@@ -85,6 +86,11 @@ export default function PageShell({ children }: PageShellProps) {
 
   useEffect(() => {
     const id = setTimeout(() => setBgVisible(true), 50);
+    return () => clearTimeout(id);
+  }, []);
+
+  useEffect(() => {
+    const id = setTimeout(() => setLabelsReady(true), 2300);
     return () => clearTimeout(id);
   }, []);
 
@@ -409,7 +415,7 @@ export default function PageShell({ children }: PageShellProps) {
           />
           {NAV_ITEMS.slice(0, panelCount).map((item, index) => {
             const isActive = activeIndex === index;
-            const labelVisible = activeIndex === 0 || hoveredNavIndex === index;
+            const labelVisible = labelsReady && (activeIndex === 0 || hoveredNavIndex === index);
             return (
               <button
                 key={item.label}
