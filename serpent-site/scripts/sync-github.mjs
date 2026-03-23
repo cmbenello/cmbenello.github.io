@@ -56,9 +56,13 @@ const sleep = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 const fetchJson = async (url, options = {}) => {
   try {
     const response = await fetch(url, { ...options, headers });
-    if (!response.ok) return null;
+    if (!response.ok) {
+      console.error(`  API error ${response.status} for ${url}`);
+      return null;
+    }
     return await response.json();
-  } catch {
+  } catch (e) {
+    console.error(`  Fetch failed for ${url}: ${e.message}`);
     return null;
   }
 };
