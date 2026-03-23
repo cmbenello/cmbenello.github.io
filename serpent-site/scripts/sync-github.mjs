@@ -133,7 +133,7 @@ const fetchAllUserRepos = async () => {
   let page = 1;
   while (true) {
     const batch = await fetchJson(
-      `https://api.github.com/users/${USER}/repos?per_page=100&page=${page}&sort=updated`,
+      `https://api.github.com/user/repos?per_page=100&page=${page}&sort=updated&affiliation=owner`,
     );
     if (!batch || !batch.length) break;
     repos.push(...batch);
