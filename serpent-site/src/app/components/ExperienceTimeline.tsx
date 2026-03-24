@@ -1,32 +1,27 @@
 "use client";
 
 import { useState } from "react";
-
-/* ── types ── */
 type ExperienceEntry = {
   title: string;
   company: string;
-  employmentType: string;
   dates: string;
-  location: string;
+  description: string;
   highlights: string[];
+  skills: string[];
+  logo?: string;
+  courses?: string[];
 };
-
-/* ── main component ── */
 
 export default function ExperienceTimeline({
   entries,
 }: {
   entries: ExperienceEntry[];
 }) {
-  const [expandedIndex, setExpandedIndex] = useState<number | null>(null);
-
-  const toggle = (i: number) =>
-    setExpandedIndex((prev) => (prev === i ? null : i));
+  const [selectedIndex, setSelectedIndex] = useState(0);
+  const selected = entries[selectedIndex];
 
   return (
     <section className="flex h-full flex-col">
-      {/* header */}
       <div className="mb-6 shrink-0 space-y-3">
         <p className="text-xs uppercase tracking-[0.35em] opacity-65">
           02 Experience
@@ -34,97 +29,125 @@ export default function ExperienceTimeline({
         <h2 className="text-4xl font-semibold tracking-tight">Experience</h2>
       </div>
 
-      {/* entries */}
-      <div className="min-h-0 flex-1 overflow-y-auto scrollbar-hidden">
-        {entries.map((entry, i) => {
-          const hasHighlights = entry.highlights.length > 0;
-          const isExpanded = expandedIndex === i;
-          const preview =
-            hasHighlights && !isExpanded
-              ? entry.highlights.slice(0, 2).join(" \u00b7 ")
-              : null;
-
-          return (
-            <div
-              key={`${entry.title}-${entry.company}`}
-              className="border-t"
-              style={{ borderColor: "var(--panel-border)" }}
-            >
-              {hasHighlights ? (
-                <button
-                  type="button"
-                  onClick={() => toggle(i)}
-                  className="group w-full cursor-pointer py-4 text-left"
-                >
-                  {/* top row: title + dates */}
-                  <div className="flex items-baseline justify-between gap-6">
-                    <h3 className="text-base font-semibold leading-snug">
-                      {entry.title}
-                    </h3>
-                    <span className="shrink-0 text-xs uppercase tracking-wider opacity-40">
-                      {entry.dates}
-                    </span>
-                  </div>
-
-                  {/* company */}
-                  <p className="mt-0.5 text-sm opacity-60">
-                    {entry.company}
-                    {entry.employmentType
-                      ? ` \u00b7 ${entry.employmentType}`
-                      : ""}
-                  </p>
-
-                  {/* preview snippet (when collapsed) */}
-                  {preview && (
-                    <p className="mt-2 line-clamp-1 text-sm opacity-40">
-                      {preview}
-                    </p>
-                  )}
-
-                  {/* expanded highlights */}
-                  <div
-                    className="grid transition-all duration-300 ease-[cubic-bezier(0.4,0,0.2,1)]"
-                    style={{
-                      gridTemplateRows: isExpanded ? "1fr" : "0fr",
-                      opacity: isExpanded ? 1 : 0,
-                    }}
+      <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-12">
+        {/* left: role list */}
+        <div className="flex flex-col gap-1 lg:col-span-5">
+          {entries.map((entry, i) => {
+            const isActive = selectedIndex === i;
+            return (
+              <button
+                key={`${entry.title}-${entry.company}`}
+                type="button"
+                onClick={() => setSelectedIndex(i)}
+                className="flex w-full cursor-pointer items-center gap-3.5 rounded-lg px-3 py-3 text-left transition-all duration-150"
+                style={{
+                  background: isActive ? "var(--panel-surface)" : "transparent",
+                  borderLeft: isActive
+                    ? "3px solid var(--accent-3)"
+                    : "3px solid transparent",
+                }}
+              >
+                {entry.logo && (
+                  <img
+                    src={entry.logo}
+                    alt=""
+                    className="h-8 w-auto max-w-[80px] shrink-0 rounded-sm object-contain"
+                    style={{ opacity: isActive ? 0.9 : 0.5 }}
+                  />
+                )}
+                <div className="min-w-0 flex-1">
+                  <span
+                    className="block text-base font-medium leading-tight transition-opacity duration-150"
+                    style={{ opacity: isActive ? 1 : 0.75 }}
                   >
-                    <div className="overflow-hidden">
-                      <ul className="mt-3 space-y-1.5 text-sm opacity-80">
-                        {entry.highlights.map((h) => (
-                          <li key={h} className="flex gap-2">
-                            <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full opacity-50" style={{ background: "currentColor" }} />
-                            <span>{h}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-                </button>
-              ) : (
-                <div className="py-4">
-                  {/* top row: title + dates */}
-                  <div className="flex items-baseline justify-between gap-6">
-                    <h3 className="text-base font-semibold leading-snug">
-                      {entry.title}
-                    </h3>
-                    <span className="shrink-0 text-xs uppercase tracking-wider opacity-40">
-                      {entry.dates}
-                    </span>
-                  </div>
-
-                  {/* company */}
-                  <p className="mt-0.5 text-sm opacity-60">
+                    {entry.title}
+                  </span>
+                  <span className="block text-sm opacity-55">
                     {entry.company}
-                    {entry.employmentType
-                      ? ` \u00b7 ${entry.employmentType}`
-                      : ""}
-                  </p>
+                    <span className="mx-1.5 opacity-40">·</span>
+                    {entry.dates}
+                  </span>
                 </div>
-              )}
+              </button>
+            );
+          })}
+        </div>
+
+        {/* right: detail panel */}
+        <div className="flex flex-col overflow-y-auto border-l-2 pl-6 lg:col-span-7" style={{ borderColor: "var(--accent-2)" }}>
+          <div className="flex items-center gap-4">
+            {selected.logo && (
+              <img
+                src={selected.logo}
+                alt=""
+                className="h-10 w-auto max-w-[100px] shrink-0 rounded-md object-contain"
+                style={{ opacity: 0.9 }}
+              />
+            )}
+            <div>
+              <h3 className="text-2xl font-semibold tracking-tight">{selected.title}</h3>
+              <p className="mt-0.5 text-base opacity-65">
+                {selected.company}
+                <span className="mx-2 opacity-40">·</span>
+                {selected.dates}
+              </p>
             </div>
-          );
-        })}
+          </div>
+
+          <p className="mt-5 text-base leading-relaxed opacity-90">
+            {selected.description}
+          </p>
+
+          {selected.highlights.length > 0 && (
+            <ul className="mt-4 space-y-2 text-base leading-relaxed opacity-80">
+              {selected.highlights.map((h) => (
+                <li key={h} className="flex gap-2.5">
+                  <span
+                    className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full"
+                    style={{ background: "var(--accent-3)" }}
+                  />
+                  <span>{h}</span>
+                </li>
+              ))}
+            </ul>
+          )}
+
+          {selected.courses && selected.courses.length > 0 && (
+            <div className="mt-5">
+              <p className="mb-2 text-xs uppercase tracking-[0.2em] opacity-50">
+                Courses
+              </p>
+              <div className="flex flex-wrap gap-1.5">
+                {selected.courses.map((course) => (
+                  <span
+                    key={course}
+                    className="rounded-md border px-2.5 py-1 text-xs opacity-70"
+                    style={{ borderColor: "var(--panel-border)" }}
+                  >
+                    {course}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          <div className="mt-auto pt-6">
+            <p className="mb-2 text-xs uppercase tracking-[0.2em] opacity-50">
+              Skills
+            </p>
+            <div className="flex flex-wrap gap-2">
+              {selected.skills.map((skill) => (
+                <span
+                  key={skill}
+                  className="rounded-full border px-3.5 py-1.5 text-sm opacity-75"
+                  style={{ borderColor: "var(--panel-border)" }}
+                >
+                  {skill}
+                </span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
     </section>
   );

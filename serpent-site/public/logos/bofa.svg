@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 80" width="100" height="80">
+  <!-- Bank of America flagscape: parallelogram stripes fanning right -->
+  <!-- Blue stripes (left, 2) -->
+  <polygon points="5,65  20,25  30,25  15,65" fill="#012169"/>
+  <polygon points="18,65  33,25  43,25  28,65" fill="#012169"/>
+  <!-- Red stripes (right, 3) -->
+  <polygon points="35,65  52,10  62,10  45,65" fill="#E31837"/>
+  <polygon points="50,65  67,10  77,10  60,65" fill="#E31837"/>
+  <polygon points="65,65  82,10  92,10  75,65" fill="#E31837"/>
+</svg>

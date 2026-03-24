@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100" height="100">
+  <!-- ChiData: dark red background, white hexagonal ring (open at bottom-left) + right-pointing chevron -->
+  <rect width="100" height="100" rx="10" fill="#7B1919"/>
+
+  <g fill="white">
+    <!-- Outer hex ring: pointy-top hex, r=42, center 50,50 -->
+    <!-- Vertices: T(50,8) TR(86,29) BR(86,71) B(50,92) BL(14,71) TL(14,29) -->
+    <!-- Inner hex r=27: Ti(50,23) TRi(73,36.5) BRi(73,63.5) Bi(50,77) BLi(27,63.5) TLi(27,36.5) -->
+
+    <!-- Top edge -->
+    <polygon points="50,8 86,29 73,36.5 50,23"/>
+    <!-- Top-right to bottom-right edge -->
+    <polygon points="86,29 86,71 73,63.5 73,36.5"/>
+    <!-- Bottom-right to bottom edge -->
+    <polygon points="86,71 50,92 50,77 73,63.5"/>
+    <!-- (bottom-left edge omitted — the "open C" gap) -->
+    <!-- Bottom-left to top-left edge -->
+    <polygon points="14,71 14,29 27,36.5 27,63.5"/>
+    <!-- Top-left to top edge -->
+    <polygon points="14,29 50,8 50,23 27,36.5"/>
+
+    <!-- Inner right-pointing chevron (the "d" / data arrow) -->
+    <polygon points="33,38 53,38 70,50 53,62 33,62 50,50"/>
+  </g>
+</svg>

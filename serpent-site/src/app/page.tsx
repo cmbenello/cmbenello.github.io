@@ -50,73 +50,81 @@ const CURRENT_RESEARCH = [
 const EXPERIENCE = [
   {
     title: "Research Assistant",
-    company: "University of Chicago Department of Computer Science",
-    employmentType: "",
-    dates: "Aug 2023 - Present",
-    location: "Chicago, Illinois, United States",
+    company: "UChicago CS",
+    dates: "Aug 2023 — Present",
+    logo: "/logos/chidata.png",
+    description:
+      "Researching query optimization and parallelizing external merge sort in the ChiData Lab under Professor Aaron Elmore.",
     highlights: [
-      "Researching query optimization in databases",
-      "Exploring parallelizing external merge sort",
       "Implemented Small String Optimization to reduce memory usage by 50% and improve query speed",
       "Removed a 500MB CSV import limit in a Rust crate, increasing import speed by 50%",
     ],
+    skills: ["Rust", "C++", "DuckDB", "Query Optimization"],
   },
   {
     title: "Teaching Assistant",
-    company: "University of Chicago Department of Computer Science",
-    employmentType: "Part-time",
-    dates: "Sep 2023 - Present",
-    location: "Chicago Heights, Illinois, United States",
+    company: "UChicago CS & Mathematics",
+    dates: "Sep 2022 — Present",
+    logo: "/logos/uchicago-cs.jpg",
+    description:
+      "TA for computer science and mathematics courses including systems programming, databases, and proof-based math.",
     highlights: [],
+    courses: [
+      "Math 131 — Calculus I",
+      "Math 159 — Intro to Proofs in Analysis (x3)",
+      "CMSC 141 — Intro to CS I",
+      "CMSC 142 — Intro to CS II",
+      "CMSC 143 — Systems Programming I",
+      "CMSC 144 — Systems Programming II",
+      "CMSC 235 — Database Systems (x3)",
+    ],
+    skills: ["C", "Python", "Mathematics", "Teaching"],
   },
   {
-    title: "Quantitative Researcher - University of Chicago Project Lab",
+    title: "Quantitative Researcher",
     company: "Bank of America",
-    employmentType: "",
-    dates: "Oct 2025 - Dec 2025",
-    location: "",
+    dates: "Oct — Dec 2025",
+    logo: "/logos/bofa.png",
+    description:
+      "University of Chicago Project Lab placement. Quantitative research and modeling.",
     highlights: [],
+    skills: ["Python", "Quantitative Finance", "Data Analysis"],
   },
   {
     title: "Summer Researcher",
     company: "EPFL",
-    employmentType: "Full-time",
-    dates: "Jun 2025 - Sep 2025",
-    location: "Lausanne, Vaud, Switzerland",
+    dates: "Jun — Sep 2025",
+    logo: "/logos/epfl.png",
+    description:
+      "Research on GPU-accelerated compression for analytical databases under Professor Anastasia Ailamaki.",
     highlights: [
       "Built analytical and simulation-based models to predict performance across varying query complexities",
-      "Designed join patterns to evaluate GPU compression on TPC-DS workloads with resource contention models",
       "Engineered a macroblock-based GPU decompression strategy cutting out-of-memory query times by 50-200%",
-      "Benchmarked GPU compression techniques to quantify trade-offs for cost-based strategies",
     ],
+    skills: ["CUDA", "C++", "Python", "GPU Computing", "PostgreSQL"],
   },
   {
     title: "Lead Residential Assistant",
     company: "University of Chicago",
-    employmentType: "Full-time",
-    dates: "2023 - 2024",
-    location: "",
+    dates: "2023 — 2024",
+    logo: "/logos/uchicago.png",
+    description:
+      "Led a team of residential assistants. Managed community programming and crisis response.",
     highlights: [],
-  },
-  {
-    title: "Teaching Assistant",
-    company: "University of Chicago Department of Mathematics",
-    employmentType: "",
-    dates: "Sep 2022 - Dec 2023",
-    location: "",
-    highlights: [],
+    skills: ["Leadership", "Event Planning"],
   },
   {
     title: "Analyst",
     company: "TSM",
-    employmentType: "Internship",
-    dates: "Jul 2023 - Sep 2023",
-    location: "Los Angeles, California, United States",
+    dates: "Jul — Sep 2023",
+    logo: "/logos/tsm.png",
+    description:
+      "Esports analytics internship. Market research and content strategy.",
     highlights: [
       "Led market entry strategy research for Counter-Strike 1 and 2",
-      "Analyzed competitor pricing for expansion into Fortnite or Roblox",
       "Led development of three CS 2 videos, reaching 130K views",
     ],
+    skills: ["Data Analysis", "Market Research", "Strategy"],
   },
 ];
 
@@ -133,18 +141,35 @@ const RESEARCH_HIGHLIGHTS = [
   "Resource contention modeling across I/O, decompression, and compute",
 ];
 
-const TEACHING_COURSES = [
-  "Winter 2026: CMSC 235 - Databases Systems",
-  "Fall 2025: CMSC 141 - Intro to CS I",
-  "Spring 2025: CMSC 235 - Databases Systems",
-  "Winter 2025: CMSC 142 - Intro to CS II",
-  "Fall 2024: CMSC 144 - Systems Programming II",
-  "Spring 2024: CMSC 235 - Databases Systems",
-  "Fall 2023: CMSC 143 - Systems Programming I",
-  "Fall 2023: Math 131 - Elem Functions and Calculus I",
-  "Spring 2023: Math 159 - Intro to Proofs in Analysis",
-  "Winter 2023: Math 159 - Intro to Proofs in Analysis",
-  "Fall 2022: Math 159 - Intro to Proofs in Analysis",
+const PUBLICATIONS = [
+  {
+    title: "CrocSort: Resource-Efficient, Skew-Resilient Parallel External Merge Sort",
+    authors: ["Riki Otaki*", "Charles Benello*", "Fuheng Zhao", "Aaron J. Elmore", "Goetz Graefe"],
+    venue: "PVLDB 19(1), 2026",
+    note: "* Equal contribution",
+    link: "https://github.com/rotaki/ES",
+  },
+  {
+    title: "Paper Title TBD (2)",
+    authors: ["Charles Benello", "et al."],
+    venue: "Venue TBD",
+    note: "",
+    link: "",
+  },
+  {
+    title: "Paper Title TBD (3)",
+    authors: ["Charles Benello", "et al."],
+    venue: "Venue TBD",
+    note: "",
+    link: "",
+  },
+  {
+    title: "Paper Title TBD (4)",
+    authors: ["Charles Benello", "et al."],
+    venue: "Venue TBD",
+    note: "",
+    link: "",
+  },
 ];
 
 const ADVISORS = [
@@ -181,9 +206,9 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid gap-4 lg:col-span-5">
-          <div className="card rounded-2xl p-5 entrance" style={{ animationDelay: "1250ms" }}>
-            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
+        <div className="grid gap-8 lg:col-span-5">
+          <div className="border-l-2 pl-5 entrance" style={{ borderColor: "var(--accent-2)", animationDelay: "1250ms" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Education
             </p>
             <div className="mt-4 space-y-4 text-sm opacity-90">
@@ -191,25 +216,28 @@ export default function Home() {
                 <div key={`${item.school}-${item.dates}`}>
                   <p className="text-sm font-semibold">{item.school}</p>
                   {(item.degree || item.field) && (
-                    <p className="text-xs uppercase tracking-[0.26em] opacity-90">
+                    <p className="text-xs uppercase tracking-[0.26em] opacity-70">
                       {formatMetaLine([item.degree, item.field])}
                     </p>
                   )}
-                  <p className="text-xs opacity-90">{item.dates}</p>
+                  <p className="text-xs opacity-50">{item.dates}</p>
                   {item.notes ? (
-                    <p className="text-xs opacity-90">{item.notes}</p>
+                    <p className="text-xs opacity-50">{item.notes}</p>
                   ) : null}
                 </div>
               ))}
             </div>
           </div>
-          <div className="card rounded-2xl p-5 entrance" style={{ animationDelay: "1550ms" }}>
-            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
+          <div className="border-l-2 pl-5 entrance" style={{ borderColor: "var(--accent-2)", animationDelay: "1550ms" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Current Research
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-80">
               {CURRENT_RESEARCH.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item} className="flex gap-2.5">
+                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span>{item}</span>
+                </li>
               ))}
             </ul>
           </div>
@@ -221,58 +249,99 @@ export default function Home() {
       <section className="grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-12">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Teaching</p>
-            <h2 className="text-2xl font-semibold tracking-tight">Research + Teaching</h2>
+            <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Publications</p>
+            <h2 className="text-2xl font-semibold tracking-tight">Research + Publications</h2>
           </div>
           <p className="max-w-2xl text-lg opacity-90">
-            Research in database systems and GPU compression, plus teaching in
-            computer science and mathematics.
+            Research in database systems and GPU compression, with publications
+            in top-tier venues.
           </p>
         </div>
 
-        <div className="grid gap-4 lg:col-span-6">
-          <div className="card rounded-2xl p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
+        <div className="grid gap-8 lg:col-span-6">
+          <div className="border-l-2 pl-5" style={{ borderColor: "var(--accent-2)" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Research Focus
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-80">
               {RESEARCH_FOCUS.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item} className="flex gap-2.5">
+                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span>{item}</span>
+                </li>
               ))}
             </ul>
           </div>
-          <div className="card rounded-2xl p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
+          <div className="border-l-2 pl-5" style={{ borderColor: "var(--accent-2)" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Research Highlights
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
+            <ul className="mt-4 space-y-2 text-sm opacity-80">
               {RESEARCH_HIGHLIGHTS.map((item) => (
-                <li key={item}>{item}</li>
+                <li key={item} className="flex gap-2.5">
+                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          <div className="border-l-2 pl-5" style={{ borderColor: "var(--accent-2)" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-65">
+              Advisors + Labs
+            </p>
+            <ul className="mt-4 space-y-2 text-sm opacity-80">
+              {ADVISORS.map((item) => (
+                <li key={item} className="flex gap-2.5">
+                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span>{item}</span>
+                </li>
               ))}
             </ul>
           </div>
         </div>
 
-        <div className="grid gap-4 lg:col-span-6">
-          <div className="card rounded-2xl p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
-              Teaching
+        <div className="grid gap-8 lg:col-span-6">
+          <div className="border-l-2 pl-5" style={{ borderColor: "var(--accent-2)" }}>
+            <p className="text-xs uppercase tracking-[0.32em] opacity-65">
+              Publications
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
-              {TEACHING_COURSES.map((item) => (
-                <li key={item}>{item}</li>
+            <div className="mt-4 space-y-5">
+              {PUBLICATIONS.map((pub) => (
+                <div key={pub.title + pub.venue} className="space-y-1">
+                  <p className="text-sm font-semibold leading-snug opacity-90">
+                    {pub.link ? (
+                      <a
+                        href={pub.link}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="underline decoration-1 underline-offset-2 transition-opacity hover:opacity-100"
+                        style={{ textDecorationColor: "var(--accent-3)" }}
+                      >
+                        {pub.title}
+                      </a>
+                    ) : (
+                      pub.title
+                    )}
+                  </p>
+                  <p className="text-xs leading-relaxed opacity-65">
+                    {pub.authors.map((author, i) => (
+                      <span key={author + i}>
+                        {author.includes("Charles Benello") ? (
+                          <strong className="opacity-100">{author}</strong>
+                        ) : (
+                          author
+                        )}
+                        {i < pub.authors.length - 1 ? ", " : ""}
+                      </span>
+                    ))}
+                  </p>
+                  <p className="text-xs font-medium opacity-55">{pub.venue}</p>
+                  {pub.note && (
+                    <p className="text-[10px] uppercase tracking-wide opacity-40">{pub.note}</p>
+                  )}
+                </div>
               ))}
-            </ul>
-          </div>
-          <div className="card rounded-2xl p-5">
-            <p className="text-xs uppercase tracking-[0.32em] opacity-90">
-              Advisors + Labs
-            </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-90 list-disc list-inside">
-              {ADVISORS.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
+            </div>
           </div>
         </div>
       </section>

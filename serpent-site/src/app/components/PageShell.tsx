@@ -24,7 +24,7 @@ import WaveBackground from "./WaveBackground";
 const NAV_ITEMS = [
   { label: "About" },
   { label: "Experience" },
-  { label: "Research + Teaching" },
+  { label: "Research + Publications" },
   { label: "Projects" },
 ];
 
