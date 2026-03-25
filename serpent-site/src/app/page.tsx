@@ -44,7 +44,7 @@ const CURRENT_WORK = [
 const EXPERIENCE = [
   {
     title: "Database Research Assistant",
-    company: "UChicago CS",
+    company: "ChiData Research Lab",
     dates: "Aug 2023 — Present",
     logo: "/logos/chidata.png",
     description:
@@ -59,7 +59,7 @@ const EXPERIENCE = [
     papers: [
       { label: "CrocSort — PVLDB 2026", url: "https://github.com/rotaki/ES", note: "In Review" },
       { label: "Resource-Adaptive Query Execution — CIDR 2025", url: "https://vldb.org/cidrdb/papers/2025/p2-otaki.pdf" },
-      { label: "The Best Machine for Sorting Depends on What You're Sorting — HPTS 2025", wip: true },
+      { label: "Sorting Without Guessing: Adaptive Sort Configuration Across Disaggregated and Cloud-Native Environments — HPTS 2026", wip: true },
     ],
   },
   {
@@ -172,7 +172,7 @@ const PUBLICATIONS = [
   },
   {
     title: "Sorting Without Guessing: Adaptive Sort Configuration Across Disaggregated and Cloud-Native Environments",
-    authors: ["Charles Benello", "Aaron J. Elmore"],
+    authors: ["Charles Benello", "Riki Otaki", "Fuheng Zhao", "Aaron J. Elmore", "Goetz Graefe"],
     venue: "HPTS 2026",
     note: "WIP",
     link: "",
@@ -204,12 +204,14 @@ const formatMetaLine = (parts: Array<string | undefined>) =>
 export default function Home() {
   return (
     <PageShell>
-      <section className="grid gap-10 lg:grid-cols-12">
-        <div className="space-y-4 lg:col-span-7">
+      <section className="grid gap-x-10 gap-y-6 lg:grid-cols-12">
+        <div className="lg:col-span-12 space-y-3">
           <p className="text-xs uppercase tracking-[0.35em] opacity-65 entrance" style={{ animationDelay: "900ms" }}>01 About</p>
           <h1 className="text-5xl font-semibold tracking-tight entrance" style={{ animationDelay: "1050ms" }}>
             Charles Benello
           </h1>
+        </div>
+        <div className="space-y-4 lg:col-span-7">
           <div className="space-y-3 text-lg opacity-90 entrance" style={{ animationDelay: "1250ms" }}>
             {ABOUT_PARAGRAPHS.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
@@ -272,7 +274,7 @@ export default function Home() {
             <ul className="mt-4 space-y-2 text-sm opacity-80">
               {CURRENT_WORK.map((item) => (
                 <li key={item} className="flex gap-2.5">
-                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -287,7 +289,7 @@ export default function Home() {
         <div className="space-y-4 lg:col-span-12">
           <div>
             <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Publications</p>
-            <h2 className="text-2xl font-semibold tracking-tight">Research + Publications</h2>
+            <h2 className="text-4xl font-semibold tracking-tight">Research + Publications</h2>
           </div>
         </div>
 
@@ -296,10 +298,10 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Research Focus
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80">
+            <ul className="mt-4 space-y-2 text-base opacity-80">
               {RESEARCH_FOCUS.map((item) => (
                 <li key={item} className="flex gap-2.5">
-                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -309,10 +311,10 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Research Highlights
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80">
+            <ul className="mt-4 space-y-2 text-base opacity-80">
               {RESEARCH_HIGHLIGHTS.map((item) => (
                 <li key={item} className="flex gap-2.5">
-                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -322,10 +324,10 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Advisors + Labs
             </p>
-            <ul className="mt-4 space-y-2 text-sm opacity-80">
+            <ul className="mt-4 space-y-2 text-base opacity-80">
               {ADVISORS.map((item) => (
                 <li key={item} className="flex gap-2.5">
-                  <span className="mt-[7px] h-1 w-1 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
+                  <span className="mt-[9px] h-1.5 w-1.5 shrink-0 rounded-full" style={{ background: "var(--accent-3)" }} />
                   <span>{item}</span>
                 </li>
               ))}
@@ -341,7 +343,7 @@ export default function Home() {
             <div className="mt-4 space-y-5">
               {PUBLICATIONS.map((pub) => (
                 <div key={pub.title + pub.venue} className="space-y-1">
-                  <p className="text-sm font-semibold leading-snug opacity-90">
+                  <p className="text-base font-semibold leading-snug opacity-90">
                     {pub.link ? (
                       <a
                         href={pub.link}
@@ -356,7 +358,7 @@ export default function Home() {
                       pub.title
                     )}
                   </p>
-                  <p className="text-sm leading-relaxed opacity-85">
+                  <p className="text-base leading-relaxed opacity-85">
                     {pub.authors.map((author, i) => (
                       <span key={author + i}>
                         {author.includes("Charles Benello") ? (
@@ -368,9 +370,9 @@ export default function Home() {
                       </span>
                     ))}
                   </p>
-                  <p className="text-xs font-medium opacity-55">{pub.venue}</p>
+                  <p className="text-sm font-medium opacity-55">{pub.venue}</p>
                   {pub.note && (
-                    <p className="text-[10px] uppercase tracking-wide opacity-40">{pub.note}</p>
+                    <p className="text-xs uppercase tracking-wide opacity-40">{pub.note}</p>
                   )}
                 </div>
               ))}

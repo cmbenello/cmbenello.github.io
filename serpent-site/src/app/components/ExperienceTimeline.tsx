@@ -99,7 +99,7 @@ export default function ExperienceTimeline({
         </div>
 
         {/* right: detail panel */}
-        <div className="flex flex-col overflow-y-auto border-l-2 pl-6 lg:col-span-7" style={{ borderColor: "var(--accent-2)" }}>
+        <div className="flex flex-col overflow-y-hidden border-l-2 pl-6 lg:col-span-7" style={{ borderColor: "var(--accent-2)" }}>
           <div key={selectedIndex} className="exp-detail-enter flex flex-col">
             <div className="flex items-center gap-4">
               {selected.logo && (

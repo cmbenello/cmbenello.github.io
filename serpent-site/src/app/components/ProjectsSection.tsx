@@ -99,6 +99,9 @@ const CONTRIBUTION_LABEL_WIDTH = 34;
 const CONTRIBUTION_LABEL_GAP = 12;
 const CONTRIBUTION_SPARKLINE_WIDTH = 220;
 const CONTRIBUTION_SPARKLINE_HEIGHT = 48;
+const CONTRIBUTION_STEP = CONTRIBUTION_CELL_SIZE + CONTRIBUTION_CELL_GAP;
+const HEATMAP_GRID_LEFT = 28;
+const HEATMAP_GRID_TOP = 22;
 const getContributionLevel = (count: number) => {
   if (count <= 0) return 0;
   if (count <= 2) return 1;
@@ -577,6 +580,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [activeProject, setActiveProject] = useState<Project | null>(null);
   const [projectOrigin, setProjectOrigin] = useState<PopOrigin | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>("all");
+  const [contribModalOpen, setContribModalOpen] = useState(false);
 
   const projectPanelRef = useRef<HTMLDivElement>(null);
   const projectBackdropRef = useRef<HTMLDivElement>(null);
@@ -634,6 +638,15 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   }, [activeProject]);
 
   useEffect(() => {
+    if (!contribModalOpen) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") setContribModalOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [contribModalOpen]);
+
+  useEffect(() => {
     const active = Boolean(activeProject);
     window.dispatchEvent(
       new CustomEvent("effects-pause", {
@@ -669,6 +682,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     CONTRIBUTION_SPARKLINE_WIDTH,
     CONTRIBUTION_SPARKLINE_HEIGHT,
   );
+  const heatmapWidth = HEATMAP_GRID_LEFT + contributionWeeks.length * CONTRIBUTION_STEP - CONTRIBUTION_CELL_GAP;
+  const heatmapHeight = HEATMAP_GRID_TOP + 7 * CONTRIBUTION_STEP - CONTRIBUTION_CELL_GAP;
 
   // Support both flat (new) and nested (legacy) data formats
   const allProjects = useMemo(() => {
@@ -694,6 +709,20 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     if (activeFilter === "all") return allProjects;
     return allProjects.filter((p) => p.categorySlug === activeFilter);
   }, [allProjects, activeFilter]);
+
+  const recentActivity = useMemo(() =>
+    allProjects
+      .flatMap((p) =>
+        (p.commitLog ?? []).map((c) => ({
+          ...c,
+          projectName: p.name,
+          projectUrl: p.url,
+        }))
+      )
+      .sort((a, b) => b.date.localeCompare(a.date))
+      .slice(0, 20),
+    [allProjects]
+  );
 
   const filterOptions = useMemo(() => {
     const catMap = new Map<string, { slug: string; title: string; count: number }>();
@@ -749,17 +778,24 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           <p className="text-xs uppercase tracking-[0.35em] opacity-65">
             04 Projects
           </p>
-          <h2 className="text-2xl font-semibold tracking-tight">Projects</h2>
+          <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
         </div>
         {/* Compact contribution summary */}
         {contributions ? (
-          <div className="card flex items-center gap-3 rounded-xl px-4 py-2.5">
+          <button
+            type="button"
+            onClick={() => setContribModalOpen(true)}
+            className="card flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-150 hover:opacity-100 opacity-85"
+            style={{ outline: "none" }}
+            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1.5px var(--contrib-4)"; }}
+            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
+          >
             <div className="text-right">
               <p className="text-sm font-semibold tabular-nums">
                 {contributionTotal.toLocaleString()}
               </p>
               <p className="text-[10px] uppercase tracking-[0.22em] opacity-60">
-                contributions
+                contributions this year
               </p>
             </div>
             <svg
@@ -776,7 +812,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 points={contributionSparkline}
               />
             </svg>
-          </div>
+          </button>
         ) : null}
       </div>
 
@@ -1068,6 +1104,167 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                   </div>
                 ) : null}
               </div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {/* Contribution heatmap modal */}
+      {contribModalOpen ? (
+        <div
+          className="fixed inset-0 z-50 flex items-center justify-center px-6 py-10"
+          role="dialog"
+          aria-modal="true"
+          onWheel={(e) => e.stopPropagation()}
+          onTouchMove={(e) => e.stopPropagation()}
+        >
+          <div
+            className="absolute inset-0 folder-fade"
+            style={{ backgroundColor: "rgba(0,0,0,0.6)" }}
+            onClick={() => setContribModalOpen(false)}
+            aria-hidden="true"
+          />
+          <div
+            className="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-3xl border folder-pop"
+            style={{
+              backgroundColor: "var(--panel-surface, rgba(16,17,19,0.98))",
+              borderColor: "var(--panel-border-strong, rgba(255,255,255,0.3))",
+            }}
+          >
+            <div className="flex items-center justify-between border-b border-current/30 px-6 py-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] opacity-60">
+                  {data.user ?? "cmbenello"}
+                </p>
+                <h3 className="text-2xl font-semibold">Activity</h3>
+              </div>
+              <button
+                type="button"
+                className="tag rounded-full px-3 py-1 text-xs uppercase tracking-[0.28em] opacity-90 transition hover:opacity-100"
+                onClick={() => setContribModalOpen(false)}
+              >
+                Close
+              </button>
+            </div>
+            <div
+              className="flex-1 overflow-y-auto overscroll-contain px-6 py-6 space-y-6"
+              onWheel={(e) => e.stopPropagation()}
+              onTouchMove={(e) => e.stopPropagation()}
+            >
+              {/* Stats */}
+              <div className="flex items-baseline gap-2">
+                <span className="text-3xl font-semibold tabular-nums">
+                  {contributionTotal.toLocaleString()}
+                </span>
+                <span className="text-sm opacity-55">contributions this year</span>
+              </div>
+
+              {/* Heatmap grid */}
+              {contributionWeeks.length > 0 && (
+                <div
+                  className="overflow-x-auto rounded-xl border border-current/10 p-4"
+                  style={{ background: "rgba(0,0,0,0.15)" }}
+                >
+                  <svg
+                    viewBox={`0 0 ${heatmapWidth} ${heatmapHeight}`}
+                    style={{ width: heatmapWidth, height: heatmapHeight, display: "block" }}
+                  >
+                    {/* Month labels */}
+                    {contributionMonths.map((month) => (
+                      <text
+                        key={month.name + month.start}
+                        x={HEATMAP_GRID_LEFT + month.start * CONTRIBUTION_STEP}
+                        y={14}
+                        fontSize={9}
+                        fill="currentColor"
+                        fillOpacity={0.55}
+                        style={{ fontFamily: "inherit" }}
+                      >
+                        {month.name}
+                      </text>
+                    ))}
+                    {/* Day-of-week labels */}
+                    {([{ label: "Mon", idx: 1 }, { label: "Wed", idx: 3 }, { label: "Fri", idx: 5 }]).map(({ label, idx }) => (
+                      <text
+                        key={label}
+                        x={HEATMAP_GRID_LEFT - 4}
+                        y={HEATMAP_GRID_TOP + idx * CONTRIBUTION_STEP + CONTRIBUTION_CELL_SIZE - 1}
+                        fontSize={9}
+                        textAnchor="end"
+                        fill="currentColor"
+                        fillOpacity={0.45}
+                        style={{ fontFamily: "inherit" }}
+                      >
+                        {label}
+                      </text>
+                    ))}
+                    {/* Contribution cells */}
+                    {contributionWeeks.flatMap((week, wIdx) =>
+                      week.contributionDays.map((day, dIdx) => (
+                        <rect
+                          key={day.date}
+                          x={HEATMAP_GRID_LEFT + wIdx * CONTRIBUTION_STEP}
+                          y={HEATMAP_GRID_TOP + dIdx * CONTRIBUTION_STEP}
+                          width={CONTRIBUTION_CELL_SIZE}
+                          height={CONTRIBUTION_CELL_SIZE}
+                          rx={2}
+                          fill={getContributionColor(day)}
+                        >
+                          <title>
+                            {day.date}: {day.contributionCount} contribution{day.contributionCount !== 1 ? "s" : ""}
+                          </title>
+                        </rect>
+                      ))
+                    )}
+                  </svg>
+                  {/* Legend */}
+                  <div className="mt-3 flex items-center gap-1.5 justify-end">
+                    <span className="text-[9px] uppercase tracking-wider opacity-45 mr-1">Less</span>
+                    {[0, 1, 2, 3, 4].map((level) => (
+                      <div
+                        key={level}
+                        style={{
+                          width: 10,
+                          height: 10,
+                          borderRadius: 2,
+                          background: `var(--contrib-${level})`,
+                        }}
+                      />
+                    ))}
+                    <span className="text-[9px] uppercase tracking-wider opacity-45 ml-1">More</span>
+                  </div>
+                </div>
+              )}
+
+              {/* Recent activity */}
+              {recentActivity.length > 0 && (
+                <div>
+                  <p className="text-xs uppercase tracking-[0.28em] opacity-65 mb-3">
+                    Recent Activity
+                  </p>
+                  <ul className="space-y-2.5">
+                    {recentActivity.map((commit, i) => (
+                      <li
+                        key={`${commit.sha}-${i}`}
+                        className="grid gap-x-3 text-xs"
+                        style={{ gridTemplateColumns: "5rem auto 1fr 3rem" }}
+                      >
+                        <span className="opacity-40 tabular-nums self-start pt-px">{commit.date}</span>
+                        <span className="opacity-70 truncate self-start pt-px">{commit.projectName}</span>
+                        <a
+                          href={commit.url}
+                          target="_blank"
+                          rel="noreferrer"
+                          className="opacity-80 hover:opacity-100 underline underline-offset-2 truncate"
+                        >
+                          {commit.message}
+                        </a>
+                        <span className="opacity-30 font-mono text-right self-start pt-px">{commit.sha}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
             </div>
           </div>
         </div>
