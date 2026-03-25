@@ -5,7 +5,7 @@ import projectsData from "../content/projects-data.json";
 
 const ABOUT_PARAGRAPHS = [
   "I'm a master's student in Financial Mathematics at the University of Chicago and an incoming tech intern at Alter Domus — with a background in low-level systems research, database internals, and high-performance computing.",
-  "I'm deeply interested in hardware accelerators — GPUs, TPUs, and what comes next — and how they can be used to push the limits of systems performance. My research spans parallel external sort, GPU-accelerated compression, and predictive performance modelling across disaggregated hardware, with published work in PVLDB and CIDR. I've had the privilege of working with Professor Aaron Elmore at UChicago's ChiData Lab and Professor Anastasia Ailamaki at EPFL's DIAS Lab.",
+  "I work on large-scale systems and performance engineering, with a recent focus on hardware accelerators — particularly GPUs — and how they can be applied to analytical database workloads. I've published in PVLDB and CIDR, working with Professor Aaron Elmore at UChicago's ChiData Lab and Professor Anastasia Ailamaki at EPFL's DIAS Lab.",
 ];
 
 const EDUCATION = [
@@ -34,11 +34,11 @@ const EDUCATION = [
 ];
 
 const CURRENT_WORK = [
-  "Incoming tech intern at Alter Domus",
   "Research: adaptive sort configuration across disaggregated and cloud-native hardware",
-  "Building a tracing JIT compiler in Rust targeting x86-64",
-  "LLM edit protocol: token-optimal code edits at the IR level",
-  "ContextBench: benchmarking LLM context utilization across providers",
+  "Research: GPU-accelerated compression for analytical databases",
+  "Evaluating policy compliance gaps in Rust LLM code generation benchmarks",
+  "CovTSP: near-optimal transit coverage solver using real GTFS network data",
+  "New IDE interface designed around LLM-assisted development workflows",
 ];
 
 const EXPERIENCE = [
@@ -289,10 +289,6 @@ export default function Home() {
             <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Publications</p>
             <h2 className="text-2xl font-semibold tracking-tight">Research + Publications</h2>
           </div>
-          <p className="max-w-2xl text-lg opacity-90">
-            Research in database systems and GPU compression, with publications
-            in top-tier venues.
-          </p>
         </div>
 
         <div className="grid gap-8 lg:col-span-6">
