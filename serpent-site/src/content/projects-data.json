@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-03-23T11:01:55.838Z",
+  "generatedAt": "2026-03-26T00:11:05.362Z",
   "user": "cmbenello",
   "contributions": {
-    "totalContributions": 275,
+    "totalContributions": 300,
     "months": [
       {
         "name": "Mar",
@@ -72,23 +72,8 @@
     ],
     "weeks": [
       {
-        "firstDay": "2025-03-23",
+        "firstDay": "2025-03-26",
         "contributionDays": [
-          {
-            "date": "2025-03-23",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-03-24",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-03-25",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
           {
             "date": "2025-03-26",
             "contributionCount": 0,
@@ -96,13 +81,13 @@
           },
           {
             "date": "2025-03-27",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2025-03-28",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2025-03-29",
@@ -281,8 +266,8 @@
           },
           {
             "date": "2025-04-28",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2025-04-29",
@@ -361,8 +346,8 @@
           },
           {
             "date": "2025-05-12",
-            "contributionCount": 2,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2025-05-13",
@@ -607,7 +592,7 @@
           {
             "date": "2025-06-24",
             "contributionCount": 11,
-            "color": "#216e39"
+            "color": "#30a14e"
           },
           {
             "date": "2025-06-25",
@@ -1157,7 +1142,7 @@
           {
             "date": "2025-09-28",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-09-29",
@@ -1302,7 +1287,7 @@
           {
             "date": "2025-10-24",
             "contributionCount": 7,
-            "color": "#30a14e"
+            "color": "#40c463"
           },
           {
             "date": "2025-10-25",
@@ -1347,7 +1332,7 @@
           {
             "date": "2025-11-01",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           }
         ]
       },
@@ -1402,7 +1387,7 @@
           {
             "date": "2025-11-10",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-11-11",
@@ -1477,7 +1462,7 @@
           {
             "date": "2025-11-23",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-11-24",
@@ -1522,7 +1507,7 @@
           {
             "date": "2025-12-01",
             "contributionCount": 7,
-            "color": "#30a14e"
+            "color": "#40c463"
           },
           {
             "date": "2025-12-02",
@@ -1537,7 +1522,7 @@
           {
             "date": "2025-12-04",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-12-05",
@@ -1562,7 +1547,7 @@
           {
             "date": "2025-12-08",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-12-09",
@@ -1697,7 +1682,7 @@
           {
             "date": "2026-01-01",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-01-02",
@@ -1726,7 +1711,7 @@
           },
           {
             "date": "2026-01-06",
-            "contributionCount": 3,
+            "contributionCount": 2,
             "color": "#9be9a8"
           },
           {
@@ -1816,8 +1801,8 @@
           },
           {
             "date": "2026-01-22",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2026-01-23",
@@ -2027,7 +2012,7 @@
           {
             "date": "2026-02-28",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           }
         ]
       },
@@ -2057,12 +2042,12 @@
           {
             "date": "2026-03-05",
             "contributionCount": 11,
-            "color": "#216e39"
+            "color": "#30a14e"
           },
           {
             "date": "2026-03-06",
             "contributionCount": 11,
-            "color": "#216e39"
+            "color": "#30a14e"
           },
           {
             "date": "2026-03-07",
@@ -2077,7 +2062,7 @@
           {
             "date": "2026-03-08",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-09",
@@ -2147,7 +2132,7 @@
           {
             "date": "2026-03-21",
             "contributionCount": 12,
-            "color": "#216e39"
+            "color": "#30a14e"
           }
         ]
       },
@@ -2157,12 +2142,27 @@
           {
             "date": "2026-03-22",
             "contributionCount": 4,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-23",
-            "contributionCount": 2,
-            "color": "#9be9a8"
+            "contributionCount": 11,
+            "color": "#30a14e"
+          },
+          {
+            "date": "2026-03-24",
+            "contributionCount": 17,
+            "color": "#216e39"
+          },
+          {
+            "date": "2026-03-25",
+            "contributionCount": 6,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-03-26",
+            "contributionCount": 0,
+            "color": "#ebedf0"
           }
         ]
       }
@@ -2176,7 +2176,7 @@
       "category": "machine-learning",
       "summary": "",
       "description": "",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/merge_tactics_RL",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2223,13 +2223,59 @@
       "readme": "# Merge Tactics Mini-Arena (Two Troops)\n\nA minimal 1v1 arena with **TANK** and **ARCHER** only. 3x3 board, deploy phase with 3 actions, then simple tick battle.\nUse it to bootstrap self-play and plug in PPO later.\n\n## Layout\n- `mergetactics/rules.py` — constants for board, economy, and basic troop stats.\n- `mergetactics/entities.py` — `Unit` dataclass and star scaling.\n- `mergetactics/env.py` — lightweight environment with `reset()`, `observe()`, `step()`.\n- `mergetactics/bots.py` — `RandomBot` and `GreedyBot` baselines.\n- `mergetactics/arena.py` — `ArenaManager` with snapshots and a mini-tournament.\n- `scripts/play_match.py` — example match: Greedy vs Random.\n- `tests/test_env.py` — basic smoke tests.\n\n## Quickstart\n```bash\n# Run a single match (Greedy vs Random)\npython -m scripts.play_match\n\n# Mini tournament (inside Python)\nfrom mergetactics.arena import ArenaManager\nfrom mergetactics.env import MTEnv\nam = ArenaManager(env_ctor=lambda: MTEnv(seed=0))\nprint(am.mini_tournament(n_games=20))\n```"
     },
     {
+      "name": "MiniMetro",
+      "repo": "cmbenello/MiniMetro",
+      "url": "https://github.com/cmbenello/MiniMetro",
+      "category": "machine-learning",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/MiniMetro",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-12-04",
+      "createdAt": "2025-12-04",
+      "pushedAt": "2025-12-04",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "5e788d8",
+          "message": "scaling issues",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/5e788d805537fa9ee7b694315284cd7bd0a033ce",
+          "date": "2025-12-04",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "8b6af34",
+          "message": "goood enough for tonight not scaling correctly but we come back later",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/8b6af340fc4c3f9835b495e12caafde192644e7b",
+          "date": "2025-12-04",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "03bed34",
+          "message": "basic stuff setup + river extractor not working for london almost just scaling is wrong",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/03bed34f3de27c8e4541b7e91971cc5196275b0d",
+          "date": "2025-12-04",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
       "name": "0h-h1-solver",
       "repo": "cmbenello/0h-h1-solver",
       "url": "https://github.com/cmbenello/0h-h1-solver",
       "category": "personal",
       "summary": "",
       "description": "",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/0h-h1-solver",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2275,7 +2321,7 @@
       "category": "personal",
       "summary": "A method of finding an exit to a maze by bouncing a bunch of balls around the maze",
       "description": "A method of finding an exit to a maze by bouncing a bunch of balls around the maze",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/Pongation",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2342,7 +2388,7 @@
       "category": "personal",
       "summary": "Tube Challenge",
       "description": "Tube Challenge",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/TSP-Metro",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2417,13 +2463,59 @@
       "readme": "# TSP-Metro\nThe goal of this project was to find a faster way to traverse all of the stations of the London Underground than the current record.\n\nGrouping up, my father told me about the Tube Challange, which is where you have to try to visit all the stations as fast as possible. I think this was my first introduction to graph theory, and I have been intrigued ever since then. This is my attempt to produce fast solutions to the problem. \n\nRecently Google updated how their policy with the Google Maps api so I am temporarily unable to accurately find the overground walking distance between staitons. \n\nhttps://docs.google.com/document/d/1Qv-D4gzGqBensouZp-i46x5gBaw5ZqyBgFBQgKWBP1M/edit?usp=sharing\n(This link doesn't work for now - I have lost the document but I will try to fix soon)\n\n![](https://github.com/cmbenello/TSP-Metro/blob/main/myAnimation.gif)"
     },
     {
+      "name": "heap_testing",
+      "repo": "cmbenello/heap_testing",
+      "url": "https://github.com/cmbenello/heap_testing",
+      "category": "research",
+      "summary": "testing various heap configurations",
+      "description": "testing various heap configurations",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/heap_testing",
+      "homepage": "",
+      "language": "Rust",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-04-26",
+      "createdAt": "2025-04-17",
+      "pushedAt": "2025-04-26",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "4524de3",
+          "message": "everything working for now",
+          "url": "https://github.com/cmbenello/heap_testing/commit/4524de3661c7fd14b041f5b922c8f0bf0e9f8b9b",
+          "date": "2025-04-26",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "1a0c1c2",
+          "message": "analyzer + plotting",
+          "url": "https://github.com/cmbenello/heap_testing/commit/1a0c1c2a867c402527532f4f583c52969ab81a78",
+          "date": "2025-04-17",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "fd6c7bc",
+          "message": "starting",
+          "url": "https://github.com/cmbenello/heap_testing/commit/fd6c7bc4a5b559a42845d7ee3cf72a4c54214203",
+          "date": "2025-04-17",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
       "name": "finm-325",
       "repo": "cmbenello/finm-325",
       "url": "https://github.com/cmbenello/finm-325",
       "category": "school",
       "summary": "Assignments for Fin math 325",
       "description": "Assignments for Fin math 325",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-325",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2504,7 +2596,7 @@
       "category": "school",
       "summary": "Repo for Mark Hendrick's class risk and portfolio management",
       "description": "Repo for Mark Hendrick's class risk and portfolio management",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-367",
       "homepage": "",
       "language": "Jupyter Notebook",
       "tags": [],
@@ -2585,7 +2677,7 @@
       "category": "teaching",
       "summary": "Practice problems for the 141 midterm",
       "description": "Practice problems for the 141 midterm",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/141-discussion",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2666,7 +2758,7 @@
       "category": "teaching",
       "summary": "",
       "description": "",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/141-discussion-final",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2705,7 +2797,7 @@
       "category": "uncategorized",
       "summary": "",
       "description": "",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/Advent-of-Code",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -2780,13 +2872,126 @@
       "readme": ""
     },
     {
+      "name": "Chess-v-Checkers",
+      "repo": "cmbenello/Chess-v-Checkers",
+      "url": "https://github.com/cmbenello/Chess-v-Checkers",
+      "category": "uncategorized",
+      "summary": "My attempt to determine who would win in a game of chess versus checkers",
+      "description": "My attempt to determine who would win in a game of chess versus checkers",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/Chess-v-Checkers",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-12-01",
+      "createdAt": "2022-10-21",
+      "pushedAt": "2022-10-22",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "bd8aa64",
+          "message": "Issue with king and en passant but done otherwise",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/bd8aa644e1f4de67b210c2b7bee9a8f6b952ac23",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "cb23eb6",
+          "message": "En passent bug and King moving bug but done",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/cb23eb605d0e93e8fac2087b81a8e08864ec5632",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "ce591ec",
+          "message": "Added castling idk how much more i do tonight~~~",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/ce591ecc4ae6170cfa5f07e101b77c45da832b7b",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "a212da1",
+          "message": "Implemented pawn promotion - only queen for now",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/a212da1a1e5f575bbd57d9d8fe55a78d4fb85b6c",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "71f9a77",
+          "message": "Now shoes past move and tracks cursor",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/71f9a77befd39d85110fc54c2183125967314bab",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "58838d5",
+          "message": "Can now actually move pieces / take other pieces",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/58838d57a6c078e9cf3454fa196d260916e73298",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "e3eaecc",
+          "message": "All the pieces have a move list now!",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/e3eaecc9f76a729f0e0a8601e5e9b9bb81c9407a",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "f985e2b",
+          "message": "Added pawn movement ㅇㅡㅇ",
+          "url": "https://github.com/cmbenello/Chess-v-Checkers/commit/f985e2b04b08da21506d8e33c466bdea2b8eb1b0",
+          "date": "2022-10-22",
+          "author": "cmbenello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
+      "name": "ci-testing",
+      "repo": "cmbenello/ci-testing",
+      "url": "https://github.com/cmbenello/ci-testing",
+      "category": "uncategorized",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/ci-testing",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-10-10",
+      "createdAt": "2025-10-10",
+      "pushedAt": "2025-10-10",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "2aabcb5",
+          "message": "Initial commit",
+          "url": "https://github.com/cmbenello/ci-testing/commit/2aabcb5f5c7b59b0388f55f1fd08a75d671c669b",
+          "date": "2025-10-10",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "## 🚀 How to Use This Template\n\nThis repository is a starter template for building and testing trading strategies with CI integration. Follow these steps to create your own copy and begin working:\n\n### 🧩 Step 1: Create Your Own Repository\n\n1. Go to [trading-ci-lab](https://github.com/sdonadio/trading-ci-lab)\n2. Click the green **“Use this template”** button  \n3. Name your new repository (e.g., `ci-homework-01`)  \n4. Choose **Public** or **Private**  \n5. Click **“Create repository from template”**\n\n---\n\n### 💻 Step 2: Clone Your Repository Locally\n\n```bash\ngit clone git@github.com:your-username/ci-homework-01.git\ncd ci-homework-01\n```\n\n> If you're using HTTPS instead of SSH:\n> ```bash\n> git clone https://github.com/your-username/ci-homework-01.git\n> ```\n\n---\n\n### 🧪 Step 3: Install Dependencies\n\n```bash\npip install -r requirements.txt\n```\n\n---\n\n### ⚙️ Step 4: Run Tests and Check Coverage\n\n```bash\ncoverage run -m pytest\ncoverage report -m\n```\n\nTo view an interactive HTML report:\n\n```bash\ncoverage html\nopen htmlcov/index.html  # macOS\n```\n\n---\n\n### 🔁 Step 5: Push Changes and Create a Pull Request\n\n```bash\ngit add .\ngit commit -m \"Implement strategy and tests\"\ngit push\n```\n\nThen go to GitHub and open a **Pull Request** from your branch to `main`."
+    },
+    {
       "name": "cmbenello",
       "repo": "cmbenello/cmbenello",
       "url": "https://github.com/cmbenello/cmbenello",
       "category": "uncategorized",
       "summary": "",
       "description": "",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/cmbenello",
       "homepage": "",
       "language": "",
       "tags": [],
@@ -2867,7 +3072,7 @@
       "category": "uncategorized",
       "summary": "Portofolio ",
       "description": "Portofolio ",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/cmbenello.github.io",
       "homepage": "",
       "language": "TypeScript",
       "tags": [],
@@ -2875,71 +3080,163 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-03-23",
+      "updatedAt": "2026-03-25",
       "createdAt": "2023-12-26",
-      "pushedAt": "2026-03-23",
+      "pushedAt": "2026-03-25",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "9867d69",
-          "message": "cards: glassmorphism + text readability boost, light-mode wave visibility",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/9867d69d24c48bb581ea49d340ccc49c33a3d0fa",
+          "sha": "e52784d",
+          "message": "projects: add clickable contribution heatmap modal with recent activity",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/e52784dfcd977e717ee57dc17c154375f1f6e955",
+          "date": "2026-03-25",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "9630be4",
+          "message": "about: tone down bio, update current work items",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/9630be4c1398b9b170b85d84f98380c74fe6e0d3",
+          "date": "2026-03-25",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "8c450e1",
+          "message": "about: rewrite description, add GitHub/LinkedIn buttons, update current work",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/8c450e1233162106320a7844d578a949f9cbc77f",
+          "date": "2026-03-25",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "b1c69f6",
+          "message": "content: update TA section, TSM bullets, publications, and author styling",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/b1c69f6e3629960a362d455986b7063e38dc64a0",
+          "date": "2026-03-25",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "64f8838",
+          "message": "experience: overhaul with real logos, publications, and TA courses",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/64f8838f366fe7ef67160e4c655ed810fa197cf9",
+          "date": "2026-03-24",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "a700558",
+          "message": "nav: reduce label entrance delay from 2300ms to 1600ms",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/a700558b01f618fec3eb259ae35216e16122f8a5",
           "date": "2026-03-23",
           "author": "Charles Benello"
         },
         {
-          "sha": "9ddf701",
-          "message": "serpent: remove floating dots, keep glow effect",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/9ddf7017af38dd1bae9838081e9cfc9fcd6fff82",
-          "date": "2026-03-22",
+          "sha": "5112884",
+          "message": "nav: labels animate in last on page load (2300ms delay)",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/5112884eb83274d6bb7c86119d40778cdcf6076e",
+          "date": "2026-03-23",
           "author": "Charles Benello"
         },
         {
-          "sha": "ccf29e6",
-          "message": "entrance: staggered fade-in on load — background first, then content cascades in",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/ccf29e6dec6c1bcfc8f6810de2f7b91de91c7e51",
-          "date": "2026-03-22",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "35ff641",
-          "message": "waves: pre-warm 300 frames so trails are visible from first render",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/35ff6416ebdaa2a5b1c4d50fc6eac5ca50aac4d0",
-          "date": "2026-03-22",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "895bdac",
-          "message": "waves: optimize perf + fix grey mesh buildup",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/895bdac5932c8701d3350ce1abacc5ece6d5eeb2",
-          "date": "2026-03-22",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "4dd21d4",
-          "message": "waves: curvy flowing paths, selective glow, no grey mesh buildup",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/4dd21d45d5ebd57aab741d227cf09144ff93b804",
-          "date": "2026-03-22",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "52dd25c",
-          "message": "increase motion: 2x curl evolution, faster spotlight orbits, faster bg drift",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/52dd25cce6362d0ceea20a51ee4a502bf9ac214a",
-          "date": "2026-03-21",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "7080b9b",
-          "message": "raise base alpha floor for stronger background presence",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/7080b9b4afc400da7726ff9fa16644fb0b525de3",
-          "date": "2026-03-21",
+          "sha": "fab3293",
+          "message": "fix: make nav labels clickable on About panel",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/fab32933728814080a2bb08fa96786f7339965c3",
+          "date": "2026-03-23",
           "author": "Charles Benello"
         }
       ],
       "commitActivity": [],
       "readme": ""
+    },
+    {
+      "name": "configs",
+      "repo": "cmbenello/configs",
+      "url": "https://github.com/cmbenello/configs",
+      "category": "uncategorized",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/configs",
+      "homepage": "",
+      "language": "Vim Script",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-09-03",
+      "createdAt": "2025-09-03",
+      "pushedAt": "2025-11-26",
+      "defaultBranch": "master",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "9942ae8",
+          "message": "added inital tmux and and vim",
+          "url": "https://github.com/cmbenello/configs/commit/9942ae8e5d6e6e24b7e11760fc98c32ffcc1105d",
+          "date": "2025-09-03",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
+      "name": "covtsp",
+      "repo": "cmbenello/covtsp",
+      "url": "https://github.com/cmbenello/covtsp",
+      "category": "uncategorized",
+      "summary": "Covering TSP solver for transit coverage optimization. Formalizes the London Tube Challenge into a provably near-optimal solver for any GTFS city.",
+      "description": "Covering TSP solver for transit coverage optimization. Formalizes the London Tube Challenge into a provably near-optimal solver for any GTFS city.",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/covtsp",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-03-25",
+      "createdAt": "2026-03-23",
+      "pushedAt": "2026-03-25",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "2d32afb",
+          "message": "Add sweep solver: early-termination Dijkstra + 3-phase 274/274 solve",
+          "url": "https://github.com/cmbenello/covtsp/commit/2d32afb3b3bbbf467a365515bf9a8647953ed866",
+          "date": "2026-03-25",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "d7428df",
+          "message": "Add static SA solver, multi-start backtest, running speed model, and walking cache",
+          "url": "https://github.com/cmbenello/covtsp/commit/d7428df76df1b8ff278583ced80e69c973ed8243",
+          "date": "2026-03-25",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "d094552",
+          "message": "Fix timing bug: use real TEG times instead of static-graph approximation",
+          "url": "https://github.com/cmbenello/covtsp/commit/d094552cc80ff3284d4bff6dc715f189e1f08729",
+          "date": "2026-03-23",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "0ad9587",
+          "message": "Add GitHub Pages deployment workflow",
+          "url": "https://github.com/cmbenello/covtsp/commit/0ad9587a37374c1e3cea851da024d528d0d89bbd",
+          "date": "2026-03-23",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "1a3a749",
+          "message": "Initial commit: Covering TSP solver for transit coverage optimization",
+          "url": "https://github.com/cmbenello/covtsp/commit/1a3a749016879da979f75282ccb85d1acf358ea7",
+          "date": "2026-03-23",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# Open Transit Optimizer\n\nA research-grade Covering TSP solver for transit coverage optimization. Finds near-optimal routes through any city's transit network using real GTFS timetable data, with LP relaxation bounds proving solution quality.\n\nBuilt from a London Tube Challenge world record (13h40m, beating the 14h17m official record).\n\n## Architecture\n\n```\n┌─────────────┐     ┌──────────────┐     ┌─────────────────┐\n│  GTFS Feed  │────▸│  Parser +    │────▸│  Time-Expanded  │\n│  (any city) │     │  Calendar    │     │  Graph (500K+)  │\n└─────────────┘     └──────────────┘     └────────┬────────┘\n                                                   │\n                    ┌──────────────┐     ┌─────────▾────────┐\n                    │  LP Relaxation│◂───│  Greedy Solver   │\n                    │  Lower Bound │     │  + Local Search  │\n                    └──────┬───────┘     └─────────┬────────┘\n                           │                       │\n                           ▾                       ▾\n                    ┌──────────────────────────────────┐\n                    │  Optimality Gap = (H - LP) / LP  │\n                    └──────────────────────────────────┘\n```\n\n## Quickstart\n\n```bash\npip install -r requirements.txt\n\n# Run on toy network (included)\npython cli.py solve --config configs/toy.yaml --date 2024-03-15\n\n# Download real GTFS data for London\npython cli.py download --config configs/london.yaml\n\n# Solve on real London data\npython cli.py solve --config configs/london.yaml --date 2024-03-15 --output results/london.json\n\n# View config info\npython cli.py info --config configs/london.yaml\n\n# Validate GTFS data\npython cli.py validate --config configs/london.yaml\n```\n\n## Algorithm Stack\n\n1. **Greedy with Lookahead** — Nearest-unvisited in time-space with beam search (k=3). Produces initial feasible solution.\n2. **Local Search** — 2-opt, Or-opt, 3-opt moves on station visit order. Re-simulates full timed path after each move (required because the graph is time-dependent).\n3. **LP Relaxation** — Flow-based LP on the static graph provides a provable lower bound. The optimality gap proves how close the heuristic is to optimal.\n\n## Adding a City\n\n1. Create `configs/yourcity.yaml`:\n```yaml\ncity_name: Your City Metro\ngtfs_url: https://example.com/gtfs.zip\ngtfs_path: yourcity\nstation_count: 100\nroute_type_filter: [1]  # 1 = Metro\nwalking_speed_kmh: 5.0\nmax_walk_distance_m: 500\n```\n\n2. Download and solve:\n```bash\npython cli.py download --config configs/yourcity.yaml\npython cli.py solve --config configs/yourcity.yaml --date 2024-06-15\n```\n\n## Project Structure\n\n```\nsrc/\n├── graph/\n│   ├── network.py          # Static weighted graph (min travel times)\n│   └── time_expanded.py    # Time-expanded graph: (station, time) nodes\n├── gtfs/\n│   ├── parser.py           # GTFS file parsing + station grouping\n│   ├── calendar.py         # Date-aware service filtering\n│   └── download.py         # GTFS feed downloader\n├── solver/\n│   ├── greedy.py           # Greedy nearest-unvisited with lookahead\n│   ├── local_search.py     # 2-opt, Or-opt, 3-opt\n│   └── lp_bound.py         # LP relaxation (static + time-expanded)\n├── backtest.py             # Date-aware backtesting engine\n└── config.py               # YAML config loader\n```\n\n## Tests\n\n```bash\npython -m pytest tests/ -v\n```\n\n44 tests covering GTFS parsing, graph construction, solver correctness, and LP bound validity.\n\n## Key Concepts\n\n- **Time-Expanded Graph**: Nodes are (station, time) pairs. Edges: transit arcs, waiting arcs, walking transfers. Required because train schedules make the graph time-dependent.\n- **Covering TSP**: Visit a required subset of nodes (not all), no return to start. NP-hard.\n- **LP Relaxation**: Relax integer constraints to get a lower bound. The gap between the heuristic solution and this bound proves solution quality.\n- **GTFS**: General Transit Feed Specification — the universal format for transit timetable data."
     },
     {
       "name": "CrustyDB",
@@ -2948,7 +3245,7 @@
       "category": "uncategorized",
       "summary": "",
       "description": "",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/CrustyDB",
       "homepage": "",
       "language": "",
       "tags": [],
@@ -2987,7 +3284,7 @@
       "category": "uncategorized",
       "summary": "Contains epfl scripts used for epfl",
       "description": "Contains epfl scripts used for epfl",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/epfl-scripts",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -3013,13 +3310,175 @@
       "readme": ""
     },
     {
+      "name": "Leetcode",
+      "repo": "cmbenello/Leetcode",
+      "url": "https://github.com/cmbenello/Leetcode",
+      "category": "uncategorized",
+      "summary": "Collection of LeetCode questions to ace the coding interview! - Created using [LeetHub](https://github.com/QasimWani/LeetHub)",
+      "description": "Collection of LeetCode questions to ace the coding interview! - Created using [LeetHub](https://github.com/QasimWani/LeetHub)",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/Leetcode",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-01-21",
+      "createdAt": "2024-02-05",
+      "pushedAt": "2026-01-21",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "5ff95d5",
+          "message": "Time: 59 ms (54.27%) | Memory: 176.1 MB (67.96%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/5ff95d50f017eed64388d1758629f46f5a036804",
+          "date": "2026-01-21",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "e63f335",
+          "message": "Added README.md file for Maximum Alternating Sum of Squares",
+          "url": "https://github.com/cmbenello/Leetcode/commit/e63f3356be9e24380b9a207d42d22f3276c1961c",
+          "date": "2026-01-21",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "f2e6865",
+          "message": "Time: 25 ms (73.20%) | Memory: 25.5 MB (58.97%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/f2e6865f34da94514191a2578c52632a43ff30c4",
+          "date": "2026-01-21",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "e4b6450",
+          "message": "Added Notes.md file for Subrectangle Queries",
+          "url": "https://github.com/cmbenello/Leetcode/commit/e4b6450eb9909f385500b08cd4333768ada808a2",
+          "date": "2026-01-21",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "56ed880",
+          "message": "Added README.md file for Subrectangle Queries",
+          "url": "https://github.com/cmbenello/Leetcode/commit/56ed880a3706758834f565e8d3f92b6378720c77",
+          "date": "2026-01-21",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "25be631",
+          "message": "Time: 0 ms (100.00%) | Memory: 19.3 MB (86.29%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/25be631159b90ae1505bd74e2f64ce7f79b2a2b8",
+          "date": "2026-01-20",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "78d333d",
+          "message": "Added README.md file for Merge Two Sorted Lists",
+          "url": "https://github.com/cmbenello/Leetcode/commit/78d333d2d8dda575aee69816f55725d24080177c",
+          "date": "2026-01-20",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "a08d3c3",
+          "message": "Time: 0 ms (100.00%) | Memory: 8.9 MB (38.29%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/a08d3c3b37e9d233467a36bf68ff62085146031f",
+          "date": "2026-01-20",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# Leetcode\nCollection of LeetCode questions to ace the coding interview! - Created using [LeetHub](https://github.com/QasimWani/LeetHub)\n\n\n\nThese are my leetcode practice problems\n\n<!---LeetCode Topics Start-->\n# LeetCode Topics\n## Hash Table\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n| [0242-valid-anagram](https://github.com/cmbenello/Leetcode/tree/master/0242-valid-anagram) |\n## String\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n| [0242-valid-anagram](https://github.com/cmbenello/Leetcode/tree/master/0242-valid-anagram) |\n## Sorting\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n| [0242-valid-anagram](https://github.com/cmbenello/Leetcode/tree/master/0242-valid-anagram) |\n## Array\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n<!---LeetCode Topics End-->"
+    },
+    {
+      "name": "MAAD",
+      "repo": "cmbenello/MAAD",
+      "url": "https://github.com/cmbenello/MAAD",
+      "category": "uncategorized",
+      "summary": "My files for my Media Arts and Design class",
+      "description": "My files for my Media Arts and Design class",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/MAAD",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-01-02",
+      "createdAt": "2022-04-02",
+      "pushedAt": "2022-04-19",
+      "defaultBranch": "master",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "ee47c69",
+          "message": "Update README.md",
+          "url": "https://github.com/cmbenello/MAAD/commit/ee47c69077dca5e4179ab4cc51529cfb00adf418",
+          "date": "2022-04-19",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "3ccfbba",
+          "message": "Create README.md",
+          "url": "https://github.com/cmbenello/MAAD/commit/3ccfbba29bd9d3dfe0336a440853c55db3fa3c84",
+          "date": "2022-04-19",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "0634666",
+          "message": "Don't run unles...",
+          "url": "https://github.com/cmbenello/MAAD/commit/06346663adf1cede3908c8f802261902f9a737b4",
+          "date": "2022-04-19",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "b97ab72",
+          "message": "Added some more cool gifsgit add .git add .",
+          "url": "https://github.com/cmbenello/MAAD/commit/b97ab729bbc8d25f43010a5a6b5f67a1e9407957",
+          "date": "2022-04-12",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "7cadcb8",
+          "message": "Made good progress",
+          "url": "https://github.com/cmbenello/MAAD/commit/7cadcb8b6e3b3d1909d1fb9c89b832c3f33dd201",
+          "date": "2022-04-12",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "cf39f15",
+          "message": "Whoops didn't mean to add that one",
+          "url": "https://github.com/cmbenello/MAAD/commit/cf39f15b4e4e095a89f79db6ff3fc3d5aa6d4148",
+          "date": "2022-04-11",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "f78b8a3",
+          "message": "Pretty cursed",
+          "url": "https://github.com/cmbenello/MAAD/commit/f78b8a3ccb10b2b66c8c48846deca3c7acda6dc4",
+          "date": "2022-04-11",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "14c80a3",
+          "message": "This is pretty cursed",
+          "url": "https://github.com/cmbenello/MAAD/commit/14c80a318bdcd5b3261c1448e709657c22c6ddaf",
+          "date": "2022-04-11",
+          "author": "cmbenello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# MAAD\nThis is my code for my MAAD projects\n\nWeek 1) Chuck a bunch of ping pong balls around a maze and try to see which ones come out\n\nWeek 2) Combines gifs, it made me laugh\n\nWeek 3) Needed to make something with a gif of an imposter doing a dance, and the words soothing + saturated. Well, the imposter gets progressively saturated so that answers the saturated part, and your computer will crash eventually causing you to reflect on life and be soothed by the environment....(please be warned don't run this file unless you know how to stop a program mid execution :))"
+    },
+    {
       "name": "parallel-merge-sort",
       "repo": "cmbenello/parallel-merge-sort",
       "url": "https://github.com/cmbenello/parallel-merge-sort",
       "category": "uncategorized",
       "summary": "Parallel merge sort",
       "description": "Parallel merge sort",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/parallel-merge-sort",
       "homepage": "",
       "language": "Rust",
       "tags": [],
@@ -3073,13 +3532,94 @@
       "readme": ""
     },
     {
+      "name": "run",
+      "repo": "cmbenello/run",
+      "url": "https://github.com/cmbenello/run",
+      "category": "uncategorized",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/run",
+      "homepage": "",
+      "language": "TypeScript",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-03-10",
+      "createdAt": "2026-02-15",
+      "pushedAt": "2026-03-10",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "67e7cef",
+          "message": "Fix plan deletion, add plan undo toast, unify green colour",
+          "url": "https://github.com/cmbenello/run/commit/67e7cef55844547381992abaa58bfcb0d4f58cc0",
+          "date": "2026-03-10",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "a813616",
+          "message": "Add Google Calendar-style undo toast for workout move and delete",
+          "url": "https://github.com/cmbenello/run/commit/a813616eb9f37e0c08438830d899e26952ebea1f",
+          "date": "2026-03-10",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "050a9ef",
+          "message": "Rewrite workout drag-and-drop for reliable, natural feel",
+          "url": "https://github.com/cmbenello/run/commit/050a9efab4f7d262e362cc481e0dd8392346ee63",
+          "date": "2026-03-10",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "8454a55",
+          "message": "not working temop commit",
+          "url": "https://github.com/cmbenello/run/commit/8454a55549d04d65682a63086021d01134075ce2",
+          "date": "2026-03-10",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "ffeb20d",
+          "message": "Expose Mixamo run controls",
+          "url": "https://github.com/cmbenello/run/commit/ffeb20ddebde4c1590d80ab178f8abd292e36753",
+          "date": "2026-03-09",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "a812ed4",
+          "message": "Update plan horizon and races",
+          "url": "https://github.com/cmbenello/run/commit/a812ed4b111dd5899fe1ca27374cb81e37999c9a",
+          "date": "2026-03-08",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "e221f62",
+          "message": "Update plan page blocks",
+          "url": "https://github.com/cmbenello/run/commit/e221f6243d7ce7ea5972729174267c9616848261",
+          "date": "2026-03-08",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "9a4bc4d",
+          "message": "Cap race plan and remove scrollbar",
+          "url": "https://github.com/cmbenello/run/commit/9a4bc4d0aff67894d992f5c267d96d17828e0fa8",
+          "date": "2026-03-07",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
       "name": "rust-benchmark-audit",
       "repo": "cmbenello/rust-benchmark-audit",
       "url": "https://github.com/cmbenello/rust-benchmark-audit",
       "category": "uncategorized",
       "summary": "",
       "description": "",
-      "image": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/rust-benchmark-audit",
       "homepage": "",
       "language": "Python",
       "tags": [],
@@ -3152,6 +3692,59 @@
       ],
       "commitActivity": [],
       "readme": "# Replication Package\n\n> **Note:** This is a *mostly*-replication package for **\"Is it correct to be 'unsafe'? A pilot study of Rust safety in CodeGen SE benchmarks\"**. A true replication package would subset this directory and remove unused data, scripts, and printouts. These superfluous files are retained for posterity and ongoing development.\n\n---\n\n## `/data` — Benchmark Data & Mutations\n\nAll benchmark datasets and mutations used in the pilot analysis.\n\n| Directory | Contents |\n|---|---|\n| `0_benchmark-sets` | Full versions of the three unmutated benchmarks |\n| `1_manually_sampled_data` | Rows manually sampled from each dataset for project coding policies (per-benchmark and unified) |\n| `2_frozen_mutated_patches` | Claude-mutated sampled patches (`gold standard`, `panic`, `unsafe`, `unwrap`) |\n\n---\n\n## `/pipeline_scripts` — Analysis Pipeline Code\n\nAll code used in the analysis pipeline.\n\n- **`0_data_construction`** — Scripts for checking the presence of policy-risky language within gold standard patches. Includes `per-project-safety-constructs.txt`, which contains manual annotations to project safety policies.\n- **`1_analysis_runs_and_summary`** — Scripts for the analysis pipeline. See the README for more information.\n\n---\n\n## `/results` — Evaluation Harness Outputs\n\n| Directory | Contents |\n|---|---|\n| `20260225_results` | Final policy check results for gold-standard patches |\n| `20260309_harness_eval_results` | All results from the SWE-bench evaluation harness for `multilingual` and `plus-plus` |"
+    },
+    {
+      "name": "TSPmetro-Draft",
+      "repo": "cmbenello/TSPmetro-Draft",
+      "url": "https://github.com/cmbenello/TSPmetro-Draft",
+      "category": "uncategorized",
+      "summary": "Finding the fastest route around metros over the world",
+      "description": "Finding the fastest route around metros over the world",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/TSPmetro-Draft",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2022-02-12",
+      "createdAt": "2020-10-05",
+      "pushedAt": "2020-12-21",
+      "defaultBranch": "master",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "5ec3b9d",
+          "message": "uploading all the code so far - most of it is pretty bad so ignore pls, ty",
+          "url": "https://github.com/cmbenello/TSPmetro-Draft/commit/5ec3b9d208c6f29527e397f19638bf7efa6a5241",
+          "date": "2020-12-21",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "f71e632",
+          "message": "uploading all the code so far - most of it is pretty bad so ignore pls, ty",
+          "url": "https://github.com/cmbenello/TSPmetro-Draft/commit/f71e6322e833dc9ba3965462a8f51f1e7f98e42a",
+          "date": "2020-11-30",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "0074f7b",
+          "message": "uploading all the code so far - most of it is pretty bad so ignore pls, ty",
+          "url": "https://github.com/cmbenello/TSPmetro-Draft/commit/0074f7b69420b1efbd18cf2f334d54c07fa75ece",
+          "date": "2020-11-30",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "f41a4c5",
+          "message": "First attempt at webscraping may need to make more efficient",
+          "url": "https://github.com/cmbenello/TSPmetro-Draft/commit/f41a4c55267b6fb3a9560013a45bbbdc913f9274",
+          "date": "2020-11-09",
+          "author": "cmbenello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
     }
   ]
 }

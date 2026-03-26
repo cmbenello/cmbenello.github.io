@@ -55,7 +55,7 @@ const EXPERIENCE = [
       "Building a predictive model for CrocSort's configuration knobs on disaggregated and cloud-native hardware — recommending near-optimal (memory, threads) configs without brute-force sweeps, with small-scale calibration transferring to production within ~3% of optimal",
       "Implemented Small String Optimization for more compact string storage, reducing memory usage by 40% and improving query speeds",
     ],
-    skills: ["Rust", "DuckDB", "Query Optimization", "Parallel Programming", "Performance Modelling", "Systems Research"],
+    skills: ["Rust", "DuckDB", "Query Optimization", "Parallel Programming", "Performance Modelling"],
     papers: [
       { label: "CrocSort — PVLDB 2026", url: "https://github.com/rotaki/ES", note: "In Review" },
       { label: "Resource-Adaptive Query Execution — CIDR 2025", url: "https://vldb.org/cidrdb/papers/2025/p2-otaki.pdf" },

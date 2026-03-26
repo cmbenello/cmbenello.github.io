@@ -80,6 +80,23 @@ const fetchText = async (url, options = {}) => {
   }
 };
 
+const fetchOgImage = async (url) => {
+  try {
+    const response = await fetch(url, {
+      headers: { "User-Agent": "Mozilla/5.0" },
+      redirect: "follow",
+    });
+    if (!response.ok) return "";
+    const html = await response.text();
+    const match = html.match(
+      /<meta[^>]+property=["']og:image["'][^>]+content=["']([^"']+)["']/i,
+    );
+    return match?.[1] || "";
+  } catch {
+    return "";
+  }
+};
+
 const formatDate = (value) => {
   if (!value) return "";
   const date = new Date(value);
@@ -241,10 +258,12 @@ const enrichRepo = async (repoData, override) => {
 
   console.log(`  Enriching ${repoId}...`);
 
-  const [commits, commitActivity, readme] = await Promise.all([
+  const homepage = repoData.homepage || "";
+  const [commits, commitActivity, readme, homepageOgImage] = await Promise.all([
     getCommitLog(owner, repo),
     getCommitActivity(owner, repo),
     getReadme(owner, repo),
+    !override.image && homepage ? fetchOgImage(homepage) : Promise.resolve(""),
   ]);
 
   const summary = override.summary || repoData.description || "";
@@ -256,7 +275,7 @@ const enrichRepo = async (repoData, override) => {
     category: override.category || "uncategorized",
     summary,
     description: repoData.description || "",
-    image: override.image || "",
+    image: override.image || homepageOgImage || `https://opengraph.githubassets.com/1/${repoId}`,
     homepage: repoData.homepage || "",
     language: repoData.language || "",
     tags: Array.isArray(override.tags) ? override.tags : [],
