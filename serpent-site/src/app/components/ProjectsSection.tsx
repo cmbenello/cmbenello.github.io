@@ -871,7 +871,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
       </div>
 
       {/* Project card grid */}
-      <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
+      <div className="grid grid-cols-2 gap-3 pb-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
         {filteredProjects.map((project) => {
           const accentColor =
             CATEGORY_ACCENTS[project.categorySlug] ?? DEFAULT_ACCENT;
