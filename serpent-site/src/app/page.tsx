@@ -207,12 +207,12 @@ export default function Home() {
       <section className="grid gap-x-10 gap-y-6 lg:grid-cols-12">
         <div className="lg:col-span-12 space-y-3">
           <p className="text-xs uppercase tracking-[0.35em] opacity-65 entrance" style={{ animationDelay: "900ms" }}>01 About</p>
-          <h1 className="text-5xl font-semibold tracking-tight entrance" style={{ animationDelay: "1050ms" }}>
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-semibold tracking-tight entrance" style={{ animationDelay: "1050ms" }}>
             Charles Benello
           </h1>
         </div>
         <div className="space-y-4 lg:col-span-7">
-          <div className="space-y-3 text-lg opacity-90 entrance" style={{ animationDelay: "1250ms" }}>
+          <div className="space-y-3 text-base sm:text-lg opacity-90 entrance" style={{ animationDelay: "1250ms" }}>
             {ABOUT_PARAGRAPHS.map((paragraph) => (
               <p key={paragraph}>{paragraph}</p>
             ))}
@@ -289,7 +289,7 @@ export default function Home() {
         <div className="space-y-4 lg:col-span-12">
           <div>
             <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Publications</p>
-            <h2 className="text-4xl font-semibold tracking-tight">Research + Publications</h2>
+            <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Research + Publications</h2>
           </div>
         </div>
 

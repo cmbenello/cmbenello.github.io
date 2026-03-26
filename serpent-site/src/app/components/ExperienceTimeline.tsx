@@ -44,7 +44,7 @@ export default function ExperienceTimeline({
         <p className="text-xs uppercase tracking-[0.35em] opacity-65">
           02 Experience
         </p>
-        <h2 className="text-4xl font-semibold tracking-tight">Experience</h2>
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Experience</h2>
       </div>
 
       <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-12">
@@ -99,7 +99,7 @@ export default function ExperienceTimeline({
         </div>
 
         {/* right: detail panel */}
-        <div className="flex flex-col overflow-y-hidden border-l-2 pl-6 lg:col-span-7" style={{ borderColor: "var(--accent-2)" }}>
+        <div className="flex flex-col border-l-2 pl-6 lg:col-span-7" style={{ borderColor: "var(--accent-2)" }}>
           <div key={selectedIndex} className="exp-detail-enter flex flex-col">
             <div className="flex items-center gap-4">
               {selected.logo && (

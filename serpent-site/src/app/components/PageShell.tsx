@@ -2,6 +2,7 @@
 
 import {
   Children,
+  useCallback,
   useEffect,
   useLayoutEffect,
   useRef,
@@ -28,13 +29,11 @@ const NAV_ITEMS = [
   { label: "Projects" },
 ];
 
-const FRAME_MARGIN = 32;
+const DEFAULT_FRAME_MARGIN = 32;
 const NAV_BUTTON_SIZE = 26;
 const NAV_DOT_SIZE = 10;
 const NAV_GAP = 4;
 const NAV_STACK_GAP = 16;
-const NAV_RIGHT = Math.max(4, FRAME_MARGIN - NAV_BUTTON_SIZE - NAV_GAP);
-const NAV_TOP = Math.round(FRAME_MARGIN * 2.4);
 const clamp = (value: number, min: number, max: number) =>
   Math.min(max, Math.max(min, value));
 const clamp01 = (value: number) => clamp(value, 0, 1);
@@ -56,12 +55,29 @@ export default function PageShell({ children }: PageShellProps) {
   const [scrollProgress, setScrollProgress] = useState(0);
   const [effectsPaused, setEffectsPaused] = useState(false);
   const [bgVisible, setBgVisible] = useState(false);
+  const [frameMargin, setFrameMargin] = useState(DEFAULT_FRAME_MARGIN);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const scrollRef = useRef<HTMLDivElement | null>(null);
+  const sectionRefs = useRef<(HTMLElement | null)[]>([]);
   const scrollRafRef = useRef<number | null>(null);
+  const navigatingRef = useRef(false);
   const pauseSourcesRef = useRef<Set<string>>(new Set());
   const themePauseTimeoutRef = useRef<number | null>(null);
   const themeReadyRef = useRef(false);
+
+  // Responsive frame margin
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      setFrameMargin(w < 640 ? 12 : w < 1024 ? 20 : DEFAULT_FRAME_MARGIN);
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const navRight = Math.max(4, frameMargin - NAV_BUTTON_SIZE - NAV_GAP);
+  const navTop = Math.round(frameMargin * 2.4);
 
   const panels = Children.toArray(children);
   const panelCount = Math.min(panels.length, NAV_ITEMS.length);
@@ -173,20 +189,55 @@ export default function PageShell({ children }: PageShellProps) {
     return () => observer.disconnect();
   }, []);
 
+  // Compute scroll progress from actual section offsets
+  const computeProgress = useCallback(() => {
+    const scrollEl = scrollRef.current;
+    if (!scrollEl) return { progress: 0, index: 0 };
+    const sections = sectionRefs.current;
+    const scrollTop = scrollEl.scrollTop;
+    const count = sections.filter(Boolean).length;
+    if (count === 0) return { progress: 0, index: 0 };
+
+    for (let i = count - 1; i >= 0; i--) {
+      const sec = sections[i];
+      if (!sec) continue;
+      const top = sec.offsetTop;
+      if (scrollTop >= top) {
+        const nextSec = sections[i + 1];
+        const nextTop = nextSec ? nextSec.offsetTop : top + sec.offsetHeight;
+        const span = nextTop - top;
+        const frac = span > 0 ? (scrollTop - top) / span : 0;
+        return { progress: i + clamp01(frac), index: Math.round(i + clamp01(frac)) };
+      }
+    }
+    return { progress: 0, index: 0 };
+  }, []);
+
+  // Track activeIndex in a ref so the layout sync effect doesn't re-run on index change
+  const activeIndexRef = useRef(activeIndex);
+  activeIndexRef.current = activeIndex;
+
   useLayoutEffect(() => {
     const scrollEl = scrollRef.current;
     if (!scrollEl || !panelHeight) return;
-    scrollEl.scrollTo({ top: activeIndex * panelHeight });
-    setScrollProgress(activeIndex);
+    const idx = activeIndexRef.current;
+    const sec = sectionRefs.current[idx];
+    if (sec) {
+      scrollEl.scrollTo({ top: sec.offsetTop });
+    } else {
+      scrollEl.scrollTo({ top: idx * panelHeight });
+    }
+    setScrollProgress(idx);
   }, [panelHeight]);
 
   useEffect(() => {
     if (activeIndex >= panelCount) {
       const nextIndex = Math.max(0, panelCount - 1);
       setActiveIndex(nextIndex);
+      const sec = sectionRefs.current[nextIndex];
       const scrollEl = scrollRef.current;
-      if (scrollEl && panelHeight) {
-        scrollEl.scrollTo({ top: nextIndex * panelHeight });
+      if (scrollEl && sec) {
+        scrollEl.scrollTo({ top: sec.offsetTop });
       }
     }
   }, [activeIndex, panelCount, panelHeight]);
@@ -196,13 +247,14 @@ export default function PageShell({ children }: PageShellProps) {
     if (!scrollEl || !panelHeight) return;
 
     const updateProgress = () => {
-      const progress = scrollEl.scrollTop / panelHeight;
+      const { progress, index } = computeProgress();
       setScrollProgress(progress);
-      const nextIndex = clampIndex(Math.round(progress));
+      const nextIndex = clampIndex(index);
       setActiveIndex((prev) => (prev === nextIndex ? prev : nextIndex));
     };
 
     const handleScroll = () => {
+      if (navigatingRef.current) return;
       if (scrollRafRef.current !== null) return;
       scrollRafRef.current = window.requestAnimationFrame(() => {
         scrollRafRef.current = null;
@@ -218,26 +270,16 @@ export default function PageShell({ children }: PageShellProps) {
         window.cancelAnimationFrame(scrollRafRef.current);
       }
     };
-  }, [panelCount, panelHeight]);
+  }, [panelCount, panelHeight, computeProgress]);
 
-  const panelStyle = panelHeight
-    ? ({ height: panelHeight } as const)
-    : undefined;
   const maxIndex = Math.max(0, panelCount - 1);
-  const progress = panelHeight ? clamp(scrollProgress, 0, maxIndex) : activeIndex;
-  const serpentBlend = easeInOut(clamp01(1 - Math.abs(progress) / 0.6));
-  const cloudBlend =
-    panelCount > 1
-      ? easeInOut(clamp01(1 - Math.abs(progress - 1) / 0.35))
-      : 0;
-  const mountainBlend =
-    panelCount > 2
-      ? easeInOut(clamp01(1 - Math.abs(progress - 2) / 0.3))
-      : 0;
-  const waterBlend =
-    panelCount > 3
-      ? easeInOut(clamp01(1 - Math.abs(progress - 3) / 0.3))
-      : 0;
+  // Use activeIndex (integer) for background blends so they stay full-strength
+  // while scrolling within a section. CSS transitions handle the crossfade.
+  const bgIndex = activeIndex;
+  const serpentBlend = bgIndex === 0 ? 1 : 0;
+  const cloudBlend = panelCount > 1 && bgIndex === 1 ? 1 : 0;
+  const mountainBlend = panelCount > 2 && bgIndex === 2 ? 1 : 0;
+  const waterBlend = panelCount > 3 && bgIndex === 3 ? 1 : 0;
   const cloudActive = cloudBlend > 0.02;
   const showStars = serpentBlend;
   const serpentStrength = serpentBlend;
@@ -266,7 +308,7 @@ export default function PageShell({ children }: PageShellProps) {
     backgroundImage: "none",
   } as const;
   const navStep = NAV_BUTTON_SIZE + NAV_STACK_GAP;
-  const navProgress = progress;
+  const navProgress = activeIndex;
   const cloudGradient = `linear-gradient(180deg, ${mainBackgroundColor} 0%, ${mainBackgroundColor} 100%)`;
   const mountainBackground = mainBackgroundColor;
   const waveColor = isLight
@@ -331,6 +373,7 @@ export default function PageShell({ children }: PageShellProps) {
         style={{
           backgroundImage: cloudGradient,
           opacity: cloudBlend,
+          transition: "opacity 600ms ease",
         }}
       />
       <div
@@ -339,12 +382,13 @@ export default function PageShell({ children }: PageShellProps) {
         style={{
           backgroundColor: mountainBackground,
           opacity: mountainBlend,
+          transition: "opacity 600ms ease",
         }}
       />
-      <div style={{ opacity: bgVisible ? 1 : 0, transition: "opacity 1200ms ease-out" }}>
+      <div style={{ opacity: bgVisible ? (serpentBlend ? 1 : 0) : 0, transition: "opacity 600ms ease" }}>
         <SerpentBackground
           palette={theme.palette}
-          frameMargin={FRAME_MARGIN}
+          frameMargin={frameMargin}
           starVisibility={showStars}
           serpentVisibility={serpentStrength}
           backgroundOpacity={serpentBackgroundOpacity}
@@ -354,10 +398,10 @@ export default function PageShell({ children }: PageShellProps) {
       <div
         aria-hidden="true"
         className="pointer-events-none absolute inset-0"
-        style={{ opacity: cloudBlend }}
+        style={{ opacity: cloudBlend, transition: "opacity 600ms ease" }}
       >
           <CloudBackground
-            frameMargin={FRAME_MARGIN}
+            frameMargin={frameMargin}
             active={cloudActive}
             palette={cloudPalette}
             skyOpacity={0}
@@ -365,7 +409,7 @@ export default function PageShell({ children }: PageShellProps) {
           />
       </div>
       <MountainBackground
-        frameMargin={FRAME_MARGIN}
+        frameMargin={frameMargin}
         opacity={1}
         transitionProgress={mountainBlend}
         stroke={mountainPalette.stroke}
@@ -376,7 +420,7 @@ export default function PageShell({ children }: PageShellProps) {
         paused={effectsPaused}
       />
       <WaveBackground
-        frameMargin={FRAME_MARGIN}
+        frameMargin={frameMargin}
         opacity={waterBlend * (isLight ? 0.85 : 0.6)}
         backgroundColor="transparent"
         lineColor={waveColor}
@@ -389,19 +433,19 @@ export default function PageShell({ children }: PageShellProps) {
       <div className="pointer-events-none fixed inset-0 z-20">
         <nav
           aria-label="Site sections"
-          className="pointer-events-auto absolute flex flex-col items-center entrance"
+          className="pointer-events-auto absolute hidden flex-col items-center entrance lg:flex"
           style={{
             animationDelay: "1000ms",
-            right: NAV_RIGHT,
-            top: NAV_TOP,
-            gap: NAV_STACK_GAP,
+            left: navRight,
+            top: navTop,
+            gap: 0,
           }}
         >
           <span
             aria-hidden="true"
             style={{
               position: "absolute",
-              top: 0,
+              top: NAV_STACK_GAP / 2,
               left: "50%",
               width: NAV_BUTTON_SIZE,
               height: NAV_BUTTON_SIZE,
@@ -409,13 +453,13 @@ export default function PageShell({ children }: PageShellProps) {
               border: `1px solid ${theme.iconRing}`,
               boxShadow: `0 0 12px ${theme.iconRing}`,
               transform: `translate(-50%, ${navProgress * navStep}px)`,
-              transition: "border-color 700ms ease, box-shadow 700ms ease",
+              transition: "transform 250ms ease, border-color 700ms ease, box-shadow 700ms ease",
               pointerEvents: "none",
             }}
           />
           {NAV_ITEMS.slice(0, panelCount).map((item, index) => {
             const isActive = activeIndex === index;
-            const labelVisible = labelsReady && (activeIndex === 0 || hoveredNavIndex === index);
+            const labelVisible = labelsReady && activeIndex === 0;
             return (
               <button
                 key={item.label}
@@ -425,20 +469,28 @@ export default function PageShell({ children }: PageShellProps) {
                 title={item.label}
                 onClick={() => {
                   setActiveIndex(index);
+                  navigatingRef.current = true;
                   const scrollEl = scrollRef.current;
-                  if (scrollEl && panelHeight) {
+                  const sec = sectionRefs.current[index];
+                  if (scrollEl && sec) {
+                    scrollEl.scrollTo({
+                      top: sec.offsetTop,
+                      behavior: "smooth",
+                    });
+                  } else if (scrollEl && panelHeight) {
                     scrollEl.scrollTo({
                       top: index * panelHeight,
                       behavior: "smooth",
                     });
                   }
+                  setTimeout(() => { navigatingRef.current = false; }, 800);
                 }}
                 onMouseEnter={() => setHoveredNavIndex(index)}
                 onMouseLeave={() => setHoveredNavIndex(null)}
                 className="relative flex items-center justify-center rounded-md hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{
                   width: NAV_BUTTON_SIZE,
-                  height: NAV_BUTTON_SIZE,
+                  height: NAV_BUTTON_SIZE + NAV_STACK_GAP,
                   borderRadius: 7,
                   border: "1px solid transparent",
                   transition: "transform 300ms ease",
@@ -446,40 +498,42 @@ export default function PageShell({ children }: PageShellProps) {
               >
                 <span
                   aria-hidden="true"
-                  className="absolute right-full mr-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em] cursor-pointer"
+                  style={{
+                    width: NAV_DOT_SIZE,
+                    height: NAV_DOT_SIZE,
+                    borderRadius: 999,
+                    backgroundColor: theme.text,
+                    opacity: isActive ? 0.85 : (hoveredNavIndex === index ? 0.65 : 0.5),
+                    boxShadow: isActive ? `0 0 8px ${theme.iconRing}` : "none",
+                    transition:
+                      "opacity 200ms ease, box-shadow 700ms ease, background-color 700ms ease",
+                  }}
+                />
+                {/* Transparent bridge to eliminate dead zone between dot and label */}
+                <span aria-hidden="true" style={{ position: "absolute", left: "100%", top: 0, bottom: 0, width: 12 }} />
+                <span
+                  aria-hidden="true"
+                  className="absolute left-full ml-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
                   style={{
                     color: theme.text,
                     borderColor: theme.iconRing,
                     backgroundColor: isLight
                       ? "rgba(249, 238, 210, 0.92)"
                       : "rgba(28, 30, 38, 0.88)",
-                    boxShadow: `0 4px 16px rgba(0, 0, 0, 0.2)`,
-                    opacity: labelVisible ? (hoveredNavIndex === index ? 1 : 0.75) : 0,
-                    transform: labelVisible ? "translateX(0)" : "translateX(6px)",
-                    transition: "opacity 500ms ease, transform 500ms ease, color 700ms ease, border-color 700ms ease, background-color 700ms ease",
+                    boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
+                    opacity: hoveredNavIndex === index ? 1 : 0,
+                    transform: hoveredNavIndex === index ? "translateX(0)" : "translateX(-6px)",
+                    transition: "opacity 200ms ease, transform 200ms ease, color 700ms ease, border-color 700ms ease, background-color 700ms ease",
                   }}
                 >
                   {item.label}
                 </span>
-                <span
-                  aria-hidden="true"
-                  style={{
-                    width: NAV_DOT_SIZE,
-                    height: NAV_DOT_SIZE,
-                    borderRadius: 999,
-                    backgroundColor: theme.text,
-                    opacity: isActive ? 0.75 : 0.35,
-                    boxShadow: isActive ? `0 0 8px ${theme.iconRing}` : "none",
-                    transition:
-                      "opacity 200ms ease, box-shadow 700ms ease, background-color 700ms ease",
-                  }}
-                />
               </button>
             );
           })}
         </nav>
 
-        <div className="pointer-events-auto absolute bottom-8 right-8 entrance" style={{ animationDelay: "1100ms" }}>
+        <div className="pointer-events-auto absolute bottom-4 right-4 sm:bottom-6 sm:right-6 lg:bottom-8 lg:right-8 entrance" style={{ animationDelay: "1100ms" }}>
           <button
             type="button"
             onClick={() => setIsLight((prev) => !prev)}
@@ -560,7 +614,7 @@ export default function PageShell({ children }: PageShellProps) {
         </div>
       </div>
 
-      <div className="absolute z-10 entrance" style={{ inset: FRAME_MARGIN, animationDelay: "700ms" }}>
+      <div className="absolute z-10 entrance" style={{ inset: frameMargin, animationDelay: "700ms" }}>
         <div ref={frameRef} className="relative h-full w-full overflow-hidden">
           <div
             aria-hidden="true"
@@ -578,23 +632,24 @@ export default function PageShell({ children }: PageShellProps) {
           >
             {visiblePanels.map((panel, index) => {
               const isLast = index === visiblePanels.length - 1;
-              const sectionHeight = panelHeight
+              const sectionStyle = panelHeight
                 ? isLast
-                  ? { minHeight: panelHeight }
-                  : { height: panelHeight }
+                  ? { minHeight: panelHeight, maxHeight: panelHeight, overflowY: "auto" as const }
+                  : { minHeight: panelHeight }
                 : {};
               return (
               <section
                 key={NAV_ITEMS[index]?.label ?? index}
-                className="flex w-full items-start"
+                ref={(el) => { sectionRefs.current[index] = el; }}
+                className={`flex w-full items-start${isLast ? " scrollbar-hidden" : ""}`}
                 style={{
-                  ...sectionHeight,
+                  ...sectionStyle,
                   scrollSnapAlign: "start",
                   scrollSnapStop: "always",
                 }}
               >
                 <div
-                  className="w-full px-10 py-14 lg:px-20"
+                  className="w-full px-4 py-6 sm:px-6 sm:py-8 md:px-10 md:py-14 lg:px-20"
                   style={contentPanelStyle}
                 >
                   {panel}

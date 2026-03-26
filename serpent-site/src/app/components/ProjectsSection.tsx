@@ -380,6 +380,7 @@ function ProjectCard({
   onOpen: (project: Project, rect: DOMRect) => void;
 }) {
   const [hovered, setHovered] = useState(false);
+  const [imgError, setImgError] = useState(false);
   const [g1, g2] = getLangGradient(project.language);
   const initials = getInitials(project.name);
   const summary = project.summary || project.description || "";
@@ -412,11 +413,13 @@ function ProjectCard({
       }}
     >
       {/* Thumbnail */}
-      {project.image ? (
+      {project.image && !imgError ? (
         <img
           src={project.image}
           alt={project.name}
+          loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
+          onError={() => setImgError(true)}
         />
       ) : (
         <div
@@ -785,10 +788,18 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
           <button
             type="button"
             onClick={() => setContribModalOpen(true)}
-            className="card flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-150 hover:opacity-100 opacity-85"
+            className="contrib-pulse card flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-150 hover:opacity-100 opacity-90 group"
             style={{ outline: "none" }}
-            onMouseEnter={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = "0 0 0 1.5px var(--contrib-4)"; }}
-            onMouseLeave={(e) => { (e.currentTarget as HTMLElement).style.boxShadow = ""; }}
+            onMouseEnter={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.boxShadow = "0 0 0 1.5px var(--contrib-4)";
+              el.style.animation = "none";
+            }}
+            onMouseLeave={(e) => {
+              const el = e.currentTarget as HTMLElement;
+              el.style.boxShadow = "";
+              el.style.animation = "";
+            }}
           >
             <div className="text-right">
               <p className="text-sm font-semibold tabular-nums">
@@ -811,6 +822,18 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 strokeLinejoin="round"
                 points={contributionSparkline}
               />
+            </svg>
+            <svg
+              aria-hidden="true"
+              viewBox="0 0 16 16"
+              className="h-3.5 w-3.5 opacity-40 group-hover:opacity-70 transition-opacity flex-shrink-0"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 8h10M9 4l4 4-4 4" />
             </svg>
           </button>
         ) : null}
