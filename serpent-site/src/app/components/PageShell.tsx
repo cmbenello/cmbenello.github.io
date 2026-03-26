@@ -614,6 +614,18 @@ export default function PageShell({ children }: PageShellProps) {
         </div>
       </div>
 
+      {/* Permanent frame border — always visible regardless of active background */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute z-[5] entrance"
+        style={{
+          inset: frameMargin,
+          border: `1px solid ${isLight ? "rgba(192, 24, 33, 0.55)" : "rgba(255, 255, 255, 0.4)"}`,
+          transition: "border-color 700ms ease",
+          animationDelay: "700ms",
+        }}
+      />
+
       <div className="absolute z-10 entrance" style={{ inset: frameMargin, animationDelay: "700ms" }}>
         <div ref={frameRef} className="relative h-full w-full overflow-hidden">
           <div
