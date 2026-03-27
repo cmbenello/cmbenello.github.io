@@ -485,6 +485,9 @@ const EDGE_THRESHOLD = 80;
 /** Shared timestamp — when any card popup was last active, nearby hovers skip the delay */
 let lastPopupCloseTime = 0;
 
+/** Shared dismiss callback — ensures only one popup is open at a time */
+let dismissActivePopup: (() => void) | null = null;
+
 function ProjectCard({
   project,
   accentColor,
@@ -526,6 +529,20 @@ function ProjectCard({
     };
   }, []);
 
+  const dismissPopup = useCallback(() => {
+    setExpanded(false);
+    setShowPopup(false);
+    setClosing(false);
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+  }, []);
+
   const handleMouseEnter = () => {
     // Cancel any in-progress close
     if (closeTimerRef.current) {
@@ -533,6 +550,11 @@ function ProjectCard({
       closeTimerRef.current = null;
     }
     if (showPopup) return; // Already showing
+
+    // Dismiss any other open popup immediately
+    if (dismissActivePopup && dismissActivePopup !== dismissPopup) {
+      dismissActivePopup();
+    }
 
     // If another popup was recently open, skip the long delay (instant feel)
     const timeSinceLastPopup = Date.now() - lastPopupCloseTime;
@@ -554,6 +576,12 @@ function ProjectCard({
       } else {
         setOrigin("center top");
       }
+
+      // Dismiss any other open popup before showing ours
+      if (dismissActivePopup && dismissActivePopup !== dismissPopup) {
+        dismissActivePopup();
+      }
+      dismissActivePopup = dismissPopup;
 
       setShowPopup(true);
       setClosing(false);
@@ -578,6 +606,9 @@ function ProjectCard({
     setExpanded(false);
     setClosing(true);
     lastPopupCloseTime = Date.now();
+    if (dismissActivePopup === dismissPopup) {
+      dismissActivePopup = null;
+    }
     closeTimerRef.current = setTimeout(() => {
       setShowPopup(false);
       setClosing(false);

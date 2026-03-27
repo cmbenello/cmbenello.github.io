@@ -64,7 +64,7 @@ const EXPERIENCE = [
   },
   {
     title: "Software Engineering Intern",
-    company: "Alater Domus",
+    company: "Alter Domus",
     dates: "Apr 2026 — Present",
     logo: "/logos/alterdomus.png",
     description: "WIP",
