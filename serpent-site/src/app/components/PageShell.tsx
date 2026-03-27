@@ -518,7 +518,7 @@ export default function PageShell({ children }: PageShellProps) {
                     top: 0,
                     bottom: 0,
                     left: 0,
-                    width: frameMargin - navRight + 20,
+                    width: frameMargin - navRight + 60,
                   }}
                 />
                 {/* Label tooltip — clickable (inside button), appears on hover */}
