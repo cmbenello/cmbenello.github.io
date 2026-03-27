@@ -4,7 +4,7 @@ import ProjectsSection from "./components/ProjectsSection";
 import projectsData from "../content/projects-data.json";
 
 const ABOUT_PARAGRAPHS = [
-  "I'm a master's student in Financial Mathematics at the University of Chicago and an incoming tech intern at Alter Domus, with a background in low-level systems research, database internals, and high-performance computing.",
+  "I'm a master's student in Financial Mathematics at the University of Chicago and currently a software engineering intern at Alter Domus, with a background in low-level systems research, database internals, and high-performance computing.",
   "I work on large-scale systems and performance engineering, with a recent focus on hardware accelerators, particularly GPUs, and how they can be applied to analytical database workloads. I've published in PVLDB and CIDR, working with Professor Aaron Elmore at UChicago's ChiData Lab and Professor Anastasia Ailamaki at EPFL's DIAS Lab.",
 ];
 
