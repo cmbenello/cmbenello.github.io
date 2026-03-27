@@ -39,7 +39,7 @@ export default function ExperienceTimeline({
   }, [selectedIndex]);
 
   return (
-    <section className="flex h-full flex-col">
+    <section className="relative z-0 flex h-full flex-col">
       <div className="mb-6 shrink-0 space-y-3">
         <p className="text-xs uppercase tracking-[0.35em] opacity-65">
           02 Experience

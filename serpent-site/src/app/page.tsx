@@ -285,7 +285,7 @@ export default function Home() {
 
       <ExperienceTimeline entries={EXPERIENCE} />
 
-      <section className="grid gap-10 lg:grid-cols-12">
+      <section className="relative z-0 grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-12">
           <div>
             <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Publications</p>
