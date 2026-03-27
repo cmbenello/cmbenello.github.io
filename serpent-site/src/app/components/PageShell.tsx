@@ -510,12 +510,27 @@ export default function PageShell({ children }: PageShellProps) {
                       "opacity 200ms ease, box-shadow 700ms ease, background-color 700ms ease",
                   }}
                 />
-                {/* Transparent bridge to eliminate dead zone between dot and label */}
-                <span aria-hidden="true" style={{ position: "absolute", left: "100%", top: 0, bottom: 0, width: 12 }} />
+                {/* Invisible hover zone — extends from button right edge across the margin to the frame border */}
                 <span
                   aria-hidden="true"
-                  className="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
                   style={{
+                    position: "absolute",
+                    top: 0,
+                    bottom: 0,
+                    left: 0,
+                    width: frameMargin - navRight + 20,
+                  }}
+                />
+                {/* Label tooltip — clickable (inside button), appears on hover */}
+                <span
+                  aria-hidden="true"
+                  className="absolute whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
+                  style={{
+                    left: frameMargin - navRight + 8,
+                    top: "50%",
+                    transform: hoveredNavIndex === index
+                      ? "translateY(-50%) translateX(0)"
+                      : "translateY(-50%) translateX(-6px)",
                     color: theme.text,
                     borderColor: theme.iconRing,
                     backgroundColor: isLight
@@ -523,7 +538,7 @@ export default function PageShell({ children }: PageShellProps) {
                       : "rgba(28, 30, 38, 0.88)",
                     boxShadow: "0 4px 16px rgba(0,0,0,0.2)",
                     opacity: hoveredNavIndex === index ? 1 : 0,
-                    transform: hoveredNavIndex === index ? "translateX(0)" : "translateX(-6px)",
+                    pointerEvents: hoveredNavIndex === index ? "auto" : "none",
                     transition: "opacity 200ms ease, transform 200ms ease, color 700ms ease, border-color 700ms ease, background-color 700ms ease",
                   }}
                 >
