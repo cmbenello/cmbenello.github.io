@@ -509,11 +509,11 @@ export default function PageShell({ children }: PageShellProps) {
                       "opacity 200ms ease, box-shadow 700ms ease, background-color 700ms ease",
                   }}
                 />
-                {/* Transparent bridge to eliminate dead zone between dot and label */}
-                <span aria-hidden="true" style={{ position: "absolute", left: "100%", top: 0, bottom: 0, width: 12 }} />
+                {/* Transparent bridge — hover only, clicks pass through */}
+                <span aria-hidden="true" className="pointer-events-none" style={{ position: "absolute", left: "100%", top: 0, bottom: 0, width: 12 }} />
                 <span
                   aria-hidden="true"
-                  className="absolute left-full ml-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
+                  className="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
                   style={{
                     color: theme.text,
                     borderColor: theme.iconRing,
