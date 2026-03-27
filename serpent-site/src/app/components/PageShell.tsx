@@ -643,17 +643,14 @@ export default function PageShell({ children }: PageShellProps) {
             }}
           >
             {visiblePanels.map((panel, index) => {
-              const isLast = index === visiblePanels.length - 1;
               const sectionStyle = panelHeight
-                ? isLast
-                  ? { minHeight: panelHeight, maxHeight: panelHeight, overflowY: "auto" as const }
-                  : { minHeight: panelHeight }
+                ? { minHeight: panelHeight, maxHeight: panelHeight, overflowY: "auto" as const }
                 : {};
               return (
               <section
                 key={NAV_ITEMS[index]?.label ?? index}
                 ref={(el) => { sectionRefs.current[index] = el; }}
-                className={`flex w-full items-start${isLast ? " scrollbar-hidden" : ""}`}
+                className="flex w-full items-stretch scrollbar-hidden"
                 style={{
                   ...sectionStyle,
                   scrollSnapAlign: "start",
