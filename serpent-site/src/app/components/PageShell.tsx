@@ -461,76 +461,57 @@ export default function PageShell({ children }: PageShellProps) {
             const isActive = activeIndex === index;
             const labelVisible = labelsReady && activeIndex === 0;
             return (
-              <div
+              <button
                 key={item.label}
-                className="relative"
+                type="button"
+                aria-label={item.label}
+                aria-pressed={isActive}
+                title={item.label}
+                onClick={() => {
+                  setActiveIndex(index);
+                  navigatingRef.current = true;
+                  const scrollEl = scrollRef.current;
+                  const sec = sectionRefs.current[index];
+                  if (scrollEl && sec) {
+                    scrollEl.scrollTo({
+                      top: sec.offsetTop,
+                      behavior: "smooth",
+                    });
+                  } else if (scrollEl && panelHeight) {
+                    scrollEl.scrollTo({
+                      top: index * panelHeight,
+                      behavior: "smooth",
+                    });
+                  }
+                  setTimeout(() => { navigatingRef.current = false; }, 800);
+                }}
                 onMouseEnter={() => setHoveredNavIndex(index)}
                 onMouseLeave={() => setHoveredNavIndex(null)}
+                className="relative flex items-center justify-center rounded-md hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
                 style={{
                   width: NAV_BUTTON_SIZE,
                   height: NAV_BUTTON_SIZE + NAV_STACK_GAP,
+                  borderRadius: 7,
+                  border: "1px solid transparent",
+                  transition: "transform 300ms ease",
+                  overflow: "visible",
                 }}
               >
-                {/* Invisible hover zone extending from dot to frame border */}
                 <span
                   aria-hidden="true"
-                  className="pointer-events-auto"
                   style={{
-                    position: "absolute",
-                    top: 0,
-                    left: 0,
-                    bottom: 0,
-                    width: frameMargin,
+                    width: NAV_DOT_SIZE,
+                    height: NAV_DOT_SIZE,
+                    borderRadius: 999,
+                    backgroundColor: theme.text,
+                    opacity: isActive ? 0.85 : (hoveredNavIndex === index ? 0.65 : 0.5),
+                    boxShadow: isActive ? `0 0 8px ${theme.iconRing}` : "none",
+                    transition:
+                      "opacity 200ms ease, box-shadow 700ms ease, background-color 700ms ease",
                   }}
                 />
-                <button
-                  type="button"
-                  aria-label={item.label}
-                  aria-pressed={isActive}
-                  title={item.label}
-                  onClick={() => {
-                    setActiveIndex(index);
-                    navigatingRef.current = true;
-                    const scrollEl = scrollRef.current;
-                    const sec = sectionRefs.current[index];
-                    if (scrollEl && sec) {
-                      scrollEl.scrollTo({
-                        top: sec.offsetTop,
-                        behavior: "smooth",
-                      });
-                    } else if (scrollEl && panelHeight) {
-                      scrollEl.scrollTo({
-                        top: index * panelHeight,
-                        behavior: "smooth",
-                      });
-                    }
-                    setTimeout(() => { navigatingRef.current = false; }, 800);
-                  }}
-                  className="flex items-center justify-center rounded-md hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2"
-                  style={{
-                    width: NAV_BUTTON_SIZE,
-                    height: NAV_BUTTON_SIZE + NAV_STACK_GAP,
-                    borderRadius: 7,
-                    border: "1px solid transparent",
-                    transition: "transform 300ms ease",
-                  }}
-                >
-                  <span
-                    aria-hidden="true"
-                    style={{
-                      width: NAV_DOT_SIZE,
-                      height: NAV_DOT_SIZE,
-                      borderRadius: 999,
-                      backgroundColor: theme.text,
-                      opacity: isActive ? 0.85 : (hoveredNavIndex === index ? 0.65 : 0.5),
-                      boxShadow: isActive ? `0 0 8px ${theme.iconRing}` : "none",
-                      transition:
-                        "opacity 200ms ease, box-shadow 700ms ease, background-color 700ms ease",
-                    }}
-                  />
-                </button>
-                {/* Bridge + label — pointer-events-none so clicks pass through to content */}
-                <span aria-hidden="true" className="pointer-events-none" style={{ position: "absolute", left: "100%", top: 0, bottom: 0, width: 12 }} />
+                {/* Transparent bridge to eliminate dead zone between dot and label */}
+                <span aria-hidden="true" style={{ position: "absolute", left: "100%", top: 0, bottom: 0, width: 12 }} />
                 <span
                   aria-hidden="true"
                   className="pointer-events-none absolute left-full ml-3 whitespace-nowrap rounded-full border px-3 py-1 text-[10px] uppercase tracking-[0.35em]"
@@ -548,7 +529,7 @@ export default function PageShell({ children }: PageShellProps) {
                 >
                   {item.label}
                 </span>
-              </div>
+              </button>
             );
           })}
         </nav>
