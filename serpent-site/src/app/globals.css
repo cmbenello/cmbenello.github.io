@@ -99,14 +99,6 @@ body {
   to { opacity: 0; pointer-events: none; }
 }
 
-@keyframes contribPulse {
-  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--contrib-4) 0%, transparent); }
-  50% { box-shadow: 0 0 0 4px color-mix(in srgb, var(--contrib-4) 30%, transparent); }
-}
-
-.contrib-pulse {
-  animation: contribPulse 2.4s ease-in-out infinite;
-}
 
 @keyframes folderPop {
   from {

@@ -1210,45 +1210,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
             <button
               type="button"
               onClick={() => setContribModalOpen(true)}
-              className="contrib-pulse card flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-150 hover:opacity-100 opacity-90 group"
+              className="flex items-center justify-center rounded-full w-8 h-8 cursor-pointer transition-opacity duration-150 hover:opacity-100 opacity-60"
               style={{ outline: "none" }}
-              onMouseEnter={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.boxShadow = "0 0 0 1.5px var(--contrib-4)";
-                el.style.animation = "none";
-              }}
-              onMouseLeave={(e) => {
-                const el = e.currentTarget as HTMLElement;
-                el.style.boxShadow = "";
-                el.style.animation = "";
-              }}
+              aria-label="View contribution activity"
             >
-              <div className="text-right">
-                <p className="text-sm font-semibold tabular-nums">
-                  {contributionTotal.toLocaleString()}
-                </p>
-                <p className="text-[10px] uppercase tracking-[0.22em] opacity-60">
-                  contributions this year
-                </p>
-              </div>
-              <svg
-                aria-hidden="true"
-                viewBox={`0 0 ${CONTRIBUTION_SPARKLINE_WIDTH} ${CONTRIBUTION_SPARKLINE_HEIGHT}`}
-                className="h-6 w-28"
-              >
-                <polyline
-                  fill="none"
-                  stroke="var(--contrib-4)"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  points={contributionSparkline}
-                />
-              </svg>
               <svg
                 aria-hidden="true"
                 viewBox="0 0 16 16"
-                className="h-3.5 w-3.5 opacity-40 group-hover:opacity-70 transition-opacity flex-shrink-0"
+                className="h-4 w-4"
                 fill="none"
                 stroke="currentColor"
                 strokeWidth="1.5"
