@@ -469,10 +469,20 @@ export default function PageShell({ children }: PageShellProps) {
                 style={{
                   width: NAV_BUTTON_SIZE,
                   height: NAV_BUTTON_SIZE + NAV_STACK_GAP,
-                  paddingRight: 16,
-                  marginRight: -16,
                 }}
               >
+                {/* Invisible hover zone extending from dot to frame border */}
+                <span
+                  aria-hidden="true"
+                  className="pointer-events-auto"
+                  style={{
+                    position: "absolute",
+                    top: 0,
+                    left: 0,
+                    bottom: 0,
+                    width: frameMargin,
+                  }}
+                />
                 <button
                   type="button"
                   aria-label={item.label}
