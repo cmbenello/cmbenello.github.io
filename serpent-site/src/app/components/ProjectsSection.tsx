@@ -1,6 +1,7 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState, type CSSProperties, type ReactElement } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState, type CSSProperties, type ReactElement } from "react";
+import { createPortal } from "react-dom";
 
 type ProjectCommit = {
   sha: string;
@@ -18,6 +19,7 @@ type Project = {
   summary?: string;
   description?: string;
   image?: string;
+  gif?: string;
   homepage?: string;
   language?: string;
   tags?: string[];
@@ -36,6 +38,7 @@ type Project = {
   commitActivity?: number[];
   activity?: number[];
   readme?: string;
+  featured?: boolean;
 };
 
 type ContributionDay = {
@@ -352,6 +355,8 @@ const CATEGORY_ACCENTS: Record<string, string> = {
   school: "#60a5fa",
   teaching: "#f472b6",
   work: "#34d399",
+  featured: "#f59e0b",
+  more: "#818cf8",
 };
 const DEFAULT_ACCENT = "#818cf8";
 
@@ -370,63 +375,44 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
-function ProjectCard({
+/** Thumbnail area shared by inline card and hover popup */
+function CardThumbnail({
   project,
-  accentColor,
-  onOpen,
+  imgError,
+  onImgError,
+  showTitle = true,
+  showLanguage = false,
+  useGif = false,
 }: {
   project: Project;
-  accentColor: string;
-  onOpen: (project: Project, rect: DOMRect) => void;
+  imgError: boolean;
+  onImgError: () => void;
+  /** Show name strip at bottom — false in popup since info panel has the name */
+  showTitle?: boolean;
+  /** Show language pill — only on popup */
+  showLanguage?: boolean;
+  /** Use gif instead of static image when available */
+  useGif?: boolean;
 }) {
-  const [hovered, setHovered] = useState(false);
-  const [imgError, setImgError] = useState(false);
   const [g1, g2] = getLangGradient(project.language);
   const initials = getInitials(project.name);
-  const summary = project.summary || project.description || "";
-  const tags = [
-    ...(project.tags ?? []),
-    ...(project.topics ?? []),
-    project.language ?? "",
-  ]
-    .filter((t) => t?.trim())
-    .slice(0, 3);
+  const displayImage = useGif && project.gif ? project.gif : project.image;
 
   return (
-    <button
-      type="button"
-      className="relative w-full overflow-hidden rounded-xl text-left focus-visible:outline-none focus-visible:ring-2"
-      style={{
-        aspectRatio: "16 / 9",
-        transform: hovered ? "translateY(-3px)" : "translateY(0)",
-        transition: "transform 200ms ease, box-shadow 200ms ease",
-        boxShadow: hovered
-          ? `0 8px 32px rgba(0,0,0,0.4), 0 0 0 2px ${accentColor}`
-          : "0 2px 8px rgba(0,0,0,0.2)",
-        borderRadius: 12,
-      }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      onClick={(e) => {
-        const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
-        onOpen(project, rect);
-      }}
-    >
-      {/* Thumbnail */}
-      {project.image && !imgError ? (
+    <div className="relative w-full" style={{ aspectRatio: "16 / 9" }}>
+      {displayImage && !imgError && !displayImage.includes("opengraph.githubassets.com") ? (
         <img
-          src={project.image}
+          src={displayImage}
           alt={project.name}
           loading="lazy"
           className="absolute inset-0 h-full w-full object-cover"
-          onError={() => setImgError(true)}
+          onError={onImgError}
         />
       ) : (
         <div
           className="absolute inset-0"
           style={{ background: `linear-gradient(135deg, ${g1}dd, ${g2}dd)` }}
         >
-          {/* Subtle grid pattern */}
           <div
             className="absolute inset-0"
             style={{
@@ -435,7 +421,6 @@ function ProjectCard({
               backgroundSize: "24px 24px",
             }}
           />
-          {/* Large initials */}
           <div className="absolute inset-0 flex items-center justify-center">
             <span
               style={{
@@ -452,8 +437,8 @@ function ProjectCard({
         </div>
       )}
 
-      {/* Language pill — top right */}
-      {project.language && (
+      {/* Language pill — only visible on popup */}
+      {showLanguage && project.language && (
         <div className="absolute right-2 top-2 z-10">
           <span
             className="rounded-full px-2 py-0.5 text-[10px] uppercase tracking-widest"
@@ -468,109 +453,496 @@ function ProjectCard({
         </div>
       )}
 
-      {/* Always-visible title strip */}
-      <div
-        className="absolute inset-x-0 bottom-0 z-10 px-3 py-2.5"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 55%, transparent 100%)",
-          opacity: hovered ? 0 : 1,
-          transition: "opacity 180ms ease",
-        }}
-      >
-        <p
-          className="truncate text-sm font-semibold text-white"
-          style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
+      {/* Title strip at bottom — hidden in popup (info panel has the name) */}
+      {showTitle && (
+        <div
+          className="absolute inset-x-0 bottom-0 z-10 px-3 py-2.5"
+          style={{
+            background:
+              "linear-gradient(to top, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 55%, transparent 100%)",
+          }}
         >
-          {project.name}
-        </p>
-      </div>
-
-      {/* Hover info overlay */}
-      <div
-        className="absolute inset-0 z-20 flex flex-col justify-end px-3 pb-3"
-        style={{
-          background:
-            "linear-gradient(to top, rgba(0,0,0,0.93) 0%, rgba(0,0,0,0.72) 45%, rgba(0,0,0,0.15) 100%)",
-          opacity: hovered ? 1 : 0,
-          transition: "opacity 180ms ease",
-        }}
-      >
-        <p className="mb-0.5 text-sm font-semibold leading-tight text-white">
-          {project.name}
-        </p>
-        {summary && (
           <p
-            className="mb-1.5 text-xs leading-snug text-white/70"
-            style={{
-              display: "-webkit-box",
-              WebkitLineClamp: 2,
-              WebkitBoxOrient: "vertical",
-              overflow: "hidden",
-            }}
+            className="truncate text-sm font-semibold text-white"
+            style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
           >
-            {summary}
+            {project.name}
           </p>
-        )}
-        {tags.length > 0 && (
-          <div className="flex flex-wrap gap-1">
-            {tags.map((tag) => (
-              <span
-                key={tag}
-                className="rounded px-1.5 py-0.5 text-[10px] uppercase tracking-wide"
-                style={{
-                  background: accentColor + "2a",
-                  color: accentColor,
-                  border: `1px solid ${accentColor}44`,
-                }}
-              >
-                {tag}
-              </span>
-            ))}
-          </div>
-        )}
-      </div>
-    </button>
+        </div>
+      )}
+    </div>
   );
 }
 
-function CategoryRow({
-  category,
+const HOVER_DELAY_MS = 300;
+const HOVER_WARM_MS = 50; // Near-instant when moving between cards
+const HOVER_WARM_WINDOW = 800; // Window after a popup closes where next hover is fast
+const SCALE = 1.3;
+const EXPAND_MS = 200;
+const CLOSE_ANIM_MS = 150;
+const EDGE_THRESHOLD = 80;
+
+/** Shared timestamp — when any card popup was last active, nearby hovers skip the delay */
+let lastPopupCloseTime = 0;
+
+function ProjectCard({
+  project,
+  accentColor,
   onOpen,
 }: {
-  category: Category;
+  project: Project;
+  accentColor: string;
   onOpen: (project: Project, rect: DOMRect) => void;
 }) {
-  const accentColor = CATEGORY_ACCENTS[category.slug] ?? DEFAULT_ACCENT;
+  const [imgError, setImgError] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
+  const [expanded, setExpanded] = useState(false);
+  const [closing, setClosing] = useState(false);
+  const [fixedRect, setFixedRect] = useState<DOMRect | null>(null);
+  const [origin, setOrigin] = useState("center top");
+  const cardRef = useRef<HTMLButtonElement>(null);
+  const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
+
+  const summary = project.summary || project.description || "";
+  const tags = [
+    ...(project.tags ?? []),
+    ...(project.topics ?? []),
+    project.language ?? "",
+  ]
+    .filter((t) => t?.trim())
+    .slice(0, 3);
+
+  useEffect(() => {
+    setPortalTarget(document.body);
+  }, []);
+
+  // Cleanup timers
+  useEffect(() => {
+    return () => {
+      if (hoverTimerRef.current) clearTimeout(hoverTimerRef.current);
+      if (closeTimerRef.current) clearTimeout(closeTimerRef.current);
+    };
+  }, []);
+
+  const handleMouseEnter = () => {
+    // Cancel any in-progress close
+    if (closeTimerRef.current) {
+      clearTimeout(closeTimerRef.current);
+      closeTimerRef.current = null;
+    }
+    if (showPopup) return; // Already showing
+
+    // If another popup was recently open, skip the long delay (instant feel)
+    const timeSinceLastPopup = Date.now() - lastPopupCloseTime;
+    const delay = timeSinceLastPopup < HOVER_WARM_WINDOW ? HOVER_WARM_MS : HOVER_DELAY_MS;
+
+    // Start hover delay
+    hoverTimerRef.current = setTimeout(() => {
+      const el = cardRef.current;
+      if (!el) return;
+      const rect = el.getBoundingClientRect();
+      setFixedRect(rect);
+
+      // Determine transform-origin based on edge proximity
+      const vw = window.innerWidth;
+      if (rect.left < EDGE_THRESHOLD) {
+        setOrigin("left top");
+      } else if (rect.right > vw - EDGE_THRESHOLD) {
+        setOrigin("right top");
+      } else {
+        setOrigin("center top");
+      }
+
+      setShowPopup(true);
+      setClosing(false);
+      // Trigger expansion on next frame for CSS transition
+      requestAnimationFrame(() => {
+        requestAnimationFrame(() => setExpanded(true));
+      });
+    }, delay);
+  };
+
+  const handleMouseLeaveCard = () => {
+    // Cancel pending hover
+    if (hoverTimerRef.current) {
+      clearTimeout(hoverTimerRef.current);
+      hoverTimerRef.current = null;
+    }
+    // Don't close if popup is already showing (popup handles its own leave)
+  };
+
+  const handlePopupLeave = () => {
+    // Animate back to scale(1), then unmount
+    setExpanded(false);
+    setClosing(true);
+    lastPopupCloseTime = Date.now();
+    closeTimerRef.current = setTimeout(() => {
+      setShowPopup(false);
+      setClosing(false);
+    }, CLOSE_ANIM_MS);
+  };
 
   return (
-    <div className="space-y-3">
-      <div className="flex items-baseline gap-3">
-        <h3 className="text-lg font-semibold tracking-tight">
-          {category.title}
-        </h3>
-        <span
-          className="text-xs uppercase tracking-[0.28em]"
-          style={{ color: accentColor }}
+    <>
+      {/* Inline card — always in layout flow */}
+      <button
+        ref={cardRef}
+        type="button"
+        className="relative w-full overflow-hidden rounded-xl text-left focus-visible:outline-none focus-visible:ring-2"
+        style={{
+          aspectRatio: "16 / 9",
+          boxShadow: "0 2px 8px rgba(0,0,0,0.2)",
+          borderRadius: 12,
+          // Hide original when popup is visible so no ghost duplicate
+          visibility: showPopup ? "hidden" : "visible",
+        }}
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeaveCard}
+        onClick={(e) => {
+          const rect = (e.currentTarget as HTMLElement).getBoundingClientRect();
+          onOpen(project, rect);
+        }}
+      >
+        <CardThumbnail
+          project={project}
+          imgError={imgError}
+          onImgError={() => setImgError(true)}
+        />
+      </button>
+
+      {/* Netflix-style hover popup — portal to document.body */}
+      {showPopup && fixedRect && portalTarget && createPortal(
+        <div
+          style={{
+            position: "fixed",
+            left: fixedRect.left,
+            top: fixedRect.top,
+            width: fixedRect.width,
+            zIndex: 99999,
+            transformOrigin: origin,
+            transform: expanded ? `scale(${SCALE})` : "scale(1)",
+            opacity: closing && !expanded ? 0 : 1,
+            transition: closing
+              ? `transform ${CLOSE_ANIM_MS}ms ease-in, opacity ${CLOSE_ANIM_MS}ms ease-in`
+              : `transform ${EXPAND_MS}ms cubic-bezier(0.25, 1, 0.5, 1), opacity ${EXPAND_MS}ms ease`,
+            pointerEvents: "auto",
+          }}
+          onMouseLeave={handlePopupLeave}
+          onWheel={(e) => {
+            // Forward scroll to the section scroll container so user can scroll while hovering
+            const scrollContainer = cardRef.current?.closest('[style*="overflow"]');
+            if (scrollContainer) {
+              scrollContainer.scrollTop += e.deltaY;
+              scrollContainer.scrollLeft += e.deltaX;
+            }
+          }}
         >
-          {category.projects.length}{" "}
-          {category.projects.length === 1 ? "project" : "projects"}
+          <button
+            type="button"
+            className="w-full overflow-hidden rounded-xl text-left"
+            style={{
+              borderRadius: 12,
+              boxShadow: expanded
+                ? `0 16px 48px rgba(0,0,0,0.7), 0 0 0 1px ${accentColor}44`
+                : "0 2px 8px rgba(0,0,0,0.2)",
+              transition: closing
+                ? `box-shadow ${CLOSE_ANIM_MS}ms ease`
+                : `box-shadow ${EXPAND_MS}ms ease`,
+              background: "rgba(20, 20, 24, 0.98)",
+            }}
+            onClick={() => onOpen(project, fixedRect)}
+          >
+            {/* Thumbnail — no title or language (info panel has it), use gif */}
+            <CardThumbnail
+              project={project}
+              imgError={imgError}
+              onImgError={() => setImgError(true)}
+              showTitle={false}
+              showLanguage={false}
+              useGif={true}
+            />
+
+            {/* Netflix-style info panel below thumbnail */}
+            <div
+              className="px-3 pb-3 pt-2 space-y-2"
+              style={{
+                maxHeight: expanded ? 120 : 0,
+                opacity: expanded ? 1 : 0,
+                overflow: "hidden",
+                transition: closing
+                  ? `max-height ${CLOSE_ANIM_MS}ms ease-in, opacity ${CLOSE_ANIM_MS * 0.5}ms ease-in`
+                  : `max-height ${EXPAND_MS}ms cubic-bezier(0.25, 1, 0.5, 1), opacity ${EXPAND_MS * 0.6}ms ease ${EXPAND_MS * 0.3}ms`,
+              }}
+            >
+              <p className="text-sm font-semibold leading-tight text-white">
+                {project.name}
+              </p>
+              {summary && (
+                <p
+                  className="text-xs leading-snug text-white/60"
+                  style={{
+                    display: "-webkit-box",
+                    WebkitLineClamp: 2,
+                    WebkitBoxOrient: "vertical",
+                    overflow: "hidden",
+                  }}
+                >
+                  {summary}
+                </p>
+              )}
+              {tags.length > 0 && (
+                <div className="flex flex-wrap gap-1">
+                  {tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded px-1.5 py-0.5 text-[9px] uppercase tracking-wide"
+                      style={{
+                        background: accentColor + "2a",
+                        color: accentColor,
+                        border: `1px solid ${accentColor}44`,
+                      }}
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </div>
+          </button>
+        </div>,
+        portalTarget,
+      )}
+    </>
+  );
+}
+
+const AUTO_SCROLL_SPEED = 0.5; // px per frame
+
+/** Responsive card widths */
+function useCardWidths() {
+  const [widths, setWidths] = useState({ card: 260, featured: 380 });
+  useEffect(() => {
+    const update = () => {
+      const w = window.innerWidth;
+      if (w < 480) {
+        setWidths({ card: w - 80, featured: w - 60 });
+      } else if (w < 768) {
+        setWidths({ card: 220, featured: 300 });
+      } else if (w < 1024) {
+        setWidths({ card: 240, featured: 340 });
+      } else {
+        setWidths({ card: 260, featured: 380 });
+      }
+    };
+    update();
+    window.addEventListener("resize", update);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+  return widths;
+}
+
+function FilmstripRow({
+  slug,
+  title,
+  projects,
+  onOpen,
+  cardWidth = 260,
+}: {
+  slug: string;
+  title: string;
+  projects: (Project & { categorySlug: string; categoryTitle: string })[];
+  onOpen: (project: Project, rect: DOMRect) => void;
+  cardWidth?: number;
+}) {
+  const accentColor = CATEGORY_ACCENTS[slug] ?? DEFAULT_ACCENT;
+  const scrollRef = useRef<HTMLDivElement>(null);
+  const [canScrollLeft, setCanScrollLeft] = useState(false);
+  const [canScrollRight, setCanScrollRight] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
+  const [isDragging, setIsDragging] = useState(false);
+  const [rowHovered, setRowHovered] = useState(false);
+  const dragState = useRef({ startX: 0, scrollLeft: 0, moved: false });
+  const autoScrollRef = useRef<number | null>(null);
+
+  const updateScrollState = useCallback(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const { scrollLeft, scrollWidth, clientWidth } = el;
+    setCanScrollLeft(scrollLeft > 4);
+    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
+    setScrollProgress(scrollWidth > clientWidth ? scrollLeft / (scrollWidth - clientWidth) : 0);
+  }, []);
+
+  useEffect(() => {
+    updateScrollState();
+    const el = scrollRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(updateScrollState);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [updateScrollState, projects]);
+
+  // Auto-scroll: continuously scroll right, pause on hover/drag
+  useEffect(() => {
+    const el = scrollRef.current;
+    if (!el) return;
+    const paused = rowHovered || isDragging;
+
+    if (paused) {
+      if (autoScrollRef.current != null) {
+        cancelAnimationFrame(autoScrollRef.current);
+        autoScrollRef.current = null;
+      }
+      return;
+    }
+
+    const tick = () => {
+      if (!el) return;
+      const { scrollLeft, scrollWidth, clientWidth } = el;
+      const maxScroll = scrollWidth - clientWidth;
+      if (maxScroll <= 0) return; // nothing to scroll
+      el.scrollLeft = scrollLeft + AUTO_SCROLL_SPEED;
+      // Loop back to start when reaching end
+      if (el.scrollLeft >= maxScroll - 1) {
+        el.scrollLeft = 0;
+      }
+      autoScrollRef.current = requestAnimationFrame(tick);
+    };
+    autoScrollRef.current = requestAnimationFrame(tick);
+
+    return () => {
+      if (autoScrollRef.current != null) cancelAnimationFrame(autoScrollRef.current);
+    };
+  }, [rowHovered, isDragging]);
+
+  const scroll = (direction: number) => {
+    const el = scrollRef.current;
+    if (!el) return;
+    el.scrollBy({ left: direction * el.clientWidth * 0.75, behavior: "smooth" });
+  };
+
+  const onMouseDown = (e: React.MouseEvent) => {
+    if (e.button !== 0) return;
+    setIsDragging(true);
+    dragState.current = { startX: e.pageX, scrollLeft: scrollRef.current?.scrollLeft ?? 0, moved: false };
+  };
+  const onMouseMove = (e: React.MouseEvent) => {
+    if (!isDragging) return;
+    const dx = e.pageX - dragState.current.startX;
+    if (Math.abs(dx) > 3) dragState.current.moved = true;
+    if (scrollRef.current) scrollRef.current.scrollLeft = dragState.current.scrollLeft - dx;
+  };
+  const onMouseUp = () => setIsDragging(false);
+
+  const onKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") { e.preventDefault(); scroll(-1); }
+    if (e.key === "ArrowRight") { e.preventDefault(); scroll(1); }
+  };
+
+  return (
+    <div
+      className="space-y-2"
+      onMouseEnter={() => setRowHovered(true)}
+      onMouseLeave={() => setRowHovered(false)}
+    >
+      {/* Row header */}
+      <div className="flex items-baseline gap-3">
+        <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
+        <span className="text-xs uppercase tracking-[0.28em]" style={{ color: accentColor }}>
+          {projects.length} {projects.length === 1 ? "project" : "projects"}
         </span>
       </div>
-      <div
-        className="scrollbar-hidden flex gap-3 overflow-x-auto pb-3"
-        style={{ scrollSnapType: "x mandatory" }}
-      >
-        {category.projects.map((project) => (
-          <div key={project.repo} style={{ scrollSnapAlign: "start" }}>
-            <ProjectCard
-              project={project}
-              accentColor={accentColor}
-              onOpen={onOpen}
-            />
-          </div>
-        ))}
+
+      {/* Scroll container with arrows */}
+      <div className="group/row relative">
+        {/* Left arrow */}
+        {canScrollLeft && (
+          <button
+            type="button"
+            aria-label="Scroll left"
+            className="absolute left-0 top-0 bottom-0 z-30 flex w-12 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/row:opacity-100"
+            style={{
+              background: "linear-gradient(to right, var(--panel-surface, rgba(0,0,0,0.85)) 40%, transparent)",
+            }}
+            onClick={() => scroll(-1)}
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M12 4l-6 6 6 6" />
+            </svg>
+          </button>
+        )}
+
+        {/* Right arrow */}
+        {canScrollRight && (
+          <button
+            type="button"
+            aria-label="Scroll right"
+            className="absolute right-0 top-0 bottom-0 z-30 flex w-12 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/row:opacity-100"
+            style={{
+              background: "linear-gradient(to left, var(--panel-surface, rgba(0,0,0,0.85)) 40%, transparent)",
+            }}
+            onClick={() => scroll(1)}
+          >
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+              <path d="M8 4l6 6-6 6" />
+            </svg>
+          </button>
+        )}
+
+        {/* Scrollable card strip */}
+        <div
+          ref={scrollRef}
+          role="region"
+          aria-label={`${title} projects`}
+          tabIndex={0}
+          className="scrollbar-hidden flex gap-4 overflow-x-auto py-2 outline-none"
+          style={{
+            scrollSnapType: "x mandatory",
+            scrollPaddingInline: 4,
+            cursor: isDragging ? "grabbing" : "grab",
+            userSelect: isDragging ? "none" : undefined,
+          }}
+          onScroll={updateScrollState}
+          onMouseDown={onMouseDown}
+          onMouseMove={onMouseMove}
+          onMouseUp={onMouseUp}
+          onMouseLeave={onMouseUp}
+          onKeyDown={onKeyDown}
+        >
+          {projects.map((project) => (
+            <div
+              key={project.repo}
+              className="flex-shrink-0"
+              style={{
+                width: cardWidth,
+                scrollSnapAlign: "start",
+              }}
+              onClickCapture={(e) => {
+                if (dragState.current.moved) { e.stopPropagation(); e.preventDefault(); }
+              }}
+            >
+              <ProjectCard project={project} accentColor={accentColor} onOpen={onOpen} />
+            </div>
+          ))}
+        </div>
       </div>
+
+      {/* Scroll progress bar */}
+      {(canScrollLeft || canScrollRight) && (
+        <div className="mx-auto h-[2px] w-24 overflow-hidden rounded-full" style={{ background: "var(--panel-border, rgba(255,255,255,0.1))" }}>
+          <div
+            className="h-full rounded-full transition-transform duration-150 ease-out"
+            style={{
+              width: "40%",
+              background: accentColor,
+              opacity: 0.6,
+              transform: `translateX(${scrollProgress * 150}%)`,
+            }}
+          />
+        </div>
+      )}
     </div>
   );
 }
@@ -584,6 +956,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [projectOrigin, setProjectOrigin] = useState<PopOrigin | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [contribModalOpen, setContribModalOpen] = useState(false);
+  const cardWidths = useCardWidths();
 
   const projectPanelRef = useRef<HTMLDivElement>(null);
   const projectBackdropRef = useRef<HTMLDivElement>(null);
@@ -713,6 +1086,51 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     return allProjects.filter((p) => p.categorySlug === activeFilter);
   }, [allProjects, activeFilter]);
 
+  const categoryRows = useMemo(() => {
+    const grouped = new Map<string, { slug: string; title: string; projects: typeof allProjects }>();
+    for (const p of filteredProjects) {
+      const existing = grouped.get(p.categorySlug);
+      if (existing) {
+        existing.projects.push(p);
+      } else {
+        grouped.set(p.categorySlug, {
+          slug: p.categorySlug,
+          title: p.categoryTitle,
+          projects: [p],
+        });
+      }
+    }
+
+    // When filtering a specific category, skip merging
+    if (activeFilter !== "all") {
+      return Array.from(grouped.values());
+    }
+
+    // Hybrid: categories with 3+ projects get own row, rest merge into "More Projects"
+    const bigRows: typeof grouped extends Map<string, infer V> ? V[] : never = [];
+    const smallProjects: typeof allProjects = [];
+    for (const cat of grouped.values()) {
+      if (cat.projects.length >= 3) {
+        bigRows.push(cat);
+      } else {
+        smallProjects.push(...cat.projects);
+      }
+    }
+    bigRows.sort((a, b) => {
+      if (a.slug === "uncategorized") return 1;
+      if (b.slug === "uncategorized") return -1;
+      return a.title.localeCompare(b.title);
+    });
+    if (smallProjects.length > 0) {
+      bigRows.push({ slug: "more", title: "More Projects", projects: smallProjects });
+    }
+    return bigRows;
+  }, [filteredProjects, activeFilter]);
+
+  const featuredProjects = useMemo(() =>
+    allProjects.filter((p) => p.featured),
+  [allProjects]);
+
   const recentActivity = useMemo(() =>
     allProjects
       .flatMap((p) =>
@@ -775,128 +1193,130 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
 
   return (
     <section className="space-y-3">
-      {/* Header with compact contribution summary */}
-      <div className="flex items-center justify-between gap-4">
-        <div>
-          <p className="text-xs uppercase tracking-[0.35em] opacity-65">
-            04 Projects
-          </p>
-          <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
-        </div>
-        {/* Compact contribution summary */}
-        {contributions ? (
-          <button
-            type="button"
-            onClick={() => setContribModalOpen(true)}
-            className="contrib-pulse card flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-150 hover:opacity-100 opacity-90 group"
-            style={{ outline: "none" }}
-            onMouseEnter={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.boxShadow = "0 0 0 1.5px var(--contrib-4)";
-              el.style.animation = "none";
-            }}
-            onMouseLeave={(e) => {
-              const el = e.currentTarget as HTMLElement;
-              el.style.boxShadow = "";
-              el.style.animation = "";
-            }}
-          >
-            <div className="text-right">
-              <p className="text-sm font-semibold tabular-nums">
-                {contributionTotal.toLocaleString()}
-              </p>
-              <p className="text-[10px] uppercase tracking-[0.22em] opacity-60">
-                contributions this year
-              </p>
-            </div>
-            <svg
-              aria-hidden="true"
-              viewBox={`0 0 ${CONTRIBUTION_SPARKLINE_WIDTH} ${CONTRIBUTION_SPARKLINE_HEIGHT}`}
-              className="h-6 w-28"
+      {/* Sticky header bar */}
+      <div
+        className="sticky top-6 sm:top-8 md:top-14 z-40 pb-4 space-y-3"
+      >
+        {/* Header with compact contribution summary */}
+        <div className="flex items-center justify-between gap-4">
+          <div>
+            <p className="text-xs uppercase tracking-[0.35em] opacity-65">
+              04 Projects
+            </p>
+            <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
+          </div>
+          {/* Compact contribution summary */}
+          {contributions ? (
+            <button
+              type="button"
+              onClick={() => setContribModalOpen(true)}
+              className="contrib-pulse card flex items-center gap-3 rounded-xl px-4 py-2.5 cursor-pointer transition-all duration-150 hover:opacity-100 opacity-90 group"
+              style={{ outline: "none" }}
+              onMouseEnter={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.boxShadow = "0 0 0 1.5px var(--contrib-4)";
+                el.style.animation = "none";
+              }}
+              onMouseLeave={(e) => {
+                const el = e.currentTarget as HTMLElement;
+                el.style.boxShadow = "";
+                el.style.animation = "";
+              }}
             >
-              <polyline
+              <div className="text-right">
+                <p className="text-sm font-semibold tabular-nums">
+                  {contributionTotal.toLocaleString()}
+                </p>
+                <p className="text-[10px] uppercase tracking-[0.22em] opacity-60">
+                  contributions this year
+                </p>
+              </div>
+              <svg
+                aria-hidden="true"
+                viewBox={`0 0 ${CONTRIBUTION_SPARKLINE_WIDTH} ${CONTRIBUTION_SPARKLINE_HEIGHT}`}
+                className="h-6 w-28"
+              >
+                <polyline
+                  fill="none"
+                  stroke="var(--contrib-4)"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  points={contributionSparkline}
+                />
+              </svg>
+              <svg
+                aria-hidden="true"
+                viewBox="0 0 16 16"
+                className="h-3.5 w-3.5 opacity-40 group-hover:opacity-70 transition-opacity flex-shrink-0"
                 fill="none"
-                stroke="var(--contrib-4)"
-                strokeWidth="2"
+                stroke="currentColor"
+                strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                points={contributionSparkline}
-              />
-            </svg>
-            <svg
-              aria-hidden="true"
-              viewBox="0 0 16 16"
-              className="h-3.5 w-3.5 opacity-40 group-hover:opacity-70 transition-opacity flex-shrink-0"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 8h10M9 4l4 4-4 4" />
-            </svg>
-          </button>
-        ) : null}
-      </div>
-
-      {/* Filter pills */}
-      <div className="flex flex-wrap gap-2">
-        {filterOptions.map((opt) => {
-          const isActive = activeFilter === opt.slug;
-          const accent =
-            opt.slug === "all"
-              ? "var(--accent-color)"
-              : CATEGORY_ACCENTS[opt.slug] ?? DEFAULT_ACCENT;
-          return (
-            <button
-              key={opt.slug}
-              type="button"
-              className="rounded-full px-3.5 py-1.5 text-xs uppercase tracking-[0.18em] transition-all duration-200"
-              style={{
-                background: isActive ? accent + "28" : "transparent",
-                color: isActive ? accent : undefined,
-                border: isActive
-                  ? `1.5px solid ${accent}55`
-                  : "1.5px solid var(--panel-border, rgba(255,255,255,0.12))",
-                opacity: isActive ? 1 : 0.7,
-                fontWeight: isActive ? 600 : 400,
-              }}
-              onClick={() => setActiveFilter(opt.slug)}
-            >
-              {opt.title}
-              <span className="ml-1.5 opacity-50">{opt.count}</span>
-            </button>
-          );
-        })}
-      </div>
-
-      {/* Project card grid */}
-      <div className="grid grid-cols-2 gap-3 pb-6 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5">
-        {filteredProjects.map((project) => {
-          const accentColor =
-            CATEGORY_ACCENTS[project.categorySlug] ?? DEFAULT_ACCENT;
-          return (
-            <div key={project.repo} className="relative">
-              <ProjectCard
-                project={project}
-                accentColor={accentColor}
-                onOpen={openProject}
-              />
-              {/* Category badge */}
-              <span
-                className="absolute left-2 top-2 z-10 rounded-full px-2 py-0.5 text-[9px] uppercase tracking-widest"
-                style={{
-                  background: "rgba(0,0,0,0.55)",
-                  color: accentColor,
-                  backdropFilter: "blur(6px)",
-                  border: `1px solid ${accentColor}33`,
-                }}
               >
-                {project.categoryTitle}
-              </span>
-            </div>
-          );
-        })}
+                <path d="M3 8h10M9 4l4 4-4 4" />
+              </svg>
+            </button>
+          ) : null}
+        </div>
+
+        {/* Filter pills */}
+        <div className="relative flex flex-wrap gap-2">
+          {filterOptions.map((opt) => {
+            const isActive = activeFilter === opt.slug;
+            const accent =
+              opt.slug === "all"
+                ? "var(--accent-color)"
+                : CATEGORY_ACCENTS[opt.slug] ?? DEFAULT_ACCENT;
+            return (
+              <button
+                key={opt.slug}
+                type="button"
+                className="rounded-full px-3.5 py-1.5 text-xs uppercase tracking-[0.18em] transition-all duration-200"
+                style={{
+                  background: isActive ? accent + "28" : "transparent",
+                  color: isActive ? accent : undefined,
+                  border: isActive
+                    ? `1.5px solid ${accent}55`
+                    : "1.5px solid var(--panel-border, rgba(255,255,255,0.12))",
+                  opacity: isActive ? 1 : 0.7,
+                  fontWeight: isActive ? 600 : 400,
+                }}
+                onClick={() => setActiveFilter(opt.slug)}
+              >
+                {opt.title}
+                <span className="ml-1.5 opacity-50">{opt.count}</span>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Project filmstrip rows */}
+      <div className="space-y-3 pb-4">
+        {/* Featured row — larger cards */}
+        {featuredProjects.length > 0 && activeFilter === "all" && (
+          <FilmstripRow
+            key="featured"
+            slug="featured"
+            title="Featured"
+            projects={featuredProjects}
+            onOpen={openProject}
+            cardWidth={cardWidths.featured}
+          />
+        )}
+
+        {categoryRows.map((cat) => (
+          <FilmstripRow
+            key={cat.slug}
+            slug={cat.slug}
+            title={cat.title}
+            projects={cat.projects}
+            onOpen={openProject}
+            cardWidth={cardWidths.card}
+          />
+        ))}
       </div>
 
       {/* Project detail modal */}

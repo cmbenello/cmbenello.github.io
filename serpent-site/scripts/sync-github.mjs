@@ -302,6 +302,7 @@ const enrichRepo = async (repoData, override) => {
       : [],
     commitActivity,
     readme: (readme || "").trim(),
+    ...(override.featured ? { featured: true } : {}),
   };
 };
 

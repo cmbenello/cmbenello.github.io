@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Noto_Sans_KR } from "next/font/google";
+import Script from "next/script";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -34,6 +35,11 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${notoSansKR.variable} antialiased`}
       >
         {children}
+        <Script
+          data-goatcounter="https://cmbenello.goatcounter.com/count"
+          src="//gc.zgo.at/count.js"
+          strategy="afterInteractive"
+        />
       </body>
     </html>
   );

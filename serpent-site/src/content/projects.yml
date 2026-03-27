@@ -1,7 +1,7 @@
 # Projects Registry
 # Each entry overrides auto-imported GitHub data.
 # Repos not listed here are auto-imported as "uncategorized".
-# Fields: repo (required), category, tags, summary, image, hidden
+# Fields: repo (required), category, tags, summary, image, gif, hidden
 
 # Machine Learning
 - repo: cmbenello/MiniMetro
@@ -50,6 +50,9 @@
 # Work
 - repo: cmbenello/bofa_hqla
   category: work
+
+# Featured projects appear in a highlighted row at the top
+# Add `featured: true` to any entry to pin it
 
 # To hide repos from auto-import, add:
 # - repo: cmbenello/some-repo
