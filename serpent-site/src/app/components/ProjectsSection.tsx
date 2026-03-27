@@ -1255,10 +1255,10 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
         <div className="relative flex flex-wrap gap-2">
           {filterOptions.map((opt) => {
             const isActive = activeFilter === opt.slug;
-            const accent =
-              opt.slug === "all"
-                ? "var(--accent-color)"
-                : CATEGORY_ACCENTS[opt.slug] ?? DEFAULT_ACCENT;
+            const isAll = opt.slug === "all";
+            const accent = isAll
+              ? "#e6e1d8"
+              : CATEGORY_ACCENTS[opt.slug] ?? DEFAULT_ACCENT;
             return (
               <button
                 key={opt.slug}
