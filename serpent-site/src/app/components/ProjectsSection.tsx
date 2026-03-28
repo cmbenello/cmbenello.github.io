@@ -504,6 +504,8 @@ function ProjectCard({
   const [fixedRect, setFixedRect] = useState<DOMRect | null>(null);
   const [origin, setOrigin] = useState("center top");
   const cardRef = useRef<HTMLButtonElement>(null);
+  const popupRef = useRef<HTMLDivElement>(null);
+  const scrollContainerRef = useRef<HTMLElement | null>(null);
   const hoverTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const closeTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const [portalTarget, setPortalTarget] = useState<HTMLElement | null>(null);
@@ -533,6 +535,7 @@ function ProjectCard({
     setExpanded(false);
     setShowPopup(false);
     setClosing(false);
+    scrollContainerRef.current = null;
     if (hoverTimerRef.current) {
       clearTimeout(hoverTimerRef.current);
       hoverTimerRef.current = null;
@@ -646,6 +649,7 @@ function ProjectCard({
       {/* Netflix-style hover popup — portal to document.body */}
       {showPopup && fixedRect && portalTarget && createPortal(
         <div
+          ref={popupRef}
           style={{
             position: "fixed",
             left: fixedRect.left,
@@ -662,12 +666,46 @@ function ProjectCard({
           }}
           onMouseLeave={handlePopupLeave}
           onWheel={(e) => {
-            // Forward scroll to the section scroll container so user can scroll while hovering
-            const scrollContainer = cardRef.current?.closest('[style*="overflow"]');
-            if (scrollContainer) {
-              scrollContainer.scrollTop += e.deltaY;
-              scrollContainer.scrollLeft += e.deltaX;
+            const card = cardRef.current;
+            const popup = popupRef.current;
+            if (!card || !popup) return;
+            // Cache the scroll container on first use
+            if (!scrollContainerRef.current) {
+              let el: HTMLElement | null = card.parentElement;
+              while (el) {
+                const s = getComputedStyle(el);
+                if ((s.overflowY === "auto" || s.overflowY === "scroll") && el.scrollHeight > el.clientHeight) {
+                  scrollContainerRef.current = el;
+                  break;
+                }
+                el = el.parentElement;
+              }
             }
+            const sc = scrollContainerRef.current;
+            if (sc && e.deltaY !== 0) {
+              const atTop = sc.scrollTop <= 0 && e.deltaY < 0;
+              const atBottom = sc.scrollTop + sc.clientHeight >= sc.scrollHeight - 1 && e.deltaY > 0;
+              if (atTop || atBottom) {
+                // At boundary — forward to the parent snap-scroll container to change page
+                const parent = sc.parentElement?.closest('.overflow-y-auto') as HTMLElement | null;
+                if (parent) {
+                  parent.scrollTop += e.deltaY;
+                  // Dismiss popup when changing pages
+                  handlePopupLeave();
+                  return;
+                }
+              }
+              sc.scrollTop += e.deltaY;
+            }
+            // Horizontal scroll on filmstrip
+            const filmstrip = card.closest('.overflow-x-auto');
+            if (filmstrip && e.deltaX !== 0) {
+              (filmstrip as HTMLElement).scrollLeft += e.deltaX;
+            }
+            // Update popup position directly on DOM — no React re-render
+            const rect = card.getBoundingClientRect();
+            popup.style.top = `${rect.top}px`;
+            popup.style.left = `${rect.left}px`;
           }}
         >
           <button
@@ -893,13 +931,13 @@ function FilmstripRow({
           <button
             type="button"
             aria-label="Scroll left"
-            className="absolute left-0 top-0 bottom-0 z-30 flex w-12 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/row:opacity-100"
+            className="absolute left-0 top-0 bottom-0 z-30 flex w-16 items-center justify-center opacity-80 transition-opacity duration-200 hover:opacity-100"
             style={{
-              background: "linear-gradient(to right, var(--panel-surface, rgba(0,0,0,0.85)) 40%, transparent)",
+              background: "linear-gradient(to right, var(--panel-surface, rgba(0,0,0,0.92)) 50%, transparent)",
             }}
             onClick={() => scroll(-1)}
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M12 4l-6 6 6 6" />
             </svg>
           </button>
@@ -910,13 +948,13 @@ function FilmstripRow({
           <button
             type="button"
             aria-label="Scroll right"
-            className="absolute right-0 top-0 bottom-0 z-30 flex w-12 items-center justify-center opacity-0 transition-opacity duration-200 group-hover/row:opacity-100"
+            className="absolute right-0 top-0 bottom-0 z-30 flex w-16 items-center justify-center opacity-80 transition-opacity duration-200 hover:opacity-100"
             style={{
-              background: "linear-gradient(to left, var(--panel-surface, rgba(0,0,0,0.85)) 40%, transparent)",
+              background: "linear-gradient(to left, var(--panel-surface, rgba(0,0,0,0.92)) 50%, transparent)",
             }}
             onClick={() => scroll(1)}
           >
-            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+            <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
               <path d="M8 4l6 6-6 6" />
             </svg>
           </button>
