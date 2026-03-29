@@ -65,7 +65,7 @@ const EXPERIENCE = [
   {
     title: "Software Engineering Intern",
     company: "Alter Domus",
-    dates: "Apr 2026 — Present",
+    dates: "Mar 2026 — Present",
     logo: "/logos/alterdomus.png",
     description: "WIP",
     highlights: [],
@@ -297,7 +297,6 @@ export default function Home() {
       <section className="relative z-0 grid gap-10 lg:grid-cols-12">
         <div className="space-y-4 lg:col-span-12">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] opacity-65">03 Research + Publications</p>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Research + Publications</h2>
           </div>
         </div>

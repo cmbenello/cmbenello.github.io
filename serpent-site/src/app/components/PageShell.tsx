@@ -217,10 +217,16 @@ export default function PageShell({ children }: PageShellProps) {
   const activeIndexRef = useRef(activeIndex);
   activeIndexRef.current = activeIndex;
 
+  // Force scroll to active section on mount and when panelHeight changes
   useLayoutEffect(() => {
     const scrollEl = scrollRef.current;
-    if (!scrollEl || !panelHeight) return;
+    if (!scrollEl) return;
     const idx = activeIndexRef.current;
+    if (!panelHeight) {
+      // Before panel height is measured, force scroll to top to prevent flash
+      scrollEl.scrollTo({ top: 0 });
+      return;
+    }
     const sec = sectionRefs.current[idx];
     if (sec) {
       scrollEl.scrollTo({ top: sec.offsetTop });
@@ -633,7 +639,7 @@ export default function PageShell({ children }: PageShellProps) {
       {/* Permanent frame border — always visible regardless of active background */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute z-[5] entrance"
+        className="pointer-events-none absolute z-[5] fade-in"
         style={{
           inset: frameMargin,
           border: `1px solid ${isLight ? "rgba(192, 24, 33, 0.55)" : "rgba(255, 255, 255, 0.4)"}`,

@@ -40,10 +40,7 @@ export default function ExperienceTimeline({
 
   return (
     <section className="relative z-0 flex h-full flex-col">
-      <div className="mb-6 shrink-0 space-y-3">
-        <p className="text-xs uppercase tracking-[0.35em] opacity-65">
-          02 Experience
-        </p>
+      <div className="mb-6 shrink-0">
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Experience</h2>
       </div>
 

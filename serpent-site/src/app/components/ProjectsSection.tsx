@@ -479,7 +479,7 @@ const HOVER_WARM_MS = 50; // Near-instant when moving between cards
 const HOVER_WARM_WINDOW = 800; // Window after a popup closes where next hover is fast
 const SCALE = 1.3;
 const EXPAND_MS = 200;
-const CLOSE_ANIM_MS = 150;
+const CLOSE_ANIM_MS = 220;
 const EDGE_THRESHOLD = 80;
 
 /** Shared timestamp — when any card popup was last active, nearby hovers skip the delay */
@@ -658,9 +658,9 @@ function ProjectCard({
             zIndex: 99999,
             transformOrigin: origin,
             transform: expanded ? `scale(${SCALE})` : "scale(1)",
-            opacity: closing && !expanded ? 0 : 1,
+            opacity: closing ? 0 : 1,
             transition: closing
-              ? `transform ${CLOSE_ANIM_MS}ms ease-in, opacity ${CLOSE_ANIM_MS}ms ease-in`
+              ? `transform ${CLOSE_ANIM_MS}ms ease-out, opacity ${CLOSE_ANIM_MS}ms ease-out ${CLOSE_ANIM_MS * 0.3}ms`
               : `transform ${EXPAND_MS}ms cubic-bezier(0.25, 1, 0.5, 1), opacity ${EXPAND_MS}ms ease`,
             pointerEvents: "auto",
           }}
@@ -1269,9 +1269,6 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
         {/* Header with compact contribution summary */}
         <div className="flex items-center justify-between gap-4">
           <div>
-            <p className="text-xs uppercase tracking-[0.35em] opacity-65">
-              04 Projects
-            </p>
             <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
           </div>
           {/* Compact contribution summary */}
@@ -1353,7 +1350,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
       </div>
 
       {/* Project filmstrip rows */}
-      <div className="space-y-3 pb-4">
+      <div className="space-y-3 pb-16 sm:pb-20 md:pb-24">
         {/* Featured row — larger cards */}
         {featuredProjects.length > 0 && activeFilter === "all" && (
           <FilmstripRow
@@ -1627,7 +1624,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
             aria-hidden="true"
           />
           <div
-            className="relative flex max-h-[90vh] w-full max-w-3xl flex-col overflow-hidden rounded-3xl border folder-pop"
+            className="relative flex max-h-[90vh] w-full max-w-4xl flex-col overflow-hidden rounded-3xl border folder-pop"
             style={{
               backgroundColor: "var(--panel-surface, rgba(16,17,19,0.98))",
               borderColor: "var(--panel-border-strong, rgba(255,255,255,0.3))",
@@ -1664,12 +1661,13 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               {/* Heatmap grid */}
               {contributionWeeks.length > 0 && (
                 <div
-                  className="overflow-x-auto rounded-xl border border-current/10 p-4"
+                  className="rounded-xl border border-current/10 p-4"
                   style={{ background: "rgba(0,0,0,0.15)" }}
                 >
                   <svg
                     viewBox={`0 0 ${heatmapWidth} ${heatmapHeight}`}
-                    style={{ width: heatmapWidth, height: heatmapHeight, display: "block" }}
+                    style={{ width: "100%", height: "auto", display: "block" }}
+                    preserveAspectRatio="xMinYMin meet"
                   >
                     {/* Month labels */}
                     {contributionMonths.map((month) => (
