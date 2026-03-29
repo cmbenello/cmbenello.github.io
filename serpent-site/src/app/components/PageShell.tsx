@@ -318,7 +318,7 @@ export default function PageShell({ children }: PageShellProps) {
   const cloudActive = cloudBlend > 0.02;
   const showStars = serpentBlend;
   const serpentStrength = serpentBlend;
-  const serpentBackgroundOpacity = serpentBlend;
+  const serpentBackgroundOpacity = 0;
   const mainBackgroundColor = isLight
     ? LIGHT_PALETTE.background
     : DEFAULT_PALETTE.background;
@@ -688,14 +688,17 @@ export default function PageShell({ children }: PageShellProps) {
             ref={scrollRef}
             className="h-full w-full overflow-y-auto scrollbar-hidden"
             style={{
-              scrollSnapType: "y mandatory",
+              scrollSnapType: frameMargin > 12 ? "y mandatory" : undefined,
               overscrollBehavior: "contain",
               WebkitOverflowScrolling: "touch",
             }}
           >
             {visiblePanels.map((panel, index) => {
+              const isMobile = frameMargin <= 12;
               const sectionStyle = panelHeight
-                ? { minHeight: panelHeight, maxHeight: panelHeight, overflowY: "auto" as const }
+                ? isMobile
+                  ? { minHeight: panelHeight }
+                  : { minHeight: panelHeight, maxHeight: panelHeight, overflowY: "auto" as const }
                 : {};
               return (
               <section
@@ -704,8 +707,8 @@ export default function PageShell({ children }: PageShellProps) {
                 className="flex w-full items-stretch scrollbar-hidden"
                 style={{
                   ...sectionStyle,
-                  scrollSnapAlign: "start",
-                  scrollSnapStop: "always",
+                  scrollSnapAlign: frameMargin > 12 ? "start" : undefined,
+                  scrollSnapStop: frameMargin > 12 ? "always" : undefined,
                 }}
               >
                 <div

@@ -233,6 +233,7 @@ export default function WaveBackground({
   const bgColorRef = useRef(backgroundColor);
   const rafRef = useRef<number | null>(null);
   const startLoopRef = useRef<(() => void) | null>(null);
+  const resizeRef = useRef<(() => void) | null>(null);
   const pausedRef = useRef(paused);
   const alphaBoostRef = useRef(alphaBoost);
   const trailFadeRef = useRef(trailFade ?? TRAIL_FADE);
@@ -541,6 +542,7 @@ export default function WaveBackground({
       rafRef.current = requestAnimationFrame(draw);
     };
     startLoopRef.current = startLoop;
+    resizeRef.current = resize;
     startLoop();
     window.addEventListener("resize", resize);
 
@@ -549,8 +551,14 @@ export default function WaveBackground({
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       rafRef.current = null;
       startLoopRef.current = null;
+      resizeRef.current = null;
     };
   }, []);
+
+  // Re-measure canvas when frame margin changes
+  useEffect(() => {
+    resizeRef.current?.();
+  }, [frameMargin]);
 
   const inset = frameMargin + 1;
   const containerStyle: CSSProperties = {

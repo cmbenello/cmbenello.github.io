@@ -214,6 +214,7 @@ export default function SerpentBackground({
   const containerRef = useRef<HTMLDivElement | null>(null);
   const frameRef = useRef<HTMLDivElement | null>(null);
   const startLoopRef = useRef<(() => void) | null>(null);
+  const resizeRef = useRef<(() => void) | null>(null);
   const pausedRef = useRef(paused);
   const dotStyleCurrentRef = useRef<DotStyle>(palette.dotStyle ?? "dot");
   const dotStyleTransitionRef = useRef<{
@@ -1447,6 +1448,7 @@ export default function SerpentBackground({
     }
 
     resize();
+    resizeRef.current = resize;
     window.addEventListener("resize", resize);
     const startLoop = () => {
       if (rafRef.current !== null || pausedRef.current) return;
@@ -1460,9 +1462,15 @@ export default function SerpentBackground({
       window.removeEventListener("resize", resize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       startLoopRef.current = null;
+      resizeRef.current = null;
       ctxRef.current = null;
     };
   }, []);
+
+  // Re-measure canvas when frame margin changes
+  useEffect(() => {
+    resizeRef.current?.();
+  }, [frameMargin]);
 
   return (
     <div

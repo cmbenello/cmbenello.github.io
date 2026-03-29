@@ -168,6 +168,7 @@ export default function CloudBackground({
   const rafRef = useRef<number | null>(null);
   const activeRef = useRef(active);
   const startLoopRef = useRef<(() => void) | null>(null);
+  const resizeRef = useRef<(() => void) | null>(null);
   const pausedRef = useRef(paused);
   const paletteRef = useRef(palette);
   const paletteCurrentRef = useRef(palette);
@@ -483,6 +484,7 @@ export default function CloudBackground({
 
     loadImages();
     resize();
+    resizeRef.current = resize;
     window.addEventListener("resize", resize);
     const startLoop = () => {
       if (rafRef.current !== null || pausedRef.current) return;
@@ -498,9 +500,15 @@ export default function CloudBackground({
       window.removeEventListener("resize", resize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       startLoopRef.current = null;
+      resizeRef.current = null;
       tintRef.current = null;
     };
   }, []);
+
+  // Re-measure canvas when frame margin changes
+  useEffect(() => {
+    resizeRef.current?.();
+  }, [frameMargin]);
 
   const inset = frameMargin + 1;
 
