@@ -295,13 +295,13 @@ export default function Home() {
       <ExperienceTimeline entries={EXPERIENCE} />
 
       <section className="relative z-0 grid gap-10 lg:grid-cols-12">
-        <div className="space-y-4 lg:col-span-12">
+        <div className="space-y-4 lg:col-span-12 entrance" style={{ animationDelay: "900ms" }}>
           <div>
             <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Research + Publications</h2>
           </div>
         </div>
 
-        <div className="grid gap-8 lg:col-span-6">
+        <div className="grid gap-8 lg:col-span-6 entrance" style={{ animationDelay: "1200ms" }}>
           <div className="border-l-2 pl-5" style={{ borderColor: "var(--accent-2)" }}>
             <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Research Focus
@@ -343,7 +343,7 @@ export default function Home() {
           </div>
         </div>
 
-        <div className="grid gap-8 lg:col-span-6">
+        <div className="grid gap-8 lg:col-span-6 entrance" style={{ animationDelay: "1500ms" }}>
           <div className="border-l-2 pl-5" style={{ borderColor: "var(--accent-2)" }}>
             <p className="text-xs uppercase tracking-[0.32em] opacity-65">
               Publications

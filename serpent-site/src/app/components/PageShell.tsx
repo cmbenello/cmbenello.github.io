@@ -64,6 +64,8 @@ export default function PageShell({ children }: PageShellProps) {
   const pauseSourcesRef = useRef<Set<string>>(new Set());
   const themePauseTimeoutRef = useRef<number | null>(null);
   const themeReadyRef = useRef(false);
+  const restoredRef = useRef(false);
+  const mountedRef = useRef(false);
 
   // Responsive frame margin
   useEffect(() => {
@@ -109,6 +111,33 @@ export default function PageShell({ children }: PageShellProps) {
     const id = setTimeout(() => setLabelsReady(true), 1600);
     return () => clearTimeout(id);
   }, []);
+
+  useEffect(() => {
+    if (!mountedRef.current) {
+      mountedRef.current = true;
+      return;
+    }
+    sessionStorage.setItem('activeSection', String(activeIndex));
+  }, [activeIndex]);
+
+  useEffect(() => {
+    if (restoredRef.current || !panelHeight) return;
+    restoredRef.current = true;
+    const saved = sessionStorage.getItem('activeSection');
+    if (!saved) return;
+    const idx = parseInt(saved, 10);
+    if (isNaN(idx) || idx <= 0) return;
+    const clamped = Math.min(idx, panelCount - 1);
+    setActiveIndex(clamped);
+    const scrollEl = scrollRef.current;
+    if (!scrollEl) return;
+    const sec = sectionRefs.current[clamped];
+    if (sec) {
+      scrollEl.scrollTo({ top: sec.offsetTop });
+    } else {
+      scrollEl.scrollTo({ top: clamped * panelHeight });
+    }
+  }, [panelHeight, panelCount]);
 
   useEffect(() => {
     const doc = document.documentElement;
@@ -416,7 +445,7 @@ export default function PageShell({ children }: PageShellProps) {
       </div>
       <MountainBackground
         frameMargin={frameMargin}
-        opacity={1}
+        opacity={mountainBlend}
         transitionProgress={mountainBlend}
         stroke={mountainPalette.stroke}
         mist={mountainPalette.mist}

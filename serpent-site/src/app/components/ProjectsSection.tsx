@@ -1267,7 +1267,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
         className="sticky top-6 sm:top-8 md:top-14 z-40 pb-4 space-y-3"
       >
         {/* Header with compact contribution summary */}
-        <div className="flex items-center justify-between gap-4">
+        <div className="flex items-center justify-between gap-4 entrance" style={{ animationDelay: "900ms" }}>
           <div>
             <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
           </div>
@@ -1318,7 +1318,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
         </div>
 
         {/* Filter pills */}
-        <div className="relative flex flex-wrap gap-2">
+        <div className="relative flex flex-wrap gap-2 entrance" style={{ animationDelay: "1200ms" }}>
           {filterOptions.map((opt) => {
             const isActive = activeFilter === opt.slug;
             const isAll = opt.slug === "all";
@@ -1350,7 +1350,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
       </div>
 
       {/* Project filmstrip rows */}
-      <div className="space-y-3 pb-16 sm:pb-20 md:pb-24">
+      <div className="space-y-3 pb-16 sm:pb-20 md:pb-24 entrance" style={{ animationDelay: "1500ms" }}>
         {/* Featured row — larger cards */}
         {featuredProjects.length > 0 && activeFilter === "all" && (
           <FilmstripRow

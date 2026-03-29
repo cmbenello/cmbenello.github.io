@@ -14,6 +14,7 @@
 - repo: cmbenello/covtsp
   category: personal
   featured: true
+  image: /images/projects/covtsp.gif
 
 - repo: cmbenello/Pongation
   category: personal
@@ -29,13 +30,17 @@
   category: research
 
 - repo: cmbenello/FosterBtree
+  hidden: true
   category: research
 
 - repo: cmbenello/heap_testing
+  hidden: true
   category: research
 
 - repo: cmbenello/es
   category: research
+  featured: true
+  image: /images/projects/es.png
 
 # School
 - repo: cmbenello/finm-367
@@ -54,10 +59,11 @@
 # Work
 - repo: cmbenello/bofa_hqla
   category: work
+  featured: true
+  image: /images/projects/bofa_hqla.png
 
 - repo: cmbenello/CrustyDB
   category: research
-  featured: true
 
 # Featured projects appear in a highlighted row at the top
 # Add `featured: true` to any entry to pin it

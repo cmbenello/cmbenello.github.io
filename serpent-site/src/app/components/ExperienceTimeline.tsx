@@ -40,13 +40,13 @@ export default function ExperienceTimeline({
 
   return (
     <section className="relative z-0 flex h-full flex-col">
-      <div className="mb-6 shrink-0">
+      <div className="mb-6 shrink-0 entrance" style={{ animationDelay: "900ms" }}>
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-semibold tracking-tight">Experience</h2>
       </div>
 
       <div className="grid min-h-0 flex-1 gap-6 lg:grid-cols-12">
         {/* left: role list */}
-        <div ref={containerRef} className="relative flex flex-col gap-1 lg:col-span-5">
+        <div ref={containerRef} className="relative flex flex-col gap-1 lg:col-span-5 entrance" style={{ animationDelay: "1150ms" }}>
           {/* sliding indicator */}
           <div
             className="pointer-events-none absolute left-0 right-0 rounded-lg"
@@ -96,7 +96,7 @@ export default function ExperienceTimeline({
         </div>
 
         {/* right: detail panel */}
-        <div className="flex flex-col border-l-2 pl-6 lg:col-span-7" style={{ borderColor: "var(--accent-2)" }}>
+        <div className="flex flex-col border-l-2 pl-6 lg:col-span-7 entrance" style={{ borderColor: "var(--accent-2)", animationDelay: "1450ms" }}>
           <div key={selectedIndex} className="exp-detail-enter flex flex-col">
             <div className="flex items-center gap-4">
               {selected.logo && (
