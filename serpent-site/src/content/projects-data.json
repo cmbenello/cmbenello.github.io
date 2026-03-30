@@ -2165,7 +2165,7 @@
   },
   "projects": [
     {
-      "name": "es",
+      "name": "CrocSort",
       "repo": "cmbenello/es",
       "url": "https://github.com/cmbenello/es",
       "category": "research",

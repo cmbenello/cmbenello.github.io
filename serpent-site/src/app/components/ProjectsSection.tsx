@@ -799,13 +799,11 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [contribModalOpen, setContribModalOpen] = useState(false);
   const [carouselIdx, setCarouselIdx] = useState(0);
-  const carouselPaused = useRef(false);
-
-  // Auto-rotate carousel every 4s
+  // Auto-rotate carousel every 7s
   useEffect(() => {
     const timer = setInterval(() => {
-      if (!carouselPaused.current) setCarouselIdx((prev) => prev + 1);
-    }, 4000);
+      setCarouselIdx((prev) => prev + 1);
+    }, 7000);
     return () => clearInterval(timer);
   }, []);
 
@@ -1145,8 +1143,6 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
             <div
               className="relative overflow-hidden rounded-2xl cursor-pointer mx-auto w-full entrance"
               style={{ aspectRatio: "16 / 9", maxHeight: "70vh", border: "1px solid rgba(255,255,255,0.08)", animationDelay: "1500ms" }}
-              onMouseEnter={() => { carouselPaused.current = true; }}
-              onMouseLeave={() => { carouselPaused.current = false; }}
               onClick={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 openProject(project, rect);
@@ -1157,15 +1153,16 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 const img = p.image;
                 const show = img && !img.includes("opengraph.githubassets.com");
                 const [lg1, lg2] = getLangGradient(p.language);
+                const isBofA = p.name === "bofa_hqla";
                 return (
                   <div
                     key={p.repo}
-                    className={i === activeIdx ? "billboard-active" : ""}
+                    className={i === activeIdx && !isBofA ? "billboard-active" : ""}
                     style={{
                       position: "absolute",
                       inset: 0,
                       opacity: i === activeIdx ? 1 : 0,
-                      transition: i === activeIdx ? undefined : "opacity 500ms ease",
+                      transition: i === activeIdx ? undefined : isBofA ? "opacity 0ms" : "opacity 500ms ease",
                       zIndex: i === activeIdx ? 1 : 0,
                     }}
                   >
@@ -1173,7 +1170,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                       <img
                         src={img}
                         alt={p.name}
-                        className="h-full w-full object-cover"
+                        className={`h-full w-full ${isBofA ? "object-contain" : "object-cover"}`}
                       />
                     ) : (
                       <div
@@ -1264,7 +1261,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         style={{
                           width: i === activeIdx ? "100%" : "0%",
                           background: CATEGORY_ACCENTS.featured,
-                          transition: i === activeIdx ? "width 4s linear" : "width 300ms ease",
+                          transition: i === activeIdx ? "width 7s linear" : "width 300ms ease",
                         }}
                       />
                     </div>
