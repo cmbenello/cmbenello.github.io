@@ -375,6 +375,12 @@ function getInitials(name: string): string {
     .toUpperCase();
 }
 
+const DISPLAY_NAMES: Record<string, string> = {
+  bofa_hqla: "BofA HQLA",
+  covtsp: "CovTSP",
+};
+const getDisplayName = (name: string) => DISPLAY_NAMES[name] ?? name;
+
 /** Thumbnail area shared by inline card and hover popup */
 function CardThumbnail({
   project,
@@ -466,7 +472,7 @@ function CardThumbnail({
             className="truncate text-sm font-semibold text-white"
             style={{ textShadow: "0 1px 4px rgba(0,0,0,0.6)" }}
           >
-            {project.name}
+            {getDisplayName(project.name)}
           </p>
         </div>
       )}
@@ -746,7 +752,7 @@ function ProjectCard({
               }}
             >
               <p className="text-sm font-semibold leading-tight text-white">
-                {project.name}
+                {getDisplayName(project.name)}
               </p>
               {summary && (
                 <p
@@ -1199,7 +1205,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                   className="billboard-text-in text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2"
                   style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6)", opacity: 0 }}
                 >
-                  {project.name}
+                  {getDisplayName(project.name)}
                 </h3>
                 {project.summary && (
                   <p
@@ -1333,7 +1339,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                   {activeProject.repo}
                 </p>
                 <h3 className="text-2xl font-semibold">
-                  {activeProject.name}
+                  {getDisplayName(activeProject.name)}
                 </h3>
               </div>
               <button
