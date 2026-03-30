@@ -978,9 +978,16 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     return bigRows;
   }, [filteredProjects, activeFilter]);
 
-  const featuredProjects = useMemo(() =>
-    allProjects.filter((p) => p.featured),
-  [allProjects]);
+  const featuredProjects = useMemo(() => {
+    const featured = allProjects.filter((p) => p.featured);
+    // Explicit order: covtsp, es, bofa_hqla
+    const order = ["covtsp", "es", "bofa_hqla"];
+    return featured.sort((a, b) => {
+      const ai = order.indexOf(a.repo.split("/").pop() ?? "");
+      const bi = order.indexOf(b.repo.split("/").pop() ?? "");
+      return (ai === -1 ? 999 : ai) - (bi === -1 ? 999 : bi);
+    });
+  }, [allProjects]);
 
   const recentActivity = useMemo(() =>
     allProjects
