@@ -157,6 +157,42 @@ body {
   pointer-events: none;
 }
 
+/* Netflix billboard */
+@keyframes billboardIn {
+  from { opacity: 0; transform: scale(1.04); }
+  to { opacity: 1; transform: scale(1); }
+}
+@keyframes billboardTextIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.billboard-active {
+  animation: billboardIn 800ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.billboard-text-in {
+  animation: billboardTextIn 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 200ms;
+}
+.billboard-tags-in {
+  animation: billboardTextIn 600ms cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: 350ms;
+}
+
+@keyframes gridCardIn {
+  from {
+    opacity: 0;
+    transform: scale(0.97) translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.grid-card-enter {
+  animation: gridCardIn 400ms cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
 @layer components {
   .card {
     background: var(--panel-surface);

@@ -787,234 +787,7 @@ function ProjectCard({
   );
 }
 
-const AUTO_SCROLL_SPEED = 0.5; // px per frame
-
-/** Responsive card widths */
-function useCardWidths() {
-  const [widths, setWidths] = useState({ card: 260, featured: 380 });
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      if (w < 480) {
-        setWidths({ card: w - 80, featured: w - 60 });
-      } else if (w < 768) {
-        setWidths({ card: 220, featured: 300 });
-      } else if (w < 1024) {
-        setWidths({ card: 240, featured: 340 });
-      } else {
-        setWidths({ card: 260, featured: 380 });
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-  return widths;
-}
-
-function FilmstripRow({
-  slug,
-  title,
-  projects,
-  onOpen,
-  cardWidth = 260,
-}: {
-  slug: string;
-  title: string;
-  projects: (Project & { categorySlug: string; categoryTitle: string })[];
-  onOpen: (project: Project, rect: DOMRect) => void;
-  cardWidth?: number;
-}) {
-  const accentColor = CATEGORY_ACCENTS[slug] ?? DEFAULT_ACCENT;
-  const scrollRef = useRef<HTMLDivElement>(null);
-  const [canScrollLeft, setCanScrollLeft] = useState(false);
-  const [canScrollRight, setCanScrollRight] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
-  const [isDragging, setIsDragging] = useState(false);
-  const [rowHovered, setRowHovered] = useState(false);
-  const dragState = useRef({ startX: 0, scrollLeft: 0, moved: false });
-  const autoScrollRef = useRef<number | null>(null);
-
-  const updateScrollState = useCallback(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const { scrollLeft, scrollWidth, clientWidth } = el;
-    setCanScrollLeft(scrollLeft > 4);
-    setCanScrollRight(scrollLeft + clientWidth < scrollWidth - 4);
-    setScrollProgress(scrollWidth > clientWidth ? scrollLeft / (scrollWidth - clientWidth) : 0);
-  }, []);
-
-  useEffect(() => {
-    updateScrollState();
-    const el = scrollRef.current;
-    if (!el) return;
-    const ro = new ResizeObserver(updateScrollState);
-    ro.observe(el);
-    return () => ro.disconnect();
-  }, [updateScrollState, projects]);
-
-  // Auto-scroll: continuously scroll right, pause on hover/drag
-  useEffect(() => {
-    const el = scrollRef.current;
-    if (!el) return;
-    const paused = rowHovered || isDragging;
-
-    if (paused) {
-      if (autoScrollRef.current != null) {
-        cancelAnimationFrame(autoScrollRef.current);
-        autoScrollRef.current = null;
-      }
-      return;
-    }
-
-    const tick = () => {
-      if (!el) return;
-      const { scrollLeft, scrollWidth, clientWidth } = el;
-      const maxScroll = scrollWidth - clientWidth;
-      if (maxScroll <= 0) return; // nothing to scroll
-      el.scrollLeft = scrollLeft + AUTO_SCROLL_SPEED;
-      // Loop back to start when reaching end
-      if (el.scrollLeft >= maxScroll - 1) {
-        el.scrollLeft = 0;
-      }
-      autoScrollRef.current = requestAnimationFrame(tick);
-    };
-    autoScrollRef.current = requestAnimationFrame(tick);
-
-    return () => {
-      if (autoScrollRef.current != null) cancelAnimationFrame(autoScrollRef.current);
-    };
-  }, [rowHovered, isDragging]);
-
-  const scroll = (direction: number) => {
-    const el = scrollRef.current;
-    if (!el) return;
-    el.scrollBy({ left: direction * el.clientWidth * 0.75, behavior: "smooth" });
-  };
-
-  const onMouseDown = (e: React.MouseEvent) => {
-    if (e.button !== 0) return;
-    setIsDragging(true);
-    dragState.current = { startX: e.pageX, scrollLeft: scrollRef.current?.scrollLeft ?? 0, moved: false };
-  };
-  const onMouseMove = (e: React.MouseEvent) => {
-    if (!isDragging) return;
-    const dx = e.pageX - dragState.current.startX;
-    if (Math.abs(dx) > 3) dragState.current.moved = true;
-    if (scrollRef.current) scrollRef.current.scrollLeft = dragState.current.scrollLeft - dx;
-  };
-  const onMouseUp = () => setIsDragging(false);
-
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowLeft") { e.preventDefault(); scroll(-1); }
-    if (e.key === "ArrowRight") { e.preventDefault(); scroll(1); }
-  };
-
-  return (
-    <div
-      className="space-y-2"
-      onMouseEnter={() => setRowHovered(true)}
-      onMouseLeave={() => setRowHovered(false)}
-    >
-      {/* Row header */}
-      <div className="flex items-baseline gap-3">
-        <h3 className="text-lg font-semibold tracking-tight">{title}</h3>
-        <span className="text-xs uppercase tracking-[0.28em]" style={{ color: accentColor }}>
-          {projects.length} {projects.length === 1 ? "project" : "projects"}
-        </span>
-      </div>
-
-      {/* Scroll container with arrows */}
-      <div className="group/row relative">
-        {/* Left arrow */}
-        {canScrollLeft && (
-          <button
-            type="button"
-            aria-label="Scroll left"
-            className="absolute left-0 top-0 bottom-0 z-30 flex w-16 items-center justify-center opacity-80 transition-opacity duration-200 hover:opacity-100"
-            style={{
-              background: "linear-gradient(to right, var(--panel-surface, rgba(0,0,0,0.92)) 50%, transparent)",
-            }}
-            onClick={() => scroll(-1)}
-          >
-            <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M12 4l-6 6 6 6" />
-            </svg>
-          </button>
-        )}
-
-        {/* Right arrow */}
-        {canScrollRight && (
-          <button
-            type="button"
-            aria-label="Scroll right"
-            className="absolute right-0 top-0 bottom-0 z-30 flex w-16 items-center justify-center opacity-80 transition-opacity duration-200 hover:opacity-100"
-            style={{
-              background: "linear-gradient(to left, var(--panel-surface, rgba(0,0,0,0.92)) 50%, transparent)",
-            }}
-            onClick={() => scroll(1)}
-          >
-            <svg width="28" height="28" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-              <path d="M8 4l6 6-6 6" />
-            </svg>
-          </button>
-        )}
-
-        {/* Scrollable card strip */}
-        <div
-          ref={scrollRef}
-          role="region"
-          aria-label={`${title} projects`}
-          tabIndex={0}
-          className="scrollbar-hidden flex gap-4 overflow-x-auto py-2 outline-none"
-          style={{
-            scrollSnapType: "x mandatory",
-            scrollPaddingInline: 4,
-            cursor: isDragging ? "grabbing" : "grab",
-            userSelect: isDragging ? "none" : undefined,
-          }}
-          onScroll={updateScrollState}
-          onMouseDown={onMouseDown}
-          onMouseMove={onMouseMove}
-          onMouseUp={onMouseUp}
-          onMouseLeave={onMouseUp}
-          onKeyDown={onKeyDown}
-        >
-          {projects.map((project) => (
-            <div
-              key={project.repo}
-              className="flex-shrink-0"
-              style={{
-                width: cardWidth,
-                scrollSnapAlign: "start",
-              }}
-              onClickCapture={(e) => {
-                if (dragState.current.moved) { e.stopPropagation(); e.preventDefault(); }
-              }}
-            >
-              <ProjectCard project={project} accentColor={accentColor} onOpen={onOpen} />
-            </div>
-          ))}
-        </div>
-      </div>
-
-      {/* Scroll progress bar */}
-      {(canScrollLeft || canScrollRight) && (
-        <div className="mx-auto h-[2px] w-24 overflow-hidden rounded-full" style={{ background: "var(--panel-border, rgba(255,255,255,0.1))" }}>
-          <div
-            className="h-full rounded-full transition-transform duration-150 ease-out"
-            style={{
-              width: "40%",
-              background: accentColor,
-              opacity: 0.6,
-              transform: `translateX(${scrollProgress * 150}%)`,
-            }}
-          />
-        </div>
-      )}
-    </div>
-  );
-}
+// FilmstripRow removed — replaced by responsive grid layout in main render
 
 // ── Main section ──────────────────────────────────────────────────────────────
 
@@ -1025,7 +798,16 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [projectOrigin, setProjectOrigin] = useState<PopOrigin | null>(null);
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [contribModalOpen, setContribModalOpen] = useState(false);
-  const cardWidths = useCardWidths();
+  const [carouselIdx, setCarouselIdx] = useState(0);
+  const carouselPaused = useRef(false);
+
+  // Auto-rotate carousel every 4s
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (!carouselPaused.current) setCarouselIdx((prev) => prev + 1);
+    }, 4000);
+    return () => clearInterval(timer);
+  }, []);
 
   const projectPanelRef = useRef<HTMLDivElement>(null);
   const projectBackdropRef = useRef<HTMLDivElement>(null);
@@ -1262,16 +1044,10 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
 
   return (
     <section className="space-y-3">
-      {/* Sticky header bar */}
-      <div
-        className="sticky top-6 sm:top-8 md:top-14 z-40 pb-4 space-y-3"
-      >
-        {/* Header with compact contribution summary */}
+      {/* Header bar with title, contribution, and filter pills */}
+      <div className="space-y-3">
         <div className="flex items-center justify-between gap-4 entrance" style={{ animationDelay: "900ms" }}>
-          <div>
-            <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
-          </div>
-          {/* Compact contribution summary */}
+          <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
           {contributions ? (
             <button
               type="button"
@@ -1316,8 +1092,6 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
             </button>
           ) : null}
         </div>
-
-        {/* Filter pills */}
         <div className="relative flex flex-wrap gap-2 entrance" style={{ animationDelay: "1200ms" }}>
           {filterOptions.map((opt) => {
             const isActive = activeFilter === opt.slug;
@@ -1329,7 +1103,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               <button
                 key={opt.slug}
                 type="button"
-                className="rounded-full px-3.5 py-1.5 text-xs uppercase tracking-[0.18em] transition-all duration-200"
+                className="rounded-full px-3.5 py-1.5 text-xs uppercase tracking-[0.18em] transition-all duration-200 cursor-pointer"
                 style={{
                   background: isActive ? accent + "28" : "transparent",
                   color: isActive ? accent : undefined,
@@ -1349,30 +1123,176 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
         </div>
       </div>
 
-      {/* Project filmstrip rows */}
-      <div className="space-y-3 pb-16 sm:pb-20 md:pb-24 entrance" style={{ animationDelay: "1500ms" }}>
-        {/* Featured row — larger cards */}
-        {featuredProjects.length > 0 && activeFilter === "all" && (
-          <FilmstripRow
-            key="featured"
-            slug="featured"
-            title="Featured"
-            projects={featuredProjects}
-            onOpen={openProject}
-            cardWidth={cardWidths.featured}
-          />
-        )}
+      {/* Projects content */}
+      <div className="space-y-8 pb-16 sm:pb-20 md:pb-24">
+        {/* Featured — Netflix-style billboard */}
+        {featuredProjects.length > 0 && activeFilter === "all" && (() => {
+          const count = featuredProjects.length;
+          const activeIdx = ((carouselIdx % count) + count) % count;
+          const project = featuredProjects[activeIdx];
+          const [g1, g2] = getLangGradient(project.language);
+          const displayImage = project.image;
+          const hasImage = displayImage && !displayImage.includes("opengraph.githubassets.com");
 
-        {categoryRows.map((cat) => (
-          <FilmstripRow
-            key={cat.slug}
-            slug={cat.slug}
-            title={cat.title}
-            projects={cat.projects}
-            onOpen={openProject}
-            cardWidth={cardWidths.card}
-          />
-        ))}
+          return (
+            <div
+              className="relative overflow-hidden rounded-2xl cursor-pointer"
+              style={{ aspectRatio: "16 / 9", maxHeight: "70vh", border: "1px solid rgba(255,255,255,0.08)" }}
+              onMouseEnter={() => { carouselPaused.current = true; }}
+              onMouseLeave={() => { carouselPaused.current = false; }}
+              onClick={(e) => {
+                const rect = e.currentTarget.getBoundingClientRect();
+                openProject(project, rect);
+              }}
+            >
+              {/* Backdrop images — all stacked, only active one visible */}
+              {featuredProjects.map((p, i) => {
+                const img = p.image;
+                const show = img && !img.includes("opengraph.githubassets.com");
+                const [lg1, lg2] = getLangGradient(p.language);
+                return (
+                  <div
+                    key={p.repo}
+                    className={i === activeIdx ? "billboard-active" : ""}
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      opacity: i === activeIdx ? 1 : 0,
+                      transition: i === activeIdx ? undefined : "opacity 500ms ease",
+                      zIndex: i === activeIdx ? 1 : 0,
+                    }}
+                  >
+                    {show ? (
+                      <img
+                        src={img}
+                        alt={p.name}
+                        className="h-full w-full object-cover"
+                      />
+                    ) : (
+                      <div
+                        className="h-full w-full"
+                        style={{ background: `linear-gradient(135deg, ${lg1}dd, ${lg2}dd)` }}
+                      />
+                    )}
+                  </div>
+                );
+              })}
+
+              {/* Vignette — bottom gradient for centered text */}
+              <div
+                className="absolute inset-0 z-[2]"
+                style={{
+                  background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.1) 55%, transparent 70%)",
+                }}
+              />
+
+              {/* Text content — centered */}
+              <div
+                key={activeIdx}
+                className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8 flex flex-col items-center text-center"
+              >
+                <h3
+                  className="billboard-text-in text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2"
+                  style={{ textShadow: "0 2px 12px rgba(0,0,0,0.6)", opacity: 0 }}
+                >
+                  {project.name}
+                </h3>
+                {project.summary && (
+                  <p
+                    className="billboard-text-in text-sm sm:text-base text-white/80 line-clamp-2 leading-relaxed mb-3 max-w-xl"
+                    style={{ textShadow: "0 1px 6px rgba(0,0,0,0.5)", opacity: 0 }}
+                  >
+                    {project.summary}
+                  </p>
+                )}
+              </div>
+
+              {/* Thumbnail strip + progress — bottom center */}
+              <div className="absolute inset-x-0 bottom-3 z-10 flex flex-col items-center gap-2">
+                {/* Thumbnail strip */}
+                <div className="flex gap-2">
+                  {featuredProjects.map((p, i) => {
+                    const thumb = p.image;
+                    const showThumb = thumb && !thumb.includes("opengraph.githubassets.com");
+                    const [tg1, tg2] = getLangGradient(p.language);
+                    const isActive = i === activeIdx;
+                    return (
+                      <button
+                        key={p.repo}
+                        type="button"
+                        className="relative overflow-hidden rounded-lg cursor-pointer transition-all duration-300"
+                        style={{
+                          width: 64,
+                          height: 36,
+                          border: isActive ? "2px solid rgba(255,255,255,0.8)" : "1px solid rgba(255,255,255,0.15)",
+                          opacity: isActive ? 1 : 0.5,
+                          transform: isActive ? "scale(1.1)" : "scale(1)",
+                        }}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          setCarouselIdx(i);
+                        }}
+                        aria-label={`Show ${p.name}`}
+                      >
+                        {showThumb ? (
+                          <img src={thumb} alt={p.name} className="h-full w-full object-cover" />
+                        ) : (
+                          <div className="h-full w-full" style={{ background: `linear-gradient(135deg, ${tg1}, ${tg2})` }} />
+                        )}
+                      </button>
+                    );
+                  })}
+                </div>
+
+                {/* Progress bar */}
+                <div className="flex gap-1.5">
+                  {featuredProjects.map((_, i) => (
+                    <div
+                      key={i}
+                      className="h-[3px] rounded-full overflow-hidden"
+                      style={{ width: 32, background: "rgba(255,255,255,0.15)" }}
+                    >
+                      <div
+                        className="h-full rounded-full"
+                        style={{
+                          width: i === activeIdx ? "100%" : "0%",
+                          background: CATEGORY_ACCENTS.featured,
+                          transition: i === activeIdx ? "width 4s linear" : "width 300ms ease",
+                        }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+          );
+        })()}
+
+        {/* Category grid sections */}
+        {categoryRows.map((cat) => {
+          const accentColor = CATEGORY_ACCENTS[cat.slug] ?? DEFAULT_ACCENT;
+          return (
+            <div key={cat.slug} className="space-y-3">
+              <div className="flex items-baseline gap-3">
+                <h3 className="text-lg font-semibold tracking-tight">{cat.title}</h3>
+                <span className="text-xs uppercase tracking-[0.28em]" style={{ color: accentColor }}>
+                  {cat.projects.length} {cat.projects.length === 1 ? "project" : "projects"}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
+                {cat.projects.map((project, i) => (
+                  <div
+                    key={project.repo}
+                    className="grid-card-enter"
+                    style={{ animationDelay: `${i * 60}ms` }}
+                  >
+                    <ProjectCard project={project} accentColor={accentColor} onOpen={openProject} />
+                  </div>
+                ))}
+              </div>
+            </div>
+          );
+        })}
       </div>
 
       {/* Project detail modal */}

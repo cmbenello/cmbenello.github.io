@@ -359,6 +359,39 @@ const main = async () => {
     return enrichRepo(repoData, override);
   });
 
+  // Add stub entries for registry repos that weren't fetched (e.g. private repos)
+  const fetchedRepos = new Set(projects.map((p) => p.repo.toLowerCase()));
+  for (const entry of registry) {
+    if (!entry.repo || entry.hidden) continue;
+    const repoId = entry.repo.toLowerCase();
+    if (fetchedRepos.has(repoId)) continue;
+    const [, repoName] = entry.repo.split("/");
+    console.log(`  Adding stub for private/unfetched repo: ${entry.repo}`);
+    projects.push({
+      name: repoName,
+      repo: entry.repo,
+      url: `https://github.com/${entry.repo}`,
+      category: entry.category || "uncategorized",
+      summary: entry.summary || "",
+      description: entry.summary || "",
+      image: entry.image || "",
+      homepage: "",
+      language: "",
+      tags: entry.tags || [],
+      topics: [],
+      stars: 0, forks: 0, issues: 0,
+      updatedAt: new Date().toISOString().slice(0, 10),
+      createdAt: new Date().toISOString().slice(0, 10),
+      pushedAt: new Date().toISOString().slice(0, 10),
+      defaultBranch: "main",
+      license: "",
+      commitLog: [],
+      commitActivity: [],
+      readme: "",
+      ...(entry.featured ? { featured: true } : {}),
+    });
+  }
+
   // Sort: categorized first (alphabetically), then uncategorized
   projects.sort((a, b) => {
     if (a.category === "uncategorized" && b.category !== "uncategorized") return 1;
