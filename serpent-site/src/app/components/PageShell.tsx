@@ -29,7 +29,7 @@ const NAV_ITEMS = [
   { label: "Projects" },
 ];
 
-const DEFAULT_FRAME_MARGIN = 24;
+const DEFAULT_FRAME_MARGIN = 32;
 const NAV_BUTTON_SIZE = 26;
 const NAV_DOT_SIZE = 10;
 const NAV_GAP = 4;
@@ -71,7 +71,7 @@ export default function PageShell({ children }: PageShellProps) {
   useEffect(() => {
     const update = () => {
       const w = window.innerWidth;
-      setFrameMargin(w < 640 ? 8 : w < 1024 ? 16 : DEFAULT_FRAME_MARGIN);
+      setFrameMargin(w < 640 ? 12 : w < 1024 ? 20 : DEFAULT_FRAME_MARGIN);
     };
     update();
     window.addEventListener("resize", update);
