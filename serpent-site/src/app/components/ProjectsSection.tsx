@@ -1143,8 +1143,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
 
           return (
             <div
-              className="relative overflow-hidden rounded-2xl cursor-pointer mx-auto w-full"
-              style={{ aspectRatio: "16 / 9", maxHeight: "70vh", border: "1px solid rgba(255,255,255,0.08)" }}
+              className="relative overflow-hidden rounded-2xl cursor-pointer mx-auto w-full entrance"
+              style={{ aspectRatio: "16 / 9", maxHeight: "70vh", border: "1px solid rgba(255,255,255,0.08)", animationDelay: "1500ms" }}
               onMouseEnter={() => { carouselPaused.current = true; }}
               onMouseLeave={() => { carouselPaused.current = false; }}
               onClick={(e) => {
