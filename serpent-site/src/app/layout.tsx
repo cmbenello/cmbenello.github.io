@@ -22,6 +22,13 @@ const notoSansKR = Noto_Sans_KR({
 export const metadata: Metadata = {
   title: "Charles Benello",
   description: "Master's student in Financial Mathematics at the University of Chicago. Researcher in database systems, GPU compression, and quantitative finance.",
+  icons: {
+    icon: [
+      { url: "/favicon.ico", sizes: "any" },
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    apple: "/apple-icon.png",
+  },
 };
 
 export default function RootLayout({

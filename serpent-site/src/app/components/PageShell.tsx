@@ -297,10 +297,39 @@ export default function PageShell({ children }: PageShellProps) {
       });
     };
 
+    // Safari doesn't always enforce mandatory snap in overflow containers.
+    // Programmatic snap-assist: after scrolling stops, if the container isn't
+    // aligned to a section boundary, smoothly scroll to the nearest one.
+    let snapTimer: ReturnType<typeof setTimeout> | null = null;
+    const handleScrollEnd = () => {
+      if (navigatingRef.current) return;
+      if (snapTimer) clearTimeout(snapTimer);
+      snapTimer = setTimeout(() => {
+        const sections = sectionRefs.current;
+        const st = scrollEl.scrollTop;
+        let nearest = 0;
+        let minDist = Infinity;
+        for (let i = 0; i < sections.length; i++) {
+          const sec = sections[i];
+          if (!sec) continue;
+          const dist = Math.abs(sec.offsetTop - st);
+          if (dist < minDist) { minDist = dist; nearest = i; }
+        }
+        // Only snap if we're more than 2px off (avoids fighting CSS snap)
+        if (minDist > 2) {
+          const sec = sections[nearest];
+          if (sec) scrollEl.scrollTo({ top: sec.offsetTop, behavior: "smooth" });
+        }
+      }, 120);
+    };
+
     updateProgress();
     scrollEl.addEventListener("scroll", handleScroll, { passive: true });
+    scrollEl.addEventListener("scroll", handleScrollEnd, { passive: true });
     return () => {
       scrollEl.removeEventListener("scroll", handleScroll);
+      scrollEl.removeEventListener("scroll", handleScrollEnd);
+      if (snapTimer) clearTimeout(snapTimer);
       if (scrollRafRef.current !== null) {
         window.cancelAnimationFrame(scrollRafRef.current);
       }
