@@ -1136,7 +1136,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
 
           return (
             <div
-              className="relative overflow-hidden rounded-2xl cursor-pointer"
+              className="relative overflow-hidden rounded-2xl cursor-pointer mx-auto w-full"
               style={{ aspectRatio: "16 / 9", maxHeight: "70vh", border: "1px solid rgba(255,255,255,0.08)" }}
               onMouseEnter={() => { carouselPaused.current = true; }}
               onMouseLeave={() => { carouselPaused.current = false; }}
@@ -1182,14 +1182,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               <div
                 className="absolute inset-0 z-[2]"
                 style={{
-                  background: "linear-gradient(to top, rgba(0,0,0,0.85) 0%, rgba(0,0,0,0.45) 35%, rgba(0,0,0,0.1) 55%, transparent 70%)",
+                  background: "linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.6) 30%, rgba(0,0,0,0.3) 50%, rgba(0,0,0,0.1) 65%, transparent 80%)",
                 }}
               />
 
               {/* Text content — centered */}
               <div
                 key={activeIdx}
-                className="absolute inset-x-0 bottom-0 z-10 p-6 sm:p-8 flex flex-col items-center text-center"
+                className="absolute inset-x-0 bottom-14 z-10 px-6 sm:px-8 flex flex-col items-center text-center"
               >
                 <h3
                   className="billboard-text-in text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2"
