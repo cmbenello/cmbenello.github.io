@@ -54,7 +54,7 @@ export const EXPERIENCE = [
     papers: [
       { label: "CrocSort — PVLDB 2026", url: "https://github.com/rotaki/ES", note: "In Review" },
       { label: "Resource-Adaptive Query Execution — CIDR 2025", url: "https://vldb.org/cidrdb/papers/2025/p2-otaki.pdf" },
-      { label: "Sorting Without Guessing: Adaptive Sort Configuration Across Disaggregated and Cloud-Native Environments — HPTS 2026", wip: true },
+      { label: "Getting the Most Out of External Sorting in Cloud and Disaggregated Environments", wip: true },
     ],
   },
   {
@@ -185,10 +185,10 @@ export const PUBLICATIONS = [
     link: "https://github.com/rotaki/ES",
   },
   {
-    title: "Sorting Without Guessing: Adaptive Sort Configuration Across Disaggregated and Cloud-Native Environments",
+    title: "Getting the Most Out of External Sorting in Cloud and Disaggregated Environments",
     authors: ["Charles Benello", "Riki Otaki", "Fuheng Zhao", "Aaron J. Elmore", "Goetz Graefe"],
-    venue: "HPTS 2026",
-    note: "WIP",
+    venue: "In preparation",
+    note: "",
     link: "",
   },
   {
@@ -200,7 +200,7 @@ export const PUBLICATIONS = [
   },
   {
     title: "Benchmarks Pass, Policies Fail: A Policy Gap in Rust Code Generation Evaluation",
-    authors: ["Matt Gaughan", "Charles Benello"],
+    authors: ["Matt Gaughan", "Charles Benello", "Keixin Pei"],
     venue: "In preparation",
     note: "WIP",
     link: "",
