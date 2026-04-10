@@ -64,6 +64,7 @@
 
 - repo: cmbenello/CrustyDB
   category: research
+  featured: true
 
 # Featured projects appear in a highlighted row at the top
 # Add `featured: true` to any entry to pin it
