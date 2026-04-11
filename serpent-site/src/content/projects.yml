@@ -21,6 +21,10 @@
   featured: true
   summary: "Auto-generate optimized CLAUDE.md files — scans your project and gives Claude Code the context it needs."
 
+- repo: cmbenello/oss-launch
+  category: personal
+  summary: "Get your open source project launch-ready — audit, checklist, social posts for HN/Reddit/Twitter, badge suggestions."
+
 - repo: cmbenello/covtsp
   category: personal
   featured: true
