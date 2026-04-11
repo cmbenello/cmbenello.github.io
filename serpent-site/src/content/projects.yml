@@ -16,6 +16,11 @@
   featured: true
   summary: "A package manager for MCP servers — discover, install, and manage MCP servers for Claude Code in one command."
 
+- repo: cmbenello/claudegen
+  category: personal
+  featured: true
+  summary: "Auto-generate optimized CLAUDE.md files — scans your project and gives Claude Code the context it needs."
+
 - repo: cmbenello/covtsp
   category: personal
   featured: true
