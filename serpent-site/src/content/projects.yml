@@ -11,6 +11,11 @@
   category: machine-learning
 
 # Personal
+- repo: cmbenello/mcpm
+  category: personal
+  featured: true
+  summary: "A package manager for MCP servers — discover, install, and manage MCP servers for Claude Code in one command."
+
 - repo: cmbenello/covtsp
   category: personal
   featured: true

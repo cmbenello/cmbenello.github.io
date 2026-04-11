@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-04-10T18:44:13.088Z",
+  "generatedAt": "2026-04-11T05:28:46.593Z",
   "user": "cmbenello",
   "contributions": {
-    "totalContributions": 365,
+    "totalContributions": 390,
     "months": [
       {
         "name": "Apr",
@@ -72,13 +72,8 @@
     ],
     "weeks": [
       {
-        "firstDay": "2025-04-10",
+        "firstDay": "2025-04-11",
         "contributionDays": [
-          {
-            "date": "2025-04-10",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
           {
             "date": "2025-04-11",
             "contributionCount": 0,
@@ -176,8 +171,8 @@
         "contributionDays": [
           {
             "date": "2025-04-27",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 1,
+            "color": "#9be9a8"
           },
           {
             "date": "2025-04-28",
@@ -261,8 +256,8 @@
           },
           {
             "date": "2025-05-12",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 2,
+            "color": "#9be9a8"
           },
           {
             "date": "2025-05-13",
@@ -1621,8 +1616,8 @@
           },
           {
             "date": "2026-01-05",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 1,
+            "color": "#9be9a8"
           },
           {
             "date": "2026-01-06",
@@ -1716,8 +1711,8 @@
           },
           {
             "date": "2026-01-22",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 1,
+            "color": "#9be9a8"
           },
           {
             "date": "2026-01-23",
@@ -2111,8 +2106,8 @@
           },
           {
             "date": "2026-04-01",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 6,
+            "color": "#40c463"
           },
           {
             "date": "2026-04-02",
@@ -2121,13 +2116,13 @@
           },
           {
             "date": "2026-04-03",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 1,
+            "color": "#9be9a8"
           },
           {
             "date": "2026-04-04",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 3,
+            "color": "#9be9a8"
           }
         ]
       },
@@ -2136,7 +2131,7 @@
         "contributionDays": [
           {
             "date": "2026-04-05",
-            "contributionCount": 1,
+            "contributionCount": 2,
             "color": "#9be9a8"
           },
           {
@@ -2146,8 +2141,8 @@
           },
           {
             "date": "2026-04-07",
-            "contributionCount": 0,
-            "color": "#ebedf0"
+            "contributionCount": 1,
+            "color": "#9be9a8"
           },
           {
             "date": "2026-04-08",
@@ -2161,7 +2156,12 @@
           },
           {
             "date": "2026-04-10",
-            "contributionCount": 1,
+            "contributionCount": 6,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-04-11",
+            "contributionCount": 3,
             "color": "#9be9a8"
           }
         ]
@@ -2219,60 +2219,7 @@
           "author": "Charles Benello"
         }
       ],
-      "commitActivity": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        3,
-        1,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
+      "commitActivity": [],
       "readme": "# Merge Tactics Mini-Arena (Two Troops)\n\nA minimal 1v1 arena with **TANK** and **ARCHER** only. 3x3 board, deploy phase with 3 actions, then simple tick battle.\nUse it to bootstrap self-play and plug in PPO later.\n\n## Layout\n- `mergetactics/rules.py` — constants for board, economy, and basic troop stats.\n- `mergetactics/entities.py` — `Unit` dataclass and star scaling.\n- `mergetactics/env.py` — lightweight environment with `reset()`, `observe()`, `step()`.\n- `mergetactics/bots.py` — `RandomBot` and `GreedyBot` baselines.\n- `mergetactics/arena.py` — `ArenaManager` with snapshots and a mini-tournament.\n- `scripts/play_match.py` — example match: Greedy vs Random.\n- `tests/test_env.py` — basic smoke tests.\n\n## Quickstart\n```bash\n# Run a single match (Greedy vs Random)\npython -m scripts.play_match\n\n# Mini tournament (inside Python)\nfrom mergetactics.arena import ArenaManager\nfrom mergetactics.env import MTEnv\nam = ArenaManager(env_ctor=lambda: MTEnv(seed=0))\nprint(am.mini_tournament(n_games=20))\n```"
     },
     {
@@ -2290,12 +2237,33 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2025-12-04",
+      "updatedAt": "2026-04-11",
       "createdAt": "2025-12-04",
-      "pushedAt": "2025-12-04",
+      "pushedAt": "2026-04-11",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
+        {
+          "sha": "cd5b88b",
+          "message": "switch to MaskablePPO with action masking for better RL learning",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/cd5b88ba480a859f728a017f840e3eb409d18048",
+          "date": "2026-04-11",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "77713cf",
+          "message": "add RL training pipeline: PPO training, eval, heuristic baseline",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/77713cfdf11d69b0334a2c2e307f453dc8691f66",
+          "date": "2026-04-10",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "7379ae8",
+          "message": "core sim MVP: fix scaling, add RL env, train dwell, renderer, tests",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/7379ae878530a1f86c94b0d1cc285077ff9262d7",
+          "date": "2026-04-10",
+          "author": "ㅊ"
+        },
         {
           "sha": "5e788d8",
           "message": "scaling issues",
@@ -2319,7 +2287,7 @@
         }
       ],
       "commitActivity": [],
-      "readme": ""
+      "readme": "# MiniMetro\n\nA Python simulation of the puzzle game [Mini Metro](https://dinopoloclub.com/games/mini-metro/), with a [Gymnasium](https://gymnasium.farama.org/) environment for reinforcement learning.\n\nPlayers design metro lines to connect stations of different shapes, deploy trains, and manage passenger flow to prevent station overcrowding.\n\n## Features\n\n- **Core simulator** with passenger spawning, train movement, boarding logic, overcrowding, and game-over detection\n- **London map** with 25 stations, 6 shape types, gradual station releases, and the Thames river\n- **Gymnasium environment** with MultiDiscrete action space and structured observation vector\n- **Matplotlib renderer** showing trains, passenger queues, overcrowding indicators, and a HUD\n\n## Quick Start\n\n```bash\npip install -e .\n```\n\n### Auto-play demo\n\n```bash\npython examples/run_london_manual.py\n```\n\nCreates lines, adds trains, and watches passengers get delivered on the London map.\n\n### Random RL agent\n\n```bash\npython examples/run_london_gym_random.py\n```\n\n### Run tests\n\n```bash\npython -m pytest tests/ -v\n```\n\n## Project Structure\n\n```\ncore/           Game engine (simulator, entities, state, rules, actions)\nmaps/           Map definitions (London with config JSON)\nenvs/           Gymnasium environment wrapper\nrender/         Matplotlib-based renderer\nscripts/        Map extraction and scaling utilities\nexamples/       Demo scripts\ntests/          Unit and integration tests\n```\n\n## Gym Environment\n\n```python\nfrom envs.gym_env import MiniMetroLondonEnv\n\nenv = MiniMetroLondonEnv(render_mode=\"human\")\nobs, info = env.reset()\n\n# Action space: MultiDiscrete([4, 7, 25])\n#   action_type: NO_OP(0), CREATE_LINE(1), EXTEND_LINE(2), ADD_TRAIN(3)\n#   line_slot:   0-6 (up to 7 lines)\n#   station:     0-24 (target station index)\naction = env.action_space.sample()\nobs, reward, done, truncated, info = env.step(action)\n```\n\n**Observation** (474 floats): per-station features (position, shape, queue length, overcrowd timer), per-line features (topology, train count), and global stats (time, delivered, lost).\n\n## Training RL Agents\n\nInstall RL dependencies:\n\n```bash\npip install -e \".[rl]\"\n# or: pip install -r requirements-rl.txt\n```\n\n### Train PPO\n\n```bash\nPYTHONPATH=. python scripts/train_ppo.py --timesteps 200000\n```\n\nModels are saved to `models/ppo/`, tensorboard logs to `runs/ppo/`.\n\n```bash\ntensorboard --logdir runs/\n```\n\n### Evaluate\n\n```bash\n# Evaluate trained model\nPYTHONPATH=. python scripts/eval_agent.py --model models/ppo/best_model.zip\n\n# Heuristic baseline (~20 reward)\nPYTHONPATH=. python scripts/eval_agent.py --heuristic\n\n# Random baseline (~1 reward)\nPYTHONPATH=. python scripts/eval_agent.py --random\n\n# With rendering\nPYTHONPATH=. python scripts/eval_agent.py --model models/ppo/best_model.zip --render\n```\n\n## Game Rules\n\n- Passengers spawn at stations wanting a specific **shape** (circle, triangle, square, diamond, star, plus)\n- Trains travel along lines, picking up and delivering passengers\n- Passengers only board if the train moves them **closer** to their destination shape\n- If a station stays overcrowded (>= threshold passengers) for too long, **game over**\n- Trains dwell briefly at each station for boarding"
     },
     {
       "name": "0h-h1-solver",
@@ -2450,6 +2418,46 @@
       "featured": true
     },
     {
+      "name": "mcpm",
+      "repo": "cmbenello/mcpm",
+      "url": "https://github.com/cmbenello/mcpm",
+      "category": "personal",
+      "summary": "A package manager for MCP servers — discover, install, and manage MCP servers for Claude Code in one command.",
+      "description": "A package manager for MCP servers",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/mcpm",
+      "homepage": "",
+      "language": "Rust",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-04-11",
+      "createdAt": "2026-04-11",
+      "pushedAt": "2026-04-11",
+      "defaultBranch": "main",
+      "license": "MIT License",
+      "commitLog": [
+        {
+          "sha": "a9597b4",
+          "message": "Set repo to cmbenello/mcpm, add author and crate metadata",
+          "url": "https://github.com/cmbenello/mcpm/commit/a9597b44b3e55a5a0fd3447daa4809a238a7ec37",
+          "date": "2026-04-11",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "03c106a",
+          "message": "Initial release of mcpm — a package manager for MCP servers",
+          "url": "https://github.com/cmbenello/mcpm/commit/03c106a4ec83f6cf16a82116fc6595088ea3ac4d",
+          "date": "2026-04-11",
+          "author": "ㅊ"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "<div align=\"center\">\n\n# mcpm\n\n**A package manager for MCP servers.**\n\nInstall and manage [Model Context Protocol](https://modelcontextprotocol.io) servers in one command.\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)\n[![Rust](https://img.shields.io/badge/Built%20with-Rust-orange.svg)](https://www.rust-lang.org)\n\n</div>\n\n---\n\nStop hand-editing JSON config files. `mcpm` gives you a registry of MCP servers and wires them into your [Claude Code](https://claude.ai/code) (or any MCP-compatible tool) configuration automatically.\n\n```\n$ mcpm install github\nInstalling github ...\n\n  GITHUB_PERSONAL_ACCESS_TOKEN (GitHub personal access token): ghp_xxxx\n\n✓ Installed github to .mcp.json\n```\n\nThat's it. Start Claude Code and the server is ready.\n\n## Install\n\n### From source (requires Rust)\n\n```bash\ncargo install --git https://github.com/cmbenello/mcpm\n```\n\n### From releases\n\nDownload the latest binary from [Releases](https://github.com/cmbenello/mcpm/releases) and add it to your PATH.\n\n## Quick Start\n\n```bash\n# See what's available\nmcpm search database\n\n# Install a server to your project\nmcpm install postgres\n\n# Install globally (available in all projects)\nmcpm install github --global\n\n# Interactive setup — pick from the full list\nmcpm init\n\n# Check everything is working\nmcpm doctor\n```\n\n## Commands\n\n### `mcpm search <query>`\n\nSearch the registry by name, description, or tags.\n\n```\n$ mcpm search database\n\n4 servers matching 'database':\n\n  postgres [stdio] Query and manage PostgreSQL databases\n  #database #sql #postgres\n  sqlite [stdio] Query and manage SQLite databases\n  #database #sql #sqlite #local\n  redis [stdio] Interact with Redis key-value stores\n  #database #redis #cache\n  notion [stdio] Read and write Notion pages and databases\n  #notion #docs #wiki\n```\n\n### `mcpm install <name>`\n\nInstall an MCP server. Prompts for any required parameters and environment variables.\n\n```bash\nmcpm install filesystem         # Install to .mcp.json (project-level)\nmcpm install github --global    # Install to ~/.claude/settings.json (global)\nmcpm install puppeteer --yes    # Accept all defaults (non-interactive)\n```\n\n### `mcpm remove <name>`\n\nRemove an MCP server from your config.\n\n```bash\nmcpm remove postgres            # Remove from .mcp.json\nmcpm remove github --global     # Remove from global config\n```\n\n### `mcpm list`\n\nList all installed MCP servers.\n\n```\n$ mcpm list\n\nProject (.mcp.json):\n  filesystem npx -y @modelcontextprotocol/server-filesystem .\n  postgres npx -y @modelcontextprotocol/server-postgres postgresql://localhost/mydb\n\nGlobal (~/.claude/settings.json):\n  github npx -y @modelcontextprotocol/server-github\n```\n\n### `mcpm info <name>`\n\nShow full details about a server — author, repository, parameters, environment variables, and available tools.\n\n```\n$ mcpm info filesystem\n\nfilesystem\nRead and write files on the local filesystem\n\n  Author: modelcontextprotocol\n  Repo:   https://github.com/modelcontextprotocol/servers\n  Type:   stdio\n  Tags:   files, local, core\n\n  Parameters:\n    path — Root directory to give the server access to (required) [default: .]\n\n  Tools:\n    - read_file\n    - write_file\n    - edit_file\n    - list_directory\n    - search_files\n    ...\n```\n\n### `mcpm init`\n\nInteractively select and install multiple servers at once. Great for setting up a new project.\n\n```bash\nmcpm init            # Install to .mcp.json\nmcpm init --global   # Install to global config\n```\n\n### `mcpm doctor`\n\nCheck that your installed MCP servers are healthy (commands found on PATH, URLs valid).\n\n```\n$ mcpm doctor\n\nmcpm doctor\n\nProject (.mcp.json):\n  ✓ filesystem npx found\n  ✓ postgres npx found\n  ! docker uvx not found on PATH\n\n3 checked, 2 healthy, 1 warning(s)\n```\n\n### `mcpm update`\n\nFetch the latest server registry from GitHub.\n\n```bash\nmcpm update\n```\n\n## How It Works\n\n`mcpm` manages MCP server configurations in two places:\n\n| Scope | File | Flag |\n|-------|------|------|\n| **Project** | `.mcp.json` in your project root | (default) |\n| **Global** | `~/.claude/settings.json` | `--global` |\n\nWhen you run `mcpm install`, it:\n\n1. Looks up the server in the registry\n2. Prompts you for any required parameters (file paths, connection strings, etc.)\n3. Prompts for environment variables (API keys, tokens) if not already set\n4. Writes the config to `.mcp.json` or `~/.claude/settings.json`\n\nYour MCP-compatible tool (like Claude Code) picks up the config on the next session.\n\n## Available Servers\n\n| Server | Description |\n|--------|-------------|\n| `filesystem` | Read and write files on the local filesystem |\n| `github` | Interact with GitHub repos, issues, and PRs |\n| `postgres` | Query and manage PostgreSQL databases |\n| `sqlite` | Query and manage SQLite databases |\n| `brave-search` | Search the web using Brave Search API |\n| `puppeteer` | Control a headless browser |\n| `slack` | Send and read Slack messages |\n| `memory` | Persistent memory using a knowledge graph |\n| `fetch` | Fetch and convert web pages to markdown |\n| `sequential-thinking` | Structured sequential problem-solving |\n| `redis` | Interact with Redis key-value stores |\n| `docker` | Manage Docker containers and images |\n| `linear` | Manage Linear issues and projects |\n| `notion` | Read and write Notion pages and databases |\n| `sentry` | Query Sentry for errors and performance |\n\nRun `mcpm search \"\"` to see all available servers, or `mcpm info <name>` for details.\n\n## Adding a Server to the Registry\n\nWe welcome contributions! See [CONTRIBUTING.md](CONTRIBUTING.md) for how to add your MCP server to the registry.\n\nThe short version:\n\n1. Create `registry/servers/your-server.json` following the [server schema](#server-schema)\n2. Add an entry to `registry/index.json`\n3. Open a pull request\n\n### Server Schema\n\n```json\n{\n  \"name\": \"my-server\",\n  \"description\": \"What it does\",\n  \"author\": \"your-github-username\",\n  \"repository\": \"https://github.com/you/your-mcp-server\",\n  \"tags\": [\"relevant\", \"tags\"],\n  \"type\": \"stdio\",\n  \"config\": {\n    \"command\": \"npx\",\n    \"args\": [\"-y\", \"your-mcp-server-package\"]\n  },\n  \"parameters\": {\n    \"param_name\": {\n      \"description\": \"What this parameter is for\",\n      \"required\": true,\n      \"default\": \"optional-default\"\n    }\n  },\n  \"env\": {\n    \"API_KEY\": {\n      \"description\": \"Your API key\",\n      \"required\": true\n    }\n  },\n  \"tools\": [\"tool_1\", \"tool_2\"]\n}\n```\n\n## License\n\nMIT — see [LICENSE](LICENSE).",
+      "featured": true
+    },
+    {
       "name": "Pongation",
       "repo": "cmbenello/Pongation",
       "url": "https://github.com/cmbenello/Pongation",
@@ -2513,7 +2521,60 @@
           "author": "Charles Benello"
         }
       ],
-      "commitActivity": [],
+      "commitActivity": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "readme": "# Pongation\nA method of finding an exit to a maze by bouncing a bunch of balls around the maze"
     },
     {
@@ -2633,7 +2694,60 @@
           "author": "Charles Benello"
         }
       ],
-      "commitActivity": [],
+      "commitActivity": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "readme": "# CrustyDB\nSorry the code for this repo is private - if you would wish to see it please contact me at cmbenello [at] gmail [dot] com",
       "featured": true
     },
@@ -2652,9 +2766,9 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-10",
-      "createdAt": "2026-04-10",
-      "pushedAt": "2026-04-10",
+      "updatedAt": "2026-04-11",
+      "createdAt": "2026-04-11",
+      "pushedAt": "2026-04-11",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
@@ -2677,9 +2791,9 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-10",
-      "createdAt": "2026-04-10",
-      "pushedAt": "2026-04-10",
+      "updatedAt": "2026-04-11",
+      "createdAt": "2026-04-11",
+      "pushedAt": "2026-04-11",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
@@ -2983,9 +3097,9 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-10",
-      "createdAt": "2026-04-10",
-      "pushedAt": "2026-04-10",
+      "updatedAt": "2026-04-11",
+      "createdAt": "2026-04-11",
+      "pushedAt": "2026-04-11",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
@@ -3071,7 +3185,60 @@
           "author": "cmbenello"
         }
       ],
-      "commitActivity": [],
+      "commitActivity": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "readme": ""
     },
     {
@@ -3152,7 +3319,60 @@
           "author": "cmbenello"
         }
       ],
-      "commitActivity": [],
+      "commitActivity": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "readme": ""
     },
     {
@@ -3184,7 +3404,60 @@
           "author": "Charles Benello"
         }
       ],
-      "commitActivity": [],
+      "commitActivity": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "readme": "## 🚀 How to Use This Template\n\nThis repository is a starter template for building and testing trading strategies with CI integration. Follow these steps to create your own copy and begin working:\n\n### 🧩 Step 1: Create Your Own Repository\n\n1. Go to [trading-ci-lab](https://github.com/sdonadio/trading-ci-lab)\n2. Click the green **“Use this template”** button  \n3. Name your new repository (e.g., `ci-homework-01`)  \n4. Choose **Public** or **Private**  \n5. Click **“Create repository from template”**\n\n---\n\n### 💻 Step 2: Clone Your Repository Locally\n\n```bash\ngit clone git@github.com:your-username/ci-homework-01.git\ncd ci-homework-01\n```\n\n> If you're using HTTPS instead of SSH:\n> ```bash\n> git clone https://github.com/your-username/ci-homework-01.git\n> ```\n\n---\n\n### 🧪 Step 3: Install Dependencies\n\n```bash\npip install -r requirements.txt\n```\n\n---\n\n### ⚙️ Step 4: Run Tests and Check Coverage\n\n```bash\ncoverage run -m pytest\ncoverage report -m\n```\n\nTo view an interactive HTML report:\n\n```bash\ncoverage html\nopen htmlcov/index.html  # macOS\n```\n\n---\n\n### 🔁 Step 5: Push Changes and Create a Pull Request\n\n```bash\ngit add .\ngit commit -m \"Implement strategy and tests\"\ngit push\n```\n\nThen go to GitHub and open a **Pull Request** from your branch to `main`."
     },
     {
@@ -3283,12 +3556,19 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-01",
+      "updatedAt": "2026-04-10",
       "createdAt": "2023-12-26",
-      "pushedAt": "2026-04-01",
+      "pushedAt": "2026-04-10",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
+        {
+          "sha": "0762fc6",
+          "message": "Update website content for Amazon SDE internship application",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/0762fc64129500779f295bb246513fea32e359d2",
+          "date": "2026-04-10",
+          "author": "Charles Benello"
+        },
         {
           "sha": "b32d9e9",
           "message": "update paper titles and authors: rename sorting paper, add Keixin Pei, remove HPTS references",
@@ -3335,13 +3615,6 @@
           "sha": "22c5e16",
           "message": "add display name mapping for featured projects, clean up summaries",
           "url": "https://github.com/cmbenello/cmbenello.github.io/commit/22c5e164e31dcf73881b5e6284dbe5a0456be7c5",
-          "date": "2026-03-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "ccbe7ae",
-          "message": "add gitignore, commit project gif assets",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/ccbe7ae8fb8bb694123086a988301890a2fab954",
           "date": "2026-03-30",
           "author": "Charles Benello"
         }
@@ -3724,7 +3997,60 @@
           "author": "Charles Benello"
         }
       ],
-      "commitActivity": [],
+      "commitActivity": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
       "readme": ""
     },
     {
