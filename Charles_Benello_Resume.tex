@@ -1,0 +1,195 @@
+\documentclass[letterpaper,10pt]{article}
+
+\usepackage{latexsym}
+\usepackage[empty]{fullpage}
+\usepackage{titlesec}
+\usepackage{marvosym}
+\usepackage[usenames,dvipsnames]{color}
+\usepackage{verbatim}
+\usepackage{enumitem}
+\usepackage[colorlinks=true, linkcolor=NavyBlue, urlcolor=NavyBlue]{hyperref}
+\usepackage{fancyhdr}
+\usepackage[english]{babel}
+\usepackage{tabularx}
+\usepackage{fontawesome5}
+\usepackage[T1]{fontenc}
+\usepackage{charter}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyfoot{}
+\renewcommand{\headrulewidth}{0pt}
+\renewcommand{\footrulewidth}{0pt}
+
+% Tight margins
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.6in}
+\addtolength{\textwidth}{1.2in}
+\addtolength{\topmargin}{-.7in}
+\addtolength{\textheight}{1.6in}
+
+\urlstyle{same}
+
+\raggedbottom
+\raggedright
+\setlength{\tabcolsep}{0in}
+
+% Sections formatting
+\titleformat{\section}{
+  \vspace{-9pt}\scshape\raggedright\large
+}{}{0em}{}[\color{black}\titlerule \vspace{-9pt}]
+
+% Custom commands
+\newcommand{\resumeItem}[1]{
+  \item\small{
+    {#1 \vspace{-3pt}}
+  }
+}
+
+\newcommand{\resumeSubheading}[4]{
+  \item
+    \begin{tabular*}{0.99\textwidth}[t]{l@{\extracolsep{\fill}}r}
+      \textbf{#1} & #2 \\
+      \textit{\small#3} & \textit{\small #4} \\
+    \end{tabular*}\vspace{-8pt}
+}
+
+\newcommand{\resumeProjectHeading}[2]{
+    \item
+    \begin{tabular*}{0.99\textwidth}{l@{\extracolsep{\fill}}r}
+      \small#1 & #2 \\
+    \end{tabular*}\vspace{-8pt}
+}
+
+\renewcommand\labelitemii{$\vcenter{\hbox{\tiny$\bullet$}}$}
+
+\newcommand{\resumeSubHeadingListStart}{\begin{itemize}[leftmargin=0.015in, label={}]}
+\newcommand{\resumeSubHeadingListEnd}{\end{itemize}}
+\newcommand{\resumeItemListStart}{\begin{itemize}[leftmargin=0.15in]}
+\newcommand{\resumeItemListEnd}{\end{itemize}\vspace{-7pt}}
+
+\begin{document}
+
+%----------HEADING----------
+\begin{center}
+    \textbf{\Huge \scshape Charles Benello} \\ \vspace{1pt}
+    \small +1(312) 989-9950 $|$ \href{mailto:cmbenello@uchicago.edu}{\underline{cmbenello@uchicago.edu}} $|$
+    \href{https://linkedin.com/in/charles-benello/}{\underline{linkedin.com/in/charles-benello}} $|$
+    \href{https://cmbenello.github.io}{\underline{cmbenello.github.io}}
+\end{center}
+
+%-----------EDUCATION-----------
+\section{Education}
+  \resumeSubHeadingListStart
+    \resumeSubheading
+      {The University of Chicago}{Chicago, IL}
+      {Master of Science in Financial Mathematics}{Expected Dec 2026}
+      \resumeItemListStart
+        \resumeItem{Coursework: ML in SWE, ML in Finance, Agentic AI, Distributed Systems, Reinforcement Learning}
+      \resumeItemListEnd
+    \resumeSubheading
+      {The University of Chicago \textbf{$|$ GPA: 3.75/4.0}}{Chicago, IL}
+      {Bachelor of Science in Mathematics and Computer Science, Minor in Korean}{Jun 2025}
+      \resumeItemListStart
+        \resumeItem{Coursework: Database Systems, Operating Systems, Algorithms, Concurrency Control, Computer Architecture, Networks}
+      \resumeItemListEnd
+  \resumeSubHeadingListEnd
+
+%-----------EXPERIENCE-----------
+\section{Experience}
+  \resumeSubHeadingListStart
+
+    \resumeSubheading
+      {Software Engineering Intern}{Feb 2026 -- Present}
+      {Alter Domus}{Chicago, IL}
+      \resumeItemListStart
+        \resumeItem{Lifted document extraction accuracy from \textbf{50\% to 92--97\%} by architecting a multi-stage pipeline with schema-enforced structured output and cross-reference verification for 100+ page financial documents.}
+        \resumeItem{Reduced hallucination rates across the platform's AI systems by building an \textbf{LLM-as-a-Judge evaluation framework} with automated benchmarks for faithfulness, numerical accuracy, and completeness.}
+        \resumeItem{Cut \textbf{LLM inference costs} and improved response speed by optimizing context handling, adding personalization to client-facing AI, and removing context length barriers for large document ingestion.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Database Research Assistant}{Apr 2023 -- Present}
+      {ChiData Research Lab, University of Chicago}{Chicago, IL}
+      \resumeItemListStart
+        \resumeItem{First-authored \textbf{VLDB 2026} paper by designing a parallel external merge sort in \textbf{Rust} that completes under tight memory budgets where PostgreSQL, DuckDB, and ClickHouse abort.}
+        \resumeItem{Sole-authored \textbf{HPTS 2026} paper by building a lightweight prediction model for sort configuration on cloud/disaggregated hardware, transferring calibration across machines within \textbf{3--5\% of optimal}.}
+        \resumeItem{Improved random access speed by \textbf{200\%} and reduced memory footprint by \textbf{40\%} by engineering Small String Optimization for storage structures.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Quantitative Researcher}{Mar 2026 -- Present}
+      {PayPal (UChicago Project Lab)}{Chicago, IL}
+      \resumeItemListStart
+        \resumeItem{Designing \textbf{representation strategies} for transaction foundation models by comparing multi-token vs.\ single-token encoding and time-delta strategies (score-relative vs.\ inter-event) over \textbf{24M+ transactions} for fraud detection.}
+        \resumeItem{Evaluating \textbf{BERT-style masked prediction vs.\ GPT-style next-token prediction} architectures with ablations across tokenization, time encoding, and context window size; built end-to-end data pipeline (CSV $\rightarrow$ Parquet $\rightarrow$ PyTorch).}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {Quantitative Researcher}{Oct -- Dec 2025}
+      {Bank of America (UChicago Project Lab)}{Chicago, IL}
+      \resumeItemListStart
+        \resumeItem{Built an AI-driven platform to \textbf{rebalance high-quality liquid asset portfolios}, generating trade recommendations that minimize risk exposure over 6-month projections under capital, liquidity, and net interest income constraints.}
+        \resumeItem{Shipped \textbf{full-stack interfaces} (Next.js, Flask, React Native, FastAPI) and engineered a \textbf{multi-agent LLM debate system} where competing agents generate macro stress scenarios and produce probability-weighted reallocation recommendations.}
+      \resumeItemListEnd
+
+    \resumeSubheading
+      {GPU Systems Researcher}{Jun -- Sep 2025}
+      {EPFL (DIAS Lab)}{Lausanne, Switzerland}
+      \resumeItemListStart
+        \resumeItem{Cut out-of-memory query times by \textbf{50--200\%} by engineering a macroblock-based GPU decompression strategy in \textbf{CUDA/C++} for large analytical workloads.}
+        \resumeItem{Drove a new \textbf{cost-based compression} research direction by benchmarking GPU compression techniques with resource contention models and building performance models enabling adaptive decompression on TPC-DS workloads.}
+      \resumeItemListEnd
+
+  \resumeSubHeadingListEnd
+
+%-----------PROJECTS-----------
+\section{Projects}
+    \resumeSubHeadingListStart
+      \resumeProjectHeading
+          {\textbf{Transit Optimizer} $|$ \emph{Python} $|$ \small{\href{https://cmbenello.github.io/covtsp}{cmbenello.github.io/covtsp}}}{2026}
+          \resumeItemListStart
+            \resumeItem{Beat the Guinness World Record by \textbf{60 min} (16h45m vs.\ 17h45m) by building a fully automated Covering TSP pipeline: given a city name, fetches GTFS feeds and \textbf{Google Maps} walking data, builds a time-expanded graph (160K nodes, 1.26M edges), and runs k-NN with urgency scoring, hard-station auto-detection, and epsilon-greedy search. Generalized to NYC (475 stations) and Berlin.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{MiniMetro RL} $|$ \emph{Python, PyTorch} $|$ \small{\href{https://cmbenello.github.io/MiniMetro}{cmbenello.github.io/MiniMetro}}}{2025}
+          \resumeItemListStart
+            \resumeItem{Built a custom \textbf{Gymnasium environment} simulating the transit-building game Mini Metro, with a full game engine (stations, lines, passengers, routing) and trained a \textbf{PPO agent} to learn network construction strategies.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Relational Database Engine} $|$ \emph{Rust} $|$ \small{\href{https://github.com/cmbenello/CrustyDB}{github.com/cmbenello/CrustyDB}}}{2023}
+          \resumeItemListStart
+            \resumeItem{Implemented a \textbf{multi-threaded relational database from scratch}: B+ tree indexing, concurrent buffer pool management with page-level locking, heap storage, and a query execution engine supporting SQL operations.}
+          \resumeItemListEnd
+    \resumeSubHeadingListEnd
+
+%-----------SKILLS-----------
+\section{Technical Skills}
+ \begin{itemize}[leftmargin=0.015in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Python, Rust, C/C++, Go, TypeScript, JavaScript, SQL, CUDA} \\
+     \textbf{Frameworks \& Tools}{: PyTorch, React, Next.js, Flask, FastAPI, React Native, Git, Linux, DuckDB, XGBoost} \\
+     \textbf{Concepts}{: Distributed Systems, Database Internals, Algorithms, Data Structures, Concurrency, GPU Programming, ML, System Design}
+    }}
+ \end{itemize}\vspace{-9pt}
+
+%-----------PUBLICATIONS-----------
+\section{Publications}
+ \begin{itemize}[leftmargin=0.015in, label={}]
+    \small{\item{
+     {[1] R. Otaki*, \textbf{C. Benello*}, et al. ``CrocSort: Resource-Efficient, Skew-Resilient Parallel External Merge Sort.'' \textit{VLDB 2026.} (*Equal contribution)} \\
+     {[2] \textbf{C. Benello}. ``Getting the Most Out of External Sorting in Cloud and Disaggregated Environments.'' \textit{HPTS 2026.}} \\
+     {[3] R. Otaki, J.H. Chang, \textbf{C. Benello}, A. Elmore, G. Graefe. ``Resource-Adaptive Query Execution.'' \textit{CIDR 2025.}}
+    }}
+ \end{itemize}\vspace{-9pt}
+
+%-----------ADDITIONAL-----------
+\section{Additional}
+ \begin{itemize}[leftmargin=0.015in, label={}]
+    \small{\item{
+     \textbf{Languages}{: Korean (Intermediate), Italian (Intermediate), French (Basic)} \\
+     \textbf{Interests}{: Running (Chicago Marathon '22, '23, '24), Climbing, Weightlifting}
+    }}
+ \end{itemize}
+
+\end{document}

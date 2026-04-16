@@ -1,6 +1,6 @@
 export const ABOUT_PARAGRAPHS = [
   "I'm a software engineer and systems researcher at the University of Chicago, currently interning at Alter Domus where I improve internal and client-facing AI systems for financial asset management. My background spans database internals, high-performance computing, and full-stack development.",
-  "I design and implement large-scale systems - from parallel sorting algorithms in Rust to GPU-accelerated query processing in CUDA to production AI pipelines in Python. I've published in PVLDB and CIDR, working with Professor Aaron Elmore at UChicago's ChiData Lab and Professor Anastasia Ailamaki at EPFL's DIAS Lab.",
+  "I design and implement large-scale systems - from parallel sorting algorithms in Rust to GPU-accelerated query processing in CUDA to production AI pipelines in Python. I've published in VLDB and CIDR, working with Professor Aaron Elmore at UChicago's ChiData Lab and Professor Anastasia Ailamaki at EPFL's DIAS Lab.",
 ];
 
 export const EDUCATION = [
@@ -43,16 +43,16 @@ export const EXPERIENCE = [
     dates: "Aug 2023 - Present",
     logo: "/logos/chidata.png",
     description:
-      "Two published papers (PVLDB, CIDR) and ongoing research on external sort - building predictive models for sort configuration on disaggregated and cloud-native hardware, with prior work on resource-adaptive query execution and engine internals.",
+      "Two published papers (VLDB, CIDR) and ongoing research on external sort - building predictive models for sort configuration on disaggregated and cloud-native hardware, with prior work on resource-adaptive query execution and engine internals.",
     highlights: [
-      "First-authored CrocSort (PVLDB 2026): a parallel external merge sort that completes under tight memory budgets where PostgreSQL, DuckDB, and ClickHouse abort, by jointly planning memory and phase-specific thread counts",
+      "First-authored CrocSort (VLDB 2026): a parallel external merge sort that completes under tight memory budgets where PostgreSQL, DuckDB, and ClickHouse abort, by jointly planning memory and phase-specific thread counts",
       "Co-authored Resource-Adaptive Query Execution with Paged Memory Management (CIDR 2025): enabling query execution to adapt to available memory at runtime",
       "Building a predictive model for CrocSort's configuration knobs on disaggregated and cloud-native hardware - recommending near-optimal (memory, threads) configs without brute-force sweeps, with small-scale calibration transferring to production within ~3% of optimal",
       "Implemented Small String Optimization for more compact string storage, reducing memory usage by 40% and improving query speeds",
     ],
     skills: ["Rust", "DuckDB", "Query Optimization", "Parallel Programming", "Performance Modelling"],
     papers: [
-      { label: "CrocSort - PVLDB 2026", url: "https://github.com/rotaki/ES", note: "In Review" },
+      { label: "CrocSort - VLDB 2026", url: "https://github.com/rotaki/ES" },
       { label: "Resource-Adaptive Query Execution - CIDR 2025", url: "https://vldb.org/cidrdb/papers/2025/p2-otaki.pdf" },
       { label: "Getting the Most Out of External Sorting - HPTS 2026" },
     ],
@@ -60,7 +60,7 @@ export const EXPERIENCE = [
   {
     title: "Software Engineering Intern",
     company: "Alter Domus",
-    dates: "Feb 2026 - Present",
+    dates: "Mar 2026 - Present",
     logo: "/logos/alterdomus.png",
     description:
       "Improving internal and client-facing AI systems for a financial asset management platform: reducing hallucinations, adding personalization, cutting LLM inference costs, and increasing extraction accuracy and response speed.",
@@ -191,7 +191,7 @@ export const PUBLICATIONS = [
   {
     title: "CrocSort: Resource-Efficient, Skew-Resilient Parallel External Merge Sort",
     authors: ["Riki Otaki*", "Charles Benello*", "Fuheng Zhao", "Aaron J. Elmore", "Goetz Graefe"],
-    venue: "PVLDB 19(1), 2026",
+    venue: "VLDB 2026",
     note: "* Equal contribution",
     link: "https://github.com/rotaki/ES",
   },
