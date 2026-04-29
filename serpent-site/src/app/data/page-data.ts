@@ -78,14 +78,15 @@ export const EXPERIENCE = [
     dates: "Mar 2026 - Present",
     logo: "/logos/paypal.png",
     description:
-      "Exploring representation design and architecture choices for a transaction foundation model in a PayPal x UChicago collaboration - investigating how to encode financial transactions for self-supervised pretraining that generalizes across markets without labeled data.",
+      "Building a self-supervised transaction foundation model in the PayPal x UChicago collaboration - a TabBERT-style hierarchical 2-level transformer that learns general-purpose user representations from unlabeled transaction sequences, designed to transfer to fraud detection across markets without per-market labels.",
     highlights: [
-      "Comparing multi-token vs. single-token encoding strategies and time-delta approaches (score-relative vs. inter-event) to find optimal transaction representations over 24M+ transactions",
-      "Benchmarking BERT-style masked prediction against GPT-style next-token prediction architectures, with ablations across tokenization, time encoding, and context window size",
-      "Built end-to-end data pipeline (CSV to Parquet to tokenized PyTorch datasets) with user-level splits, sliding-window batching, and automated vocabulary construction",
-      "Evaluating learned embeddings against traditional ML baselines (XGBoost, MLP) on downstream fraud detection with highly imbalanced data (~0.12% positive rate)",
+      "Achieved AUC 0.974 / F1 0.822 on downstream fraud detection (0.12% positive rate) on the IBM TabFormer benchmark - 47x improvement in F1 over the XGBoost hand-engineered baseline",
+      "Ran 87+ pretraining ablations on UChicago's Midway3 SLURM cluster across architecture (BERT vs. GPT, RoPE vs. learned positions), tokenization (multi vs. single token), time encoding (score-relative vs. inter-event), masking rate, sequence length, and embedding dimension",
+      "Implemented per-field masking and SPRM (periodic pattern recognition with dilated convolutions + learnable prototypes) from PANTHER (NeurIPS 2025, WeChat Pay) and PRAGMA (Revolut GTC 2026); per-field masking alone yielded +1.9% AUC and +16.8% F1 at zero extra parameters",
+      "Found that merchant_name, merchant_city, and zip were entirely unused in the original pipeline; added BPE tokenization for city text and high-cardinality categorical encoding for names/zips, lifting performance to a new best of AUC 0.968 / F1 0.756 on the merchant-augmented config",
+      "Extending to cross-market transfer from TabFormer (US synthetic, 24M txns) to Sber MBD (Russian, 1.48M clients, 50x scale, multimodal txn + geo + dialog + product purchases) for cold-start fraud detection in new markets",
     ],
-    skills: ["PyTorch", "Transformers", "Python", "XGBoost", "Self-Supervised Learning"],
+    skills: ["PyTorch", "Transformers", "Self-Supervised Learning", "SLURM", "BPE Tokenization", "XGBoost"],
   },
   {
     title: "Quantitative Researcher",
