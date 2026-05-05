@@ -984,8 +984,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
 
   const featuredProjects = useMemo(() => {
     const featured = allProjects.filter((p) => p.featured);
-    // Explicit order: covtsp, es, bofa_hqla
-    const order = ["covtsp", "es", "bofa_hqla"];
+    // Explicit order: covtsp, es, gpu-research, bofa_hqla
+    const order = ["covtsp", "es", "gpu-research", "bofa_hqla"];
     return featured.sort((a, b) => {
       const ai = order.indexOf(a.repo.split("/").pop() ?? "");
       const bi = order.indexOf(b.repo.split("/").pop() ?? "");

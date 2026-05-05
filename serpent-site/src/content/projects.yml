@@ -13,12 +13,10 @@
 # Personal
 - repo: cmbenello/mcpm
   category: personal
-  featured: true
   summary: "A package manager for MCP servers — discover, install, and manage MCP servers for Claude Code in one command."
 
 - repo: cmbenello/claudegen
   category: personal
-  featured: true
   summary: "Auto-generate optimized CLAUDE.md files — scans your project and gives Claude Code the context it needs."
 
 - repo: cmbenello/oss-launch
@@ -56,12 +54,59 @@
   featured: true
   image: /images/projects/es.png
 
-# School
+- repo: cmbenello/gpu-research
+  category: research
+  featured: true
+
+# Classes
 - repo: cmbenello/finm-367
-  category: school
+  category: classes
 
 - repo: cmbenello/finm-325
-  category: school
+  category: classes
+
+- repo: cmbenello/finm-327
+  category: classes
+
+# Side Projects
+- repo: cmbenello/Advent-of-Code
+  category: side-projects
+
+- repo: cmbenello/Chess-v-Checkers
+  category: side-projects
+
+- repo: cmbenello/ci-testing
+  category: side-projects
+
+- repo: cmbenello/cmbenello
+  category: side-projects
+
+- repo: cmbenello/cmbenello.github.io
+  category: side-projects
+
+- repo: cmbenello/configs
+  category: side-projects
+
+- repo: cmbenello/epfl-scripts
+  category: side-projects
+
+- repo: cmbenello/Leetcode
+  category: side-projects
+
+- repo: cmbenello/MAAD
+  category: side-projects
+
+- repo: cmbenello/parallel-merge-sort
+  category: side-projects
+
+- repo: cmbenello/run
+  category: side-projects
+
+- repo: cmbenello/rust-benchmark-audit
+  category: side-projects
+
+- repo: cmbenello/TSPmetro-Draft
+  category: side-projects
 
 # Teaching
 - repo: cmbenello/141-discussion
