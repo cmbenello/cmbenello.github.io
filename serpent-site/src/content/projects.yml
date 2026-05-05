@@ -68,6 +68,9 @@
 - repo: cmbenello/finm-327
   category: classes
 
+- repo: cmbenello/finm-3295
+  category: classes
+
 # Side Projects
 - repo: cmbenello/Advent-of-Code
   category: side-projects

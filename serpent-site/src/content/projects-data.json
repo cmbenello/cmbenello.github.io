@@ -3007,6 +3007,45 @@
       "readme": "GitHub to track submissions/participations for finm 325"
     },
     {
+      "name": "finm-3295",
+      "repo": "cmbenello/finm-3295",
+      "url": "https://github.com/cmbenello/finm-3295",
+      "category": "classes",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-3295",
+      "homepage": "",
+      "language": "C++",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-04-16",
+      "createdAt": "2026-04-16",
+      "pushedAt": "2026-04-16",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "ea23130",
+          "message": "add parallel scaling benchmark across 1,2,4,8 threads",
+          "url": "https://github.com/cmbenello/finm-3295/commit/ea2313031321de67caa37fab77f4e707057196c6",
+          "date": "2026-04-16",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "c8f2079",
+          "message": "add assignment 2 - BS option chain with OpenMP",
+          "url": "https://github.com/cmbenello/finm-3295/commit/c8f207921b831ce91169358fc7c1bb604d2227eb",
+          "date": "2026-04-16",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
       "name": "finm-367",
       "repo": "cmbenello/finm-367",
       "url": "https://github.com/cmbenello/finm-367",
