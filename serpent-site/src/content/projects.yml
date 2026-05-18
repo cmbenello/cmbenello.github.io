@@ -11,6 +11,11 @@
   category: machine-learning
 
 # Personal
+- repo: cmbenello/leetcode-anki
+  category: personal
+  featured: true
+  summary: "Spaced repetition Chrome extension for LeetCode + NeetCode with GitHub-synced progress tracking."
+
 - repo: cmbenello/mcpm
   category: personal
   summary: "A package manager for MCP servers — discover, install, and manage MCP servers for Claude Code in one command."
