@@ -82,7 +82,7 @@
   \resumeSubHeadingListStart
     \resumeSubheading
       {The University of Chicago}{Chicago, IL}
-      {Master of Science in Financial Mathematics}{Expected Dec 2026}
+      {Master of Science in Financial Mathematics}{Expected Mar 2027}
       \resumeItemListStart
         \resumeItem{Wayne Booth Graduate Student Teaching Prize (2026) - UChicago's top graduate teaching award}
         \resumeItem{Coursework: Distributed Systems, ML in SWE, Agentic AI, Reinforcement Learning, Computing for Finance}
@@ -142,17 +142,17 @@
       \resumeProjectHeading
           {\textbf{GPU CrocSort} $|$ \emph{CUDA, C++} $|$ \small{\href{https://github.com/cmbenello/gpu-research}{github.com/cmbenello/gpu-research}}}{2025--Present}
           \resumeItemListStart
-            \resumeItem{Ported CrocSort to GPU with a novel shared-memory K-way merge tree (log$_2$K levels of 2-way merge-path inside shared memory), bridging the prior tradeoff between high merge fan-in and full intra-block parallelism. 8-way merge cuts HBM traffic 3$\times$ vs.\ 2-way merge-path on 19,531 runs (10 GB vs.\ 30 GB on 1 GB data); targets 85--90\% of A100/H100 HBM peak with adaptive cost-based config selection across radix vs.\ K-way merge.}
+            \resumeItem{Ported CrocSort (VLDB 2026) to GPU. On TPC-H SF50 ORDER BY lineitem (300M rows, 36 GB) beats DuckDB by 20.1$\times$ and Polars by 34.5$\times$ on a single PCIe-Gen3 GPU; 2.4$\times$ faster than MendSort (best published single-node CPU sort, JouleSort 2023). Designed a cost-based plan-time selector between compact-key and full-key paths with a measured 32-byte entropy crossover; cut PCIe amplification to 0.14$\times$ via key-only upload + permutation gather + triple-buffered streaming.}
           \resumeItemListEnd
       \resumeProjectHeading
-          {\textbf{SQL Query Executor} $|$ \emph{Rust} $|$ \small{\href{https://github.com/cmbenello/query_exec}{github.com/cmbenello/query\_exec}}}{2024}
+          {\textbf{Concurrent Database Engine} $|$ \emph{Rust} $|$ \small{\href{https://github.com/cmbenello/CrustyDB}{github.com/cmbenello/CrustyDB}}}{2025}
           \resumeItemListStart
-            \resumeItem{Built a SQL query executor in Rust supporting all 22 TPC-H benchmark queries, including ORDER BY, CTEs, mark joins, semi-joins, subqueries, IN-lists, casts, and complex filter predicates.}
+            \resumeItem{Built a multi-threaded relational database from scratch in Rust: B+ tree indexing, concurrent buffer pool with page-level locking, heap storage, and a SQL query execution engine.}
           \resumeItemListEnd
       \resumeProjectHeading
-          {\textbf{Relational Database Engine} $|$ \emph{Rust} $|$ \small{\href{https://github.com/cmbenello/CrustyDB}{github.com/cmbenello/CrustyDB}}}{2023}
+          {\textbf{Transit Coverage Optimizer} $|$ \emph{Python} $|$ \small{\href{https://cmbenello.github.io/covtsp}{cmbenello.github.io/covtsp}}}{2026}
           \resumeItemListStart
-            \resumeItem{Implemented a multi-threaded relational database from scratch: B+ tree indexing, concurrent buffer pool with page-level locking, heap storage, and a SQL query execution engine.}
+            \resumeItem{Beat the Guinness World Record by 60 minutes (16h45m vs.\ 17h45m) with an automated Covering TSP pipeline: fetches GTFS feeds and Google Maps walking data, builds a time-expanded graph (160K nodes, 1.26M edges), and runs k-NN with urgency scoring and epsilon-greedy search. Generalized to NYC (475 stations) and Berlin.}
           \resumeItemListEnd
     \resumeSubHeadingListEnd
 

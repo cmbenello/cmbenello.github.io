@@ -1,5 +1,5 @@
 export const ABOUT_PARAGRAPHS = [
-  "I'm a software engineer and systems researcher at the University of Chicago, currently interning at Alter Domus where I improve internal and client-facing AI systems for financial asset management. My background spans database internals, high-performance computing, and full-stack development.",
+  "I'm a software engineer and systems researcher at the University of Chicago. This fall I'm joining Amazon Web Services in Palo Alto as a Software Development Engineer Intern on the Redshift query optimization team. I'm currently interning at Alter Domus, building AI systems for financial asset management. My background spans database internals, high-performance computing, and full-stack development.",
   "I design and implement large-scale systems - from parallel sorting algorithms in Rust to GPU-accelerated query processing in CUDA to production AI pipelines in Python. I've published in VLDB and CIDR, working with Professor Aaron Elmore at UChicago's ChiData Lab and Professor Anastasia Ailamaki at EPFL's DIAS Lab.",
 ];
 
@@ -29,14 +29,24 @@ export const EDUCATION = [
 ];
 
 export const CURRENT_WORK = [
+  "Incoming SDE intern at AWS Redshift (Palo Alto, fall 2026), working on query optimization",
   "Research: adaptive sort configuration across disaggregated and cloud-native hardware",
   "Research: GPU-accelerated compression for analytical databases",
   "Evaluating policy compliance gaps in Rust LLM code generation benchmarks",
   "CovTSP: near-optimal transit coverage solver using real GTFS network data",
-  "New IDE interface designed around LLM-assisted development workflows",
 ];
 
 export const EXPERIENCE = [
+  {
+    title: "Software Development Engineer Intern (Incoming)",
+    company: "AWS — Amazon Redshift",
+    dates: "Aug 2026 - Nov 2026",
+    logo: "/logos/aws.png",
+    description:
+      "Joining the Amazon Redshift team in Palo Alto as a Software Development Engineer Intern, working on query optimization for AWS's flagship cloud data warehouse.",
+    highlights: [],
+    skills: ["Query Optimization", "Distributed Systems", "Cloud Data Warehousing", "C++"],
+  },
   {
     title: "Database Research Assistant",
     company: "ChiData Research Lab",

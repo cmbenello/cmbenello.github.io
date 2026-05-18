@@ -1,0 +1,48 @@
+\documentclass[letterpaper,11pt]{article}
+
+\usepackage[empty]{fullpage}
+\usepackage[T1]{fontenc}
+\usepackage{mathptmx}
+\usepackage[colorlinks=true, linkcolor=NavyBlue, urlcolor=NavyBlue]{hyperref}
+\usepackage{parskip}
+
+\addtolength{\oddsidemargin}{-0.6in}
+\addtolength{\evensidemargin}{-0.6in}
+\addtolength{\textwidth}{1.2in}
+\addtolength{\topmargin}{-0.7in}
+\addtolength{\textheight}{1.6in}
+
+\setlength{\parskip}{5pt}
+
+\begin{document}
+
+\noindent\textbf{\large Charles Benello} \hfill \today \\
+\noindent +1(312) 989-9950 $|$ cmbenello@uchicago.edu $|$ Chicago, IL
+
+\vspace{6pt}
+
+\noindent\textbf{Exponential Technologies -- Quantitative Research Summer Intern}
+
+\vspace{2pt}
+
+I'm a UChicago Master's student in Financial Mathematics applying for the Quantitative Research Summer Intern role. What pulled me toward Exponential is Tesseract Agentic Analytics: the combination of institutional flow data, macro forecasting, and an agentic interface on top is unusually close to the kind of work I've been gravitating toward over the last year.
+
+The role splits across six tracks. I'd be happy on any of them, but I want to be specific about where my background is strongest and where I'd be ramping, so the staffing decision can be driven by fit rather than my preference.
+
+\textbf{Strongest fit: AI-Driven Backtesting Agent.} At Bank of America (UChicago Project Lab) last fall I built an AI-driven platform to rebalance HQLA portfolios under capital, liquidity, and net interest income constraints. The core was a multi-agent LLM debate system: competing agents generate macro stress scenarios, debate the implications, and produce probability-weighted reallocation recommendations. The architecture is the same shape as what your agent project describes -- users defining and stress-testing strategy components, with an agent orchestrating the experiment loop. I shipped a Next.js scenario explorer, a Flask yield curve dashboard, a FastAPI service exposing the optimizer, and a daily ingestion pipeline pulling UST yield curves and macro data into structured snapshots.
+
+Backtesting an agent is fundamentally an evaluation problem, which is the half I work on at my current SWE internship at Alter Domus. I built an LLM-as-a-Judge framework with automated benchmarks for faithfulness, numerical accuracy, and completeness. The same patterns -- scoring against ground truth, isolating modes of failure, regression-testing prompts and configs -- carry over to evaluating an agent that defines and tests strategy components.
+
+\textbf{Time-series modeling at scale: PayPal foundation model.} I'm currently a quantitative researcher at PayPal through Project Lab, building a self-supervised transaction foundation model: a TabBERT-style hierarchical 2-level transformer ($\sim$5M params) on 14.5M unlabeled transactions, evaluated on the IBM TabFormer benchmark (24M txns, 0.12\% fraud rate). I've run 87+ pretraining ablations on UChicago's Midway3 SLURM cluster comparing BERT-style vs.\ GPT-style architectures, with sweeps across tokenization, time encoding (score-relative vs.\ inter-event), masking rate, and sequence length. I implemented per-field masking from PRAGMA (Revolut 2026) and the SPRM module from PANTHER (NeurIPS 2025), with per-field masking alone yielding +1.9\% AUC and +16.8\% F1. Best result so far is AUC 0.974 / F1 0.822. Most of this is transformer-based time-series rather than ARIMA-style classical econometrics, but I've spent real time on temporal encodings and probability calibration on heavily imbalanced data, which is the regime where flow-signal evaluation also lives.
+
+\textbf{White papers.} Three published papers in database systems and resource-adaptive query execution (VLDB 2026, CIDR 2025, HPTS 2026), one sole-authored. Comfortable writing at academic length and have a sense of how to scope a paper from problem framing through publication.
+
+\textbf{Honest about limitations.} My ML background leans neural and self-supervised. I've used XGBoost and MLPs as baselines at PayPal, but I'm not coming in fluent on tree-based ML or classical ARIMA-style econometrics. For the macro-forecast and flow-analytics tracks specifically, I'd be ramping up on those tools rather than leading from day one. That's a fast ramp, but I'd rather be upfront about it.
+
+The unpaid structure is fine on my end. What I'm looking for is a chance to ship real work with people who already think carefully about institutional flow data and signal development. I'm available the full summer and can hit the 6-hour core-team overlap comfortably from Chicago. Happy to share more detail on any of the above.
+
+\vspace{4pt}
+
+\noindent Charles Benello
+
+\end{document}

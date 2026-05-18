@@ -125,7 +125,7 @@
       \resumeItemListStart
         \resumeItem{First-authored VLDB 2026 paper by designing a parallel external merge sort in Rust that completes under tight memory budgets where PostgreSQL, DuckDB, and ClickHouse abort.}
         \resumeItem{Sole-authored HPTS 2026 paper by building a lightweight prediction model for sort configuration on cloud/disaggregated hardware, transferring calibration across machines within 3--5\% of optimal.}
-        \resumeItem{Improved random access speed by 200\% and reduced memory footprint by 40\% by engineering Small String Optimization for storage structures.}
+        \resumeItem{Improved random access speed by 200\% and reduced memory footprint by 40\% by engineering Small String Optimization across storage structures, inlining short keys directly into nodes to eliminate heap allocations and pointer chases on the hot path.}
       \resumeItemListEnd
 
     \resumeSubheading
