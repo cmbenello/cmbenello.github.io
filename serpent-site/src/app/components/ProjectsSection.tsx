@@ -411,7 +411,7 @@ function CardThumbnail({
           src={displayImage}
           alt={project.name}
           loading="lazy"
-          className="absolute inset-0 h-full w-full object-cover"
+          className={`absolute inset-0 h-full w-full object-cover ${project.name === "leetcode-anki" ? "object-top" : ""}`}
           onError={onImgError}
         />
       ) : (
@@ -1160,6 +1160,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 const show = img && !img.includes("opengraph.githubassets.com");
                 const [lg1, lg2] = getLangGradient(p.language);
                 const isBofA = p.name === "bofa_hqla";
+                const isLeetcodeAnki = p.name === "leetcode-anki";
                 return (
                   <div
                     key={p.repo}
@@ -1176,7 +1177,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                       <img
                         src={img}
                         alt={p.name}
-                        className={`h-full w-full ${isBofA ? "object-contain" : "object-cover"}`}
+                        className={`h-full w-full ${isBofA ? "object-contain" : "object-cover"} ${isLeetcodeAnki ? "object-top" : ""}`}
                       />
                     ) : (
                       <div
@@ -1245,7 +1246,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         aria-label={`Show ${p.name}`}
                       >
                         {showThumb ? (
-                          <img src={thumb} alt={p.name} className="h-full w-full object-cover" />
+                          <img src={thumb} alt={p.name} className={`h-full w-full object-cover ${p.name === "leetcode-anki" ? "object-top" : ""}`} />
                         ) : (
                           <div className="h-full w-full" style={{ background: `linear-gradient(135deg, ${tg1}, ${tg2})` }} />
                         )}
@@ -1526,7 +1527,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         <img
                           src={activeProject.image}
                           alt={`${activeProject.name} cover`}
-                          className="h-48 w-full object-cover"
+                          className={`h-48 w-full object-cover ${activeProject.name === "leetcode-anki" ? "object-top" : ""}`}
                         />
                       </div>
                     </div>
