@@ -15,6 +15,7 @@
   category: personal
   featured: true
   summary: "Spaced repetition Chrome extension for LeetCode + NeetCode with GitHub-synced progress tracking."
+  image: /images/projects/leetcode-anki.png
 
 - repo: cmbenello/mcpm
   category: personal

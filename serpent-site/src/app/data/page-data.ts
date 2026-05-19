@@ -39,7 +39,7 @@ export const CURRENT_WORK = [
 export const EXPERIENCE = [
   {
     title: "Software Development Engineer Intern (Incoming)",
-    company: "AWS — Amazon Redshift",
+    company: "AWS Redshift",
     dates: "Aug 2026 - Nov 2026",
     logo: "/logos/aws.png",
     description:
