@@ -1,18 +1,13 @@
 {
-  "generatedAt": "2026-04-11T06:33:04.919Z",
+  "generatedAt": "2026-05-19T05:16:56.131Z",
   "user": "cmbenello",
   "contributions": {
-    "totalContributions": 401,
+    "totalContributions": 1057,
     "months": [
-      {
-        "name": "Apr",
-        "firstDay": "2025-04-01",
-        "totalWeeks": 4
-      },
       {
         "name": "May",
         "firstDay": "2025-05-01",
-        "totalWeeks": 4
+        "totalWeeks": 2
       },
       {
         "name": "Jun",
@@ -67,233 +62,18 @@
       {
         "name": "Apr",
         "firstDay": "2026-04-01",
-        "totalWeeks": 1
+        "totalWeeks": 4
+      },
+      {
+        "name": "May",
+        "firstDay": "2026-05-01",
+        "totalWeeks": 3
       }
     ],
     "weeks": [
       {
-        "firstDay": "2025-04-11",
+        "firstDay": "2025-05-19",
         "contributionDays": [
-          {
-            "date": "2025-04-11",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-12",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-04-13",
-        "contributionDays": [
-          {
-            "date": "2025-04-13",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-14",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-15",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-16",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-17",
-            "contributionCount": 3,
-            "color": "#9be9a8"
-          },
-          {
-            "date": "2025-04-18",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-19",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-04-20",
-        "contributionDays": [
-          {
-            "date": "2025-04-20",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-21",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-22",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-23",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-24",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-25",
-            "contributionCount": 1,
-            "color": "#9be9a8"
-          },
-          {
-            "date": "2025-04-26",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-04-27",
-        "contributionDays": [
-          {
-            "date": "2025-04-27",
-            "contributionCount": 1,
-            "color": "#9be9a8"
-          },
-          {
-            "date": "2025-04-28",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-29",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-04-30",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-01",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-02",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-03",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-05-04",
-        "contributionDays": [
-          {
-            "date": "2025-05-04",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-05",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-06",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-07",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-08",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-09",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-10",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-05-11",
-        "contributionDays": [
-          {
-            "date": "2025-05-11",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-12",
-            "contributionCount": 2,
-            "color": "#9be9a8"
-          },
-          {
-            "date": "2025-05-13",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-14",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-15",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-16",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-17",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-05-18",
-        "contributionDays": [
-          {
-            "date": "2025-05-18",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
           {
             "date": "2025-05-19",
             "contributionCount": 0,
@@ -502,12 +282,12 @@
           {
             "date": "2025-06-24",
             "contributionCount": 11,
-            "color": "#30a14e"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-06-25",
             "contributionCount": 13,
-            "color": "#216e39"
+            "color": "#40c463"
           },
           {
             "date": "2025-06-26",
@@ -1052,7 +832,7 @@
           {
             "date": "2025-09-28",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-09-29",
@@ -1132,7 +912,7 @@
           {
             "date": "2025-10-12",
             "contributionCount": 7,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-10-13",
@@ -1172,7 +952,7 @@
           {
             "date": "2025-10-19",
             "contributionCount": 13,
-            "color": "#216e39"
+            "color": "#40c463"
           },
           {
             "date": "2025-10-20",
@@ -1197,7 +977,7 @@
           {
             "date": "2025-10-24",
             "contributionCount": 7,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-10-25",
@@ -1232,7 +1012,7 @@
           {
             "date": "2025-10-30",
             "contributionCount": 8,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-10-31",
@@ -1417,7 +1197,7 @@
           {
             "date": "2025-12-01",
             "contributionCount": 7,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-12-02",
@@ -1557,7 +1337,7 @@
           {
             "date": "2025-12-26",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2025-12-27",
@@ -1592,7 +1372,7 @@
           {
             "date": "2026-01-01",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-01-02",
@@ -1616,8 +1396,8 @@
           },
           {
             "date": "2026-01-05",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2026-01-06",
@@ -1702,17 +1482,17 @@
           {
             "date": "2026-01-20",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-01-21",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-01-22",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2026-01-23",
@@ -1952,17 +1732,17 @@
           {
             "date": "2026-03-05",
             "contributionCount": 11,
-            "color": "#30a14e"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-06",
             "contributionCount": 11,
-            "color": "#30a14e"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-07",
             "contributionCount": 6,
-            "color": "#40c463"
+            "color": "#9be9a8"
           }
         ]
       },
@@ -2042,7 +1822,7 @@
           {
             "date": "2026-03-21",
             "contributionCount": 12,
-            "color": "#30a14e"
+            "color": "#40c463"
           }
         ]
       },
@@ -2057,32 +1837,32 @@
           {
             "date": "2026-03-23",
             "contributionCount": 11,
-            "color": "#30a14e"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-24",
             "contributionCount": 17,
-            "color": "#216e39"
+            "color": "#40c463"
           },
           {
             "date": "2026-03-25",
             "contributionCount": 6,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-26",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-27",
             "contributionCount": 16,
-            "color": "#216e39"
+            "color": "#40c463"
           },
           {
             "date": "2026-03-28",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           }
         ]
       },
@@ -2092,12 +1872,12 @@
           {
             "date": "2026-03-29",
             "contributionCount": 10,
-            "color": "#30a14e"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-03-30",
             "contributionCount": 15,
-            "color": "#216e39"
+            "color": "#40c463"
           },
           {
             "date": "2026-03-31",
@@ -2106,8 +1886,8 @@
           },
           {
             "date": "2026-04-01",
-            "contributionCount": 6,
-            "color": "#40c463"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2026-04-02",
@@ -2116,13 +1896,13 @@
           },
           {
             "date": "2026-04-03",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2026-04-04",
-            "contributionCount": 3,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           }
         ]
       },
@@ -2131,7 +1911,7 @@
         "contributionDays": [
           {
             "date": "2026-04-05",
-            "contributionCount": 2,
+            "contributionCount": 1,
             "color": "#9be9a8"
           },
           {
@@ -2141,28 +1921,248 @@
           },
           {
             "date": "2026-04-07",
-            "contributionCount": 1,
-            "color": "#9be9a8"
+            "contributionCount": 0,
+            "color": "#ebedf0"
           },
           {
             "date": "2026-04-08",
-            "contributionCount": 1,
+            "contributionCount": 2,
             "color": "#9be9a8"
           },
           {
             "date": "2026-04-09",
             "contributionCount": 5,
-            "color": "#40c463"
+            "color": "#9be9a8"
           },
           {
             "date": "2026-04-10",
-            "contributionCount": 6,
-            "color": "#40c463"
+            "contributionCount": 5,
+            "color": "#9be9a8"
           },
           {
             "date": "2026-04-11",
-            "contributionCount": 14,
+            "contributionCount": 47,
             "color": "#216e39"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-04-12",
+        "contributionDays": [
+          {
+            "date": "2026-04-12",
+            "contributionCount": 102,
+            "color": "#216e39"
+          },
+          {
+            "date": "2026-04-13",
+            "contributionCount": 79,
+            "color": "#216e39"
+          },
+          {
+            "date": "2026-04-14",
+            "contributionCount": 16,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-04-15",
+            "contributionCount": 33,
+            "color": "#30a14e"
+          },
+          {
+            "date": "2026-04-16",
+            "contributionCount": 7,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-17",
+            "contributionCount": 7,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-18",
+            "contributionCount": 4,
+            "color": "#9be9a8"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-04-19",
+        "contributionDays": [
+          {
+            "date": "2026-04-19",
+            "contributionCount": 5,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-20",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-21",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-22",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-23",
+            "contributionCount": 7,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-24",
+            "contributionCount": 5,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-25",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-04-26",
+        "contributionDays": [
+          {
+            "date": "2026-04-26",
+            "contributionCount": 0,
+            "color": "#ebedf0"
+          },
+          {
+            "date": "2026-04-27",
+            "contributionCount": 5,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-28",
+            "contributionCount": 6,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-29",
+            "contributionCount": 5,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-04-30",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-01",
+            "contributionCount": 14,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-05-02",
+            "contributionCount": 46,
+            "color": "#216e39"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-05-03",
+        "contributionDays": [
+          {
+            "date": "2026-05-03",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-04",
+            "contributionCount": 2,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-05",
+            "contributionCount": 4,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-06",
+            "contributionCount": 24,
+            "color": "#30a14e"
+          },
+          {
+            "date": "2026-05-07",
+            "contributionCount": 35,
+            "color": "#216e39"
+          },
+          {
+            "date": "2026-05-08",
+            "contributionCount": 33,
+            "color": "#30a14e"
+          },
+          {
+            "date": "2026-05-09",
+            "contributionCount": 24,
+            "color": "#30a14e"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-05-10",
+        "contributionDays": [
+          {
+            "date": "2026-05-10",
+            "contributionCount": 22,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-05-11",
+            "contributionCount": 30,
+            "color": "#30a14e"
+          },
+          {
+            "date": "2026-05-12",
+            "contributionCount": 18,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-05-13",
+            "contributionCount": 46,
+            "color": "#216e39"
+          },
+          {
+            "date": "2026-05-14",
+            "contributionCount": 20,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-05-15",
+            "contributionCount": 15,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-05-16",
+            "contributionCount": 1,
+            "color": "#9be9a8"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-05-17",
+        "contributionDays": [
+          {
+            "date": "2026-05-17",
+            "contributionCount": 2,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-18",
+            "contributionCount": 7,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-19",
+            "contributionCount": 2,
+            "color": "#9be9a8"
           }
         ]
       }
@@ -2170,12 +2170,294 @@
   },
   "projects": [
     {
+      "name": "finm-325",
+      "repo": "cmbenello/finm-325",
+      "url": "https://github.com/cmbenello/finm-325",
+      "category": "classes",
+      "summary": "Assignments for Fin math 325",
+      "description": "Assignments for Fin math 325",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-325",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-12-08",
+      "createdAt": "2025-09-28",
+      "pushedAt": "2025-12-08",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "4917a3d",
+          "message": "tests done",
+          "url": "https://github.com/cmbenello/finm-325/commit/4917a3d950cc83430edf1450097759a1e7d0cae8",
+          "date": "2025-12-08",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "ff8c3b5",
+          "message": "hw12",
+          "url": "https://github.com/cmbenello/finm-325/commit/ff8c3b556ace76f71c619bb246c649d8f584aa75",
+          "date": "2025-12-08",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "7705285",
+          "message": "hw12",
+          "url": "https://github.com/cmbenello/finm-325/commit/770528570a47e23e6aa4147a0820c189b6bd478d",
+          "date": "2025-12-08",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "0cf2687",
+          "message": "oops",
+          "url": "https://github.com/cmbenello/finm-325/commit/0cf2687c04390507bd571c6f25f8ebb9baad5ae3",
+          "date": "2025-12-01",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "d661e3b",
+          "message": "issues with floats",
+          "url": "https://github.com/cmbenello/finm-325/commit/d661e3bf9e9d73081978ec74259fa36d5225968b",
+          "date": "2025-12-01",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "4cafc80",
+          "message": "shafting btc",
+          "url": "https://github.com/cmbenello/finm-325/commit/4cafc8016a4bf1b126a079135bb5e28c86ead077",
+          "date": "2025-12-01",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "e86ea11",
+          "message": "bug in btc",
+          "url": "https://github.com/cmbenello/finm-325/commit/e86ea11d842a3d75a272febf2748bb084a7839c0",
+          "date": "2025-12-01",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "dea1210",
+          "message": "oops",
+          "url": "https://github.com/cmbenello/finm-325/commit/dea1210467698188dc91efe391a191dc31b1811d",
+          "date": "2025-12-01",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "GitHub to track submissions/participations for finm 325"
+    },
+    {
+      "name": "finm-327",
+      "repo": "cmbenello/finm-327",
+      "url": "https://github.com/cmbenello/finm-327",
+      "category": "classes",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-327",
+      "homepage": "",
+      "language": "C++",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-05-05",
+      "createdAt": "2026-04-06",
+      "pushedAt": "2026-05-05",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "259f832",
+          "message": "rename session4 -> hw5 (homework 5: optimization)",
+          "url": "https://github.com/cmbenello/finm-327/commit/259f83261bc90cf8d5b13dda648bf35ec9829959",
+          "date": "2026-05-05",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "0724a3c",
+          "message": "session 4 hft data structures with simd and benchmarks",
+          "url": "https://github.com/cmbenello/finm-327/commit/0724a3c804bfd99a725fcec57d7f9d27979eabb6",
+          "date": "2026-05-05",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "5b4f590",
+          "message": "phase 5 string-id order book with optimized variant",
+          "url": "https://github.com/cmbenello/finm-327/commit/5b4f59086f55fdd70f4549ddcebdd3c5e02cf16e",
+          "date": "2026-05-05",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "ad91e5d",
+          "message": "phase 4 hft prototype with latency benchmarks",
+          "url": "https://github.com/cmbenello/finm-327/commit/ad91e5d79d8c24bdfe703e5b8649f99ef4d63652",
+          "date": "2026-04-29",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "4b91582",
+          "message": "hw4 template-based order engine",
+          "url": "https://github.com/cmbenello/finm-327/commit/4b9158229de1fa3bc8e8923537164a09692b26ac",
+          "date": "2026-04-26",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "af818bc",
+          "message": "phase 3 local order book and order manager",
+          "url": "https://github.com/cmbenello/finm-327/commit/af818bc16fd2f9b58fa293d5caa6a9610e72cf32",
+          "date": "2026-04-20",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "c9a91d7",
+          "message": "session 3 memory management & raii",
+          "url": "https://github.com/cmbenello/finm-327/commit/c9a91d7e48963a5fac5e5f56fe6900555dad117d",
+          "date": "2026-04-19",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "460fe1c",
+          "message": "use instructor server/client files",
+          "url": "https://github.com/cmbenello/finm-327/commit/460fe1c3407416b23238cc014c02436ccee2baeb",
+          "date": "2026-04-13",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
+      "name": "finm-3295",
+      "repo": "cmbenello/finm-3295",
+      "url": "https://github.com/cmbenello/finm-3295",
+      "category": "classes",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-3295",
+      "homepage": "",
+      "language": "C++",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-04-16",
+      "createdAt": "2026-04-16",
+      "pushedAt": "2026-04-16",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "ea23130",
+          "message": "add parallel scaling benchmark across 1,2,4,8 threads",
+          "url": "https://github.com/cmbenello/finm-3295/commit/ea2313031321de67caa37fab77f4e707057196c6",
+          "date": "2026-04-16",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "c8f2079",
+          "message": "add assignment 2 - BS option chain with OpenMP",
+          "url": "https://github.com/cmbenello/finm-3295/commit/c8f207921b831ce91169358fc7c1bb604d2227eb",
+          "date": "2026-04-16",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
+      "name": "finm-367",
+      "repo": "cmbenello/finm-367",
+      "url": "https://github.com/cmbenello/finm-367",
+      "category": "classes",
+      "summary": "Repo for Mark Hendrick's class risk and portfolio management",
+      "description": "Repo for Mark Hendrick's class risk and portfolio management",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-367",
+      "homepage": "",
+      "language": "Jupyter Notebook",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-01-05",
+      "createdAt": "2025-10-12",
+      "pushedAt": "2025-11-17",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "e476e6c",
+          "message": "hw7 done",
+          "url": "https://github.com/cmbenello/finm-367/commit/e476e6c20451697f97624b611144ea891c842c2a",
+          "date": "2025-11-17",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "4772d58",
+          "message": "hw5 done",
+          "url": "https://github.com/cmbenello/finm-367/commit/4772d5859a26eae9b664a25683b0b4c4351b9be3",
+          "date": "2025-11-03",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "780b042",
+          "message": "fixed typos",
+          "url": "https://github.com/cmbenello/finm-367/commit/780b0425ff7b226d4dde6a7208f5dee3b6267f2e",
+          "date": "2025-10-27",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "bec492c",
+          "message": "hw4 base done",
+          "url": "https://github.com/cmbenello/finm-367/commit/bec492cf4056bf17890a7b21de50d84570d3edae",
+          "date": "2025-10-26",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "e41aff3",
+          "message": "midterm stuff",
+          "url": "https://github.com/cmbenello/finm-367/commit/e41aff32bf819bc8b5c98d57f61495e69007a65e",
+          "date": "2025-10-21",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "dfdc9f9",
+          "message": "submitting not great",
+          "url": "https://github.com/cmbenello/finm-367/commit/dfdc9f929b3459a72c253189c856703882781568",
+          "date": "2025-10-18",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "2d9cab8",
+          "message": "first step for hw3",
+          "url": "https://github.com/cmbenello/finm-367/commit/2d9cab8c17af08bc88b811b8bd01b1f5b4c516ef",
+          "date": "2025-10-16",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "d6e548e",
+          "message": "submitting",
+          "url": "https://github.com/cmbenello/finm-367/commit/d6e548eb51d3d1180cad0b6bb55d617c3b315d17",
+          "date": "2025-10-13",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": ""
+    },
+    {
       "name": "merge_tactics_RL",
       "repo": "cmbenello/merge_tactics_RL",
       "url": "https://github.com/cmbenello/merge_tactics_RL",
       "category": "machine-learning",
-      "summary": "",
-      "description": "",
+      "summary": "Reinforcement learning agent for optimizing merge sort strategies",
+      "description": "Reinforcement learning agent for optimizing merge sort strategies",
       "image": "https://opengraph.githubassets.com/1/cmbenello/merge_tactics_RL",
       "homepage": "",
       "language": "Python",
@@ -2184,7 +2466,7 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2025-11-05",
+      "updatedAt": "2026-04-14",
       "createdAt": "2025-11-01",
       "pushedAt": "2025-11-05",
       "defaultBranch": "main",
@@ -2237,12 +2519,26 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-11",
+      "updatedAt": "2026-04-12",
       "createdAt": "2025-12-04",
-      "pushedAt": "2026-04-11",
+      "pushedAt": "2026-04-12",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
+        {
+          "sha": "a8066d5",
+          "message": "pause RL training — game sim needs accuracy improvements first",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/a8066d5905f2793751967049c2a619482a8180a7",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "5a30144",
+          "message": "optimize action_masks: vectorize with numpy (1 FPS -> 65k steps/sec)",
+          "url": "https://github.com/cmbenello/MiniMetro/commit/5a301440ce08ad332b96f0c606cda4cc4649a7df",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
         {
           "sha": "cd5b88b",
           "message": "switch to MaskablePPO with action masking for better RL learning",
@@ -2372,60 +2668,7 @@
           "author": "ㅊ"
         }
       ],
-      "commitActivity": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1
-      ],
+      "commitActivity": [],
       "readme": "<div align=\"center\">\n\n# claudegen\n\n**Auto-generate optimized CLAUDE.md files for your projects.**\n\nGive Claude Code the context it needs to work effectively in your codebase — automatically.\n\n[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)\n[![Rust](https://img.shields.io/badge/Built%20with-Rust-orange.svg)](https://www.rust-lang.org)\n\n</div>\n\n---\n\nEvery Claude Code project needs a good `CLAUDE.md`. But most people don't know what to put in it, and it goes stale fast. `claudegen` fixes both problems.\n\n```\n$ claudegen init\nScanning project...\n  Languages: TypeScript\n  Frameworks: Next.js, React\n  Commands: 5\n  Directories: 3\n\n✓ Generated CLAUDE.md (28 lines)\n```\n\nIt scans your repo — languages, frameworks, build tools, test runners, linters, directory structure, env vars — and generates a focused, actionable CLAUDE.md.\n\n## Install\n\n```bash\ncargo install --git https://github.com/cmbenello/claudegen\n```\n\n## Quick Start\n\n```bash\n# Generate a CLAUDE.md for your project\nclaudegen init\n\n# Update it when your project changes\nclaudegen update\n\n# Audit an existing CLAUDE.md (score + grade)\nclaudegen audit\n```\n\n## Commands\n\n### `claudegen init`\n\nScans your project and generates a `CLAUDE.md` with:\n\n- **Commands** — build, test, lint, dev, deploy (extracted from package.json, Cargo.toml, etc.)\n- **Architecture** — directory structure with descriptions\n- **Key Files** — entry points, config files\n- **Stack** — language, framework, package manager, test runner, linter, CI\n- **Environment** — required env vars (from .env.example)\n- **Gotchas** — non-obvious patterns and common pitfalls\n\n```bash\nclaudegen init                    # Generate in current directory\nclaudegen init /path/to/project   # Generate for a specific project\nclaudegen init --force            # Overwrite existing CLAUDE.md\nclaudegen init -q                 # Quiet mode (just output the path)\n```\n\n### `claudegen update`\n\nRe-scans the project and updates the CLAUDE.md with current state. Tells you if nothing changed.\n\n```bash\nclaudegen update\n```\n\n### `claudegen audit`\n\nScores an existing CLAUDE.md on a 100-point rubric:\n\n```\n$ claudegen audit\n\nCLAUDE.md Audit\n\n  ✓ Commands section 20/20\n  ✓ Architecture/structure section 20/20\n  ✗ Gotchas/patterns section 0/15\n  ✓ Conciseness (28 lines) 15/15\n  ✓ Currency (5/5 commands documented) 15/15\n  ✓ Actionable (has runnable commands) 15/15\n\n  Score: 85/100  Grade: B\n```\n\n**Scoring rubric:**\n\n| Criterion | Points | What it checks |\n|-----------|--------|----------------|\n| Commands | 20 | Has a commands/workflows section |\n| Architecture | 20 | Has directory structure or codebase map |\n| Gotchas | 15 | Documents non-obvious patterns |\n| Conciseness | 15 | 10-200 lines (dense, not bloated) |\n| Currency | 15 | Documented commands match actual project |\n| Actionability | 15 | Contains runnable commands (backtick code) |\n\n```bash\nclaudegen audit --json    # Machine-readable output\n```\n\n## What It Detects\n\n| Category | What's scanned |\n|----------|---------------|\n| **Languages** | JavaScript, TypeScript, Rust, Python, Go |\n| **Frameworks** | Next.js, React, Vue, Svelte, Nuxt, Astro, Remix, Express, FastAPI, Django, Flask, NestJS, Angular |\n| **Package managers** | npm, yarn, pnpm, bun, cargo, pip, poetry, uv, pipenv, go modules |\n| **Test frameworks** | Jest, Vitest, Mocha, Playwright, pytest, cargo test, go test |\n| **Linters** | ESLint, Biome, Prettier, clippy, ruff, flake8 |\n| **CI systems** | GitHub Actions, CircleCI, GitLab CI, Jenkins |\n| **Other** | Docker, monorepo detection (workspaces, nx, turbo), env vars, key files |\n\n## For AI Agents\n\n```bash\nclaudegen init -q                 # Just output the file path\nclaudegen audit --json            # Structured scoring data\n```\n\n## License\n\nMIT — see [LICENSE](LICENSE)."
     },
     {
@@ -2443,12 +2686,19 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-09",
+      "updatedAt": "2026-04-11",
       "createdAt": "2026-03-23",
-      "pushedAt": "2026-04-09",
+      "pushedAt": "2026-04-11",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
+        {
+          "sha": "f8da055",
+          "message": "Clean up website for applications: remove em dashes, expand blog, fix background",
+          "url": "https://github.com/cmbenello/covtsp/commit/f8da0558d895ebac043709bc4fb2e1601901ff66",
+          "date": "2026-04-11",
+          "author": "Charles Benello"
+        },
         {
           "sha": "149f136",
           "message": "Station name ASCII background + record section reorder + E2E automation docs",
@@ -2497,17 +2747,43 @@
           "url": "https://github.com/cmbenello/covtsp/commit/682991dcf633fdc3154f38b2f42c571c7363a706",
           "date": "2026-03-29",
           "author": "Charles Benello"
-        },
-        {
-          "sha": "6e3634d",
-          "message": "Update London route to best result: 18h03m from Chesham (272/272)",
-          "url": "https://github.com/cmbenello/covtsp/commit/6e3634d4dbbc4116a0e39a8d40cb30ca6769da9b",
-          "date": "2026-03-29",
-          "author": "Charles Benello"
         }
       ],
       "commitActivity": [],
       "readme": "# Open Transit Optimizer\n\nA research-grade Covering TSP solver for transit coverage optimization. Finds near-optimal routes through any city's transit network using real GTFS timetable data, with LP relaxation bounds proving solution quality.\n\nBuilt from the London Tube Challenge — visiting all 272 Underground stations as fast as possible. The current Guinness World Record is 17h45m. **Our automated solver achieves 16h57m — 48 minutes faster than the world record.**\n\n### Results: Solver Improvement Over Time\n\n| # | Time | Start Station | Start Time | Method | vs Record |\n|---|---|---|---|---|---|\n| 1 | 19h42m | Battersea Power Station | 05:00 | Deterministic pairings | +117 min |\n| 3 | 18h43m | Arsenal | 05:35 | Deterministic pairings | +58 min |\n| 6 | 18h03m | Chesham | 05:00 | Deterministic pairings | +18 min |\n| 7 | 17h30m | Upminster | 06:14 | Deterministic pairings | **-15 min** |\n| 8 | 17h12m | Upminster | 06:15 | Randomized (eps=0.05) | **-33 min** |\n| 15 | 17h01m | Upminster | 05:57 | Randomized (eps=0.05) | **-44 min** |\n| 16 | 16h58m | Upminster | 05:59 | Randomized (eps=0.05) | **-47 min** |\n| **17** | **16h57m** | **Upminster** | **06:02** | **Randomized (eps=0.05)** | **-48 min** |\n\nThe solver uses running-mode transfers (18 km/h base) between stations, matching the real-world Tube Challenge where participants run between connections.\n\n## Architecture\n\n```\n┌─────────────┐     ┌──────────────┐     ┌─────────────────┐\n│  GTFS Feed  │────▸│  Parser +    │────▸│  Time-Expanded  │\n│  (any city) │     │  Calendar    │     │  Graph (500K+)  │\n└─────────────┘     └──────────────┘     └────────┬────────┘\n                                                   │\n                    ┌──────────────┐     ┌─────────▾────────┐\n                    │  LP Relaxation│◂───│  Greedy Solver   │\n                    │  Lower Bound │     │  + Local Search  │\n                    └──────┬───────┘     └─────────┬────────┘\n                           │                       │\n                           ▾                       ▾\n                    ┌──────────────────────────────────┐\n                    │  Optimality Gap = (H - LP) / LP  │\n                    └──────────────────────────────────┘\n```\n\n## Quickstart\n\n```bash\npip install -r requirements.txt\n\n# Run on toy network (included)\npython cli.py solve --config configs/toy.yaml --date 2024-03-15\n\n# Download real GTFS data for London\npython cli.py download --config configs/london.yaml\n\n# Solve on real London data\npython cli.py solve --config configs/london.yaml --date 2024-03-15 --output results/london.json\n\n# View config info\npython cli.py info --config configs/london.yaml\n\n# Validate GTFS data\npython cli.py validate --config configs/london.yaml\n```\n\n## Algorithm Stack\n\n1. **Hard Station Detection** — Auto-detects difficult stations (low service frequency, stub branches) from TEG sparsity. Pairs each with its nearest junction for efficient side-trip scheduling.\n2. **Greedy with Pairings** — k=5 nearest-neighbor with urgency scoring. Prefix visits for ultra-sparse stations (e.g., Kensington Olympia, 9 trains/day), junction grabs for branch stubs.\n3. **Randomized Search** — Epsilon-greedy exploration (eps=0.05–0.2) over thousands of trials from top deterministic starts. Pairings-aware — hard stations handled correctly in every trial.\n4. **LP Relaxation** — Flow-based LP on the static graph provides a provable lower bound.\n\n## Adding a City\n\n1. Create `configs/yourcity.yaml`:\n```yaml\ncity_name: Your City Metro\ngtfs_url: https://example.com/gtfs.zip\ngtfs_path: yourcity\nstation_count: 100\nroute_type_filter: [1]  # 1 = Metro\nwalking_speed_kmh: 5.0\nmax_walk_distance_m: 500\n```\n\n2. Download and solve:\n```bash\npython cli.py download --config configs/yourcity.yaml\npython cli.py solve --config configs/yourcity.yaml --date 2024-06-15\n```\n\n## Project Structure\n\n```\nsrc/\n├── graph/\n│   ├── network.py          # Static weighted graph (min travel times)\n│   └── time_expanded.py    # Time-expanded graph: (station, time) nodes\n├── gtfs/\n│   ├── parser.py           # GTFS file parsing + station grouping\n│   ├── calendar.py         # Date-aware service filtering\n│   └── download.py         # GTFS feed downloader\n├── solver/\n│   ├── greedy.py           # Greedy nearest-unvisited with lookahead\n│   ├── local_search.py     # 2-opt, Or-opt, 3-opt\n│   └── lp_bound.py         # LP relaxation (static + time-expanded)\n├── backtest.py             # Date-aware backtesting engine\n└── config.py               # YAML config loader\n```\n\n## Tests\n\n```bash\npython -m pytest tests/ -v\n```\n\n44 tests covering GTFS parsing, graph construction, solver correctness, and LP bound validity.\n\n## Key Concepts\n\n- **Time-Expanded Graph**: Nodes are (station, time) pairs. Edges: transit arcs, waiting arcs, walking transfers. Required because train schedules make the graph time-dependent.\n- **Covering TSP**: Visit a required subset of nodes (not all), no return to start. NP-hard.\n- **LP Relaxation**: Relax integer constraints to get a lower bound. The gap between the heuristic solution and this bound proves solution quality.\n- **GTFS**: General Transit Feed Specification — the universal format for transit timetable data.",
+      "featured": true
+    },
+    {
+      "name": "leetcode-anki",
+      "repo": "cmbenello/leetcode-anki",
+      "url": "https://github.com/cmbenello/leetcode-anki",
+      "category": "personal",
+      "summary": "Spaced repetition Chrome extension for LeetCode + NeetCode with GitHub-synced progress tracking.",
+      "description": "Spaced repetition Chrome extension for LeetCode + NeetCode with GitHub-synced progress tracking",
+      "image": "/images/projects/leetcode-anki.png",
+      "homepage": "",
+      "language": "JavaScript",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-05-06",
+      "createdAt": "2026-05-06",
+      "pushedAt": "2026-05-06",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "2e1b626",
+          "message": "Initial commit: LeetCode Anki extension",
+          "url": "https://github.com/cmbenello/leetcode-anki/commit/2e1b626cb31cf0c8b622f4a40075725d9bf8efb2",
+          "date": "2026-05-06",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# LeetCode Anki\n\nChrome extension that adds Anki-style spaced repetition to LeetCode and auto-commits your progress to a GitHub repo.\n\n- 4-button grading (Again / Hard / Good / Easy) with SM-2 scheduling\n- Active time tracking per attempt\n- Auto-commits solution + review log + dashboard to a GitHub repo of your choice\n- Local-first: review state lives in `chrome.storage.local`, GitHub sync is additive\n\n## Install\n\n1. Clone this repo\n2. `chrome://extensions` → enable Developer mode → \"Load unpacked\" → select the `extension/` folder\n3. Click the extension icon → Options → paste a GitHub Personal Access Token (`repo` scope) and your tracker repo as `username/repo`\n4. Visit any `https://leetcode.com/problems/<slug>/` page and grade your attempt\n\n## How the GitHub repo gets organized\n\n```\n<your-tracker-repo>/\n├── README.md             # auto-generated dashboard (due today, streak, totals)\n├── log.md                # chronological review log\n├── stats.json            # aggregate counts\n└── solutions/<slug>/\n    ├── solution.<ext>    # latest editor contents at grade time\n    ├── meta.json         # SR state + full grade history\n    └── notes.md          # editable, optional\n```\n\nEvery grade is one commit. Commit message format: `<slug>: <button> (interval Nd → Md)`.\n\n## Project layout\n\nSee `SPEC.md` for phases and `CLAUDE.md` for architecture.",
       "featured": true
     },
     {
@@ -2535,12 +2811,33 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-11",
+      "updatedAt": "2026-04-12",
       "createdAt": "2026-04-11",
-      "pushedAt": "2026-04-11",
+      "pushedAt": "2026-04-12",
       "defaultBranch": "main",
       "license": "MIT License",
       "commitLog": [
+        {
+          "sha": "bb35b00",
+          "message": "Smart install: vibe/auto only install what matches your project",
+          "url": "https://github.com/cmbenello/mcpm/commit/bb35b00dd56a2a48411f9100879fb7b74458bf3c",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "59845b2",
+          "message": "Expand to 105 servers, 22 presets, add mcpm vibe command",
+          "url": "https://github.com/cmbenello/mcpm/commit/59845b2b61855d9d9143015d7fabfdb36278c6c0",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "b10330b",
+          "message": "Expand to 80 servers, 16 presets, deeper suggestion engine",
+          "url": "https://github.com/cmbenello/mcpm/commit/b10330b60510ad48197e749b7cac85f292a35fac",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
         {
           "sha": "c6cd9ca",
           "message": "Update CLAUDE.md with batch install, --quiet, and completions docs",
@@ -2573,20 +2870,6 @@
           "sha": "cef4e40",
           "message": "Add suggest, browse TUI, and preset bundles",
           "url": "https://github.com/cmbenello/mcpm/commit/cef4e407b727710608d2b57afa423265e4ef8d92",
-          "date": "2026-04-11",
-          "author": "ㅊ"
-        },
-        {
-          "sha": "a9597b4",
-          "message": "Set repo to cmbenello/mcpm, add author and crate metadata",
-          "url": "https://github.com/cmbenello/mcpm/commit/a9597b44b3e55a5a0fd3447daa4809a238a7ec37",
-          "date": "2026-04-11",
-          "author": "ㅊ"
-        },
-        {
-          "sha": "03c106a",
-          "message": "Initial release of mcpm — a package manager for MCP servers",
-          "url": "https://github.com/cmbenello/mcpm/commit/03c106a4ec83f6cf16a82116fc6595088ea3ac4d",
           "date": "2026-04-11",
           "author": "ㅊ"
         }
@@ -2788,8 +3071,8 @@
       "repo": "cmbenello/CrustyDB",
       "url": "https://github.com/cmbenello/CrustyDB",
       "category": "research",
-      "summary": "",
-      "description": "",
+      "summary": "Multi-threaded relational database engine in Rust: B+ tree indexing, concurrent buffer pool, heap storage, SQL query execution",
+      "description": "Multi-threaded relational database engine in Rust: B+ tree indexing, concurrent buffer pool, heap storage, SQL query execution",
       "image": "https://opengraph.githubassets.com/1/cmbenello/CrustyDB",
       "homepage": "",
       "language": "",
@@ -2798,7 +3081,7 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2024-01-28",
+      "updatedAt": "2026-04-14",
       "createdAt": "2024-01-28",
       "pushedAt": "2024-01-28",
       "defaultBranch": "main",
@@ -2838,12 +3121,94 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-11",
-      "createdAt": "2026-04-11",
-      "pushedAt": "2026-04-11",
+      "updatedAt": "2026-05-19",
+      "createdAt": "2026-05-19",
+      "pushedAt": "2026-05-19",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
+      "commitActivity": [],
+      "readme": "",
+      "featured": true
+    },
+    {
+      "name": "gpu-research",
+      "repo": "cmbenello/gpu-research",
+      "url": "https://github.com/cmbenello/gpu-research",
+      "category": "research",
+      "summary": "GPU-accelerated compression and decompression strategies for analytical databases",
+      "description": "GPU-accelerated compression and decompression strategies for analytical databases",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/gpu-research",
+      "homepage": "",
+      "language": "Cuda",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-04-23",
+      "createdAt": "2026-04-09",
+      "pushedAt": "2026-05-08",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "8260c98",
+          "message": "huge pages for h_data + prefetch tuning (128-ahead optimal)",
+          "url": "https://github.com/cmbenello/gpu-research/commit/8260c9820481dc859cd312db3754227be796d6c2",
+          "date": "2026-04-23",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "2ddf897",
+          "message": "sample sort with compact keys + gather bandwidth analysis",
+          "url": "https://github.com/cmbenello/gpu-research/commit/2ddf897020697157f0bf200a395aaac5169504b6",
+          "date": "2026-04-23",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "a68c0b8",
+          "message": "Merge branch 'main' of github.com:cmbenello/gpu-research into main",
+          "url": "https://github.com/cmbenello/gpu-research/commit/a68c0b80806673cf5aed4e1f1d340d7520a7fd1e",
+          "date": "2026-04-23",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "0fd72d8",
+          "message": "Merge branch 'research/related-accelerators-overnight' into main",
+          "url": "https://github.com/cmbenello/gpu-research/commit/0fd72d8a4244514714cf7ff6668bdf4b10ed1ff6",
+          "date": "2026-04-23",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "e214fa7",
+          "message": "inline fixup detection into gather phase, runtime compact map, sample sort",
+          "url": "https://github.com/cmbenello/gpu-research/commit/e214fa7413360da467269cb56f0f25f01b0f6e61",
+          "date": "2026-04-23",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "4e87f85",
+          "message": "E1 complete: SF100 baseline 3.65s median (19.8 GB/s), no fixup needed",
+          "url": "https://github.com/cmbenello/gpu-research/commit/4e87f8529cb55ab4854f815ac88327b55b9e3a1c",
+          "date": "2026-04-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "d2d535f",
+          "message": "A1 byte entropy complete, SF50 baseline 2.72s",
+          "url": "https://github.com/cmbenello/gpu-research/commit/d2d535fccc46404692d33743276b7cd0b04261f8",
+          "date": "2026-04-22",
+          "author": "cmbenello"
+        },
+        {
+          "sha": "c4d670b",
+          "message": "overnight experiments: A2/A3/B/C2/D1 complete, A1 still running",
+          "url": "https://github.com/cmbenello/gpu-research/commit/c4d670bc5e9009f05c85ebb558ee428afe263bbe",
+          "date": "2026-04-22",
+          "author": "cmbenello"
+        }
+      ],
       "commitActivity": [],
       "readme": "",
       "featured": true
@@ -2863,413 +3228,14 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-11",
-      "createdAt": "2026-04-11",
-      "pushedAt": "2026-04-11",
+      "updatedAt": "2026-05-19",
+      "createdAt": "2026-05-19",
+      "pushedAt": "2026-05-19",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
       "commitActivity": [],
       "readme": ""
-    },
-    {
-      "name": "finm-325",
-      "repo": "cmbenello/finm-325",
-      "url": "https://github.com/cmbenello/finm-325",
-      "category": "classes",
-      "summary": "Assignments for Fin math 325",
-      "description": "Assignments for Fin math 325",
-      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-325",
-      "homepage": "",
-      "language": "Python",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2025-12-08",
-      "createdAt": "2025-09-28",
-      "pushedAt": "2025-12-08",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [
-        {
-          "sha": "4917a3d",
-          "message": "tests done",
-          "url": "https://github.com/cmbenello/finm-325/commit/4917a3d950cc83430edf1450097759a1e7d0cae8",
-          "date": "2025-12-08",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "ff8c3b5",
-          "message": "hw12",
-          "url": "https://github.com/cmbenello/finm-325/commit/ff8c3b556ace76f71c619bb246c649d8f584aa75",
-          "date": "2025-12-08",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "7705285",
-          "message": "hw12",
-          "url": "https://github.com/cmbenello/finm-325/commit/770528570a47e23e6aa4147a0820c189b6bd478d",
-          "date": "2025-12-08",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "0cf2687",
-          "message": "oops",
-          "url": "https://github.com/cmbenello/finm-325/commit/0cf2687c04390507bd571c6f25f8ebb9baad5ae3",
-          "date": "2025-12-01",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "d661e3b",
-          "message": "issues with floats",
-          "url": "https://github.com/cmbenello/finm-325/commit/d661e3bf9e9d73081978ec74259fa36d5225968b",
-          "date": "2025-12-01",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "4cafc80",
-          "message": "shafting btc",
-          "url": "https://github.com/cmbenello/finm-325/commit/4cafc8016a4bf1b126a079135bb5e28c86ead077",
-          "date": "2025-12-01",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "e86ea11",
-          "message": "bug in btc",
-          "url": "https://github.com/cmbenello/finm-325/commit/e86ea11d842a3d75a272febf2748bb084a7839c0",
-          "date": "2025-12-01",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "dea1210",
-          "message": "oops",
-          "url": "https://github.com/cmbenello/finm-325/commit/dea1210467698188dc91efe391a191dc31b1811d",
-          "date": "2025-12-01",
-          "author": "Charles Benello"
-        }
-      ],
-      "commitActivity": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        11,
-        0,
-        5,
-        13,
-        1,
-        1,
-        1,
-        1,
-        3,
-        7,
-        3,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
-      "readme": "GitHub to track submissions/participations for finm 325"
-    },
-    {
-      "name": "finm-3295",
-      "repo": "cmbenello/finm-3295",
-      "url": "https://github.com/cmbenello/finm-3295",
-      "category": "classes",
-      "summary": "",
-      "description": "",
-      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-3295",
-      "homepage": "",
-      "language": "C++",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2026-04-16",
-      "createdAt": "2026-04-16",
-      "pushedAt": "2026-04-16",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [
-        {
-          "sha": "ea23130",
-          "message": "add parallel scaling benchmark across 1,2,4,8 threads",
-          "url": "https://github.com/cmbenello/finm-3295/commit/ea2313031321de67caa37fab77f4e707057196c6",
-          "date": "2026-04-16",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "c8f2079",
-          "message": "add assignment 2 - BS option chain with OpenMP",
-          "url": "https://github.com/cmbenello/finm-3295/commit/c8f207921b831ce91169358fc7c1bb604d2227eb",
-          "date": "2026-04-16",
-          "author": "Charles Benello"
-        }
-      ],
-      "commitActivity": [],
-      "readme": ""
-    },
-    {
-      "name": "finm-367",
-      "repo": "cmbenello/finm-367",
-      "url": "https://github.com/cmbenello/finm-367",
-      "category": "classes",
-      "summary": "Repo for Mark Hendrick's class risk and portfolio management",
-      "description": "Repo for Mark Hendrick's class risk and portfolio management",
-      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-367",
-      "homepage": "",
-      "language": "Jupyter Notebook",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2026-01-05",
-      "createdAt": "2025-10-12",
-      "pushedAt": "2025-11-17",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [
-        {
-          "sha": "e476e6c",
-          "message": "hw7 done",
-          "url": "https://github.com/cmbenello/finm-367/commit/e476e6c20451697f97624b611144ea891c842c2a",
-          "date": "2025-11-17",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "4772d58",
-          "message": "hw5 done",
-          "url": "https://github.com/cmbenello/finm-367/commit/4772d5859a26eae9b664a25683b0b4c4351b9be3",
-          "date": "2025-11-03",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "780b042",
-          "message": "fixed typos",
-          "url": "https://github.com/cmbenello/finm-367/commit/780b0425ff7b226d4dde6a7208f5dee3b6267f2e",
-          "date": "2025-10-27",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "bec492c",
-          "message": "hw4 base done",
-          "url": "https://github.com/cmbenello/finm-367/commit/bec492cf4056bf17890a7b21de50d84570d3edae",
-          "date": "2025-10-26",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "e41aff3",
-          "message": "midterm stuff",
-          "url": "https://github.com/cmbenello/finm-367/commit/e41aff32bf819bc8b5c98d57f61495e69007a65e",
-          "date": "2025-10-21",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "dfdc9f9",
-          "message": "submitting not great",
-          "url": "https://github.com/cmbenello/finm-367/commit/dfdc9f929b3459a72c253189c856703882781568",
-          "date": "2025-10-18",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "2d9cab8",
-          "message": "first step for hw3",
-          "url": "https://github.com/cmbenello/finm-367/commit/2d9cab8c17af08bc88b811b8bd01b1f5b4c516ef",
-          "date": "2025-10-16",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "d6e548e",
-          "message": "submitting",
-          "url": "https://github.com/cmbenello/finm-367/commit/d6e548eb51d3d1180cad0b6bb55d617c3b315d17",
-          "date": "2025-10-13",
-          "author": "Charles Benello"
-        }
-      ],
-      "commitActivity": [],
-      "readme": ""
-    },
-    {
-      "name": "141-discussion",
-      "repo": "cmbenello/141-discussion",
-      "url": "https://github.com/cmbenello/141-discussion",
-      "category": "teaching",
-      "summary": "Practice problems for the 141 midterm",
-      "description": "Practice problems for the 141 midterm",
-      "image": "https://opengraph.githubassets.com/1/cmbenello/141-discussion",
-      "homepage": "",
-      "language": "Python",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2025-10-30",
-      "createdAt": "2025-10-29",
-      "pushedAt": "2025-10-30",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [
-        {
-          "sha": "aa54a7b",
-          "message": "oops fr done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/aa54a7b9cea64ff5af5cb5bc2539555e3f9b43d5",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "9c61979",
-          "message": "hopefully all done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/9c619796fcce25cdee63d6a542b0c6ec861db90a",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "69e15f8",
-          "message": "readme done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/69e15f878e4721893345d4eaac5617a34cd03e05",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "ee237b8",
-          "message": "extra q's done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/ee237b822fbad105fc6e38e0b42d0c5e53ae1099",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "2155c09",
-          "message": "string lists done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/2155c09e65ef5aa2f796446fb7b23efcc4815d58",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "e6c875b",
-          "message": "conditionals done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/e6c875b9292bdb91b506afa16eed208c6cb4ec7e",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "01250eb",
-          "message": "expressions done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/01250eb5f5a4cac2abe6f0697e68b46425cdc91c",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "033438e",
-          "message": "assessment done",
-          "url": "https://github.com/cmbenello/141-discussion/commit/033438ee522fb75ddfbcfdaa99e0940bdd34dace",
-          "date": "2025-10-30",
-          "author": "Charles Benello"
-        }
-      ],
-      "commitActivity": [],
-      "readme": "# 141 Discussion — Interactive Python Practice Framework\n\n> **IMPORTANT DISCLAIMER**\n>\n> I do not know what will be on the midterm. This guide may miss topics. You should study outside of this repo as well. I put in a good‑faith effort to cover as much as possible, but please don’t blame me if something is missing :(. I genuinely hope this is useful for your studying. If you have any feedback, comments, or concerns, just email me or come to my oh\n\n## Overview\nThis repository provides a complete practice and testing environment to help students prepare for Python fundamentals and midterm-style programming questions.  \nIt covers expressions, conditionals, loops, strings, lists, tuples, lists of lists, scoping, mutability, copying, and more. Start with the assessment, then do the Extra Questions early — they are intentionally tricky and not always intuitive.\n\nEach file in the `problems/` directory represents a category of problems, paired with corresponding:\n- `tests/` → automated pytest-based test cases\n- `solutions/` → reference implementations for checking results\n\n---\n\n## Repository Structure\n\n```\n.\n├── problems/\n│   ├── assessment.py          # Diagnostic problems across all topics\n│   ├── expressions.py         # Arithmetic, logic, and computation\n│   ├── conditional_loops.py   # Conditionals, iteration, and control flow\n│   ├── strings_list.py        # String and list manipulation\n│   ├── extra_qs.py            # Conceptual \"Guess the Output\" and theory drills\n│   └── ...\n├── solutions/\n│   ├── assessment_sols.py\n│   ├── expressions_sols.py\n│   ├── conditional_loops_sols.py\n│   ├── strings_list_sols.py\n│   ├── extra_qs_sols.py\n│   └── ...\n├── tests/\n│   ├── assessment_tests.py\n│   ├── expressions_tests.py\n│   ├── conditional_loops_tests.py\n│   ├── strings_list_tests.py\n│   ├── extra_qs_tests.py\n│   └── ...\n├── scripts/\n│   └── drill_prompts.py       # Interactive “test mode” problem selector\n└── README.md\n```\n\n---\n\n## Where to Start\n\n1) **Run the assessment** (`problems/assessment.py`) to gauge your baseline.\n2) **Tackle Extra Questions early** (`problems/extra_qs.py`). These “guess the output” drills expose scope, mutability, copying, and truthiness pitfalls that aren’t intuitive. They will make the later coding problems easier.\n3) Move on to the topic files (`expressions.py`, `conditional_loops.py`, `strings_list.py`), using tags and difficulty to focus your practice.\n\n---\n\n## Getting Started\n\n### 0. Clone the Repository\n\n```bash\ngit clone https://github.com/cmbenello/141-discussion.git\ncodium 141-discussion # This is whereever you saved it like just type codium file location and open it up\n```\n\n### 1. Create and Activate a Virtual Environment\n\nUse Python 3.12 or later:\n\n```bash\npython3 -m venv venv\nsource venv/bin/activate  # (on macOS/Linux)\nvenv\\Scripts\\activate     # (on Windows)\n```\n\n### 2. Install Dependencies\n\nInstall requirements (pytest and any extras):\n\n```bash\npip install -r requirements.txt\n```\n\n### 3. Run all tests\n\nRun the full test suite to check every problem:\n\n```bash\npytest -q\n```\n\n### 4. Run tests for one topic\n\n```bash\npytest -q tests/expressions_tests.py\npytest -q tests/conditional_loops_tests.py\npytest -q tests/strings_list_tests.py\n```\n\n### 5. Run tests for one function\n\nUse `-k` to target a single function:\n\n```bash\npytest -q -k \"expr_24_middle_three\"\n```\n\n---\n\n## Recommended Study Order\n\n1. Assessment — quick self‑diagnosis (run this first).\n2. Extra Questions — conceptual edge cases (do these early; they’re not intuitive).\n3. Expressions — arithmetic and boolean logic.\n4. Conditional Loops — `if`, `for`, `while`, and iteration patterns.\n5. Strings & Lists — slicing, comprehension, transformations.\n\n---\n\n## Problem Categories\n\nEach problem file focuses on a specific conceptual area:\n\n| File | Topic | Focus |\n|------|--------|--------|\n| `assessment.py` | Mixed practice | Foundation review |\n| `expressions.py` | Operators, math, logic | Arithmetic expressions, rounding, conditionals |\n| `conditional_loops.py` | Flow control | `if`, `for`, `while`, range, iteration |\n| `strings_list.py` | Sequence data | String parsing, slicing, comprehension, transformations |\n| `extra_qs.py` | Conceptual reasoning (do these right after the assessment) | Scoping, mutability, copying, truthiness |\n\n---\n\n## Tags and Difficulty Levels\n\nEach function starts with a detailed docstring including:\n- Category: conceptual grouping (e.g. “String Algorithms”, “Numeric Iteration”)\n- Tags: quick hints for the concepts required (e.g. `range`, `product`, `indexing`)\n- Difficulty: estimated effort (1–4)\n  - 1 — basic comprehension\n  - 2 — simple reasoning or implementation\n  - 3 — moderate complexity / multiple concepts combined\n  - 4 — challenging multi-step logic\n\nYou can use these to focus on your weak areas.  \nFor example:\n\n```python\ndef cl_02_product_multiples_range(a: int, b: int, k: int) -> int:\n    \"\"\"\n    Category: Numeric Iteration & Accumulation | Tags: range, product, divisibility | Difficulty: 2\n    \"\"\"\n```\n\n---\n\n## Extra Questions (Conceptual / “Guess the Output”)\n\nThe file `extra_qs.py` is different from the coding ones — you don’t write full programs here.  \nInstead, you predict what the provided snippet would print and return that as data. They are high‑leverage practice because many bugs on exams come from these semantics.\n\nRules:\n- Return what the snippet would print.\n- If multiple lines, return a list of strings.\n- If it raises an error, return `-1`.\n- If it computes a value, return that value.\n\nExample:\n\n```python\ndef scope_01_shadowing():\n    # x = 5\n    # def f(): x = 10; print(\"inside:\", x)\n    # f(); print(\"outside:\", x)\n    return (10, 5)\n```\n\n---\n\n## Solutions\n\nEach file in `solutions/` mirrors the `problems/` layout.  \nTo activate solution mode:\n\n```bash\nexport USE_SOLUTIONS=1\npytest -q tests/expressions_tests.py\n```\n\nThis lets pytest check your solutions directly against the reference implementations.\n\nIf unset, tests will check your own implementations.\n\n---\n\n## Testing Reference\n\n### To test one topic\n\n```bash\npytest tests/strings_list_tests.py\n```\n\n### To test one specific function\n\n```bash\npytest -q -k \"sl_36_max_subarray_sum\"\n```\n\n### To test all topics but show summary only\n\n```bash\npytest -q --maxfail=1 --disable-warnings\n```\n\n---\n\n## Interactive Drill Mode\n\nThe file `scripts/drill_prompts.py` provides a lightweight interactive quiz generator.\n\nRun it to practice:\n\n```bash\npython scripts/drill_prompts.py\n```\n\nFlags:\n- `--all` — list all available problems\n- `--extra <n>` — number of extra conceptual questions (default: 6)\n- `--per <n>` — number of normal problems per topic (default: 3)\n\n---\n\n## Tips\n\n- Use docstrings and tags to identify which concepts you need.\n- Don’t skip the Extra Questions — they help with understanding scope and Python semantics.\n- Use `pytest -k` to test your understanding problem-by-problem.\n- Solutions are provided for learning, not just checking — read the explanations carefully.\n\n---\n\n## Example Workflow\n\n```bash\n# 1. Practice a few problems manually\npython scripts/drill_prompts.py --extra 4 --per 2\n\n# 2. Edit your solution\ncodium problems/expressions.py\n\n# 3. Test one file\npytest -q tests/expressions_tests.py\n\n# 4. View official solution explanation\nless solutions/expressions_sols.py\n```\n\n---\n\nI am confident all of you will do great! (ㅇㅅㅇ)/\n\n---\n\n— ㅊ 다녀감"
-    },
-    {
-      "name": "141-discussion-final",
-      "repo": "cmbenello/141-discussion-final",
-      "url": "https://github.com/cmbenello/141-discussion-final",
-      "category": "teaching",
-      "summary": "",
-      "description": "",
-      "image": "https://opengraph.githubassets.com/1/cmbenello/141-discussion-final",
-      "homepage": "",
-      "language": "Python",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2025-12-02",
-      "createdAt": "2025-11-26",
-      "pushedAt": "2025-12-02",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [
-        {
-          "sha": "bcc03d5",
-          "message": "fixed errors",
-          "url": "https://github.com/cmbenello/141-discussion-final/commit/bcc03d53cd9d11d29a25d9b817343b00adadf73d",
-          "date": "2025-12-02",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "8d4de08",
-          "message": "Initial commit: 141 discussion final prep framework",
-          "url": "https://github.com/cmbenello/141-discussion-final/commit/8d4de082ccebca4aed1ee9aa2e3facaa1e768bba",
-          "date": "2025-11-26",
-          "author": "Charles Benello"
-        }
-      ],
-      "commitActivity": [],
-      "readme": "# 141 Discussion final prep\n\nIMPORTANT DISCLAIMER\n--------------------\nI do not know what will be on your exam or midterm. This project was assembled quickly, and some problems may feel oddly phrased or slightly unusual. However, all solutions have been fully tested and verified. Use this as a structured practice environment, but continue to study from lecture, worksheets, discussion, and your own notes. If you find any unclear wording, inconsistent difficulty, or potential test errors, please email me so I can correct them for everyone.\n\n\nThis should be p similar to the midterm one BUT I have made some changes becuase I think some stuff wasn't working before so please just read over this before you start\n\nPurpose of This Repository\n--------------------------\nThis repository provides a complete, automated practice system designed to help you prepare for Python fundamentals at the level expected in CMSC 141. It includes:\n\n- expressions and arithmetic\n- conditionals and loops\n- lists and tuples\n- strings and dictionaries\n- recursion on lists\n- tree and trie algorithms\n- scoping, copying, and mutability\n- conceptual “guess the output” scenarios\n\nEvery problem has:\n- an associated test in the tests/ directory\n- a reference implementation in the solutions/ directory\n- metadata (category, tags, difficulty) to help you focus your practice\n\nDifficulty Scaling Note\n-----------------------\nStudents mentioned that earlier versions of this project included problems that were too easy or did not match exam style. Based on that feedback:\n\n- this version contains fewer total problems,\n- there are no trivial warm-up questions,\n- difficulty level 3 corresponds roughly to exam difficulty,\n- difficulty level 4 is above exam difficulty and is intended for mastery.\n\nIf you can comfortably solve level‑4 problems, the midterm should feel manageable.\n\nRepository Layout\n-----------------\n```\n.\n├── problems/               # All student‑implementable problem stubs\n├── solutions/              # Reference implementations\n├── tests/                  # Pytest suites for every problem\n├── engine/                 # Assessment and practice engine\n├── run_assessment.py       # Generates full or topic‑based diagnostics\n├── run_practice.py         # Interactive random‑practice mode\n├── run_problem.py          # Run a single problem’s tests\n└── README.md\n```\n\nThe engine/ directory handles problem discovery, registry building, single‑problem evaluation, assessment report generation, and interactive sessions.\n\nHow to Begin\n------------\n\n1. Run an assessment to get a baseline overview of strengths and weaknesses:\n\n```\nexport USE_SOLUTIONS=0\npython run_assessment.py\n```\n\nA JSON report will be saved in data/assessments/.\n\n2. Work through the conceptual problems early. The files in problems/strings_dicts and the semantic‑trap questions in problems/extra_qs contain valuable exercises on scoping, copying, mutation, and flow of evaluation.\n\n3. Practice topic by topic. Use pytest directly for targeted study:\n\n```\npytest tests/test_lists_tuples.py\npytest tests/test_strings_dicts.py\npytest tests/test_recursion_lists.py\npytest tests/test_trees_tries.py\n```\n\nTo test a single function:\n\n```\npytest -q -k \"lt_14_windowed_sublists\"\n```\n\nUsing Reference Solutions\n-------------------------\nTo test your own implementations:\n\n```\nexport USE_SOLUTIONS=0\npytest -v\n```\n\nTo test using the reference solutions (to verify tests or expected behavior):\n\n```\nexport USE_SOLUTIONS=1\npytest -v\n```\n\nInteractive Practice Mode\n-------------------------\nLaunch an interactive problem session with:\n\n```\npython run_practice.py\n```\n\nOptions:\n- --topic basics        (restrict to a single topic)\n- --min-difficulty 3    (filter by difficulty)\n- --one-shot            (run exactly one random problem)\n\nAssessment Mode\n----------------\nGenerate a full diagnostic across all topics:\n\n```\nexport USE_SOLUTIONS=1\npython run_assessment.py\n```\n\nOr restrict scope:\n\n```\npython run_assessment.py --topics basics,strings_dicts --num-per-topic 2 --seed 141\n```\n\nA summary and JSON report will appear in data/assessments/.\n\nSuggested Study Strategy\n------------------------\n1. Run the diagnostic.\n2. Focus on difficulty‑3 problems in categories where you scored poorly.\n3. Move on to difficulty‑4 problems when comfortable.\n4. Re‑run tests until everything passes.\n5. Compare your approaches with the reference solutions.\n\nTransparency Note\n-----------------\nSome problems were written quickly and may feel unusual. Their purpose is to target conceptual weak points, not to serve as perfect exam replicas. Despite this, all solutions and tests are correct and validated. If anything appears unclear or inconsistent, reach out so it can be improved.\n\nContact\n-------\nIf you have questions, find errors, want clarification on a problem, or notice inconsistencies, please email me. I want this to be as helpful and accurate as possible.\n\nFinal Message\n-------------\nGood luck. If you work through these problems systematically and focus on the more challenging items, you will be well‑prepared for the exam. You are absolutely capable of doing well.\n\n— ㅊ 다녀감"
-    },
-    {
-      "name": "bofa_hqla",
-      "repo": "cmbenello/bofa_hqla",
-      "url": "https://github.com/cmbenello/bofa_hqla",
-      "category": "work",
-      "summary": "",
-      "description": "",
-      "image": "/images/projects/bofa_hqla.png",
-      "homepage": "",
-      "language": "",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2026-04-11",
-      "createdAt": "2026-04-11",
-      "pushedAt": "2026-04-11",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [],
-      "commitActivity": [],
-      "readme": "",
-      "featured": true
     },
     {
       "name": "Advent-of-Code",
@@ -3349,60 +3315,7 @@
           "author": "cmbenello"
         }
       ],
-      "commitActivity": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
+      "commitActivity": [],
       "readme": ""
     },
     {
@@ -3483,60 +3396,7 @@
           "author": "cmbenello"
         }
       ],
-      "commitActivity": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
+      "commitActivity": [],
       "readme": ""
     },
     {
@@ -3586,12 +3446,54 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2025-06-17",
+      "updatedAt": "2026-04-14",
       "createdAt": "2024-02-06",
-      "pushedAt": "2025-06-17",
+      "pushedAt": "2026-04-14",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
+        {
+          "sha": "b23864a",
+          "message": "Minimal profile README",
+          "url": "https://github.com/cmbenello/cmbenello/commit/b23864a0517d18fd5a929532e2da317961592dc0",
+          "date": "2026-04-14",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "8bb11aa",
+          "message": "Clean profile: SVG header, about paragraph, publications only",
+          "url": "https://github.com/cmbenello/cmbenello/commit/8bb11aa7321ecc7f733fa555939d7bf1768dc972",
+          "date": "2026-04-14",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "aac3037",
+          "message": "Remove snake animation and workflow",
+          "url": "https://github.com/cmbenello/cmbenello/commit/aac3037c50e5b474712456233099c4c8fff7ae09",
+          "date": "2026-04-14",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "a443cc3",
+          "message": "Clean profile: remove badges, add project table, fix snake permissions",
+          "url": "https://github.com/cmbenello/cmbenello/commit/a443cc377c169379e2549b3c55e9945127e78ad2",
+          "date": "2026-04-14",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "4aea416",
+          "message": "Add skill icons, snake contribution animation, and GitHub Action",
+          "url": "https://github.com/cmbenello/cmbenello/commit/4aea416aa0f787d3944eeb93e20c6704257dd8d3",
+          "date": "2026-04-14",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "595092c",
+          "message": "Update profile README",
+          "url": "https://github.com/cmbenello/cmbenello/commit/595092c8a3f7b6ddafe2bf21b02ad541917e9c7f",
+          "date": "2026-04-14",
+          "author": "Charles Benello"
+        },
         {
           "sha": "30003ed",
           "message": "Update README.md",
@@ -3605,60 +3507,18 @@
           "url": "https://github.com/cmbenello/cmbenello/commit/c8226448b9f7ff12718ca9d4861ffe32e87da59c",
           "date": "2024-08-13",
           "author": "Charles Benello"
-        },
-        {
-          "sha": "0699860",
-          "message": "Update README.md",
-          "url": "https://github.com/cmbenello/cmbenello/commit/0699860cde6de5a072134c9969560f43ea035640",
-          "date": "2024-08-13",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "cd87c29",
-          "message": "lol",
-          "url": "https://github.com/cmbenello/cmbenello/commit/cd87c29c6dd61b38358ae88ef91ac7422ef1b4cd",
-          "date": "2024-02-06",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "aa8c551",
-          "message": "hi",
-          "url": "https://github.com/cmbenello/cmbenello/commit/aa8c551b9e456ff996baa9e09c1ab73c7a01c6e6",
-          "date": "2024-02-06",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "ef38339",
-          "message": "oops",
-          "url": "https://github.com/cmbenello/cmbenello/commit/ef38339038436dd7e30dc4429e7209e4a440430b",
-          "date": "2024-02-06",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "306eef8",
-          "message": "Maybe this works",
-          "url": "https://github.com/cmbenello/cmbenello/commit/306eef8f62ce629c89e676370642324c55c17fa4",
-          "date": "2024-02-06",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "895aead",
-          "message": "Initial commit",
-          "url": "https://github.com/cmbenello/cmbenello/commit/895aead9b2c2536631d313d3f58415c3e3c4a235",
-          "date": "2024-02-06",
-          "author": "Charles Benello"
         }
       ],
       "commitActivity": [],
-      "readme": "### About Me\nHi, I'm Charles<br>\nI'm interested in Computer Systems, specifically Databases and Computer Architecture <br>\nI just graduated from the University of Chicago, with a double major in Mathematics and Computer Science with a specilization in computer systems and a minor in Korean\nI am working at EPFL this summer before I start my master's at UChicago in fin math<br>\n\n\n  <!-- <img align=\"left\" alt=\"cmbenello's GitHub Stats\" src=\"https://github-readme-stats.vercel.app/api?username=cmbenello&show_icons=true&hide_border=false&title_color=ff652f&icon_color=FFE400&bg_color=09131B&text_color=ffffff&border_color=0c1a25\" /> -->"
+      "readme": "## Hi, I'm Charles\n\nSoftware engineer and systems researcher at the University of Chicago. I build high-performance systems, database internals, and GPU-accelerated infrastructure. Currently interning at Alter Domus (AI infrastructure for financial services), researching transaction foundation models with PayPal, and continuing database systems research at UChicago's ChiData Lab."
     },
     {
       "name": "cmbenello.github.io",
       "repo": "cmbenello/cmbenello.github.io",
       "url": "https://github.com/cmbenello/cmbenello.github.io",
       "category": "side-projects",
-      "summary": "Portofolio ",
-      "description": "Portofolio ",
+      "summary": "Personal portfolio website",
+      "description": "Personal portfolio website",
       "image": "https://opengraph.githubassets.com/1/cmbenello/cmbenello.github.io",
       "homepage": "",
       "language": "TypeScript",
@@ -3667,66 +3527,66 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-04-11",
+      "updatedAt": "2026-05-19",
       "createdAt": "2023-12-26",
-      "pushedAt": "2026-04-11",
+      "pushedAt": "2026-05-19",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "4c05fb2",
-          "message": "Add claudegen to projects — CLAUDE.md generator",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/4c05fb20bbdac2bb0be3cad9dc0ac2879e773a8a",
-          "date": "2026-04-11",
-          "author": "ㅊ"
-        },
-        {
-          "sha": "ce939d2",
-          "message": "Add mcpm to projects — MCP server package manager",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/ce939d273edf9fa34479f8216dbe1b5cf015da62",
-          "date": "2026-04-11",
-          "author": "ㅊ"
-        },
-        {
-          "sha": "0762fc6",
-          "message": "Update website content for Amazon SDE internship application",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/0762fc64129500779f295bb246513fea32e359d2",
-          "date": "2026-04-10",
+          "sha": "f1752be",
+          "message": "Add leetcode-anki homepage screenshot",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/f1752be5342c382a3321ca6710134b8b27d3ead6",
+          "date": "2026-05-19",
           "author": "Charles Benello"
         },
         {
-          "sha": "b32d9e9",
-          "message": "update paper titles and authors: rename sorting paper, add Keixin Pei, remove HPTS references",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/b32d9e90e222080b621eddd246c7f4d1088456e6",
-          "date": "2026-04-01",
+          "sha": "cd8da5a",
+          "message": "Remove em dash from AWS company field; wire leetcode-anki screenshot path",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/cd8da5a16b4e6653075205755c4566ab52981321",
+          "date": "2026-05-19",
           "author": "Charles Benello"
         },
         {
-          "sha": "c875ee8",
-          "message": "add PayPal experience, /research route with research-first layout",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/c875ee8d203fadabfa81fbdc60366e3406a899f0",
-          "date": "2026-04-01",
+          "sha": "6a7edb8",
+          "message": "Add leetcode-anki as featured personal project",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/6a7edb8b4648aa001c7185c5e29dd07bf295de61",
+          "date": "2026-05-18",
           "author": "Charles Benello"
         },
         {
-          "sha": "81d1380",
-          "message": "fix: replace default Vercel favicon.ico with serpent icon, revert margins",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/81d138072cfd2525800d4b262f9ed37391d06d86",
-          "date": "2026-03-30",
+          "sha": "739280f",
+          "message": "Add AWS Redshift internship and reorganize resume folders",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/739280f84713f25664ae24c208610d71c7c0547d",
+          "date": "2026-05-18",
           "author": "Charles Benello"
         },
         {
-          "sha": "7a3b466",
-          "message": "reduce frame margins for more content space, remove default Next.js assets",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/7a3b4669f6950b15b4c2d63c6e2617ef354e3336",
-          "date": "2026-03-30",
+          "sha": "a38b8d7",
+          "message": "Add finm-3295 to classes category",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/a38b8d7e2fb5719161a57277d39fe98d6f9d01ad",
+          "date": "2026-05-05",
           "author": "Charles Benello"
         },
         {
-          "sha": "7db9a82",
-          "message": "fix: remove duplicate favicon.ico entry that broke Chrome icon",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/7db9a82d1dec2d6ee062460364b2e4b539913263",
-          "date": "2026-03-30",
+          "sha": "2e53610",
+          "message": "Reshuffle featured projects and add classes/side-projects categories",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/2e53610eb41923ac6478af5f943d1759e62428ab",
+          "date": "2026-05-05",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "5750022",
+          "message": "Update PayPal experience and add AWS + Akuna resumes",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/5750022f3923cab4d95615246c3a1c2fff758707",
+          "date": "2026-04-29",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "6b2be38",
+          "message": "Move Wayne Booth honor under Masters education entry",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/6b2be38467976ae340e2283a4d50996641ba0ea6",
+          "date": "2026-04-20",
           "author": "Charles Benello"
         }
       ],
@@ -3798,99 +3658,6 @@
       "readme": ""
     },
     {
-      "name": "finm-327",
-      "repo": "cmbenello/finm-327",
-      "url": "https://github.com/cmbenello/finm-327",
-      "category": "classes",
-      "summary": "",
-      "description": "",
-      "image": "https://opengraph.githubassets.com/1/cmbenello/finm-327",
-      "homepage": "",
-      "language": "C++",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2026-04-06",
-      "createdAt": "2026-04-06",
-      "pushedAt": "2026-04-06",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [
-        {
-          "sha": "3e5dd4b",
-          "message": "hw uploads",
-          "url": "https://github.com/cmbenello/finm-327/commit/3e5dd4bd5812d12a2a889a1028718ef80b6cdd84",
-          "date": "2026-04-06",
-          "author": "Charles Benello"
-        }
-      ],
-      "commitActivity": [],
-      "readme": ""
-    },
-    {
-      "name": "gpu-research",
-      "repo": "cmbenello/gpu-research",
-      "url": "https://github.com/cmbenello/gpu-research",
-      "category": "research",
-      "summary": "",
-      "description": "",
-      "image": "https://opengraph.githubassets.com/1/cmbenello/gpu-research",
-      "homepage": "",
-      "language": "Cuda",
-      "tags": [],
-      "topics": [],
-      "stars": 0,
-      "forks": 0,
-      "issues": 0,
-      "updatedAt": "2026-04-10",
-      "createdAt": "2026-04-09",
-      "pushedAt": "2026-04-10",
-      "defaultBranch": "main",
-      "license": "",
-      "commitLog": [
-        {
-          "sha": "4427508",
-          "message": "Add paper draft, benchmark suite, and developer scripts",
-          "url": "https://github.com/cmbenello/gpu-research/commit/44275087ce50fb74f9c6328422b2856e44f245b7",
-          "date": "2026-04-10",
-          "author": "ㅊ"
-        },
-        {
-          "sha": "d315531",
-          "message": "Add comprehensive README with architecture, experiments, and next steps",
-          "url": "https://github.com/cmbenello/gpu-research/commit/d315531c31103a2a1f8369e4acb89ce7ac207cbd",
-          "date": "2026-04-10",
-          "author": "cmbenello"
-        },
-        {
-          "sha": "da556d2",
-          "message": "Add experiment suite: bottleneck analysis, CPU vs GPU, memory layouts, profiling, edge cases, external sort",
-          "url": "https://github.com/cmbenello/gpu-research/commit/da556d2017eddd0586981f0e7ba3ab1e419b4f13",
-          "date": "2026-04-10",
-          "author": "cmbenello"
-        },
-        {
-          "sha": "52c6dd2",
-          "message": "Add GPU CrocSort: CUDA external merge sort with novel shared-memory K-way merge tree",
-          "url": "https://github.com/cmbenello/gpu-research/commit/52c6dd2963ccec0e3a85e42b4cc2f3ffc0d03ceb",
-          "date": "2026-04-10",
-          "author": "cmbenello"
-        },
-        {
-          "sha": "c21d66f",
-          "message": "first commit",
-          "url": "https://github.com/cmbenello/gpu-research/commit/c21d66f8278f6565f420c14f7722f854078182da",
-          "date": "2026-04-09",
-          "author": "cmbenello"
-        }
-      ],
-      "commitActivity": [],
-      "readme": "",
-      "featured": true
-    },
-    {
       "name": "Leetcode",
       "repo": "cmbenello/Leetcode",
       "url": "https://github.com/cmbenello/Leetcode",
@@ -3905,123 +3672,70 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-01-21",
+      "updatedAt": "2026-05-13",
       "createdAt": "2024-02-05",
-      "pushedAt": "2026-01-21",
+      "pushedAt": "2026-05-13",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "5ff95d5",
-          "message": "Time: 59 ms (54.27%) | Memory: 176.1 MB (67.96%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/5ff95d50f017eed64388d1758629f46f5a036804",
-          "date": "2026-01-21",
+          "sha": "a865132",
+          "message": "Time: 0 ms (100.00%) | Memory: 19.4 MB (74.35%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/a8651328f3f2742791d79fc35605cc2acfb190fe",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         },
         {
-          "sha": "e63f335",
-          "message": "Added README.md file for Maximum Alternating Sum of Squares",
-          "url": "https://github.com/cmbenello/Leetcode/commit/e63f3356be9e24380b9a207d42d22f3276c1961c",
-          "date": "2026-01-21",
+          "sha": "b5b8b6f",
+          "message": "Added README.md file for Evaluate Division",
+          "url": "https://github.com/cmbenello/Leetcode/commit/b5b8b6f83a1d701aec5f12d16695ec142c600408",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         },
         {
-          "sha": "f2e6865",
-          "message": "Time: 25 ms (73.20%) | Memory: 25.5 MB (58.97%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/f2e6865f34da94514191a2578c52632a43ff30c4",
-          "date": "2026-01-21",
+          "sha": "72f1d23",
+          "message": "Time: 451 ms (5.08%) | Memory: 107.4 MB (57.91%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/72f1d230247a9c51eb237a02e5064513c6bfa0d4",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         },
         {
-          "sha": "e4b6450",
-          "message": "Added Notes.md file for Subrectangle Queries",
-          "url": "https://github.com/cmbenello/Leetcode/commit/e4b6450eb9909f385500b08cd4333768ada808a2",
-          "date": "2026-01-21",
+          "sha": "68e44ff",
+          "message": "Added README.md file for Minimum Fuel Cost to Report to the Capital",
+          "url": "https://github.com/cmbenello/Leetcode/commit/68e44ffafe22c3db48f94ebb4ea48e977fa2ffc2",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         },
         {
-          "sha": "56ed880",
-          "message": "Added README.md file for Subrectangle Queries",
-          "url": "https://github.com/cmbenello/Leetcode/commit/56ed880a3706758834f565e8d3f92b6378720c77",
-          "date": "2026-01-21",
+          "sha": "82bdd56",
+          "message": "Time: 437 ms (5.08%) | Memory: 95.6 MB (76.05%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/82bdd567355e37d5c0600e68d2b971298cc72bd0",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         },
         {
-          "sha": "25be631",
-          "message": "Time: 0 ms (100.00%) | Memory: 19.3 MB (86.29%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/25be631159b90ae1505bd74e2f64ce7f79b2a2b8",
-          "date": "2026-01-20",
+          "sha": "6e0729c",
+          "message": "Added README.md file for Minimum Fuel Cost to Report to the Capital",
+          "url": "https://github.com/cmbenello/Leetcode/commit/6e0729c152c0a8eee3dcf14de26b30c2ab71dffe",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         },
         {
-          "sha": "78d333d",
-          "message": "Added README.md file for Merge Two Sorted Lists",
-          "url": "https://github.com/cmbenello/Leetcode/commit/78d333d2d8dda575aee69816f55725d24080177c",
-          "date": "2026-01-20",
+          "sha": "7515e45",
+          "message": "Time: 419 ms (5.08%) | Memory: 95.8 MB (75.91%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/7515e45982d3062a69c9939c0a4c67d553a4e1f3",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         },
         {
-          "sha": "a08d3c3",
-          "message": "Time: 0 ms (100.00%) | Memory: 8.9 MB (38.29%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/a08d3c3b37e9d233467a36bf68ff62085146031f",
-          "date": "2026-01-20",
+          "sha": "3e9d2a3",
+          "message": "Added Notes.md file for Minimum Fuel Cost to Report to the Capital",
+          "url": "https://github.com/cmbenello/Leetcode/commit/3e9d2a3e5578a53e99556f72ee30759deda7246f",
+          "date": "2026-05-13",
           "author": "Charles Benello"
         }
       ],
-      "commitActivity": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        2,
-        0,
-        0,
-        21,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        2,
-        4,
-        4,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        12,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0
-      ],
+      "commitActivity": [],
       "readme": "# Leetcode\nCollection of LeetCode questions to ace the coding interview! - Created using [LeetHub](https://github.com/QasimWani/LeetHub)\n\n\n\nThese are my leetcode practice problems\n\n<!---LeetCode Topics Start-->\n# LeetCode Topics\n## Hash Table\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n| [0242-valid-anagram](https://github.com/cmbenello/Leetcode/tree/master/0242-valid-anagram) |\n## String\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n| [0242-valid-anagram](https://github.com/cmbenello/Leetcode/tree/master/0242-valid-anagram) |\n## Sorting\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n| [0242-valid-anagram](https://github.com/cmbenello/Leetcode/tree/master/0242-valid-anagram) |\n## Array\n|  |\n| ------- |\n| [0049-group-anagrams](https://github.com/cmbenello/Leetcode/tree/master/0049-group-anagrams) |\n<!---LeetCode Topics End-->"
     },
     {
@@ -4251,133 +3965,80 @@
       "repo": "cmbenello/rust-benchmark-audit",
       "url": "https://github.com/cmbenello/rust-benchmark-audit",
       "category": "side-projects",
-      "summary": "",
-      "description": "",
+      "summary": "Evaluating policy compliance gaps in Rust LLM code generation benchmarks",
+      "description": "Evaluating policy compliance gaps in Rust LLM code generation benchmarks",
       "image": "https://opengraph.githubassets.com/1/cmbenello/rust-benchmark-audit",
       "homepage": "",
-      "language": "Python",
+      "language": "Shell",
       "tags": [],
       "topics": [],
       "stars": 1,
       "forks": 1,
       "issues": 0,
-      "updatedAt": "2026-04-05",
+      "updatedAt": "2026-05-06",
       "createdAt": "2026-02-13",
-      "pushedAt": "2026-04-05",
+      "pushedAt": "2026-05-06",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "979bab8",
-          "message": "fix for matt",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/979bab8a575726aeb616600336869b012c613e84",
-          "date": "2026-04-05",
+          "sha": "3a54bc3",
+          "message": "docs: remove HOWTO_RUN_65; canonical copy lives in rscore-swe-bench",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/3a54bc3db49e0e044a667904d869160f4ab3fa0c",
+          "date": "2026-05-06",
           "author": "Charles Benello"
         },
         {
-          "sha": "e8537e2",
-          "message": "Merge pull request #16 from mjgaughan/main",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/e8537e287df36a940a3bfd9781e321e58be86ae0",
-          "date": "2026-04-01",
+          "sha": "4268137",
+          "message": "docs: HOWTO_RUN_65 runbook for the 59-instance gold eval",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/4268137f7a140f9c47eca804e82e85a388789c57",
+          "date": "2026-05-06",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "530704c",
+          "message": "Port: unblock rust-swe-bench instances (toolchain + spec-keying)",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/530704c1ace6ec5f73276f4c13a31f94ae33f816",
+          "date": "2026-04-24",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "120303a",
+          "message": "Update AWS attempt: Apr 23 Xihua email + max_workers=1 also hung within 60min",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/120303a4d52790440ba9168bfa9e2797b2f99558",
+          "date": "2026-04-23",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "23e441c",
+          "message": "Add AWS rust-swe-bench harness retry attempt (2026-04-23)",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/23e441cbe3cf53baa1326966348794566a55a7c1",
+          "date": "2026-04-23",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "bfb2b84",
+          "message": "Merge pull request #17 from mjgaughan/main",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/bfb2b8413dff34fc791ea670ebb503547d5fbebc",
+          "date": "2026-04-15",
           "author": "mjgaughan"
         },
         {
-          "sha": "5d57273",
-          "message": "trying and failing to run the rust-sb evaluation harness over gold standard patches",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/5d57273f57f611202caa66e8b75ead28c63e568d",
-          "date": "2026-04-01",
+          "sha": "6213721",
+          "message": "adding mutation rules that were provided to claude when editing gs patches",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/62137214424a7aa5a8cc4b6f256db75b42d94b40",
+          "date": "2026-04-15",
           "author": "Matthew Gaughan"
         },
         {
-          "sha": "e6976ea",
-          "message": "rustsb claude mutations",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/e6976ea12d4c80cbc782e64fd6a3cca7268dd19a",
-          "date": "2026-03-16",
+          "sha": "616defe",
+          "message": "adding",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/616defee39da06a1a2d7801b9d8bb42a79298e73",
+          "date": "2026-04-15",
           "author": "Matthew Gaughan"
-        },
-        {
-          "sha": "bd7c658",
-          "message": "Merge pull request #15 from mjgaughan/main",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/bd7c6580b8201faee4639114c9c8345d6f969759",
-          "date": "2026-03-16",
-          "author": "mjgaughan"
-        },
-        {
-          "sha": "1f45753",
-          "message": "removing stale results and un-needed results directories",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/1f45753ba843c91ccf300d6bf309128a930a09fb",
-          "date": "2026-03-16",
-          "author": "Matthew Gaughan"
-        },
-        {
-          "sha": "009d8c4",
-          "message": "adding rust-sb benchmark to the pilot study",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/009d8c492fde643fb37876e4dd7ac37be6071e3a",
-          "date": "2026-03-16",
-          "author": "Matthew Gaughan"
-        },
-        {
-          "sha": "87dcbb4",
-          "message": "Revise README for clarity on package structure",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/87dcbb48ed3f4dbcc2bf63dbf0a777ef23b0a120",
-          "date": "2026-03-10",
-          "author": "mjgaughan"
         }
       ],
-      "commitActivity": [
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        4,
-        12,
-        12,
-        9,
-        9,
-        3,
-        0,
-        1,
-        1
-      ],
+      "commitActivity": [],
       "readme": "TODO for pilot:\n[ ] run multi-sb evaluation \n[~] mutate rust-sb filtered rows \n[ ] run rust-sb evaluation \n[ ] write-up of pilot study \n\n# Replication Package\n\n> **Note:** This is a *mostly*-replication package for **\"Is it correct to be 'unsafe'? A pilot study of Rust safety in CodeGen SE benchmarks\"**. A true replication package would subset this directory and remove unused data, scripts, and printouts. These superfluous files are retained for posterity and ongoing development.\n\n---\n\n## `/data` — Benchmark Data & Mutations\n\nAll benchmark datasets and mutations used in the pilot analysis.\n\n| Directory | Contents |\n|---|---|\n| `0_benchmark-sets` | Full versions of the three unmutated benchmarks |\n| `1_manually_sampled_data` | Rows manually sampled from each dataset for project coding policies (per-benchmark and unified) |\n| `2_frozen_mutated_patches` | Claude-mutated sampled patches (`gold standard`, `panic`, `unsafe`, `unwrap`) |\n\n---\n\n## `/pipeline_scripts` — Analysis Pipeline Code\n\nAll code used in the analysis pipeline.\n\n- **`0_data_construction`** — Scripts for checking the presence of policy-risky language within gold standard patches. Includes `per-project-safety-constructs.txt`, which contains manual annotations to project safety policies.\n- **`1_analysis_runs_and_summary`** — Scripts for the analysis pipeline. See the README for more information.\n\n---\n\n## `/results` — Evaluation Harness Outputs\n\n| Directory | Contents |\n|---|---|\n| `20260225_results` | Final policy check results for gold-standard patches |\n| `20260309_harness_eval_results` | All results from the SWE-bench evaluation harness for `multilingual` and `plus-plus` |"
     },
     {
@@ -4432,6 +4093,384 @@
       ],
       "commitActivity": [],
       "readme": ""
+    },
+    {
+      "name": "141-discussion",
+      "repo": "cmbenello/141-discussion",
+      "url": "https://github.com/cmbenello/141-discussion",
+      "category": "teaching",
+      "summary": "Practice problems for the 141 midterm",
+      "description": "Practice problems for the 141 midterm",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/141-discussion",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-10-30",
+      "createdAt": "2025-10-29",
+      "pushedAt": "2025-10-30",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "aa54a7b",
+          "message": "oops fr done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/aa54a7b9cea64ff5af5cb5bc2539555e3f9b43d5",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "9c61979",
+          "message": "hopefully all done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/9c619796fcce25cdee63d6a542b0c6ec861db90a",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "69e15f8",
+          "message": "readme done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/69e15f878e4721893345d4eaac5617a34cd03e05",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "ee237b8",
+          "message": "extra q's done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/ee237b822fbad105fc6e38e0b42d0c5e53ae1099",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "2155c09",
+          "message": "string lists done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/2155c09e65ef5aa2f796446fb7b23efcc4815d58",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "e6c875b",
+          "message": "conditionals done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/e6c875b9292bdb91b506afa16eed208c6cb4ec7e",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "01250eb",
+          "message": "expressions done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/01250eb5f5a4cac2abe6f0697e68b46425cdc91c",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "033438e",
+          "message": "assessment done",
+          "url": "https://github.com/cmbenello/141-discussion/commit/033438ee522fb75ddfbcfdaa99e0940bdd34dace",
+          "date": "2025-10-30",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# 141 Discussion — Interactive Python Practice Framework\n\n> **IMPORTANT DISCLAIMER**\n>\n> I do not know what will be on the midterm. This guide may miss topics. You should study outside of this repo as well. I put in a good‑faith effort to cover as much as possible, but please don’t blame me if something is missing :(. I genuinely hope this is useful for your studying. If you have any feedback, comments, or concerns, just email me or come to my oh\n\n## Overview\nThis repository provides a complete practice and testing environment to help students prepare for Python fundamentals and midterm-style programming questions.  \nIt covers expressions, conditionals, loops, strings, lists, tuples, lists of lists, scoping, mutability, copying, and more. Start with the assessment, then do the Extra Questions early — they are intentionally tricky and not always intuitive.\n\nEach file in the `problems/` directory represents a category of problems, paired with corresponding:\n- `tests/` → automated pytest-based test cases\n- `solutions/` → reference implementations for checking results\n\n---\n\n## Repository Structure\n\n```\n.\n├── problems/\n│   ├── assessment.py          # Diagnostic problems across all topics\n│   ├── expressions.py         # Arithmetic, logic, and computation\n│   ├── conditional_loops.py   # Conditionals, iteration, and control flow\n│   ├── strings_list.py        # String and list manipulation\n│   ├── extra_qs.py            # Conceptual \"Guess the Output\" and theory drills\n│   └── ...\n├── solutions/\n│   ├── assessment_sols.py\n│   ├── expressions_sols.py\n│   ├── conditional_loops_sols.py\n│   ├── strings_list_sols.py\n│   ├── extra_qs_sols.py\n│   └── ...\n├── tests/\n│   ├── assessment_tests.py\n│   ├── expressions_tests.py\n│   ├── conditional_loops_tests.py\n│   ├── strings_list_tests.py\n│   ├── extra_qs_tests.py\n│   └── ...\n├── scripts/\n│   └── drill_prompts.py       # Interactive “test mode” problem selector\n└── README.md\n```\n\n---\n\n## Where to Start\n\n1) **Run the assessment** (`problems/assessment.py`) to gauge your baseline.\n2) **Tackle Extra Questions early** (`problems/extra_qs.py`). These “guess the output” drills expose scope, mutability, copying, and truthiness pitfalls that aren’t intuitive. They will make the later coding problems easier.\n3) Move on to the topic files (`expressions.py`, `conditional_loops.py`, `strings_list.py`), using tags and difficulty to focus your practice.\n\n---\n\n## Getting Started\n\n### 0. Clone the Repository\n\n```bash\ngit clone https://github.com/cmbenello/141-discussion.git\ncodium 141-discussion # This is whereever you saved it like just type codium file location and open it up\n```\n\n### 1. Create and Activate a Virtual Environment\n\nUse Python 3.12 or later:\n\n```bash\npython3 -m venv venv\nsource venv/bin/activate  # (on macOS/Linux)\nvenv\\Scripts\\activate     # (on Windows)\n```\n\n### 2. Install Dependencies\n\nInstall requirements (pytest and any extras):\n\n```bash\npip install -r requirements.txt\n```\n\n### 3. Run all tests\n\nRun the full test suite to check every problem:\n\n```bash\npytest -q\n```\n\n### 4. Run tests for one topic\n\n```bash\npytest -q tests/expressions_tests.py\npytest -q tests/conditional_loops_tests.py\npytest -q tests/strings_list_tests.py\n```\n\n### 5. Run tests for one function\n\nUse `-k` to target a single function:\n\n```bash\npytest -q -k \"expr_24_middle_three\"\n```\n\n---\n\n## Recommended Study Order\n\n1. Assessment — quick self‑diagnosis (run this first).\n2. Extra Questions — conceptual edge cases (do these early; they’re not intuitive).\n3. Expressions — arithmetic and boolean logic.\n4. Conditional Loops — `if`, `for`, `while`, and iteration patterns.\n5. Strings & Lists — slicing, comprehension, transformations.\n\n---\n\n## Problem Categories\n\nEach problem file focuses on a specific conceptual area:\n\n| File | Topic | Focus |\n|------|--------|--------|\n| `assessment.py` | Mixed practice | Foundation review |\n| `expressions.py` | Operators, math, logic | Arithmetic expressions, rounding, conditionals |\n| `conditional_loops.py` | Flow control | `if`, `for`, `while`, range, iteration |\n| `strings_list.py` | Sequence data | String parsing, slicing, comprehension, transformations |\n| `extra_qs.py` | Conceptual reasoning (do these right after the assessment) | Scoping, mutability, copying, truthiness |\n\n---\n\n## Tags and Difficulty Levels\n\nEach function starts with a detailed docstring including:\n- Category: conceptual grouping (e.g. “String Algorithms”, “Numeric Iteration”)\n- Tags: quick hints for the concepts required (e.g. `range`, `product`, `indexing`)\n- Difficulty: estimated effort (1–4)\n  - 1 — basic comprehension\n  - 2 — simple reasoning or implementation\n  - 3 — moderate complexity / multiple concepts combined\n  - 4 — challenging multi-step logic\n\nYou can use these to focus on your weak areas.  \nFor example:\n\n```python\ndef cl_02_product_multiples_range(a: int, b: int, k: int) -> int:\n    \"\"\"\n    Category: Numeric Iteration & Accumulation | Tags: range, product, divisibility | Difficulty: 2\n    \"\"\"\n```\n\n---\n\n## Extra Questions (Conceptual / “Guess the Output”)\n\nThe file `extra_qs.py` is different from the coding ones — you don’t write full programs here.  \nInstead, you predict what the provided snippet would print and return that as data. They are high‑leverage practice because many bugs on exams come from these semantics.\n\nRules:\n- Return what the snippet would print.\n- If multiple lines, return a list of strings.\n- If it raises an error, return `-1`.\n- If it computes a value, return that value.\n\nExample:\n\n```python\ndef scope_01_shadowing():\n    # x = 5\n    # def f(): x = 10; print(\"inside:\", x)\n    # f(); print(\"outside:\", x)\n    return (10, 5)\n```\n\n---\n\n## Solutions\n\nEach file in `solutions/` mirrors the `problems/` layout.  \nTo activate solution mode:\n\n```bash\nexport USE_SOLUTIONS=1\npytest -q tests/expressions_tests.py\n```\n\nThis lets pytest check your solutions directly against the reference implementations.\n\nIf unset, tests will check your own implementations.\n\n---\n\n## Testing Reference\n\n### To test one topic\n\n```bash\npytest tests/strings_list_tests.py\n```\n\n### To test one specific function\n\n```bash\npytest -q -k \"sl_36_max_subarray_sum\"\n```\n\n### To test all topics but show summary only\n\n```bash\npytest -q --maxfail=1 --disable-warnings\n```\n\n---\n\n## Interactive Drill Mode\n\nThe file `scripts/drill_prompts.py` provides a lightweight interactive quiz generator.\n\nRun it to practice:\n\n```bash\npython scripts/drill_prompts.py\n```\n\nFlags:\n- `--all` — list all available problems\n- `--extra <n>` — number of extra conceptual questions (default: 6)\n- `--per <n>` — number of normal problems per topic (default: 3)\n\n---\n\n## Tips\n\n- Use docstrings and tags to identify which concepts you need.\n- Don’t skip the Extra Questions — they help with understanding scope and Python semantics.\n- Use `pytest -k` to test your understanding problem-by-problem.\n- Solutions are provided for learning, not just checking — read the explanations carefully.\n\n---\n\n## Example Workflow\n\n```bash\n# 1. Practice a few problems manually\npython scripts/drill_prompts.py --extra 4 --per 2\n\n# 2. Edit your solution\ncodium problems/expressions.py\n\n# 3. Test one file\npytest -q tests/expressions_tests.py\n\n# 4. View official solution explanation\nless solutions/expressions_sols.py\n```\n\n---\n\nI am confident all of you will do great! (ㅇㅅㅇ)/\n\n---\n\n— ㅊ 다녀감"
+    },
+    {
+      "name": "141-discussion-final",
+      "repo": "cmbenello/141-discussion-final",
+      "url": "https://github.com/cmbenello/141-discussion-final",
+      "category": "teaching",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/141-discussion-final",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2025-12-02",
+      "createdAt": "2025-11-26",
+      "pushedAt": "2025-12-02",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "bcc03d5",
+          "message": "fixed errors",
+          "url": "https://github.com/cmbenello/141-discussion-final/commit/bcc03d53cd9d11d29a25d9b817343b00adadf73d",
+          "date": "2025-12-02",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "8d4de08",
+          "message": "Initial commit: 141 discussion final prep framework",
+          "url": "https://github.com/cmbenello/141-discussion-final/commit/8d4de082ccebca4aed1ee9aa2e3facaa1e768bba",
+          "date": "2025-11-26",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# 141 Discussion final prep\n\nIMPORTANT DISCLAIMER\n--------------------\nI do not know what will be on your exam or midterm. This project was assembled quickly, and some problems may feel oddly phrased or slightly unusual. However, all solutions have been fully tested and verified. Use this as a structured practice environment, but continue to study from lecture, worksheets, discussion, and your own notes. If you find any unclear wording, inconsistent difficulty, or potential test errors, please email me so I can correct them for everyone.\n\n\nThis should be p similar to the midterm one BUT I have made some changes becuase I think some stuff wasn't working before so please just read over this before you start\n\nPurpose of This Repository\n--------------------------\nThis repository provides a complete, automated practice system designed to help you prepare for Python fundamentals at the level expected in CMSC 141. It includes:\n\n- expressions and arithmetic\n- conditionals and loops\n- lists and tuples\n- strings and dictionaries\n- recursion on lists\n- tree and trie algorithms\n- scoping, copying, and mutability\n- conceptual “guess the output” scenarios\n\nEvery problem has:\n- an associated test in the tests/ directory\n- a reference implementation in the solutions/ directory\n- metadata (category, tags, difficulty) to help you focus your practice\n\nDifficulty Scaling Note\n-----------------------\nStudents mentioned that earlier versions of this project included problems that were too easy or did not match exam style. Based on that feedback:\n\n- this version contains fewer total problems,\n- there are no trivial warm-up questions,\n- difficulty level 3 corresponds roughly to exam difficulty,\n- difficulty level 4 is above exam difficulty and is intended for mastery.\n\nIf you can comfortably solve level‑4 problems, the midterm should feel manageable.\n\nRepository Layout\n-----------------\n```\n.\n├── problems/               # All student‑implementable problem stubs\n├── solutions/              # Reference implementations\n├── tests/                  # Pytest suites for every problem\n├── engine/                 # Assessment and practice engine\n├── run_assessment.py       # Generates full or topic‑based diagnostics\n├── run_practice.py         # Interactive random‑practice mode\n├── run_problem.py          # Run a single problem’s tests\n└── README.md\n```\n\nThe engine/ directory handles problem discovery, registry building, single‑problem evaluation, assessment report generation, and interactive sessions.\n\nHow to Begin\n------------\n\n1. Run an assessment to get a baseline overview of strengths and weaknesses:\n\n```\nexport USE_SOLUTIONS=0\npython run_assessment.py\n```\n\nA JSON report will be saved in data/assessments/.\n\n2. Work through the conceptual problems early. The files in problems/strings_dicts and the semantic‑trap questions in problems/extra_qs contain valuable exercises on scoping, copying, mutation, and flow of evaluation.\n\n3. Practice topic by topic. Use pytest directly for targeted study:\n\n```\npytest tests/test_lists_tuples.py\npytest tests/test_strings_dicts.py\npytest tests/test_recursion_lists.py\npytest tests/test_trees_tries.py\n```\n\nTo test a single function:\n\n```\npytest -q -k \"lt_14_windowed_sublists\"\n```\n\nUsing Reference Solutions\n-------------------------\nTo test your own implementations:\n\n```\nexport USE_SOLUTIONS=0\npytest -v\n```\n\nTo test using the reference solutions (to verify tests or expected behavior):\n\n```\nexport USE_SOLUTIONS=1\npytest -v\n```\n\nInteractive Practice Mode\n-------------------------\nLaunch an interactive problem session with:\n\n```\npython run_practice.py\n```\n\nOptions:\n- --topic basics        (restrict to a single topic)\n- --min-difficulty 3    (filter by difficulty)\n- --one-shot            (run exactly one random problem)\n\nAssessment Mode\n----------------\nGenerate a full diagnostic across all topics:\n\n```\nexport USE_SOLUTIONS=1\npython run_assessment.py\n```\n\nOr restrict scope:\n\n```\npython run_assessment.py --topics basics,strings_dicts --num-per-topic 2 --seed 141\n```\n\nA summary and JSON report will appear in data/assessments/.\n\nSuggested Study Strategy\n------------------------\n1. Run the diagnostic.\n2. Focus on difficulty‑3 problems in categories where you scored poorly.\n3. Move on to difficulty‑4 problems when comfortable.\n4. Re‑run tests until everything passes.\n5. Compare your approaches with the reference solutions.\n\nTransparency Note\n-----------------\nSome problems were written quickly and may feel unusual. Their purpose is to target conceptual weak points, not to serve as perfect exam replicas. Despite this, all solutions and tests are correct and validated. If anything appears unclear or inconsistent, reach out so it can be improved.\n\nContact\n-------\nIf you have questions, find errors, want clarification on a problem, or notice inconsistencies, please email me. I want this to be as helpful and accurate as possible.\n\nFinal Message\n-------------\nGood luck. If you work through these problems systematically and focus on the more challenging items, you will be well‑prepared for the exam. You are absolutely capable of doing well.\n\n— ㅊ 다녀감"
+    },
+    {
+      "name": "bofa_hqla",
+      "repo": "cmbenello/bofa_hqla",
+      "url": "https://github.com/cmbenello/bofa_hqla",
+      "category": "work",
+      "summary": "",
+      "description": "",
+      "image": "/images/projects/bofa_hqla.png",
+      "homepage": "",
+      "language": "",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-05-19",
+      "createdAt": "2026-05-19",
+      "pushedAt": "2026-05-19",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [],
+      "commitActivity": [],
+      "readme": "",
+      "featured": true
+    },
+    {
+      "name": "devhub",
+      "repo": "cmbenello/devhub",
+      "url": "https://github.com/cmbenello/devhub",
+      "category": "uncategorized",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/devhub",
+      "homepage": "",
+      "language": "TypeScript",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-04-12",
+      "createdAt": "2026-04-12",
+      "pushedAt": "2026-04-12",
+      "defaultBranch": "master",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "10cd4bc",
+          "message": "Fix terminal output polling and add proper fullscreen support",
+          "url": "https://github.com/cmbenello/devhub/commit/10cd4bc6174794bdbcf338eb05bea60e87ad9778",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "a5f18a9",
+          "message": "Replace event-based terminal with polling approach",
+          "url": "https://github.com/cmbenello/devhub/commit/a5f18a98d9b5dc5f11bb9a678be53b6d32e459f8",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "db15539",
+          "message": "Fix terminal race condition and window maximize on WSL2",
+          "url": "https://github.com/cmbenello/devhub/commit/db15539db2d729c02ad9c1757775b7daa24dc1ae",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "8077a5a",
+          "message": "Fix terminal output, convert all sizing to rem, bump base to 20px",
+          "url": "https://github.com/cmbenello/devhub/commit/8077a5aa8a6baa04e1a1843b4abad7a59385f80c",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "f630230",
+          "message": "Fix terminal blank output, zoom sync, and fullscreen",
+          "url": "https://github.com/cmbenello/devhub/commit/f630230934103cdba75087e70e732a622e24b252",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "bf017ce",
+          "message": "Make everything bigger with rem-based sizing and Ctrl+/- zoom",
+          "url": "https://github.com/cmbenello/devhub/commit/bf017cef4063476a9ffb33cb41393431d5f9d999",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "6081207",
+          "message": "Add task count badges in sidebar and minor polish",
+          "url": "https://github.com/cmbenello/devhub/commit/60812070b21a9b80b38058b3bb59918648f2597e",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        },
+        {
+          "sha": "8e80c9e",
+          "message": "Add git status in sidebar, task search, and more polish",
+          "url": "https://github.com/cmbenello/devhub/commit/8e80c9e474dcbe24be148b61db8e6a9c5a154087",
+          "date": "2026-04-12",
+          "author": "ㅊ"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# React + TypeScript + Vite\n\nThis template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.\n\nCurrently, two official plugins are available:\n\n- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)\n- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)\n\n## React Compiler\n\nThe React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).\n\n## Expanding the ESLint configuration\n\nIf you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:\n\n```js\nexport default defineConfig([\n  globalIgnores(['dist']),\n  {\n    files: ['**/*.{ts,tsx}'],\n    extends: [\n      // Other configs...\n\n      // Remove tseslint.configs.recommended and replace with this\n      tseslint.configs.recommendedTypeChecked,\n      // Alternatively, use this for stricter rules\n      tseslint.configs.strictTypeChecked,\n      // Optionally, add this for stylistic rules\n      tseslint.configs.stylisticTypeChecked,\n\n      // Other configs...\n    ],\n    languageOptions: {\n      parserOptions: {\n        project: ['./tsconfig.node.json', './tsconfig.app.json'],\n        tsconfigRootDir: import.meta.dirname,\n      },\n      // other options...\n    },\n  },\n])\n```\n\nYou can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:\n\n```js\n// eslint.config.js\nimport reactX from 'eslint-plugin-react-x'\nimport reactDom from 'eslint-plugin-react-dom'\n\nexport default defineConfig([\n  globalIgnores(['dist']),\n  {\n    files: ['**/*.{ts,tsx}'],\n    extends: [\n      // Other configs...\n      // Enable lint rules for React\n      reactX.configs['recommended-typescript'],\n      // Enable lint rules for React DOM\n      reactDom.configs.recommended,\n    ],\n    languageOptions: {\n      parserOptions: {\n        project: ['./tsconfig.node.json', './tsconfig.app.json'],\n        tsconfigRootDir: import.meta.dirname,\n      },\n      // other options...\n    },\n  },\n])\n```"
+    },
+    {
+      "name": "leetcode-tracker",
+      "repo": "cmbenello/leetcode-tracker",
+      "url": "https://github.com/cmbenello/leetcode-tracker",
+      "category": "uncategorized",
+      "summary": "",
+      "description": "",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/leetcode-tracker",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-05-19",
+      "createdAt": "2026-05-06",
+      "pushedAt": "2026-05-19",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "fdae088",
+          "message": "neetcode/min-cost-climbing-stairs: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/fdae0885908b48f35df31920fb655d6072194be5",
+          "date": "2026-05-19",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "2019e32",
+          "message": "neetcode/min-cost-climbing-stairs: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/2019e326594f620ce6b36256a5773f76a6755272",
+          "date": "2026-05-19",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "8490445",
+          "message": "neetcode/climbing-stairs: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/8490445606729ac3f179a6693617d532e64af66a",
+          "date": "2026-05-19",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "56da0a0",
+          "message": "neetcode/minimum-size-subarray-sum: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/56da0a09abef47d23ae7872c1b7467677a6d51a2",
+          "date": "2026-05-18",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "2dd008c",
+          "message": "neetcode/max-area-of-island: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/2dd008c3208de33846dc0dd2217bafd6170bc16a",
+          "date": "2026-05-18",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "263d148",
+          "message": "neetcode/count-number-of-islands: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/263d1483dd6fd7722e840727395a0d613688e4cd",
+          "date": "2026-05-18",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "a6070fb",
+          "message": "leetcode/maximum-non-negative-product-in-a-matrix: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/a6070fb62d4747316c3baa8fab3226c1548a542d",
+          "date": "2026-05-18",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "233198e",
+          "message": "leetcode/insertion-sort-list: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/233198e7cc7bd6125137ac73f5a2d2443b4b72fe",
+          "date": "2026-05-17",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# DSA Spaced Repetition Tracker\n\nAuto-generated by the [LeetCode Anki](https://github.com/) extension.\n\n- **Total tracked:** 97 (LeetCode 23 · NeetCode 74)\n- **Total reviews:** 54\n- **Lapses:** 13\n- **Reviewed today:** 0\n- **Due now:** 93\n\n## Sites\n\n- [LeetCode](./leetcode/) — 23 tracked\n- [NeetCode](./neetcode/) — 74 tracked\n\n## Last 30 days (all sites)\n\n```\n                █▂▃▂▁▅ ▁        (54 reviews)\n```"
+    },
+    {
+      "name": "neetcode-submissions",
+      "repo": "cmbenello/neetcode-submissions",
+      "url": "https://github.com/cmbenello/neetcode-submissions",
+      "category": "uncategorized",
+      "summary": "My NeetCode.io problem submissions",
+      "description": "My NeetCode.io problem submissions",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/neetcode-submissions",
+      "homepage": "",
+      "language": "Python",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-05-03",
+      "createdAt": "2026-05-03",
+      "pushedAt": "2026-05-03",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "aa63bff",
+          "message": "Bulk sync: 1 submission",
+          "url": "https://github.com/cmbenello/neetcode-submissions/commit/aa63bffaf6a5a5ccb8180fef848d3dcb38a87610",
+          "date": "2026-05-03",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "82bee66",
+          "message": "Initialize NeetCode solutions repository",
+          "url": "https://github.com/cmbenello/neetcode-submissions/commit/82bee667b12ee42c2633248b5e90e50f49848889",
+          "date": "2026-05-03",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# NeetCode Solutions — @cmbenello\n\n> Synced automatically from [NeetCode.io](https://neetcode.io) · Repository: `neetcode-submissions`\n\n---\n\n## What is this?\n\n[NeetCode.io](https://neetcode.io) is a coding interview preparation platform featuring curated problems, video solutions, and an in-browser code editor. This repository is automatically populated with your accepted (or all) solutions using the **GitHub Sync** feature.\n\n---\n\n## How GitHub Sync works\n\n1. **Connect your GitHub account** on [neetcode.io/profile/github](https://neetcode.io/profile/github).\n2. **Auto-commit** — every time you submit a solution on NeetCode, it is pushed here automatically (configurable by status).\n3. **Bulk Sync** — push all your past solutions at once from the GitHub settings page.\n4. **Manual sync** — from the submission history panel on any problem page, sync or remove individual submissions.\n\n---\n\n## Repository structure\n\nSolutions are organized by topic folder, then problem ID. Each submission is stored as a separate file:\n\n```\n<topic-folder>/\n  <problem-id>/\n    submission-0.<ext>   ← first submission\n    submission-1.<ext>   ← second submission\n    ...\n```\n\n**Example:**\n```\nData Structures & Algorithms/two-integer-sum/submission-0.py\nData Structures & Algorithms/binary-search/submission-0.ts\nPython For Beginners/python-hello-world/submission-0.py\n```\n\n---\n\n## Supported languages\n\n| Language | Extension |\n|---|---|\n| Python | `.py` |\n| JavaScript | `.js` |\n| TypeScript | `.ts` |\n| Java | `.java` |\n| C++ | `.cpp` |\n| C# | `.cs` |\n| Go | `.go` |\n| Rust | `.rs` |\n| Kotlin | `.kt` |\n| Swift | `.swift` |\n| SQL | `.sql` |\n\n---\n\n## Settings\n\nManage your sync preferences at [neetcode.io/profile/github](https://neetcode.io/profile/github):\n\n- **Auto-commit toggle** — enable or disable automatic commits on submission\n- **Status filter** — sync all submissions or accepted only\n- **Rename repository** — rename this repo or start fresh with a new one\n- **Bulk Sync** — push all past solutions at once (rate-limited)\n\n---\n\n*Generated by [NeetCode GitHub Integration](https://neetcode.io)*"
+    },
+    {
+      "name": "runpulse",
+      "repo": "cmbenello/runpulse",
+      "url": "https://github.com/cmbenello/runpulse",
+      "category": "uncategorized",
+      "summary": "Personal WHOOP + Strava → Claude coach via MCP servers",
+      "description": "Personal WHOOP + Strava → Claude coach via MCP servers",
+      "image": "https://opengraph.githubassets.com/1/cmbenello/runpulse",
+      "homepage": "",
+      "language": "",
+      "tags": [],
+      "topics": [],
+      "stars": 0,
+      "forks": 0,
+      "issues": 0,
+      "updatedAt": "2026-04-28",
+      "createdAt": "2026-04-28",
+      "pushedAt": "2026-04-28",
+      "defaultBranch": "main",
+      "license": "",
+      "commitLog": [
+        {
+          "sha": "5a0bd2d",
+          "message": "Initial scaffold: WHOOP + Strava → Claude via MCP",
+          "url": "https://github.com/cmbenello/runpulse/commit/5a0bd2d539eb734410d957bccfb7cc2201b94efd",
+          "date": "2026-04-28",
+          "author": "Charles Benello"
+        }
+      ],
+      "commitActivity": [],
+      "readme": "# Runpulse\n\nPersonal WHOOP + Strava → Claude setup. No webapp; two MCP servers + a folder of markdown plans.\n\nSee [SPEC.md](SPEC.md) for the full design and rationale.\n\n## Daily use\n\nOpen a Claude Code or Claude Desktop chat in this directory and say something like:\n- \"Read `plans/goal.md` and `plans/` for the latest weekly plan, pull last 7 days of WHOOP and Strava, and tell me what to do today.\"\n- \"Draft `plans/2026-week-of-MM-DD.md` based on goal.md and the last 4 weeks of data.\"\n- \"Compare what I actually did this week to the plan and adjust next week.\"\n\nPlans live in [`plans/`](plans/) as markdown — greppable, diffable, version-controllable.\n\n## Files\n\n- `SPEC.md` — design and phases\n- `plans/goal.md` — current race target + operating rules for the coach\n- `plans/<week>.md` — weekly plans Claude generates and you adhere to\n- `.env.local` — WHOOP + Strava credentials (gitignored, never committed)"
     }
   ]
 }
