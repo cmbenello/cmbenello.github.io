@@ -8,7 +8,7 @@ export const EDUCATION = [
     school: "University of Chicago",
     degree: "Master's degree",
     field: "Financial Mathematics",
-    dates: "Jun 2025 - Dec 2026",
+    dates: "Jun 2025 - Mar 2027",
     notes: "",
   },
   {
