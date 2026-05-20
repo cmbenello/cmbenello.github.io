@@ -123,7 +123,8 @@
       \resumeItemListStart
         \resumeItem{Reduced out-of-memory query times by 50--200\% on large TPC-DS analytical workloads by engineering a macroblock-based GPU decompression strategy in CUDA/C++ that pipelines compressed column blocks through HBM, eliminating full-column staging and unlocking queries on datasets that exceed device memory capacity.}
         \resumeItem{Enabled adaptive decompression strategy selection at plan time by building cost-based simulation models predicting query performance across workload complexities, validated on TPC-DS at multiple scale factors with mixed compression schemes.}
-        \resumeItem{Shaped a new cost-based research direction (with a forthcoming publication) by designing TPC-DS join patterns and benchmarking GPU compression trade-offs with resource contention models across I/O, decompression, and compute pipelines.}
+        \resumeItem{Identified GPU pipeline bottlenecks under concurrent workloads by designing TPC-DS join patterns and resource contention models across I/O, decompression, and compute stages.}
+        \resumeItem{Shaped a new cost-based research direction (with a forthcoming publication) by benchmarking GPU compression trade-offs across schemes and dataset characteristics.}
       \resumeItemListEnd
 
     \resumeSubheading
@@ -153,14 +154,14 @@
             \resumeItem{Built a GPU external merge sort in CUDA (port of CrocSort, VLDB 2026). On TPC-H SF50 ORDER BY lineitem (300M rows, 36 GB), beats DuckDB by 20.1$\times$, Polars by 34.5$\times$, and MendSort (JouleSort 2023) by 2.4$\times$ on a PCIe-Gen3 GPU. Cost-based plan-time selector between compact-key and full-key paths cuts PCIe amplification to 0.14$\times$ via key-only upload, permutation gather, and triple-buffered streaming.}
           \resumeItemListEnd
       \resumeProjectHeading
-          {\textbf{Concurrent Database Engine} $|$ \emph{Rust} $|$ \small{\href{https://github.com/cmbenello/CrustyDB}{github.com/cmbenello/CrustyDB}}}{2025}
-          \resumeItemListStart
-            \resumeItem{Built a multi-threaded relational database in Rust: B+ tree indexing, concurrent buffer pool, heap storage, SQL execution.}
-          \resumeItemListEnd
-      \resumeProjectHeading
           {\textbf{Transit Coverage Optimizer} $|$ \emph{Python} $|$ \small{\href{https://cmbenello.github.io/covtsp}{cmbenello.github.io/covtsp}}}{2026}
           \resumeItemListStart
             \resumeItem{Beat the Guinness World Record by 60 minutes (16h45m vs.\ 17h45m) with an automated Covering TSP pipeline on a time-expanded graph (160K nodes, 1.26M edges) using k-NN with urgency scoring and epsilon-greedy search. Generalized to NYC (475 stations) and Berlin.}
+          \resumeItemListEnd
+      \resumeProjectHeading
+          {\textbf{Concurrent Database Engine} $|$ \emph{Rust} $|$ \small{\href{https://github.com/cmbenello/CrustyDB}{github.com/cmbenello/CrustyDB}}}{2025}
+          \resumeItemListStart
+            \resumeItem{Built a multi-threaded relational database in Rust: B+ tree indexing, concurrent buffer pool, heap storage, SQL execution.}
           \resumeItemListEnd
     \resumeSubHeadingListEnd
 
