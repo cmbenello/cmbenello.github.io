@@ -115,17 +115,15 @@
         \resumeItem{First-authored VLDB 2026 paper (CrocSort) by designing a parallel external merge sort in Rust that completes under tight memory budgets where PostgreSQL, DuckDB, and ClickHouse abort, jointly planning memory and phase-specific thread counts.}
         \resumeItem{Co-authored CIDR 2025 paper on resource-adaptive query execution with paged memory management.}
         \resumeItem{Sole-authored HPTS 2026 paper on a lightweight prediction model for sort configuration on cloud and disaggregated hardware, transferring calibration across machines within 3--5\% of optimal without brute-force sweeps.}
-        \resumeItem{Improved random access speed by 200\% and reduced memory footprint by 40\% by engineering Small String Optimization across storage structures, inlining short keys directly into nodes to eliminate heap allocations and pointer chases on the hot path.}
       \resumeItemListEnd
 
     \resumeSubheading
       {GPU Systems Researcher}{Jun -- Sep 2025}
       {EPFL (DIAS Lab, Prof.\ Anastasia Ailamaki)}{Lausanne, Switzerland}
       \resumeItemListStart
-        \resumeItem{Engineered a macroblock-based GPU decompression strategy in CUDA/C++ that cut out-of-memory query times by 50--200\%.}
-        \resumeItem{Built cost-based simulation models enabling adaptive decompression strategy selection at plan time on TPC-DS workloads.}
-        \resumeItem{Designed TPC-DS join patterns and resource contention models across I/O, decompression, and compute pipelines.}
-        \resumeItem{Benchmarked GPU compression trade-offs across schemes, shaping a new cost-based research direction with a forthcoming publication.}
+        \resumeItem{Reduced out-of-memory query times by 50--200\% on large TPC-DS analytical workloads by engineering a macroblock-based GPU decompression strategy in CUDA/C++ that pipelines compressed column blocks through HBM without staging full columns in device memory.}
+        \resumeItem{Enabled adaptive decompression strategy selection at plan time by building cost-based simulation models predicting query performance across workload complexities, validated on TPC-DS at multiple scale factors with mixed compression schemes.}
+        \resumeItem{Shaped a new cost-based research direction (with a forthcoming publication) by designing TPC-DS join patterns and benchmarking GPU compression trade-offs with resource contention models across I/O, decompression, and compute pipelines.}
       \resumeItemListEnd
 
     \resumeSubheading
