@@ -121,7 +121,7 @@
       {GPU Systems Researcher}{Jun -- Sep 2025}
       {EPFL (DIAS Lab, Prof.\ Anastasia Ailamaki)}{Lausanne, Switzerland}
       \resumeItemListStart
-        \resumeItem{Reduced out-of-memory query times by 50--200\% on large TPC-DS analytical workloads by engineering a macroblock-based GPU decompression strategy in CUDA/C++ that pipelines compressed column blocks through HBM without staging full columns in device memory.}
+        \resumeItem{Reduced out-of-memory query times by 50--200\% on large TPC-DS analytical workloads by engineering a macroblock-based GPU decompression strategy in CUDA/C++ that pipelines compressed column blocks through HBM, eliminating full-column staging and unlocking queries on datasets that exceed device memory capacity.}
         \resumeItem{Enabled adaptive decompression strategy selection at plan time by building cost-based simulation models predicting query performance across workload complexities, validated on TPC-DS at multiple scale factors with mixed compression schemes.}
         \resumeItem{Shaped a new cost-based research direction (with a forthcoming publication) by designing TPC-DS join patterns and benchmarking GPU compression trade-offs with resource contention models across I/O, decompression, and compute pipelines.}
       \resumeItemListEnd
