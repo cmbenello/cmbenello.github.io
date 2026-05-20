@@ -113,7 +113,7 @@
       {ChiData Research Lab, University of Chicago}{Chicago, IL}
       \resumeItemListStart
         \resumeItem{First-authored VLDB 2026 paper (CrocSort) by designing a parallel external merge sort in Rust that completes under tight memory budgets where PostgreSQL, DuckDB, and ClickHouse abort, jointly planning memory and phase-specific thread counts.}
-        \resumeItem{Co-authored CIDR 2025 paper on resource-adaptive query execution with paged memory management, adapting operators to runtime contention.}
+        \resumeItem{Co-authored CIDR 2025 paper on resource-adaptive query execution with paged memory management.}
         \resumeItem{Sole-authored HPTS 2026 paper on a lightweight prediction model for sort configuration on cloud and disaggregated hardware, transferring calibration across machines within 3--5\% of optimal without brute-force sweeps.}
         \resumeItem{Improved random access speed by 200\% and reduced memory footprint by 40\% by engineering Small String Optimization across storage structures, inlining short keys directly into nodes to eliminate heap allocations and pointer chases on the hot path.}
       \resumeItemListEnd
@@ -124,14 +124,14 @@
       \resumeItemListStart
         \resumeItem{Engineered a macroblock-based GPU decompression strategy in CUDA/C++ that cut out-of-memory query times by 50--200\%.}
         \resumeItem{Built cost-based simulation models enabling adaptive decompression strategy selection at plan time on TPC-DS workloads.}
-        \resumeItem{Designed join patterns and resource contention models across I/O, decompression, and compute, shaping a new cost-based research direction.}
+        \resumeItem{Designed TPC-DS join patterns and resource contention models across I/O, decompression, and compute pipelines.}
       \resumeItemListEnd
 
     \resumeSubheading
       {Software Engineering Intern}{Feb 2026 -- Present}
       {Alter Domus}{Chicago, IL}
       \resumeItemListStart
-        \resumeItem{Lifted document extraction accuracy from 50\% to 92--97\% via a multi-stage pipeline with schema-enforced output for 100+ page financial filings.}
+        \resumeItem{Lifted document extraction accuracy from 50\% to 92--97\% via a multi-stage pipeline for 100+ page financial filings.}
         \resumeItem{Built an LLM-as-a-Judge evaluation framework benchmarking faithfulness, numerical accuracy, and completeness across document types.}
       \resumeItemListEnd
 
@@ -156,7 +156,7 @@
       \resumeProjectHeading
           {\textbf{Concurrent Database Engine} $|$ \emph{Rust} $|$ \small{\href{https://github.com/cmbenello/CrustyDB}{github.com/cmbenello/CrustyDB}}}{2025}
           \resumeItemListStart
-            \resumeItem{Built a multi-threaded relational database from scratch in Rust: B+ tree indexing, concurrent buffer pool with page-level locking, heap storage, and a SQL query execution engine.}
+            \resumeItem{Built a multi-threaded relational database in Rust: B+ tree indexing, concurrent buffer pool with page-level locking, heap storage, and SQL query execution.}
           \resumeItemListEnd
       \resumeProjectHeading
           {\textbf{Transit Coverage Optimizer} $|$ \emph{Python} $|$ \small{\href{https://cmbenello.github.io/covtsp}{cmbenello.github.io/covtsp}}}{2026}
