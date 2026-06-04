@@ -1,14 +1,9 @@
 {
-  "generatedAt": "2026-05-19T05:16:56.131Z",
+  "generatedAt": "2026-06-04T04:44:27.034Z",
   "user": "cmbenello",
   "contributions": {
-    "totalContributions": 1057,
+    "totalContributions": 1123,
     "months": [
-      {
-        "name": "May",
-        "firstDay": "2025-05-01",
-        "totalWeeks": 2
-      },
       {
         "name": "Jun",
         "firstDay": "2025-06-01",
@@ -67,103 +62,13 @@
       {
         "name": "May",
         "firstDay": "2026-05-01",
-        "totalWeeks": 3
+        "totalWeeks": 5
       }
     ],
     "weeks": [
       {
-        "firstDay": "2025-05-19",
+        "firstDay": "2025-06-04",
         "contributionDays": [
-          {
-            "date": "2025-05-19",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-20",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-21",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-22",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-23",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-24",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-05-25",
-        "contributionDays": [
-          {
-            "date": "2025-05-25",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-26",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-27",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-28",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-29",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-30",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-05-31",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          }
-        ]
-      },
-      {
-        "firstDay": "2025-06-01",
-        "contributionDays": [
-          {
-            "date": "2025-06-01",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
-          {
-            "date": "2025-06-02",
-            "contributionCount": 2,
-            "color": "#9be9a8"
-          },
-          {
-            "date": "2025-06-03",
-            "contributionCount": 0,
-            "color": "#ebedf0"
-          },
           {
             "date": "2025-06-04",
             "contributionCount": 0,
@@ -2136,8 +2041,8 @@
           },
           {
             "date": "2026-05-15",
-            "contributionCount": 15,
-            "color": "#40c463"
+            "contributionCount": 24,
+            "color": "#30a14e"
           },
           {
             "date": "2026-05-16",
@@ -2156,13 +2061,103 @@
           },
           {
             "date": "2026-05-18",
-            "contributionCount": 7,
+            "contributionCount": 8,
             "color": "#9be9a8"
           },
           {
             "date": "2026-05-19",
+            "contributionCount": 17,
+            "color": "#40c463"
+          },
+          {
+            "date": "2026-05-20",
+            "contributionCount": 11,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-21",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-22",
+            "contributionCount": 7,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-23",
+            "contributionCount": 3,
+            "color": "#9be9a8"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-05-24",
+        "contributionDays": [
+          {
+            "date": "2026-05-24",
             "contributionCount": 2,
             "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-25",
+            "contributionCount": 2,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-26",
+            "contributionCount": 6,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-27",
+            "contributionCount": 2,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-28",
+            "contributionCount": 2,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-29",
+            "contributionCount": 1,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-05-30",
+            "contributionCount": 0,
+            "color": "#ebedf0"
+          }
+        ]
+      },
+      {
+        "firstDay": "2026-05-31",
+        "contributionDays": [
+          {
+            "date": "2026-05-31",
+            "contributionCount": 1,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-06-01",
+            "contributionCount": 0,
+            "color": "#ebedf0"
+          },
+          {
+            "date": "2026-06-02",
+            "contributionCount": 1,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-06-03",
+            "contributionCount": 2,
+            "color": "#9be9a8"
+          },
+          {
+            "date": "2026-06-04",
+            "contributionCount": 0,
+            "color": "#ebedf0"
           }
         ]
       }
@@ -2265,12 +2260,33 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-05-05",
+      "updatedAt": "2026-05-30",
       "createdAt": "2026-04-06",
-      "pushedAt": "2026-05-05",
+      "pushedAt": "2026-05-30",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
+        {
+          "sha": "582f87a",
+          "message": "Add files via upload",
+          "url": "https://github.com/cmbenello/finm-327/commit/582f87ab53e51e29d728c9c516567d8ca07b56e5",
+          "date": "2026-05-30",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "2449acf",
+          "message": "hft: set group name to group8",
+          "url": "https://github.com/cmbenello/finm-327/commit/2449acf509edd78709f4be5e1dd88c613d4ee392",
+          "date": "2026-05-28",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "b76a533",
+          "message": "hft final project: matrix challenge client (group shoemaker)",
+          "url": "https://github.com/cmbenello/finm-327/commit/b76a533f6250c44ee5dedf9d32cbe3fcb83d41c7",
+          "date": "2026-05-28",
+          "author": "Charles Benello"
+        },
         {
           "sha": "259f832",
           "message": "rename session4 -> hw5 (homework 5: optimization)",
@@ -2304,27 +2320,6 @@
           "message": "hw4 template-based order engine",
           "url": "https://github.com/cmbenello/finm-327/commit/4b9158229de1fa3bc8e8923537164a09692b26ac",
           "date": "2026-04-26",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "af818bc",
-          "message": "phase 3 local order book and order manager",
-          "url": "https://github.com/cmbenello/finm-327/commit/af818bc16fd2f9b58fa293d5caa6a9610e72cf32",
-          "date": "2026-04-20",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "c9a91d7",
-          "message": "session 3 memory management & raii",
-          "url": "https://github.com/cmbenello/finm-327/commit/c9a91d7e48963a5fac5e5f56fe6900555dad117d",
-          "date": "2026-04-19",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "460fe1c",
-          "message": "use instructor server/client files",
-          "url": "https://github.com/cmbenello/finm-327/commit/460fe1c3407416b23238cc014c02436ccee2baeb",
-          "date": "2026-04-13",
           "author": "Charles Benello"
         }
       ],
@@ -3121,9 +3116,9 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-05-19",
-      "createdAt": "2026-05-19",
-      "pushedAt": "2026-05-19",
+      "updatedAt": "2026-06-04",
+      "createdAt": "2026-06-04",
+      "pushedAt": "2026-06-04",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
@@ -3228,9 +3223,9 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-05-19",
-      "createdAt": "2026-05-19",
-      "pushedAt": "2026-05-19",
+      "updatedAt": "2026-06-04",
+      "createdAt": "2026-06-04",
+      "pushedAt": "2026-06-04",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
@@ -3527,66 +3522,66 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-05-19",
+      "updatedAt": "2026-05-20",
       "createdAt": "2023-12-26",
-      "pushedAt": "2026-05-19",
+      "pushedAt": "2026-05-20",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "f1752be",
-          "message": "Add leetcode-anki homepage screenshot",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/f1752be5342c382a3321ca6710134b8b27d3ead6",
-          "date": "2026-05-19",
+          "sha": "fd08cbe",
+          "message": "Combine EPFL bullets 3 and 4 into one X-Y-Z bullet; EPFL now 3 bullets",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/fd08cbe0affacfa91d043f978a8c7a8157b31b3b",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "cd8da5a",
-          "message": "Remove em dash from AWS company field; wire leetcode-anki screenshot path",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/cd8da5a16b4e6653075205755c4566ab52981321",
-          "date": "2026-05-19",
+          "sha": "3927cb6",
+          "message": "Split EPFL bullets 3+4, move Transit Coverage above CrustyDB in projects",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/3927cb6f7e7049e7074c31d28b6cfa57614ae21f",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "6a7edb8",
-          "message": "Add leetcode-anki as featured personal project",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/6a7edb8b4648aa001c7185c5e29dd07bf295de61",
-          "date": "2026-05-18",
+          "sha": "6cc09d5",
+          "message": "Expand EPFL bullet 1 to fill line 3 (kill 'memory.' widow)",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/6cc09d501a6100d02b35c8ec893dda9d680abe0b",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "739280f",
-          "message": "Add AWS Redshift internship and reorganize resume folders",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/739280f84713f25664ae24c208610d71c7c0547d",
-          "date": "2026-05-18",
+          "sha": "7dea0cf",
+          "message": "Rewrite EPFL bullets in X-Y-Z (Google) format with more technical detail; drop SSO filler",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/7dea0cfb8c176ff1ffbfa11b695fa33d3c9b5968",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "a38b8d7",
-          "message": "Add finm-3295 to classes category",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/a38b8d7e2fb5719161a57277d39fe98d6f9d01ad",
-          "date": "2026-05-05",
+          "sha": "61d3ae7",
+          "message": "Add 4th EPFL bullet (compression trade-offs benchmarking)",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/61d3ae72f084491fa8fe98dd16154a88a54edb08",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "2e53610",
-          "message": "Reshuffle featured projects and add classes/side-projects categories",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/2e53610eb41923ac6478af5f943d1759e62428ab",
-          "date": "2026-05-05",
+          "sha": "6787d30",
+          "message": "Compact CrustyDB project bullet to 1 line",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/6787d30523b671a84407dff7de557a17581ab916",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "5750022",
-          "message": "Update PayPal experience and add AWS + Akuna resumes",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/5750022f3923cab4d95615246c3a1c2fff758707",
-          "date": "2026-04-29",
+          "sha": "d23b204",
+          "message": "Kill remaining widow lines on Google resume (CIDR, EPFL #3, Alter Domus #1, CrustyDB project)",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/d23b204bd3229f260a844fb369d419aaf50a3324",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "6b2be38",
-          "message": "Move Wayne Booth honor under Masters education entry",
-          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/6b2be38467976ae340e2283a4d50996641ba0ea6",
-          "date": "2026-04-20",
+          "sha": "5e488d6",
+          "message": "Kill widow lines on Google resume; shorten 2-liners to 1 line, fill space with SSO + EPFL bullets",
+          "url": "https://github.com/cmbenello/cmbenello.github.io/commit/5e488d69f026c0ba072de29cc7f98f29cf2ac13b",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         }
       ],
@@ -3672,66 +3667,66 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-05-13",
+      "updatedAt": "2026-05-24",
       "createdAt": "2024-02-05",
-      "pushedAt": "2026-05-13",
+      "pushedAt": "2026-05-24",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "a865132",
-          "message": "Time: 0 ms (100.00%) | Memory: 19.4 MB (74.35%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/a8651328f3f2742791d79fc35605cc2acfb190fe",
-          "date": "2026-05-13",
+          "sha": "7a40a47",
+          "message": "Time: 111 ms (83.42%) | Memory: 29.5 MB (72.16%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/7a40a47eed6a15de5c915283b301c83d1d8dca39",
+          "date": "2026-05-24",
           "author": "Charles Benello"
         },
         {
-          "sha": "b5b8b6f",
-          "message": "Added README.md file for Evaluate Division",
-          "url": "https://github.com/cmbenello/Leetcode/commit/b5b8b6f83a1d701aec5f12d16695ec142c600408",
-          "date": "2026-05-13",
+          "sha": "a354bce",
+          "message": "Added README.md file for Decode the Slanted Ciphertext",
+          "url": "https://github.com/cmbenello/Leetcode/commit/a354bce8d8209d11bd5fb44b347f12fbfdbb37c5",
+          "date": "2026-05-24",
           "author": "Charles Benello"
         },
         {
-          "sha": "72f1d23",
-          "message": "Time: 451 ms (5.08%) | Memory: 107.4 MB (57.91%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/72f1d230247a9c51eb237a02e5064513c6bfa0d4",
-          "date": "2026-05-13",
+          "sha": "284a04a",
+          "message": "Time: 0 ms (100.00%) | Memory: 15.1 MB (95.75%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/284a04ae80b39a7d38df69fb81c930e917c74c75",
+          "date": "2026-05-22",
           "author": "Charles Benello"
         },
         {
-          "sha": "68e44ff",
-          "message": "Added README.md file for Minimum Fuel Cost to Report to the Capital",
-          "url": "https://github.com/cmbenello/Leetcode/commit/68e44ffafe22c3db48f94ebb4ea48e977fa2ffc2",
-          "date": "2026-05-13",
+          "sha": "6b46d2d",
+          "message": "Added README.md file for Search in Rotated Sorted Array",
+          "url": "https://github.com/cmbenello/Leetcode/commit/6b46d2d48ab5c1301b0976113c062f445fd2f9db",
+          "date": "2026-05-22",
           "author": "Charles Benello"
         },
         {
-          "sha": "82bdd56",
-          "message": "Time: 437 ms (5.08%) | Memory: 95.6 MB (76.05%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/82bdd567355e37d5c0600e68d2b971298cc72bd0",
-          "date": "2026-05-13",
+          "sha": "ec5a6f4",
+          "message": "Time: 2 ms (75.32%) | Memory: 85.8 MB (76.50%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/ec5a6f4cead12dc5543422d696db998a08ea86ed",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "6e0729c",
-          "message": "Added README.md file for Minimum Fuel Cost to Report to the Capital",
-          "url": "https://github.com/cmbenello/Leetcode/commit/6e0729c152c0a8eee3dcf14de26b30c2ab71dffe",
-          "date": "2026-05-13",
+          "sha": "f60f4ad",
+          "message": "Added README.md file for Find the Prefix Common Array of Two Arrays",
+          "url": "https://github.com/cmbenello/Leetcode/commit/f60f4ad48c6c2621e8ca6e718a5d04a022a7595b",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "7515e45",
-          "message": "Time: 419 ms (5.08%) | Memory: 95.8 MB (75.91%) - LeetSync",
-          "url": "https://github.com/cmbenello/Leetcode/commit/7515e45982d3062a69c9939c0a4c67d553a4e1f3",
-          "date": "2026-05-13",
+          "sha": "61c74b8",
+          "message": "Time: 0 ms (100.00%) | Memory: 85.6 MB (97.54%) - LeetSync",
+          "url": "https://github.com/cmbenello/Leetcode/commit/61c74b807a8193e1ad63804ac45456d555ba9e5f",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         },
         {
-          "sha": "3e9d2a3",
-          "message": "Added Notes.md file for Minimum Fuel Cost to Report to the Capital",
-          "url": "https://github.com/cmbenello/Leetcode/commit/3e9d2a3e5578a53e99556f72ee30759deda7246f",
-          "date": "2026-05-13",
+          "sha": "94af357",
+          "message": "Added README.md file for Find the Prefix Common Array of Two Arrays",
+          "url": "https://github.com/cmbenello/Leetcode/commit/94af357b5f25bc5a62a58b0e4578e2815444c11d",
+          "date": "2026-05-20",
           "author": "Charles Benello"
         }
       ],
@@ -3974,67 +3969,67 @@
       "topics": [],
       "stars": 1,
       "forks": 1,
-      "issues": 0,
-      "updatedAt": "2026-05-06",
+      "issues": 1,
+      "updatedAt": "2026-06-03",
       "createdAt": "2026-02-13",
-      "pushedAt": "2026-05-06",
+      "pushedAt": "2026-06-03",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "3a54bc3",
-          "message": "docs: remove HOWTO_RUN_65; canonical copy lives in rscore-swe-bench",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/3a54bc3db49e0e044a667904d869160f4ab3fa0c",
-          "date": "2026-05-06",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "4268137",
-          "message": "docs: HOWTO_RUN_65 runbook for the 59-instance gold eval",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/4268137f7a140f9c47eca804e82e85a388789c57",
-          "date": "2026-05-06",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "530704c",
-          "message": "Port: unblock rust-swe-bench instances (toolchain + spec-keying)",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/530704c1ace6ec5f73276f4c13a31f94ae33f816",
-          "date": "2026-04-24",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "120303a",
-          "message": "Update AWS attempt: Apr 23 Xihua email + max_workers=1 also hung within 60min",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/120303a4d52790440ba9168bfa9e2797b2f99558",
-          "date": "2026-04-23",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "23e441c",
-          "message": "Add AWS rust-swe-bench harness retry attempt (2026-04-23)",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/23e441cbe3cf53baa1326966348794566a55a7c1",
-          "date": "2026-04-23",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "bfb2b84",
-          "message": "Merge pull request #17 from mjgaughan/main",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/bfb2b8413dff34fc791ea670ebb503547d5fbebc",
-          "date": "2026-04-15",
+          "sha": "5af7340",
+          "message": "Merge pull request #19 from cmbenello/fetch-docent-patches",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/5af7340295d89e0a7cf59cd0b7c1a58312df9792",
+          "date": "2026-06-03",
           "author": "mjgaughan"
         },
         {
-          "sha": "6213721",
-          "message": "adding mutation rules that were provided to claude when editing gs patches",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/62137214424a7aa5a8cc4b6f256db75b42d94b40",
-          "date": "2026-04-15",
+          "sha": "4944f7d",
+          "message": "Add scraper: pull leading-model patches from Docent into predictions",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/4944f7d490ffea3a8be8f3cf7c484086ec3f45e3",
+          "date": "2026-06-03",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "d3f654e",
+          "message": "Merge pull request #18 from mjgaughan/main",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/d3f654ed98d1e6d4973158a280fb66e5863df77f",
+          "date": "2026-06-03",
+          "author": "mjgaughan"
+        },
+        {
+          "sha": "4ee673f",
+          "message": "adding new adversarial mutations for swe-bench-multilingual and ++",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/4ee673f33f5a7eb63141acf720c6b528ea921d5a",
+          "date": "2026-06-03",
           "author": "Matthew Gaughan"
         },
         {
-          "sha": "616defe",
-          "message": "adding",
-          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/616defee39da06a1a2d7801b9d8bb42a79298e73",
-          "date": "2026-04-15",
+          "sha": "b6ab271",
+          "message": "Merge branch 'cmbenello:main' into main",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/b6ab271089a3226ba6517a01ab537e41f9f573be",
+          "date": "2026-06-03",
+          "author": "mjgaughan"
+        },
+        {
+          "sha": "67b0a89",
+          "message": "trial subset dataset for MIRI dev tasks",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/67b0a8977e5428aed6bd1f2bbf7ecaa06873c2c8",
+          "date": "2026-06-01",
+          "author": "Matthew Gaughan"
+        },
+        {
+          "sha": "ed0dc05",
+          "message": "adding test files",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/ed0dc05e2bf542ff4a296a0ad0713f3dacf74b2b",
+          "date": "2026-05-27",
+          "author": "Matthew Gaughan"
+        },
+        {
+          "sha": "6c442f8",
+          "message": "changes to the structure of the rustbench patches for evaluation",
+          "url": "https://github.com/cmbenello/rust-benchmark-audit/commit/6c442f8369534f898d263b14a2198128b0317c2e",
+          "date": "2026-05-20",
           "author": "Matthew Gaughan"
         }
       ],
@@ -4229,9 +4224,9 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-05-19",
-      "createdAt": "2026-05-19",
-      "pushedAt": "2026-05-19",
+      "updatedAt": "2026-06-04",
+      "createdAt": "2026-06-04",
+      "pushedAt": "2026-06-04",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [],
@@ -4335,71 +4330,71 @@
       "stars": 0,
       "forks": 0,
       "issues": 0,
-      "updatedAt": "2026-05-19",
+      "updatedAt": "2026-05-28",
       "createdAt": "2026-05-06",
-      "pushedAt": "2026-05-19",
+      "pushedAt": "2026-05-28",
       "defaultBranch": "main",
       "license": "",
       "commitLog": [
         {
-          "sha": "fdae088",
-          "message": "neetcode/min-cost-climbing-stairs: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/fdae0885908b48f35df31920fb655d6072194be5",
+          "sha": "c373af8",
+          "message": "neetcode/singlyLinkedList: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/c373af8a37100e8db121a94cc51e31d3a9475bcb",
+          "date": "2026-05-28",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "eaadbec",
+          "message": "leetcode/decode-the-slanted-ciphertext: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/eaadbec45013f38102f27f9ec08be5ae51a05c99",
+          "date": "2026-05-24",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "2a6676e",
+          "message": "leetcode/search-in-rotated-sorted-array: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/2a6676e9c042ad7d08b137ecac7d007edad29ae6",
+          "date": "2026-05-22",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "ac0c946",
+          "message": "leetcode/find-the-prefix-common-array-of-two-arrays: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/ac0c94686288e90628ae84fcf7a5a4608d23742c",
+          "date": "2026-05-20",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "93014ff",
+          "message": "leetcode/find-the-prefix-common-array-of-two-arrays: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/93014ff44150549dc1bba064a1c18e87b6c1a335",
+          "date": "2026-05-20",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "1cf7346",
+          "message": "leetcode/find-the-prefix-common-array-of-two-arrays: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/1cf7346d262a65fa683c3f1080785bd3f3d3a415",
+          "date": "2026-05-20",
+          "author": "Charles Benello"
+        },
+        {
+          "sha": "fc0ffb7",
+          "message": "neetcode/house-robber: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/fc0ffb7173407a2ba1ab0e0cfbf4062f3bf45d71",
           "date": "2026-05-19",
           "author": "Charles Benello"
         },
         {
-          "sha": "2019e32",
-          "message": "neetcode/min-cost-climbing-stairs: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/2019e326594f620ce6b36256a5773f76a6755272",
+          "sha": "0484727",
+          "message": "neetcode/n-th-tribonacci-number: AC",
+          "url": "https://github.com/cmbenello/leetcode-tracker/commit/04847275f17a95de00ede0f15eedac967d8d41ed",
           "date": "2026-05-19",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "8490445",
-          "message": "neetcode/climbing-stairs: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/8490445606729ac3f179a6693617d532e64af66a",
-          "date": "2026-05-19",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "56da0a0",
-          "message": "neetcode/minimum-size-subarray-sum: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/56da0a09abef47d23ae7872c1b7467677a6d51a2",
-          "date": "2026-05-18",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "2dd008c",
-          "message": "neetcode/max-area-of-island: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/2dd008c3208de33846dc0dd2217bafd6170bc16a",
-          "date": "2026-05-18",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "263d148",
-          "message": "neetcode/count-number-of-islands: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/263d1483dd6fd7722e840727395a0d613688e4cd",
-          "date": "2026-05-18",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "a6070fb",
-          "message": "leetcode/maximum-non-negative-product-in-a-matrix: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/a6070fb62d4747316c3baa8fab3226c1548a542d",
-          "date": "2026-05-18",
-          "author": "Charles Benello"
-        },
-        {
-          "sha": "233198e",
-          "message": "leetcode/insertion-sort-list: AC",
-          "url": "https://github.com/cmbenello/leetcode-tracker/commit/233198e7cc7bd6125137ac73f5a2d2443b4b72fe",
-          "date": "2026-05-17",
           "author": "Charles Benello"
         }
       ],
       "commitActivity": [],
-      "readme": "# DSA Spaced Repetition Tracker\n\nAuto-generated by the [LeetCode Anki](https://github.com/) extension.\n\n- **Total tracked:** 97 (LeetCode 23 · NeetCode 74)\n- **Total reviews:** 54\n- **Lapses:** 13\n- **Reviewed today:** 0\n- **Due now:** 93\n\n## Sites\n\n- [LeetCode](./leetcode/) — 23 tracked\n- [NeetCode](./neetcode/) — 74 tracked\n\n## Last 30 days (all sites)\n\n```\n                █▂▃▂▁▅ ▁        (54 reviews)\n```"
+      "readme": "# DSA Spaced Repetition Tracker\n\nAuto-generated by the [LeetCode Anki](https://github.com/) extension.\n\n- **Total tracked:** 104 (LeetCode 27 · NeetCode 77)\n- **Total reviews:** 54\n- **Lapses:** 13\n- **Reviewed today:** 0\n- **Due now:** 104\n\n## Sites\n\n- [LeetCode](./leetcode/) — 27 tracked\n- [NeetCode](./neetcode/) — 77 tracked\n\n## Last 30 days (all sites)\n\n```\n       █▂▃▂▁▅ ▁                 (54 reviews)\n```"
     },
     {
       "name": "neetcode-submissions",
