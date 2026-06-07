@@ -3,8 +3,8 @@
   "configurations": [
     {
       "name": "serpent-site",
-      "runtimeExecutable": "npm",
-      "runtimeArgs": ["run", "dev"],
+      "runtimeExecutable": "/bin/bash",
+      "runtimeArgs": ["-c", "PATH=/Users/cmbenello/.nvm/versions/node/v20.19.6/bin:$PATH npm run dev"],
       "port": 3000,
       "cwd": "serpent-site",
       "autoPort": true
