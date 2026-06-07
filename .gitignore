@@ -1,2 +1,9 @@
 .claude/skills/
 serpent-site/scripts/make_*.py
+
+# Sensitive — keep in cmbenello-private instead
+resumes/
+*Offer_Letter*.pdf
+*offer*letter*
+*Offer*Packet*
+Terms*of*Employment*
