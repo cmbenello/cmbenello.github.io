@@ -229,3 +229,77 @@ body {
     border: 1px solid color-mix(in srgb, currentColor 25%, transparent);
   }
 }
+
+/* ── Projects section scroll-reveal ─────────────────────────────────────────
+   Driven by data-revealed on the ProjectsSection root. Content stays mounted;
+   toggling the attribute replays the reveal every time the section enters
+   view. While data-revealed="false" content rests hidden (no flash). */
+
+@keyframes pjRevealRise {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pjRevealBillboard {
+  from {
+    opacity: 0;
+    transform: scale(0.985);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes pjRevealFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Resting hidden state — applies whenever the section is out of view */
+[data-revealed="false"] .pj-reveal-header,
+[data-revealed="false"] .pj-reveal-card {
+  opacity: 0;
+  transform: translateY(10px);
+}
+
+[data-revealed="false"] .pj-reveal-billboard {
+  opacity: 0;
+  transform: scale(0.985);
+}
+
+/* Staged reveal — animations (re)start when the attribute flips to true */
+[data-revealed="true"] .pj-reveal-header {
+  animation: pjRevealRise 1600ms ease-out both;
+}
+
+[data-revealed="true"] .pj-reveal-billboard {
+  animation: pjRevealBillboard 1900ms ease-out 350ms both;
+}
+
+[data-revealed="true"] .pj-reveal-card {
+  /* per-card stagger comes from an inline animation-delay */
+  animation: pjRevealRise 1300ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-revealed="false"] .pj-reveal-header,
+  [data-revealed="false"] .pj-reveal-billboard,
+  [data-revealed="false"] .pj-reveal-card {
+    transform: none;
+  }
+
+  [data-revealed="true"] .pj-reveal-header,
+  [data-revealed="true"] .pj-reveal-billboard,
+  [data-revealed="true"] .pj-reveal-card {
+    animation: pjRevealFade 200ms ease-out both;
+    /* beat the inline per-card stagger */
+    animation-delay: 0ms !important;
+  }
+}

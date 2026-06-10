@@ -485,12 +485,12 @@ export default function PageShell({ children }: PageShellProps) {
       />
       <WaveBackground
         frameMargin={frameMargin}
-        opacity={waterBlend * (isLight ? 0.85 : 0.6)}
+        opacity={waterBlend * (isLight ? 0.9 : 0.65)}
         backgroundColor="transparent"
         lineColor={waveColor}
-        alphaBoost={isLight ? 5 : 1}
-        trailFade={isLight ? 0.05 : 0.072}
-        lineWidthScale={isLight ? 1.3 : 1}
+        alphaBoost={isLight ? 4.2 : 1}
+        trailFade={isLight ? 0.05 : 0.05}
+        lineWidthScale={isLight ? 1.25 : 1}
         paused={effectsPaused}
       />
 

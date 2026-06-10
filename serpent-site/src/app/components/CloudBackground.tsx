@@ -71,6 +71,20 @@ type TintedCloud = {
 const TWO_PI = Math.PI * 2;
 const MODE_FADE_MS = 700;
 const MAX_DPR = 1.5;
+
+// "Clouds part" cycle: every so often the deck slowly opens around a drifting
+// focal point, a soft glow breaks through from behind, holds, then the clouds
+// drift closed again.
+const PART_INTERVAL_MIN_SEC = 14;
+const PART_INTERVAL_MAX_SEC = 26;
+const PART_OPEN_SEC = 7;
+const PART_HOLD_SEC = 6;
+const PART_CLOSE_SEC = 7;
+const PART_RADIUS_FACTOR = 0.4; // opening radius × min(w,h)
+const PART_PUSH_FACTOR = 0.55; // max cloud displacement × opening radius
+const PART_THIN_FACTOR = 0.55; // how much clouds near the center thin out
+const PART_GLOW_ALPHA = 0.16; // peak glow alpha breaking through the gap
+const PART_DRIFT_FACTOR = 0.04; // focal point drift × min(w,h) over the cycle
 const clamp01 = (value: number) => Math.min(1, Math.max(0, value));
 const easeInOut = (value: number) => {
   const t = clamp01(value);
@@ -224,6 +238,15 @@ export default function CloudBackground({
     let dpr = 1;
     let clouds: Cloud[] = [];
     let last = performance.now();
+
+    // Clouds-part cycle state (advances on clamped dt, so it pauses cleanly).
+    let partPhase: "idle" | "open" | "hold" | "close" = "idle";
+    let partTimer = 0;
+    let partAge = 0;
+    let nextPartIn = PART_INTERVAL_MIN_SEC * 0.5; // first parting comes early
+    let partX = 0.5;
+    let partY = 0.45;
+    let partDriftAngle = 0;
 
     const clamp = (value: number, min: number, max: number) =>
       Math.min(max, Math.max(min, value));
@@ -384,6 +407,53 @@ export default function CloudBackground({
       last = now;
       const nowSec = now * 0.001;
       const skyAlpha = clamp(skyOpacityRef.current, 0, 1);
+
+      // ── Clouds-part cycle ──
+      partTimer += dt;
+      let pressure = 0;
+      if (partPhase === "idle") {
+        if (partTimer >= nextPartIn) {
+          partPhase = "open";
+          partTimer = 0;
+          partAge = 0;
+          partX = 0.3 + Math.random() * 0.4;
+          partY = 0.28 + Math.random() * 0.36;
+          partDriftAngle = Math.random() * TWO_PI;
+        }
+      } else if (partPhase === "open") {
+        partAge += dt;
+        pressure = easeInOut(partTimer / PART_OPEN_SEC);
+        if (partTimer >= PART_OPEN_SEC) {
+          partPhase = "hold";
+          partTimer = 0;
+          pressure = 1;
+        }
+      } else if (partPhase === "hold") {
+        partAge += dt;
+        pressure = 1;
+        if (partTimer >= PART_HOLD_SEC) {
+          partPhase = "close";
+          partTimer = 0;
+        }
+      } else {
+        partAge += dt;
+        pressure = 1 - easeInOut(partTimer / PART_CLOSE_SEC);
+        if (partTimer >= PART_CLOSE_SEC) {
+          partPhase = "idle";
+          partTimer = 0;
+          pressure = 0;
+          nextPartIn =
+            PART_INTERVAL_MIN_SEC +
+            Math.random() * (PART_INTERVAL_MAX_SEC - PART_INTERVAL_MIN_SEC);
+        }
+      }
+      const minDim = Math.min(w, h);
+      const partRadius = minDim * PART_RADIUS_FACTOR;
+      const partCycleSec = PART_OPEN_SEC + PART_HOLD_SEC + PART_CLOSE_SEC;
+      const driftDist =
+        minDim * PART_DRIFT_FACTOR * Math.min(1, partAge / partCycleSec);
+      const fx = partX * w + Math.cos(partDriftAngle) * driftDist;
+      const fy = partY * h + Math.sin(partDriftAngle) * driftDist;
       const transition = tintTransitionRef.current;
       let blend = 0;
       let paletteFrom = paletteCurrentRef.current;
@@ -428,6 +498,18 @@ export default function CloudBackground({
         }
       }
 
+      // Soft light breaking through the parted clouds (drawn behind them).
+      if (pressure > 0.01) {
+        const glowPalette = hasTransition ? paletteTargetRef.current : paletteFrom;
+        const [gr, gg, gb] = parseColor(glowPalette.stroke);
+        const glowR = partRadius * 0.9;
+        const glow = ctx.createRadialGradient(fx, fy, glowR * 0.05, fx, fy, glowR);
+        glow.addColorStop(0, `rgba(${gr}, ${gg}, ${gb}, ${PART_GLOW_ALPHA * pressure})`);
+        glow.addColorStop(1, "rgba(0, 0, 0, 0)");
+        ctx.fillStyle = glow;
+        ctx.fillRect(fx - glowR, fy - glowR, glowR * 2, glowR * 2);
+      }
+
       const cloudImages = tintedImagesRef.current;
       const cloudImagesNext = hasTransition ? tintedImagesNextRef.current : null;
       if (!imagesReadyRef.current || cloudImages.length === 0) {
@@ -452,18 +534,33 @@ export default function CloudBackground({
 
         const bob = Math.sin(nowSec * cloud.sway + cloud.phase) * cloud.drift;
         const wander = Math.sin(nowSec * 0.12 + cloud.phase * 1.7) * cloud.wander;
-        const x = cloud.x + wander;
-        const y = cloud.y + bob;
+        let x = cloud.x + wander;
+        let y = cloud.y + bob;
+
+        // Parting: clouds near the focal point ease outward and thin so the
+        // glow shows through; everything drifts back as the pressure releases.
+        let partThin = 1;
+        if (pressure > 0.001) {
+          const ddx = x - fx;
+          const ddy = y - fy;
+          const dist = Math.hypot(ddx, ddy) || 1;
+          const falloff = Math.exp(-(dist * dist) / (2 * partRadius * partRadius));
+          const push = pressure * partRadius * PART_PUSH_FACTOR * falloff;
+          x += (ddx / dist) * push;
+          y += (ddy / dist) * push;
+          partThin = 1 - pressure * falloff * PART_THIN_FACTOR;
+        }
 
         ctx.save();
         ctx.translate(x, y);
         ctx.rotate(cloud.tilt);
         const puff = 1 + Math.sin(nowSec * 0.1 + cloud.phase) * cloud.pulse;
         ctx.scale(cloud.flip * puff, puff);
+        const cloudAlpha = cloud.opacity * partThin;
         if (hasTransition && cloudImagesNext) {
           const nextImage = cloudImagesNext[cloud.imageIndex] ?? image;
-          const alphaFrom = clamp(cloud.opacity * (1 - blend), 0, 1);
-          const alphaTo = clamp(cloud.opacity * blend, 0, 1);
+          const alphaFrom = clamp(cloudAlpha * (1 - blend), 0, 1);
+          const alphaTo = clamp(cloudAlpha * blend, 0, 1);
           if (alphaFrom > 0.001) {
             ctx.globalAlpha = alphaFrom;
             ctx.drawImage(image.canvas, -width / 2, -height / 2, width, height);
@@ -473,7 +570,7 @@ export default function CloudBackground({
             ctx.drawImage(nextImage.canvas, -width / 2, -height / 2, width, height);
           }
         } else {
-          ctx.globalAlpha = clamp(cloud.opacity, 0, 1);
+          ctx.globalAlpha = clamp(cloudAlpha, 0, 1);
           ctx.drawImage(image.canvas, -width / 2, -height / 2, width, height);
         }
         ctx.restore();

@@ -805,6 +805,44 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   const [activeFilter, setActiveFilter] = useState<string>("all");
   const [contribModalOpen, setContribModalOpen] = useState(false);
   const [carouselIdx, setCarouselIdx] = useState(0);
+  // Scroll-reveal: replay the entrance animation every time the section comes
+  // into view. Content stays mounted (carousel/popup/modal state preserved);
+  // only a data attribute toggles, driving CSS animations in globals.css.
+  const sectionRef = useRef<HTMLElement | null>(null);
+  const [revealed, setRevealed] = useState(false);
+
+  useEffect(() => {
+    const el = sectionRef.current;
+    if (!el || typeof IntersectionObserver === "undefined") {
+      // Never leave content stuck invisible if the observer is unavailable
+      setRevealed(true);
+      return;
+    }
+    // The section is much taller than the viewport (its content scrolls), so
+    // intersectionRatio (relative to the section's full height) never gets
+    // near 1. Gate on viewport coverage instead: how much of the viewport the
+    // visible slice of the section occupies. Dense low thresholds make the
+    // observer fire often enough to catch the crossings.
+    const thresholds = Array.from({ length: 41 }, (_, i) => i / 100);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        for (const entry of entries) {
+          const rootHeight = entry.rootBounds?.height ?? window.innerHeight;
+          const coverage =
+            rootHeight > 0 ? entry.intersectionRect.height / rootHeight : 0;
+          if (entry.isIntersecting && coverage >= 0.45) {
+            setRevealed(true);
+          } else if (!entry.isIntersecting || coverage <= 0.08) {
+            // Section essentially left view — re-arm so the reveal replays
+            setRevealed(false);
+          }
+        }
+      },
+      { threshold: thresholds },
+    );
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, []);
   // Auto-rotate carousel every 7s
   useEffect(() => {
     const timer = setInterval(() => {
@@ -1054,10 +1092,14 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
   }, [activeProject]);
 
   return (
-    <section className="space-y-3">
+    <section
+      ref={sectionRef}
+      data-revealed={revealed ? "true" : "false"}
+      className="space-y-3"
+    >
       {/* Header bar with title, contribution, and filter pills */}
       <div className="space-y-3">
-        <div className="flex items-center justify-between gap-4 entrance" style={{ animationDelay: "900ms" }}>
+        <div className="flex items-center justify-between gap-4 pj-reveal-header">
           <h2 className="text-4xl font-semibold tracking-tight">Projects</h2>
           {contributions ? (
             <button
@@ -1103,7 +1145,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
             </button>
           ) : null}
         </div>
-        <div className="relative flex flex-wrap gap-2 entrance" style={{ animationDelay: "1200ms" }}>
+        <div className="relative flex flex-wrap gap-2 pj-reveal-header">
           {filterOptions.map((opt) => {
             const isActive = activeFilter === opt.slug;
             const isAll = opt.slug === "all";
@@ -1147,8 +1189,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
 
           return (
             <div
-              className="relative overflow-hidden rounded-2xl cursor-pointer mx-auto w-full entrance"
-              style={{ aspectRatio: "16 / 9", maxHeight: "70vh", border: "1px solid rgba(255,255,255,0.08)", animationDelay: "1500ms" }}
+              className="relative overflow-hidden rounded-2xl cursor-pointer mx-auto w-full pj-reveal-billboard"
+              style={{ aspectRatio: "16 / 9", maxHeight: "70vh", border: "1px solid rgba(255,255,255,0.08)" }}
               onClick={(e) => {
                 const rect = e.currentTarget.getBoundingClientRect();
                 openProject(project, rect);
@@ -1294,8 +1336,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                 {cat.projects.map((project, i) => (
                   <div
                     key={project.repo}
-                    className="grid-card-enter"
-                    style={{ animationDelay: `${i * 60}ms` }}
+                    className="pj-reveal-card"
+                    style={{ animationDelay: `${Math.min(i, 10) * 130}ms` }}
                   >
                     <ProjectCard project={project} accentColor={accentColor} onOpen={openProject} />
                   </div>
