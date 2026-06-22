@@ -64,7 +64,6 @@ export const EXPERIENCE = [
     papers: [
       { label: "CrocSort - VLDB 2026", url: "https://github.com/rotaki/ES" },
       { label: "Resource-Adaptive Query Execution - CIDR 2025", url: "https://vldb.org/cidrdb/papers/2025/p2-otaki.pdf" },
-      { label: "Getting the Most Out of External Sorting - ADMS 2026" },
     ],
   },
   {
@@ -217,13 +216,6 @@ export const PUBLICATIONS = [
     venue: "VLDB 2026",
     note: "* Equal contribution",
     link: "https://github.com/rotaki/ES",
-  },
-  {
-    title: "Getting the Most Out of External Sorting in Cloud and Disaggregated Environments",
-    authors: ["Charles Benello"],
-    venue: "ADMS 2026",
-    note: "",
-    link: "",
   },
   {
     title: "Resource-Adaptive Query Execution with Paged Memory Management",
