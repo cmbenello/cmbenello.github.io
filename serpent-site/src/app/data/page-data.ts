@@ -220,7 +220,7 @@ export const PUBLICATIONS = [
   },
   {
     title: "Getting the Most Out of External Sorting in Cloud and Disaggregated Environments",
-    authors: ["Charles Benello"],
+    authors: ["Charles Benello", "Riki Otaki", "Fuheng Zhao", "Aaron J. Elmore", "Goetz Graefe"],
     venue: "Under review",
     note: "",
     link: "",
