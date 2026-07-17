@@ -20,7 +20,7 @@ import SerpentBackground, {
   DEFAULT_PALETTE,
   LIGHT_PALETTE,
 } from "./SerpentBackground";
-import WaveBackground from "./WaveBackground";
+import FluidWaveBackground from "./FluidWaveBackground";
 
 const NAV_ITEMS = [
   { label: "About" },
@@ -483,15 +483,12 @@ export default function PageShell({ children }: PageShellProps) {
         dashOpacityBoost={isLight ? 0.55 : 1}
         paused={effectsPaused}
       />
-      <WaveBackground
+      <FluidWaveBackground
         frameMargin={frameMargin}
-        opacity={waterBlend * (isLight ? 0.9 : 0.65)}
-        backgroundColor="transparent"
+        opacity={waterBlend * (isLight ? 0.9 : 0.7)}
         lineColor={waveColor}
-        alphaBoost={isLight ? 4.2 : 1}
-        trailFade={isLight ? 0.05 : 0.05}
-        lineWidthScale={isLight ? 1.25 : 1}
-        paused={effectsPaused}
+        additive={!isLight}
+        paused={effectsPaused || waterBlend < 0.5}
       />
 
       <div className="pointer-events-none fixed inset-0 z-20">
