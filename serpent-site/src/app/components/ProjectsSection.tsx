@@ -381,6 +381,128 @@ const DISPLAY_NAMES: Record<string, string> = {
 };
 const getDisplayName = (name: string) => DISPLAY_NAMES[name] ?? name;
 
+/* ── ink tile: theme-matched fallback for projects without an image ──────────
+   Near-black panel with faint flowing wave lines (deterministic per project,
+   echoing the fluid wave background) and a thin-framed monogram. The language
+   color survives only as a small muted accent rule. */
+
+function inkSeed(str: string): number {
+  let h = 2166136261 >>> 0;
+  for (let i = 0; i < str.length; i++) {
+    h = Math.imul(h ^ str.charCodeAt(i), 16777619);
+  }
+  return h >>> 0;
+}
+
+function makeInkLines(name: string): { d: string; o: number; w: number }[] {
+  let s = inkSeed(name) || 1;
+  const rnd = () => {
+    s = (s + 0x6d2b79f5) | 0;
+    let t = Math.imul(s ^ (s >>> 15), 1 | s);
+    t = (t + Math.imul(t ^ (t >>> 7), 61 | t)) ^ t;
+    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
+  };
+  const lines: { d: string; o: number; w: number }[] = [];
+  const nL = 6;
+  const bright = 1 + Math.floor(rnd() * (nL - 1)); // one crest line glows a little
+  for (let k = 0; k < nL; k++) {
+    const y0 = 40 + (k / (nL - 1)) * 46 + (rnd() - 0.5) * 7;
+    const amp = 2.5 + rnd() * 5 + k * 0.7;
+    const seg = 38 + rnd() * 16;
+    let x = -12;
+    let dir = rnd() < 0.5 ? 1 : -1;
+    let d = `M -12 ${(y0 + (rnd() - 0.5) * amp).toFixed(1)}`;
+    while (x < 172) {
+      const nx = x + seg;
+      const cy1 = y0 + dir * amp * (0.6 + rnd() * 0.8);
+      const cy2 = y0 - dir * amp * (0.6 + rnd() * 0.8);
+      const ny = y0 + (rnd() - 0.5) * amp;
+      d += ` C ${(x + seg * 0.35).toFixed(1)} ${cy1.toFixed(1)}, ${(nx - seg * 0.35).toFixed(1)} ${cy2.toFixed(1)}, ${nx.toFixed(1)} ${ny.toFixed(1)}`;
+      x = nx;
+      dir = -dir;
+    }
+    lines.push({
+      d,
+      o: k === bright ? 0.2 : 0.05 + rnd() * 0.08,
+      w: k === bright ? 0.8 : 0.5 + rnd() * 0.35,
+    });
+  }
+  return lines;
+}
+
+function InkTile({
+  name,
+  language,
+  monogram,
+}: {
+  name: string;
+  language?: string;
+  monogram?: string;
+}) {
+  const accent = getLangGradient(language)[0];
+  const lines = makeInkLines(name);
+
+  return (
+    <div
+      className="absolute inset-0"
+      style={{
+        background:
+          "linear-gradient(165deg, #14161f 0%, #0c0e15 70%, #0a0c12 100%)",
+      }}
+    >
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 160 90"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+      >
+        {lines.map((l, i) => (
+          <path
+            key={i}
+            d={l.d}
+            fill="none"
+            stroke={`rgba(230,225,216,${l.o.toFixed(3)})`}
+            strokeWidth={l.w}
+            vectorEffect="non-scaling-stroke"
+          />
+        ))}
+      </svg>
+      {monogram && (
+        <div className="absolute inset-0 flex flex-col items-center justify-center gap-2">
+          <div
+            style={{
+              border: "1px solid rgba(230,225,216,0.28)",
+              padding: "5px 13px",
+              background: "rgba(10,12,18,0.35)",
+            }}
+          >
+            <span
+              style={{
+                fontSize: "1.45rem",
+                fontWeight: 300,
+                letterSpacing: "0.18em",
+                marginRight: "-0.18em",
+                color: "rgba(230,225,216,0.9)",
+              }}
+            >
+              {monogram}
+            </span>
+          </div>
+          <div
+            style={{
+              width: 22,
+              height: 2,
+              background: accent,
+              opacity: 0.5,
+              borderRadius: 1,
+            }}
+          />
+        </div>
+      )}
+    </div>
+  );
+}
+
 /** Thumbnail area shared by inline card and hover popup */
 function CardThumbnail({
   project,
@@ -400,7 +522,6 @@ function CardThumbnail({
   /** Use gif instead of static image when available */
   useGif?: boolean;
 }) {
-  const [g1, g2] = getLangGradient(project.language);
   const initials = getInitials(project.name);
   const displayImage = useGif && project.gif ? project.gif : project.image;
 
@@ -415,32 +536,11 @@ function CardThumbnail({
           onError={onImgError}
         />
       ) : (
-        <div
-          className="absolute inset-0"
-          style={{ background: `linear-gradient(135deg, ${g1}dd, ${g2}dd)` }}
-        >
-          <div
-            className="absolute inset-0"
-            style={{
-              backgroundImage:
-                "linear-gradient(rgba(255,255,255,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.08) 1px, transparent 1px)",
-              backgroundSize: "24px 24px",
-            }}
-          />
-          <div className="absolute inset-0 flex items-center justify-center">
-            <span
-              style={{
-                fontSize: "2.75rem",
-                fontWeight: 800,
-                color: "rgba(255,255,255,0.80)",
-                textShadow: "0 2px 16px rgba(0,0,0,0.5)",
-                letterSpacing: "-0.04em",
-              }}
-            >
-              {initials}
-            </span>
-          </div>
-        </div>
+        <InkTile
+          name={project.name}
+          language={project.language}
+          monogram={initials}
+        />
       )}
 
       {/* Language pill — only visible on popup */}
@@ -1200,7 +1300,6 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
               {featuredProjects.map((p, i) => {
                 const img = p.image;
                 const show = img && !img.includes("opengraph.githubassets.com");
-                const [lg1, lg2] = getLangGradient(p.language);
                 const isBofA = p.name === "bofa_hqla";
                 const isLeetcodeAnki = p.name === "leetcode-anki";
                 return (
@@ -1222,10 +1321,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         className={`h-full w-full ${isBofA ? "object-contain" : "object-cover"} ${isLeetcodeAnki ? "object-top" : ""}`}
                       />
                     ) : (
-                      <div
-                        className="h-full w-full"
-                        style={{ background: `linear-gradient(135deg, ${lg1}dd, ${lg2}dd)` }}
-                      />
+                      <InkTile name={p.name} language={p.language} />
                     )}
                   </div>
                 );
@@ -1267,7 +1363,6 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                   {featuredProjects.map((p, i) => {
                     const thumb = p.image;
                     const showThumb = thumb && !thumb.includes("opengraph.githubassets.com");
-                    const [tg1, tg2] = getLangGradient(p.language);
                     const isActive = i === activeIdx;
                     return (
                       <button
@@ -1290,7 +1385,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         {showThumb ? (
                           <img src={thumb} alt={p.name} className={`h-full w-full object-cover ${p.name === "leetcode-anki" ? "object-top" : ""}`} />
                         ) : (
-                          <div className="h-full w-full" style={{ background: `linear-gradient(135deg, ${tg1}, ${tg2})` }} />
+                          <InkTile name={p.name} language={p.language} />
                         )}
                       </button>
                     );
