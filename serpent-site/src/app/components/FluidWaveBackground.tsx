@@ -512,6 +512,10 @@ export default function FluidWaveBackground({
 
     /* ── boot ── */
     build();
+    /* stay invisible while the sim fast-forwards; fade in once it's settled
+       so the sea materializes gently instead of jittering into view */
+    canvas.style.opacity = "0";
+    canvas.style.transition = "opacity 1400ms ease";
     render();
 
     /* Incremental prewarm: instead of blocking the main thread for ~1.5 s at
@@ -541,6 +545,7 @@ export default function FluidWaveBackground({
         }
         warmRemaining -= burst;
         render();
+        if (warmRemaining <= 0) canvas.style.opacity = "1"; /* gentle reveal */
         return;
       }
       ema = ema * 0.95 + dt * 1000 * 0.05;
@@ -561,6 +566,7 @@ export default function FluidWaveBackground({
         if (Math.abs(rect.width - W) < 4 && Math.abs(rect.height - H) < 4) return;
         build();
         simT = 0;
+        canvas.style.opacity = "0"; /* hide the resize fast-forward too */
         warmRemaining = Math.round(RESIZE_PREWARM_S * 60);
         warmCounter = 0;
         render();
