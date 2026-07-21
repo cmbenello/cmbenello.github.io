@@ -26,7 +26,7 @@ type FluidWaveBackgroundProps = {
 
 const MAX_DPR = 1.5;
 const BASE_SEED = 20260717;
-const DEPTH = 0.52; // water depth, fraction of height
+const DEPTH = 0.62; // water depth, fraction of height
 const K_PRESSURE = 2400;
 const K_NEAR = 9500;
 const VISC_SIGMA = 0.44; // coherent, sheet-like flow
@@ -45,7 +45,7 @@ export default function FluidWaveBackground({
   opacity = 1,
   lineColor = "rgba(255, 255, 255, 0.85)",
   paused = false,
-  particleCount = 2600,
+  particleCount = 3200,
   timeScale = 0.2,
   additive = true,
 }: FluidWaveBackgroundProps) {
@@ -140,7 +140,9 @@ export default function FluidWaveBackground({
       pad.surgeDur = 0;
       pad.nextSurge = 2.5;
 
-      G = 1.5 * H;
+      /* softer gravity: the sea settles higher (covers more of the frame)
+         and waves loft taller and floatier */
+      G = 1.0 * H;
       EXT = 0.18 * W; // tank extends offscreen: wall slosh stays out of view
       const depthPx = DEPTH * H;
       const area = (W + 2 * EXT) * depthPx;
