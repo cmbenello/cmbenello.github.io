@@ -161,14 +161,14 @@ const tintCloudImage = (
 };
 
 const CLOUD_SOURCES = [
-  "/clouds/cloud2.png",
-  "/clouds/cloud3.png",
-  "/clouds/cloud4.png",
-  "/clouds/cloud6.png",
-  "/clouds/cloud7.png",
-  "/clouds/cloud8.png",
-  "/clouds/cloud9.png",
-  "/clouds/cloud10.png",
+  "/clouds/cloud2.webp",
+  "/clouds/cloud3.webp",
+  "/clouds/cloud4.webp",
+  "/clouds/cloud6.webp",
+  "/clouds/cloud7.webp",
+  "/clouds/cloud8.webp",
+  "/clouds/cloud9.webp",
+  "/clouds/cloud10.webp",
 ] as const;
 
 export default function CloudBackground({
@@ -182,6 +182,7 @@ export default function CloudBackground({
   const rafRef = useRef<number | null>(null);
   const activeRef = useRef(active);
   const startLoopRef = useRef<(() => void) | null>(null);
+  const loadKickRef = useRef<(() => void) | null>(null);
   const resizeRef = useRef<(() => void) | null>(null);
   const pausedRef = useRef(paused);
   const paletteRef = useRef(palette);
@@ -204,8 +205,13 @@ export default function CloudBackground({
 
   useEffect(() => {
     activeRef.current = active;
-    if (active && startLoopRef.current) {
-      startLoopRef.current();
+    if (active) {
+      // If the section arrives before the deferred download kicked in,
+      // start fetching the cloud plates right away.
+      loadKickRef.current?.();
+      if (startLoopRef.current) {
+        startLoopRef.current();
+      }
     }
   }, [active]);
 
@@ -238,6 +244,9 @@ export default function CloudBackground({
     let dpr = 1;
     let clouds: Cloud[] = [];
     let last = performance.now();
+    /* set when the plates finish loading; drives an 800ms fade-in so clouds
+       never pop in abruptly if they finish loading while on screen */
+    let revealStart = 0;
 
     // Clouds-part cycle state (advances on clamped dt, so it pauses cleanly).
     let partPhase: "idle" | "open" | "hold" | "close" = "idle";
@@ -315,6 +324,7 @@ export default function CloudBackground({
           };
         });
         imagesReadyRef.current = true;
+        revealStart = performance.now();
         startTintTransition(paletteRef.current);
         buildClouds();
       };
@@ -556,7 +566,8 @@ export default function CloudBackground({
         ctx.rotate(cloud.tilt);
         const puff = 1 + Math.sin(nowSec * 0.1 + cloud.phase) * cloud.pulse;
         ctx.scale(cloud.flip * puff, puff);
-        const cloudAlpha = cloud.opacity * partThin;
+        const reveal = revealStart === 0 ? 0 : Math.min(1, (now - revealStart) / 800);
+        const cloudAlpha = cloud.opacity * partThin * reveal;
         if (hasTransition && cloudImagesNext) {
           const nextImage = cloudImagesNext[cloud.imageIndex] ?? image;
           const alphaFrom = clamp(cloudAlpha * (1 - blend), 0, 1);
@@ -579,7 +590,21 @@ export default function CloudBackground({
       rafRef.current = requestAnimationFrame(draw);
     };
 
-    loadImages();
+    /* Defer the cloud plate downloads until the page has finished loading —
+       the clouds are invisible until the user reaches their section, so this
+       keeps ~800KB of images out of the critical first paint. */
+    let loadKicked = false;
+    const kickLoad = () => {
+      if (loadKicked) return;
+      loadKicked = true;
+      loadImages();
+    };
+    loadKickRef.current = kickLoad;
+    if (document.readyState === "complete") {
+      kickLoad();
+    } else {
+      window.addEventListener("load", kickLoad, { once: true });
+    }
     resize();
     resizeRef.current = resize;
     window.addEventListener("resize", resize);
@@ -594,6 +619,7 @@ export default function CloudBackground({
     }
 
     return () => {
+      window.removeEventListener("load", kickLoad);
       window.removeEventListener("resize", resize);
       if (rafRef.current) cancelAnimationFrame(rafRef.current);
       startLoopRef.current = null;

@@ -103,11 +103,17 @@ export const EXPERIENCE = [
   {
     title: "Quantitative Research Intern",
     company: "Exponential",
-    dates: "Jun - Present",
+    dates: "Jun 2026 - Present",
     logo: "/logos/exponential.png",
-    description: "Quantitative research intern working on option flow analytics.",
-    highlights: [],
-    skills: ["Quantitative Research", "Option Flow Analytics"],
+    description:
+      "Researching whether signed options order flow predicts equity returns at a quantitative-analytics data vendor. Built the full research stack in Python on a shared 128-core / 503GB cluster - a multi-terabyte OPRA-derived options-flow data pipeline, a signal library, and a leakage-guarded evaluation harness - and used it to test a delta-weighted signed option-imbalance signal grounded in the dealer-hedging mechanism (Hu 2014).",
+    highlights: [
+      "Built an installable Python research package (data loaders, signal library, evaluation, backtesting) with 29 unit tests and explicit look-ahead and in/out-of-sample guards",
+      "Engineered a memory-bounded, resumable pipeline pulling multi-terabyte 1-minute OPRA-derived options-flow data into partitioned Parquet, with RAM guards for a shared 128-core / 503GB Linux cluster",
+      "Implemented a rigorous evaluation stack: information coefficients by horizon (Newey-West), decile long-short portfolios, Fama-MacBeth regressions with date-clustered standard errors, transaction-cost modeling, and a purged out-of-sample split",
+      "Backtested the signal over 18 months of real data and documented an honest, cost-aware, significance-tested null result - diagnosing exactly why it did not work (thin cross-section, post-2020 regime decay, high signal turnover)",
+    ],
+    skills: ["Python", "Polars", "Parquet", "Options Microstructure", "Fama-MacBeth", "Newey-West", "Backtesting", "Statistical Inference"],
     link: { label: "Company LinkedIn", url: "https://www.linkedin.com/company/exponential-inc/" },
   },
   {

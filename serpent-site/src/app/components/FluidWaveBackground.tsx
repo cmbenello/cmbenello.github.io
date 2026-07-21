@@ -26,7 +26,7 @@ type FluidWaveBackgroundProps = {
 
 const MAX_DPR = 1.5;
 const BASE_SEED = 20260717;
-const DEPTH = 0.48; // water depth, fraction of height
+const DEPTH = 0.52; // water depth, fraction of height
 const K_PRESSURE = 2400;
 const K_NEAR = 9500;
 const VISC_SIGMA = 0.44; // coherent, sheet-like flow
@@ -35,8 +35,8 @@ const V_MAX = 1100;
 const TRAIL_POINTS = 26;
 const SUBSTEPS = 2;
 const MIST_CAP = 1400;
-const PREWARM_S = 5; // sim-seconds stepped before first paint
-const RESIZE_PREWARM_S = 4;
+const PREWARM_S = 3; // sim-seconds stepped before first paint
+const RESIZE_PREWARM_S = 2.5;
 
 /* ── component ─────────────────────────────────────────────────── */
 
@@ -52,6 +52,7 @@ export default function FluidWaveBackground({
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const pausedRef = useRef(paused);
   pausedRef.current = paused;
+  const resumeRef = useRef<() => void>(() => {});
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -140,7 +141,6 @@ export default function FluidWaveBackground({
       pad.nextSurge = 2.5;
 
       G = 1.5 * H;
-      floorY = 0.985 * H;
       EXT = 0.18 * W; // tank extends offscreen: wall slosh stays out of view
       const depthPx = DEPTH * H;
       const area = (W + 2 * EXT) * depthPx;
@@ -148,6 +148,11 @@ export default function FluidWaveBackground({
       h = 2.0 * s0;
       h2 = h * h;
       GOFF = Math.ceil(EXT / h) + 2;
+      /* Sink the floor a good particle-spacing below the canvas edge: the
+         settled bottom row hugs the floor (offscreen), so the rows that DO
+         land on the visible bottom edge are dense interior water — the sea
+         stays flush against the frame line with no background strip. */
+      floorY = H + 1.5 * s0;
 
       const cols = Math.floor((W + 2 * EXT) / s0);
       const rows = Math.floor(depthPx / s0);
@@ -500,6 +505,24 @@ export default function FluidWaveBackground({
       ctx!.strokeStyle = tint(0.1); ctx!.lineWidth = 2.6; ctx!.stroke(spr);
       ctx!.strokeStyle = tint(0.55); ctx!.lineWidth = 0.9; ctx!.stroke(spr);
 
+      /* bottom weld: the deepest water lines hug the frame edge so the sea
+         always touches the bottom of the box, even when a slosh briefly
+         pulls the particle trails up in one column */
+      const weld = new Path2D();
+      const wobT = simT * 0.3;
+      const weldSteps = 48;
+      for (let k = 0; k <= weldSteps; k++) {
+        const x = (k / weldSteps) * W;
+        const y =
+          H - 1.2 -
+          1.1 * Math.sin(x * 0.02 + wobT) -
+          0.8 * Math.sin(x * 0.005 - wobT * 0.7);
+        if (k === 0) weld.moveTo(x, y);
+        else weld.lineTo(x, y);
+      }
+      ctx!.strokeStyle = tint(0.08); ctx!.lineWidth = 3.2; ctx!.stroke(weld);
+      ctx!.strokeStyle = tint(0.18); ctx!.lineWidth = 1.4; ctx!.stroke(weld);
+
       const mist = new Path2D();
       for (let m = 0; m < MIST_CAP; m++) {
         if (!mOn[m]) continue;
@@ -515,37 +538,80 @@ export default function FluidWaveBackground({
     /* stay invisible while the sim fast-forwards; fade in once it's settled
        so the sea materializes gently instead of jittering into view */
     canvas.style.opacity = "0";
-    canvas.style.transition = "opacity 1400ms ease";
+    canvas.style.transition = "opacity 700ms ease";
     render();
 
-    /* Incremental prewarm: instead of blocking the main thread for ~1.5 s at
-       mount, fast-forward the sim ~20 steps per frame (only while visible)
-       until it has lived PREWARM_S sim-seconds. The sea forms in well under
-       a second of wall-clock without ever janking the page. */
+    /* Incremental prewarm, time-budgeted so it never janks: a background
+       interval starts fast-forwarding the sim as soon as the page has
+       loaded (even while the section is offscreen), so the sea is already
+       formed — and fades in immediately — when the user arrives. If the
+       user gets there mid-warm, the rAF loop finishes the remainder in
+       ~6ms slices per frame and then reveals. */
     let warmRemaining = Math.round(PREWARM_S * 60);
     let warmCounter = 0;
+    let warmTimer: ReturnType<typeof setInterval> | null = null;
+
+    const warmStep = () => {
+      /* warm at a single substep — same quality mode the live loop drops to
+         under load — so the hidden fast-forward costs half as much */
+      const keep = substeps;
+      substeps = 1;
+      step(1 / 60);
+      substeps = keep;
+      warmCounter++;
+      if (warmCounter % 2 === 0) recordTrails();
+      warmRemaining--;
+    };
+    const finishWarm = () => {
+      render();
+      canvas.style.opacity = "1"; /* gentle reveal */
+      if (warmTimer !== null) {
+        clearInterval(warmTimer);
+        warmTimer = null;
+      }
+    };
+    const warmTick = () => {
+      if (warmRemaining <= 0) {
+        if (warmTimer !== null) {
+          clearInterval(warmTimer);
+          warmTimer = null;
+        }
+        return;
+      }
+      const t0 = performance.now();
+      while (warmRemaining > 0 && performance.now() - t0 < 16) warmStep();
+      if (warmRemaining <= 0) finishWarm();
+    };
+    const ensureWarming = () => {
+      if (warmRemaining > 0 && warmTimer === null) {
+        warmTimer = setInterval(warmTick, 40);
+      }
+    };
+    if (document.readyState === "complete") {
+      ensureWarming();
+    } else {
+      window.addEventListener("load", ensureWarming, { once: true });
+    }
 
     let raf = 0;
     let frame = 0;
     let ema = 16;
     let last = performance.now();
     const loop = (now: number) => {
+      if (pausedRef.current) {
+        /* go fully idle while paused; resumeRef re-arms on unpause */
+        raf = 0;
+        return;
+      }
       raf = requestAnimationFrame(loop);
       let dt = (now - last) / 1000;
       last = now;
       if (!(dt > 0)) dt = 0.0001;
       if (dt > 0.05) dt = 0.05;
-      if (pausedRef.current) return;
       if (warmRemaining > 0) {
-        const burst = Math.min(20, warmRemaining);
-        for (let s = 0; s < burst; s++) {
-          step(1 / 60);
-          warmCounter++;
-          if (warmCounter % 2 === 0) recordTrails();
-        }
-        warmRemaining -= burst;
-        render();
-        if (warmRemaining <= 0) canvas.style.opacity = "1"; /* gentle reveal */
+        const t0 = performance.now();
+        while (warmRemaining > 0 && performance.now() - t0 < 10) warmStep();
+        if (warmRemaining <= 0) finishWarm();
         return;
       }
       ema = ema * 0.95 + dt * 1000 * 0.05;
@@ -556,6 +622,12 @@ export default function FluidWaveBackground({
       render();
     };
     raf = requestAnimationFrame(loop);
+    resumeRef.current = () => {
+      if (raf === 0) {
+        last = performance.now();
+        raf = requestAnimationFrame(loop);
+      }
+    };
 
     /* debounced resize: rebuild + short re-prewarm so the sea returns mid-motion */
     let resizeTimer: ReturnType<typeof setTimeout> | null = null;
@@ -570,6 +642,7 @@ export default function FluidWaveBackground({
         warmRemaining = Math.round(RESIZE_PREWARM_S * 60);
         warmCounter = 0;
         render();
+        ensureWarming(); /* re-warm in the background even while paused */
       }, 200);
     };
     const observer = typeof ResizeObserver !== "undefined" ? new ResizeObserver(onResize) : null;
@@ -578,11 +651,17 @@ export default function FluidWaveBackground({
 
     return () => {
       cancelAnimationFrame(raf);
+      if (warmTimer !== null) clearInterval(warmTimer);
+      window.removeEventListener("load", ensureWarming);
       if (resizeTimer) clearTimeout(resizeTimer);
       observer?.disconnect();
       window.removeEventListener("resize", onResize);
     };
   }, [lineColor, particleCount, timeScale, additive]);
+
+  useEffect(() => {
+    if (!paused) resumeRef.current();
+  }, [paused]);
 
   const containerStyle: CSSProperties = {
     position: "absolute",

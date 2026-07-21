@@ -943,13 +943,15 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-  // Auto-rotate carousel every 7s
+  // Auto-rotate carousel every 7s (only while the section is on screen —
+  // rotating offscreen just re-renders the whole section for nothing)
   useEffect(() => {
+    if (!revealed) return;
     const timer = setInterval(() => {
       setCarouselIdx((prev) => prev + 1);
     }, 7000);
     return () => clearInterval(timer);
-  }, []);
+  }, [revealed]);
 
   const projectPanelRef = useRef<HTMLDivElement>(null);
   const projectBackdropRef = useRef<HTMLDivElement>(null);
@@ -1318,6 +1320,8 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                       <img
                         src={img}
                         alt={p.name}
+                        fetchPriority="low"
+                        decoding="async"
                         className={`h-full w-full ${isBofA ? "object-contain" : "object-cover"} ${isLeetcodeAnki ? "object-top" : ""}`}
                       />
                     ) : (
@@ -1383,7 +1387,7 @@ export default function ProjectsSection({ data }: ProjectsSectionProps) {
                         aria-label={`Show ${p.name}`}
                       >
                         {showThumb ? (
-                          <img src={thumb} alt={p.name} className={`h-full w-full object-cover ${p.name === "leetcode-anki" ? "object-top" : ""}`} />
+                          <img src={thumb} alt={p.name} fetchPriority="low" decoding="async" className={`h-full w-full object-cover ${p.name === "leetcode-anki" ? "object-top" : ""}`} />
                         ) : (
                           <InkTile name={p.name} language={p.language} />
                         )}

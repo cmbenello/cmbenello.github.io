@@ -73,6 +73,8 @@ export default function ExperienceTimeline({
                   <img
                     src={entry.logo}
                     alt=""
+                    fetchPriority="low"
+                    decoding="async"
                     className="h-8 w-auto max-w-[80px] shrink-0 rounded-sm object-contain transition-opacity duration-200"
                     style={{ opacity: isActive ? 0.9 : 0.5 }}
                   />
@@ -103,6 +105,8 @@ export default function ExperienceTimeline({
                 <img
                   src={selected.logo}
                   alt=""
+                  fetchPriority="low"
+                  decoding="async"
                   className="h-10 w-auto max-w-[100px] shrink-0 rounded-md object-contain"
                   style={{ opacity: 0.9 }}
                 />

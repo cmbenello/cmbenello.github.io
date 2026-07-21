@@ -52,7 +52,7 @@ export default function PageShell({ children }: PageShellProps) {
   const [hoveredNavIndex, setHoveredNavIndex] = useState<number | null>(null);
   const [labelsReady, setLabelsReady] = useState(false);
   const [panelHeight, setPanelHeight] = useState(0);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const [mountainResting, setMountainResting] = useState(false);
   const [effectsPaused, setEffectsPaused] = useState(false);
   const [bgVisible, setBgVisible] = useState(false);
   const [frameMargin, setFrameMargin] = useState(DEFAULT_FRAME_MARGIN);
@@ -262,7 +262,6 @@ export default function PageShell({ children }: PageShellProps) {
     } else {
       scrollEl.scrollTo({ top: idx * panelHeight });
     }
-    setScrollProgress(idx);
   }, [panelHeight]);
 
   useEffect(() => {
@@ -282,8 +281,7 @@ export default function PageShell({ children }: PageShellProps) {
     if (!scrollEl || !panelHeight) return;
 
     const updateProgress = () => {
-      const { progress, index } = computeProgress();
-      setScrollProgress(progress);
+      const { index } = computeProgress();
       const nextIndex = clampIndex(index);
       setActiveIndex((prev) => (prev === nextIndex ? prev : nextIndex));
     };
@@ -345,6 +343,17 @@ export default function PageShell({ children }: PageShellProps) {
   const mountainBlend = panelCount > 2 && bgIndex === 2 ? 1 : 0;
   const waterBlend = panelCount > 3 && bgIndex === 3 ? 1 : 0;
   const cloudActive = cloudBlend > 0.02;
+  // Pause the mountain CSS animations once the layer has fully faded out
+  // (600ms opacity transition + margin); resume instantly when it returns.
+  const mountainHidden = mountainBlend === 0;
+  useEffect(() => {
+    if (!mountainHidden) {
+      setMountainResting(false);
+      return;
+    }
+    const id = window.setTimeout(() => setMountainResting(true), 700);
+    return () => window.clearTimeout(id);
+  }, [mountainHidden]);
   const showStars = serpentBlend;
   const serpentStrength = serpentBlend;
   const serpentBackgroundOpacity = 0;
@@ -481,7 +490,7 @@ export default function PageShell({ children }: PageShellProps) {
         mistBoost={mountainToneBoost.mist}
         strokeBoost={mountainToneBoost.stroke}
         dashOpacityBoost={isLight ? 0.55 : 1}
-        paused={effectsPaused}
+        paused={effectsPaused || mountainResting}
       />
       <FluidWaveBackground
         frameMargin={frameMargin}
@@ -652,7 +661,7 @@ export default function PageShell({ children }: PageShellProps) {
                 }}
               >
                 <img
-                  src="/tarot/sun-icon-light.png"
+                  src="/tarot/sun-icon-light.webp"
                   alt=""
                   aria-hidden="true"
                   style={{
@@ -669,7 +678,7 @@ export default function PageShell({ children }: PageShellProps) {
                   }}
                 />
                 <img
-                  src="/tarot/moon-icon-dark.png"
+                  src="/tarot/moon-icon-dark.webp"
                   alt=""
                   aria-hidden="true"
                   style={{

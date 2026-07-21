@@ -1243,18 +1243,43 @@ export default function SerpentBackground({
         } else {
           ctx.fillStyle = formatRgb(paletteState.dot);
         }
+        // Spatial early-outs for the influence loop. Contributions with
+        // weight <= 0.00002 are discarded below, and both rejects only skip
+        // pairs whose weight is provably under that threshold (s*s > 23*bL^2
+        // alone forces weight < e^-11.5 ~ 1e-5), so the output is unchanged.
+        const cutS2 = 23 * bodyLength * bodyLength;
+        const cutD2 = 23 * bodyRadius * bodyRadius;
+        const aabbMargin = 4.8 * Math.max(bodyLength, bodyRadius);
+        let sMinX = Infinity;
+        let sMaxX = -Infinity;
+        let sMinY = Infinity;
+        let sMaxY = -Infinity;
+        for (let j = 0; j < samples.length; j++) {
+          const sample = samples[j];
+          if (sample.x < sMinX) sMinX = sample.x;
+          if (sample.x > sMaxX) sMaxX = sample.x;
+          if (sample.y < sMinY) sMinY = sample.y;
+          if (sample.y > sMaxY) sMaxY = sample.y;
+        }
+        sMinX -= aabbMargin;
+        sMaxX += aabbMargin;
+        sMinY -= aabbMargin;
+        sMaxY += aabbMargin;
         for (let i = 0; i < dots.length; i++) {
           const dot = dots[i];
           if (dot.seed > dotDensity) continue;
           let infl = 0;
           let pushX = 0;
           let pushY = 0;
+          if (dot.x >= sMinX && dot.x <= sMaxX && dot.y >= sMinY && dot.y <= sMaxY)
           for (let j = 0; j < samples.length; j++) {
             const sample = samples[j];
             const dx = dot.x - sample.x;
             const dy = dot.y - sample.y;
             const s = dx * sample.tngX + dy * sample.tngY;
+            if (s * s > cutS2) continue;
             const d = dx * -sample.tngY + dy * sample.tngX;
+            if (d * d > cutD2) continue;
             const sInfl = Math.exp(-(s * s) / (2 * bodyLength * bodyLength));
             const dInfl = Math.exp(-(d * d) / (2 * bodyRadius * bodyRadius));
             const weight = sInfl * dInfl * sample.w;
@@ -1308,7 +1333,7 @@ export default function SerpentBackground({
             dot.vy = 0;
           }
 
-          const speed = Math.hypot(dot.vx, dot.vy);
+          const speed = Math.sqrt(dot.vx * dot.vx + dot.vy * dot.vy);
           const wake = Math.min(1, visibleInfl * 2.2 + speed * wakeScale);
           const baseAlpha = Math.min(1, dot.a * dotAlphaScale + wake * 0.45 * wakeAlphaScale);
           const needsDash = dotStyleFrom === "dash" || dotStyleTo === "dash";

@@ -246,7 +246,7 @@ const MOUNTAIN_THREE_ASPECT = 650 / 445;
 const MOUNTAIN_FOUR_ASPECT = 661 / 454;
 const MOUNTAIN_LAYERS: MountainLayer[] = [
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 9,
     left: -4,
     bottom: 100,
@@ -255,7 +255,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 9,
     left: 32,
     bottom: 100,
@@ -265,7 +265,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 8,
     left: 68,
     bottom: 100,
@@ -274,7 +274,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 9,
     left: 104,
     bottom: 100,
@@ -284,7 +284,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 6,
     left: -8,
     bottom: 92,
@@ -293,7 +293,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 7,
     left: 10,
     bottom: 93,
@@ -302,7 +302,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 6,
     left: 26,
     bottom: 94,
@@ -312,7 +312,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 6,
     left: 42,
     bottom: 93,
@@ -321,7 +321,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 7,
     left: 58,
     bottom: 94,
@@ -330,7 +330,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 6,
     left: 74,
     bottom: 93,
@@ -340,7 +340,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 6,
     left: 90,
     bottom: 94,
@@ -349,7 +349,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 7,
     left: 108,
     bottom: 93,
@@ -358,7 +358,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 6,
     left: -6,
     bottom: 72,
@@ -367,7 +367,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 7,
     left: 6,
     bottom: 70,
@@ -376,7 +376,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 7,
     left: 18,
     bottom: 71,
@@ -386,7 +386,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 6,
     left: 30,
     bottom: 70,
@@ -395,7 +395,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 8,
     left: 42,
     bottom: 69,
@@ -404,7 +404,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 7,
     left: 56,
     bottom: 71,
@@ -414,7 +414,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 6,
     left: 70,
     bottom: 70,
@@ -423,7 +423,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 7,
     left: 84,
     bottom: 69,
@@ -432,7 +432,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 7,
     left: 98,
     bottom: 71,
@@ -442,7 +442,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 6,
     left: 112,
     bottom: 70,
@@ -451,7 +451,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 9,
     left: 6,
     bottom: 64,
@@ -460,7 +460,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 10,
     left: 74,
     bottom: 62,
@@ -470,7 +470,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 8,
     left: -12,
     bottom: 60,
@@ -479,7 +479,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 10,
     left: -2,
     bottom: 58,
@@ -488,7 +488,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 8,
     left: 8,
     bottom: 60,
@@ -497,7 +497,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 11,
     left: 20,
     bottom: 59,
@@ -507,7 +507,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 8,
     left: 32,
     bottom: 60,
@@ -516,7 +516,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 11,
     left: 44,
     bottom: 58,
@@ -525,7 +525,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 8,
     left: 56,
     bottom: 60,
@@ -534,7 +534,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 10,
     left: 68,
     bottom: 58,
@@ -544,7 +544,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 8,
     left: 80,
     bottom: 60,
@@ -553,7 +553,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 11,
     left: 92,
     bottom: 58,
@@ -562,7 +562,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 8,
     left: 104,
     bottom: 60,
@@ -571,7 +571,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 10,
     left: 116,
     bottom: 58,
@@ -581,7 +581,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 18,
     left: -8,
     bottom: 46,
@@ -590,7 +590,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 12,
     left: 6,
     bottom: 47,
@@ -599,7 +599,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 20,
     left: 22,
     bottom: 46,
@@ -609,7 +609,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 12,
     left: 40,
     bottom: 47,
@@ -618,7 +618,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 22,
     left: 56,
     bottom: 45,
@@ -627,7 +627,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 12,
     left: 76,
     bottom: 47,
@@ -636,7 +636,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 16,
     left: 86,
     bottom: 44,
@@ -645,7 +645,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 14,
     left: 100,
     bottom: 43,
@@ -654,7 +654,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 20,
     left: 92,
     bottom: 46,
@@ -664,7 +664,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 12,
     left: 110,
     bottom: 47,
@@ -673,7 +673,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 14,
     left: -6,
     bottom: 54,
@@ -682,7 +682,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 12,
     left: 12,
     bottom: 53,
@@ -691,7 +691,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 16,
     left: 30,
     bottom: 52,
@@ -701,7 +701,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 12,
     left: 52,
     bottom: 53,
@@ -710,7 +710,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 16,
     left: 70,
     bottom: 52,
@@ -719,7 +719,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 12,
     left: 90,
     bottom: 53,
@@ -728,7 +728,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 16,
     left: 108,
     bottom: 52,
@@ -738,7 +738,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 14,
     left: 82,
     bottom: 56,
@@ -747,7 +747,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 10,
     left: 94,
     bottom: 55,
@@ -756,7 +756,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 12,
     left: 106,
     bottom: 55,
@@ -766,7 +766,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 26,
     left: -4,
     bottom: 34,
@@ -775,7 +775,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 18,
     left: 14,
     bottom: 33,
@@ -784,7 +784,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 28,
     left: 34,
     bottom: 32,
@@ -794,7 +794,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 18,
     left: 54,
     bottom: 33,
@@ -803,7 +803,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain1.png",
+    src: "/moutains/mountain1.webp",
     width: 30,
     left: 72,
     bottom: 31,
@@ -812,7 +812,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_ONE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 18,
     left: 94,
     bottom: 32,
@@ -821,7 +821,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 26,
     left: 112,
     bottom: 31,
@@ -831,7 +831,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain1.png",
+    src: "/moutains/mountain1.webp",
     width: 62,
     left: -10,
     bottom: -24,
@@ -840,7 +840,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_ONE_ASPECT,
   },
   {
-    src: "/moutains/mountain1.png",
+    src: "/moutains/mountain1.webp",
     width: 58,
     left: 30,
     bottom: -26,
@@ -850,7 +850,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain1.png",
+    src: "/moutains/mountain1.webp",
     width: 64,
     left: 70,
     bottom: -24,
@@ -859,7 +859,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_ONE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 28,
     left: 104,
     bottom: -18,
@@ -868,7 +868,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 22,
     left: -6,
     bottom: 22,
@@ -877,7 +877,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 18,
     left: 12,
     bottom: 21,
@@ -886,7 +886,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 24,
     left: 30,
     bottom: 20,
@@ -896,7 +896,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain1.png",
+    src: "/moutains/mountain1.webp",
     width: 26,
     left: 54,
     bottom: 21,
@@ -905,7 +905,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_ONE_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 24,
     left: 76,
     bottom: 20,
@@ -914,7 +914,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_THREE_ASPECT,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 18,
     left: 96,
     bottom: 21,
@@ -923,7 +923,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_TWO_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 22,
     left: 112,
     bottom: 20,
@@ -933,7 +933,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain2.png",
+    src: "/moutains/mountain2.webp",
     width: 24,
     left: 114,
     bottom: 10,
@@ -943,7 +943,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 34,
     left: -6,
     bottom: 2,
@@ -952,7 +952,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_FOUR_ASPECT,
   },
   {
-    src: "/moutains/mountain3.png",
+    src: "/moutains/mountain3.webp",
     width: 30,
     left: 18,
     bottom: 1,
@@ -962,7 +962,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     flip: true,
   },
   {
-    src: "/moutains/mountain1.png",
+    src: "/moutains/mountain1.webp",
     width: 38,
     left: 44,
     bottom: 0,
@@ -971,7 +971,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_ONE_ASPECT,
   },
   {
-    src: "/moutains/mountain4.png",
+    src: "/moutains/mountain4.webp",
     width: 34,
     left: 72,
     bottom: 1,
@@ -980,7 +980,7 @@ const MOUNTAIN_LAYERS: MountainLayer[] = [
     aspect: MOUNTAIN_FOUR_ASPECT,
   },
   {
-    src: "/moutains/mountain1.png",
+    src: "/moutains/mountain1.webp",
     width: 34,
     left: 100,
     bottom: 0,
@@ -1011,10 +1011,10 @@ const EXTRA_MOUNTAIN_BANDS: ExtraBand[] = [
   { count: 5, bottomMin: -2, bottomMax: 10, widthMin: 22, widthMax: 32, opacityMin: 0.14, opacityMax: 0.2, tone: "stroke" },
 ];
 const EXTRA_MOUNTAIN_SOURCES = [
-  { src: "/moutains/mountain1.png", aspect: MOUNTAIN_ONE_ASPECT },
-  { src: "/moutains/mountain2.png", aspect: MOUNTAIN_TWO_ASPECT },
-  { src: "/moutains/mountain3.png", aspect: MOUNTAIN_THREE_ASPECT },
-  { src: "/moutains/mountain4.png", aspect: MOUNTAIN_FOUR_ASPECT },
+  { src: "/moutains/mountain1.webp", aspect: MOUNTAIN_ONE_ASPECT },
+  { src: "/moutains/mountain2.webp", aspect: MOUNTAIN_TWO_ASPECT },
+  { src: "/moutains/mountain3.webp", aspect: MOUNTAIN_THREE_ASPECT },
+  { src: "/moutains/mountain4.webp", aspect: MOUNTAIN_FOUR_ASPECT },
 ];
 const buildExtraMountainLayers = (): MountainLayer[] => {
   const rand = createSeededRandom(8675309);
