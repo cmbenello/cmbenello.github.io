@@ -1,5 +1,5 @@
 export const ABOUT_PARAGRAPHS = [
-  "I'm a software engineer and systems researcher at the University of Chicago. This fall I'm joining Amazon Web Services in Palo Alto as a Software Development Engineer Intern on the Redshift query optimization team. I'm currently interning at Alter Domus, building AI systems for financial asset management. My background spans database internals, high-performance computing, and full-stack development.",
+  "I'm a software engineer and systems researcher at the University of Chicago. This fall I'm joining Amazon Web Services in Palo Alto as a Software Development Engineer Intern on the Redshift query optimization team, having just wrapped an internship at Alter Domus building AI systems for financial asset management. My background spans database internals, high-performance computing, and full-stack development.",
   "I design and implement large-scale systems - from parallel sorting algorithms in Rust to GPU-accelerated query processing in CUDA to production AI pipelines in Python. I've published in VLDB and CIDR, working with Professor Aaron Elmore at UChicago's ChiData Lab and Professor Anastasia Ailamaki at EPFL's DIAS Lab.",
 ];
 
@@ -50,7 +50,7 @@ export const EXPERIENCE = [
   {
     title: "Database Research Assistant",
     company: "ChiData Research Lab",
-    dates: "Aug 2023 - Present",
+    dates: "Apr 2023 - Present",
     logo: "/logos/chidata.png",
     description:
       "Two published papers (VLDB, CIDR) and ongoing research on external sort - building predictive models for sort configuration on disaggregated and cloud-native hardware, with prior work on resource-adaptive query execution and engine internals.",
@@ -70,10 +70,10 @@ export const EXPERIENCE = [
   {
     title: "Software Engineering Intern",
     company: "Alter Domus",
-    dates: "Mar 2026 - Present",
+    dates: "Mar - Aug 2026",
     logo: "/logos/alterdomus.png",
     description:
-      "Improving internal and client-facing AI systems for a financial asset management platform: reducing hallucinations, adding personalization, cutting LLM inference costs, and increasing extraction accuracy and response speed.",
+      "Improved internal and client-facing AI systems for a financial asset management platform: reducing hallucinations, adding personalization, cutting LLM inference costs, and increasing extraction accuracy and response speed.",
     highlights: [
       "Built an LLM-as-a-Judge evaluation framework with automated benchmarks for faithfulness, numerical accuracy, and completeness, creating a benchmark suite to evaluate extraction quality across document types",
       "Architected a multi-stage extraction pipeline for 100+ page financial documents (prospectuses, capital calls, regulatory filings), lifting accuracy from ~50% baseline to 92-97% through schema-enforced output and cross-reference verification",
@@ -83,12 +83,12 @@ export const EXPERIENCE = [
     skills: ["Python", "LLM Evaluation", "RAG", "Document Processing", "System Design"],
   },
   {
-    title: "Quantitative Researcher",
+    title: "Machine Learning Engineer Intern",
     company: "PayPal",
     dates: "Mar - Jun 2026",
     logo: "/logos/paypal.png",
     description:
-      "Spring 2026 PayPal x UChicago Project Lab. Built a self-supervised transaction foundation model (TabBERT-style hierarchical 2-level transformer, ~5M params) pre-trained on 73M unlabeled MBD transactions (Sber AI, 200K users) and fine-tuned cross-dataset to IBM TabFormer (24M txns, 20K users, 0.12% fraud rate). The cold-start problem: replace PayPal's hundreds of per-market siloed fraud models with a single pretrained model that transfers to new markets without labels.",
+      "Built a self-supervised transaction foundation model (TabBERT-style hierarchical 2-level transformer, ~5M params) pre-trained on 73M unlabeled MBD transactions (Sber AI, 200K users) and fine-tuned cross-dataset to IBM TabFormer (24M txns, 20K users, 0.12% fraud rate). The cold-start problem: replace PayPal's hundreds of per-market siloed fraud models with a single pretrained model that transfers to new markets without labels.",
     highlights: [
       "Final headline metrics on the 1,948-user TabFormer test split: 0.83 recall / 0.75 precision @ 1% FPR, AUC 0.94, KS 0.67 - vs. 0.24 recall / 0.31 precision / AUC 0.78 for the XGBoost hand-engineered baseline",
       "Cross-domain transfer (MBD → TabFormer): partial fine-tuning of just the last transformer layer + head reached AUC 0.9997 / F1 0.97 with 265K trainable params, matching full fine-tuning at 36% the parameters - a LoRA replacement that doesn't suffer val→test threshold drift on 0.12% fraud rate",
@@ -100,6 +100,9 @@ export const EXPERIENCE = [
     ],
     skills: ["PyTorch", "Transformers", "Self-Supervised Learning", "SLURM", "BPE Tokenization", "XGBoost", "LoRA", "Cross-Domain Transfer"],
   },
+  // NOTE: Exponential entry commented out 2026-08-10 to match resume (role intentionally
+  // omitted from resume/interviews — having it public here contradicts that). Uncomment to restore.
+  /*
   {
     title: "Quantitative Research Intern",
     company: "Exponential",
@@ -116,13 +119,14 @@ export const EXPERIENCE = [
     skills: ["Python", "Polars", "Parquet", "Options Microstructure", "Fama-MacBeth", "Newey-West", "Backtesting", "Statistical Inference"],
     link: { label: "Company LinkedIn", url: "https://www.linkedin.com/company/exponential-inc/" },
   },
+  */
   {
-    title: "Quantitative Researcher",
+    title: "Machine Learning Engineer Intern",
     company: "Bank of America",
-    dates: "Sept - Dec 2025",
+    dates: "Oct - Dec 2025",
     logo: "/logos/bofa.png",
     description:
-      "Quantitative research through the University of Chicago's Project Lab. Built AI-powered infrastructure for optimizing Bank of America's HQLA (High Quality Liquid Assets) portfolio - generating forward-looking risk scenarios, modeling macro shocks, and surfacing reallocation suggestions through agentic pipelines.",
+      "Built AI-powered infrastructure for optimizing Bank of America's HQLA (High Quality Liquid Assets) portfolio - generating forward-looking risk scenarios, modeling macro shocks, and surfacing reallocation suggestions through agentic pipelines.",
     highlights: [
       "Engineered a multi-agent debate (MAD) system where competing LLM agents generate and challenge macro stress scenarios, producing probability-weighted portfolio reallocation recommendations",
       "Built a daily UST yield curve ingestion pipeline pulling real-time market, macro, and news data into structured curve snapshots used as model inputs",
@@ -153,7 +157,7 @@ export const EXPERIENCE = [
     dates: "Sep 2022 - March 2026",
     logo: "/logos/uchicago-cs.jpg",
     description:
-      "TAed across CS and math for 3+ years, consistently earning some of the highest discussion scores in my sections - and picked up a TA award nomination along the way.",
+      "Awarded the 2026 Wayne Booth Graduate Student Teaching Prize - UChicago's top graduate teaching award. TAed 11 course-sections across CS and math over 3+ years, consistently earning some of the highest discussion scores in my sections.",
     highlights: [],
     courses: [
       "Winter 2026 · CMSC 235 - Database Systems",
