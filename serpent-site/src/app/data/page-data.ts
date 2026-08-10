@@ -123,7 +123,7 @@ export const EXPERIENCE = [
   {
     title: "Machine Learning Engineer Intern",
     company: "Bank of America",
-    dates: "Oct - Dec 2025",
+    dates: "Sept - Dec 2025",
     logo: "/logos/bofa.png",
     description:
       "Built AI-powered infrastructure for optimizing Bank of America's HQLA (High Quality Liquid Assets) portfolio - generating forward-looking risk scenarios, modeling macro shocks, and surfacing reallocation suggestions through agentic pipelines.",
